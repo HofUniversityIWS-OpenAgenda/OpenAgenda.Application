@@ -1,0 +1,25 @@
+<f:layout name="Default" />
+
+<f:section name="Title">A list of notes</f:section>
+
+<f:section name="Content">
+	<f:if condition="{notes}">
+		<f:then>
+			<ul>
+				<f:for each="{notes}" as="note">
+					<li>
+						<f:link.action action="show" arguments="{note: note}">{note.name}</f:link.action>
+						<f:link.action action="edit" arguments="{note: note}">Edit</f:link.action>
+						<f:form action="delete" arguments="{note: note}">
+							<f:form.submit value="Delete" />
+						</f:form>
+					</li>
+				</f:for>
+			</ul>
+		</f:then>
+		<f:else>
+			<p>No notes created yet.</p>
+		</f:else>
+	</f:if>
+	<p><f:link.action action="new">Create a new note</f:link.action></p>
+</f:section>
