@@ -15,24 +15,30 @@ use Doctrine\ORM\Mapping as ORM;
 class Message {
 
 	/**
-	 * @var string
+	 * @var \Doctrine\Common\Collections\Collection<\TYPO3\Flow\Resource\Resource>
+	 * @ORM\OneToMany(mappedBy="resourcePointer")
 	 */
-	protected $name;
-
-
-	/**
-	 * @return string
-	 */
-	public function getName() {
-		return $this->name;
-	}
+	protected $attachments;
 
 	/**
-	 * @param string $name
-	 * @return void
+	 * @var \TYPO3\Flow\Security\Account
+	 * @ORM\OneToOne(mappedBy="accountIdentifier")
 	 */
-	public function setName($name) {
-		$this->name = $name;
-	}
+	protected $recipient;
+
+	/**
+	 * @var \string
+	 */
+	protected $subject;
+
+	/**
+	 * @var \string
+	 */
+	protected $richTextBody;
+
+	/**
+	 * @var \string
+	 */
+	protected $plainTextBody;
 
 }
