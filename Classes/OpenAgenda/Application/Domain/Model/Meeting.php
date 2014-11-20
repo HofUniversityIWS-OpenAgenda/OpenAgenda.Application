@@ -16,7 +16,7 @@ class Meeting {
 
     /**
      * @var \Doctrine\Common\Collections\Collection<\OpenAgenda\Application\Domain\Model\AgendaItem>
-     * @ORM\OneToMany
+     * @ORM\OneToMany(mappedBy="")
      */
     protected $agendaItems;
 

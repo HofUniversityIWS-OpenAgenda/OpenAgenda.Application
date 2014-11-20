@@ -31,7 +31,7 @@ class Task {
     protected $dueDate;
 
     /**
-     * @var sting
+     * @var string
      */
     protected $description;
 
@@ -162,6 +162,6 @@ class Task {
         $this->title = $title;
     }
 
-    
+
 
 }
