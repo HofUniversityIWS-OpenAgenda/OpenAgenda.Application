@@ -3,7 +3,7 @@
 #                                                                        #
 
 -
-  name: 'Redirect to welcome screen'
+  name: 'Show standard index'
   uriPattern: ''
   defaults:
     '@package':    'OpenAgenda.Application'
