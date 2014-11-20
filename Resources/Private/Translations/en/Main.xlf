@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<xliff version="1.2">
+	<file original="" source-language="en" datatype="plaintext">
+		<body>
+			<trans-unit id="title.dashboard">
+				<source>Dashboard</source>
+			</trans-unit>
+			<trans-unit id="title.meetings">
+				<source>Meetings</source>
+			</trans-unit>
+			<trans-unit id="title.tasks">
+				<source>Tasks</source>
+			</trans-unit>
+			<trans-unit id="title.settings">
+				<source>Settings</source>
+			</trans-unit>
+			<trans-unit id="title.calendar">
+				<source>Calendar</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

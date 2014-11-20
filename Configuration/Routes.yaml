@@ -1,0 +1,12 @@
+#                                                                        #
+# Default routes configuration for the OpenAgenda.Application package    #
+#                                                                        #
+
+-
+  name: 'Redirect to welcome screen'
+  uriPattern: ''
+  defaults:
+    '@package':    'OpenAgenda.Application'
+    '@controller': 'Standard'
+    '@action':     'index'
+    '@format':     'html'

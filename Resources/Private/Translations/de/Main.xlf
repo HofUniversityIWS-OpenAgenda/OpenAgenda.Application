@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<xliff version="1.2">
+	<file original="" source-language="en" target-language="de" datatype="plaintext">
+		<body>
+			<trans-unit id="title.dashboard">
+				<source>Dashboard</source>
+				<target>Dashboard</target>
+			</trans-unit>
+			<trans-unit id="title.meetings">
+				<source>Meetings</source>
+				<target>Meetings</target>
+			</trans-unit>
+			<trans-unit id="title.tasks">
+				<source>Tasks</source>
+				<target>Aufgaben</target>
+			</trans-unit>
+			<trans-unit id="title.settings">
+				<source>Settings</source>
+				<target>Einstellungen</target>
+			</trans-unit>
+			<trans-unit id="title.calendar">
+				<source>Calendar</source>
+				<target>Kalender</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
