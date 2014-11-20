@@ -15,6 +15,12 @@ use Doctrine\ORM\Mapping as ORM;
 class ProtocolItem {
 
 	/**
+	 * @var \OpenAgenda\Application\Domain\Model\Meeting
+	 * @ORM\ManyToOne(inversedBy="protocolItems")
+	 */
+	protected $meeting;
+
+	/**
 	 * @var integer
 	 */
 	protected $sorting;
