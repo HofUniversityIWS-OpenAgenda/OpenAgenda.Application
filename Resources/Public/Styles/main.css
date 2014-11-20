@@ -1,0 +1,38 @@
+.panel-heading a{
+    float: right;
+    margin-top: -17px;
+}
+#login-button-group{
+    float: right;
+}
+
+.container:before {
+    content: "";
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: -1;
+
+    display: block;
+    background: url(../Images/login-bg.jpg) no-repeat center center fixed;
+    width: 110%;
+    height: 110%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+    filter: blur(10px);
+    -webkit-filter: blur(10px);
+    -moz-filter: blur(10px);
+    -o-filter: blur(10px);
+    -ms-filter: blur(10px);
+
+}
+
+.topbar-search .input-group {
+    margin-bottom: -10px;
+}
+.navbar-default sidebar {
+    clear: both;
+}
