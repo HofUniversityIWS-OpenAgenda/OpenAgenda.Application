@@ -15,24 +15,26 @@ use Doctrine\ORM\Mapping as ORM;
 class ProtocolItem {
 
 	/**
-	 * @var string
+	 * @var integer
 	 */
-	protected $name;
+	protected $sorting;
+
+    /**
+     * @param int $sorting
+     */
+    public function setSorting($sorting)
+    {
+        $this->sorting = $sorting;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSorting()
+    {
+        return $this->sorting;
+    }
 
 
-	/**
-	 * @return string
-	 */
-	public function getName() {
-		return $this->name;
-	}
-
-	/**
-	 * @param string $name
-	 * @return void
-	 */
-	public function setName($name) {
-		$this->name = $name;
-	}
 
 }

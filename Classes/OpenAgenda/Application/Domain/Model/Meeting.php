@@ -16,13 +16,13 @@ class Meeting {
 
     /**
      * @var \Doctrine\Common\Collections\Collection<\OpenAgenda\Application\Domain\Model\AgendaItem>
-     * @ORM\OneToMany(mappedBy="meeting")
+     * @ORM\OneToMany
      */
     protected $agendaItems;
 
     /**
      * @var \Doctrine\Common\Collections\Collection<\OpenAgenda\Application\Domain\Model\ProtocolItem>
-     * @ORM\OneToMany(mappedBy="meeting")
+     * @ORM\OneToMany
      */
     protected $protocolItems;
 
