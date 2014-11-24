@@ -15,7 +15,7 @@ use OpenAgenda\Application\TaskController;
 class DashboardController extends ActionController {
 
 	/**
-	 * @return void
+	 * @return void	
 	 */
 	public function indexAction() {
 		

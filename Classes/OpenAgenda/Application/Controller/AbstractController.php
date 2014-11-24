@@ -10,26 +10,33 @@ use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Mvc\Controller\ActionController;
 
 
-class DashboardController extends ActionController {
+class AbstractController extends ActionController {
 
-/**
-* @Flow\Inject
-* @var \OpenAgenda\Application\Security\PermissionService
-*/
+	/**
+	* @Flow\Inject
+	* @var \OpenAgenda\Application\Security\PermissionService
+	*/
 	protected $permissionService;
 
 	/**
-	 * @return void
+	 * @Flow\Inject
+	 * @var \OpenAgenda\Application\Communication\MessagingService
 	 */
-	public function indexAction() {
-		
+	protected $messagingService;
+
+	/**
+	 * @param \TYPO3\Flow\Mvc\View\ViewInterface $view The view to be initialized
+	 * @return void
+	 * @api
+	 */
+	protected function initializeView(\TYPO3\Flow\Mvc\View\ViewInterface $view) {
 	}
 
 	/**
-	 * @param \OpenAgenda\Application\Domain\Model\Meeting $meeting
 	 * @return void
 	 */
-	public function showAction(Meeting $meeting) {
-		$this->view->assign('meeting', $meeting);
+	public function initializeAction() {
+
 	}
+
 }
