@@ -1,37 +1,38 @@
-var Application = angular.module('Application', ['Application', 'ngRoute', 'ApplicationControllers']);
+var Application = angular.module('OpenAgenda', ['ngRoute', 'ApplicationControllers']);
 
 Application.config(['$routeProvider',
     function($routeProvider) {
+
         $routeProvider.
             when('/dashboard', {
-                templateUrl: 'Resources/Private/Templates/Dashboard/Index.html',
+                templateUrl: '/openagenda.application/dashboard/index',
                 controller: 'DashboardCtrl'
             }).
-            when('/meeting', {
-                templateUrl: 'Resources/Private/Templates/Meeting/Index.html',
+            when('/meetingABC', {
+                templateUrl: '/openagenda.application/meeting/index',
                 controller: 'MeetingCtrl'
             }).
             when('/meeting/show/:meetingId', {
-                templateUrl: 'Resources/Private/Templates/MeetingDetail/Index.html',
+                templateUrl: '/openagenda.application/meeting/show',
                 controller: 'MeetingDetailCtrl'
             }).
             when('/task', {
-                templateUrl: 'Resources/Private/Templates/Task/Index.html',
+                templateUrl: '/openagenda.application/task/index',
                 controller: 'TaskCtrl'
             }).
             when('/calendar', {
-                templateUrl: 'Resources/Private/Templates/Calendar/Index.html',
+                templateUrl: 'openagenda.application/calendar/index',
                 controller: 'CalendarCtrl'
             }).
             when('/calendar/show/:eventId', {
-                templateUrl: 'Resources/Private/Templates/CalendarDetail/Index.html',
+                templateUrl: 'openagenda.application/calendar/show',
                 controller: 'CalendarDetailCtrl'
             }).
             when('/setting', {
-                templateUrl: 'Resources/Private/Templates/Setting/Index.html',
+                templateUrl: '/openagenda.application/setting/index',
                 controller: 'SettingCtrl'
             }).
             otherwise({
-                redirectTo: '/dashboard'
+                redirectTo: '/login'
             });
     }]);

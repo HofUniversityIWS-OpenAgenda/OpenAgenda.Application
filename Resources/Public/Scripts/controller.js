@@ -2,7 +2,8 @@ var ApplicationControllers = angular.module('ApplicationControllers', []);
 
 ApplicationControllers.controller('DashboardCtrl', ['$scope', '$http',
     function ($scope, $http) {
-        $http.get('dashboard/data.json').success(function(data) {
+        console.log("kogretlörelkg");
+        $http.get('/openagenda.application/dashboard/index.json').success(function(data) {
             $scope.data = data;
         });
         $scope.orderProp = 'userPriority';
@@ -10,9 +11,9 @@ ApplicationControllers.controller('DashboardCtrl', ['$scope', '$http',
 
 ApplicationControllers.controller('MeetingCtrl', ['$scope', '$http',
     function ($scope, $http) {
-        $http.get('meetings/MeetingList.json').success(function(data) {
-            $scope.meetings = data;
-        });
+        //$http.get('/openagenda.application/meetings/index.json').success(function(data) {
+            $scope.meetings = [{"meetingId":"1", "meetingName":"Meeting 1" }];  //data;
+        //});
         $scope.orderProp = 'startDateTime';
     }]);
 ApplicationControllers.controller('MeetingDetailCtrl', ['$scope', '$routeParams',
@@ -22,7 +23,7 @@ ApplicationControllers.controller('MeetingDetailCtrl', ['$scope', '$routeParams'
 
 ApplicationControllers.controller('TaskCtrl', ['$scope', '$http',
     function ($scope, $http) {
-        $http.get('Tasks/TaskList.json').success(function(data) {
+        $http.get('/openagenda.application/task/index.json').success(function(data) {
             $scope.meetings = data;
         });
         $scope.orderProp = 'dueDate';
@@ -30,7 +31,7 @@ ApplicationControllers.controller('TaskCtrl', ['$scope', '$http',
 
 ApplicationControllers.controller('CalendarCtrl', ['$scope', '$http',
     function ($scope, $http) {
-        $http.get('Calendar/EventList.json').success(function(data) {
+        $http.get('/openagenda.application/Calendar/index.json').success(function(data) {
             $scope.events = data;
         });
         $scope.orderProp = 'startDateTime';
@@ -42,7 +43,7 @@ ApplicationControllers.controller('CalendarDetailCtrl', ['$scope', '$routeParams
 
 ApplicationControllers.controller('SettingCtrl', ['$scope', '$http',
     function ($scope, $http) {
-        $http.get('Settings/Setting.json').success(function(data) {
+        $http.get('/openagenda.application/setting/index.json').success(function(data) {
             $scope.setting = data;
         });
     }]);
