@@ -1,12 +1,15 @@
-.panel-heading a{
+.panel-heading a
+{
     float: right;
     margin-top: -17px;
 }
-#login-button-group{
+#login-button-group
+{
     float: right;
 }
 
-.container:before {
+.container:before
+{
     content: "";
     position: fixed;
     left: 0;
@@ -30,9 +33,50 @@
 
 }
 
-.topbar-search .input-group {
+.topbar-search .input-group
+{
     margin-bottom: -10px;
 }
-.navbar-default sidebar {
-    clear: both;
+
+.sidebar-heading
+{
+    padding-left: 20px;
+    font-size: 2em;
+    font-weight: lighter;
+}
+.nav li a
+{
+    padding-left: 30px;
+}
+
+.sidebar .nav-second-level li a
+{
+    padding-left: 53px;
+}
+
+.breadcrumb
+{
+    margin: 0 -24px;
+    border-radius: 0px;
+}
+.toolbar-entry
+{
+    padding: 0px 24px;
+}
+.panel-entry {
+    padding: 0px 34px;
+
+}
+.panel-entry .checkbox
+{
+    margin-left: -25px;
+}
+
+@media(min-width:768px)
+{
+    .breadcrumb
+    {
+        margin: 0 -44px;
+        border-radius: 0px;
+    }
 }
