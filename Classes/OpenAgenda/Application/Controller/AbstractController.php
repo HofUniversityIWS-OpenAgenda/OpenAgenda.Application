@@ -8,11 +8,15 @@ namespace OpenAgenda\Application\Controller;
 
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Mvc\Controller\ActionController;
-use OpenAgenda\Application\MeetingController;
-use OpenAgenda\Application\CalendarController;
-use OpenAgenda\Application\TaskController;
+
 
 class DashboardController extends ActionController {
+
+/**
+* @Flow\Inject
+* @var \OpenAgenda\Application\Security\PermissionService
+*/
+	protected $permissionService;
 
 	/**
 	 * @return void

@@ -26,6 +26,18 @@ class MeetingController extends ActionController {
 	}
 
 	/**
+	 * @return void
+	 */
+	public function dashboardAction() {
+	}
+
+	/**
+	 * @return void
+	 */
+	public function listAction() {
+	}
+
+	/**
 	 * @param \OpenAgenda\Application\Domain\Model\Meeting $meeting
 	 * @return void
 	 */
@@ -75,6 +87,13 @@ class MeetingController extends ActionController {
 		$this->meetingRepository->remove($meeting);
 		$this->addFlashMessage('Deleted a meeting.');
 		$this->redirect('index');
+	}
+
+	/**
+	 * @param \OpenAgenda\Application\Domain\Model\Meeting $meeting
+	 * @return void
+	 */
+	public function exportAction(Meeting $meeting) {
 	}
 
 }

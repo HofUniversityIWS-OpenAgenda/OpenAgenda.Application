@@ -8,24 +8,38 @@ namespace OpenAgenda\Application\Controller;
 
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Mvc\Controller\ActionController;
-use OpenAgenda\Application\MeetingController;
-use OpenAgenda\Application\CalendarController;
-use OpenAgenda\Application\TaskController;
 
 class DashboardController extends ActionController {
+
+	/**
+	 * @Flow\Inject
+	 * @var \OpenAgenda\Application\Domain\Repository\MeetingRepository
+	 */
+	protected $meetingRepository;
+
+	/**
+	 * @Flow\Inject
+	 * @var \OpenAgenda\Application\Domain\Repository\TaskRepository
+	 */
+	protected $taskRepository;
 
 	/**
 	 * @return void
 	 */
 	public function indexAction() {
-		
+		$this->view->assign('meetings', $this->meetingRepository->findAll());
 	}
 
 	/**
-	 * @param \OpenAgenda\Application\Domain\Model\Meeting $meeting
 	 * @return void
 	 */
-	public function showAction(Meeting $meeting) {
-		$this->view->assign('meeting', $meeting);
+	public function dashboardAction() {
 	}
+
+	/**
+	 * @return void
+	 */
+	public function listAction() {
+	}
+
 }

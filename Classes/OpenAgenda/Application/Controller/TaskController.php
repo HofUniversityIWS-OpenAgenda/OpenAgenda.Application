@@ -21,8 +21,13 @@ class TaskController extends ActionController {
 	/**
 	 * @return void
 	 */
-	public function indexAction() {
-		$this->view->assign('tasks', $this->taskRepository->findAll());
+	public function listAction() {
+	}
+
+	/**
+	 * @return void
+	 */
+	public function dashboardAction() {
 	}
 
 	/**
@@ -77,4 +82,10 @@ class TaskController extends ActionController {
 		$this->redirect('index');
 	}
 
+	/**
+	 * @param \OpenAgenda\Application\Domain\Model\Task $task
+	 * @return void
+	 */
+	public function exportAction(Task $task) {
+	}
 }
