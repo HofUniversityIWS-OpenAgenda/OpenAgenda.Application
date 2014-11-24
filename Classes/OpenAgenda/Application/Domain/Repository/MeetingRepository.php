@@ -7,13 +7,23 @@ namespace OpenAgenda\Application\Domain\Repository;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Persistence\Repository;
 
 /**
  * @Flow\Scope("singleton")
  */
-class MeetingRepository extends Repository {
+class MeetingRepository extends AbstractRepository {
 
-	// add customized methods here
+	/**
+	 * @return object The matching object if found, otherwise NULL
+	 */
+	public function findAllow () {
+		//return $this->persistenceManager->getObjectByIdentifier($identifier, $this->entityClassName);
+	}
+	/**
+	 * @return object The matching object if found, otherwise NULL
+	 */
+	public function findByFilterContraint() {
+		//return $this->persistenceManager->getObjectByIdentifier($identifier, $this->entityClassName);
+	}
 
 }

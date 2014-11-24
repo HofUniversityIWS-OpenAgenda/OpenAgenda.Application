@@ -7,25 +7,30 @@ namespace OpenAgenda\Application\Domain\Repository;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use OpenAgenda\Application\Domain\Model\Meeting;
+use TYPO3\Flow\Persistence\Repository;
 
 /**
  * @Flow\Scope("singleton")
  */
-class TaskRepository extends AbstractRepository {
+class AbstractRepository extends Repository {
 
 	/**
-	 * @param \OpenAgenda\Application\Domain\Model\Meeting $meeting
-	 * @return object The matching object if found, otherwise NULL
+	 * @var
 	 */
-	public function findByMeeting(Meeting $meeting) {
+	protected $filterConstraintService;
+
+	/**
+	* @return object The matching object if found, otherwise NULL
+	*/
+	public function findByFilterConstraint() {
 		//return $this->persistenceManager->getObjectByIdentifier($identifier, $this->entityClassName);
 	}
 
 	/**
-	 * @return object The matching object if found, otherwise NULL
-	 */
-	public function findAllow () {
+	* @return object The matching object if found, otherwise NULL
+	*/
+	public function findByAccount() {
 		//return $this->persistenceManager->getObjectByIdentifier($identifier, $this->entityClassName);
 	}
+
 }
