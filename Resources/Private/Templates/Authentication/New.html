@@ -40,48 +40,36 @@
 		<div class="col-md-4 col-md-offset-4">
 			<div class="login-panel panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title">Please Sign In</h3>
+					<h3 class="panel-title">Registrieren</h3>
 					<a href="#">Kennwort vergessen?</a>
 				</div>
 
 				<div class="panel-body">
-					<oa:form action="authenticate" method="post" role="form">
+					<oa:form action="create" method="post" role="form">
 						<fieldset>
 							<div class="form-group">
 								<div class="input-group">
 									<span class="input-group-addon"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></span>
-									<f:form.textfield name="__authentication[TYPO3][Flow][Security][Authentication][Token][UsernamePassword][username]" class="form-control" placeholder="Benutzername" />
+									<f:form.textfield name="username" class="form-control" placeholder="Benutzername" />
 								</div>
 							</div>
 
 							<div class="form-group">
 								<div class="input-group">
 									<span class="input-group-addon"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></span>
-									<f:form.password name="__authentication[TYPO3][Flow][Security][Authentication][Token][UsernamePassword][password]" class="form-control" placeholder="Kennwort" value="" />
+									<f:form.password name="password" class="form-control" placeholder="Kennwort" value="" />
 								</div>
 							</div>
-							<div class="checkbox">
-								<label>
-									<input name="remember" type="checkbox" value="Remember Me">Login merken
-								</label>
-							</div>
-							<!-- Change this to a button or input when using this as a form -->
 
-							<!-- Single button -->
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></span>
+									<f:form.password name="passwordRepeat" class="form-control" placeholder="Kennwort wiederholen" value="" />
+								</div>
+							</div>
 
 							<div id="login-button-group">
-								<f:link.action action="new" class="btn btn-primary">Registrieren</f:link.action>
-
-								<div class="btn-group">
-									<button type="submit" class="btn btn-success">Standard-Login</button>
-									<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-										<span class="caret"></span>
-										<span class="sr-only">Toggle Dropdown</span>
-									</button>
-									<ul class="dropdown-menu" role="menu">
-										<li><a href="#">LDAP-Login</a></li>
-									</ul>
-								</div>
+								<button type="submit" class="btn btn-success">Registrieren</button>
 							</div>
 						</fieldset>
 					</oa:form>
