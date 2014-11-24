@@ -7,15 +7,11 @@ namespace OpenAgenda\Application\Controller;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Mvc\Controller\ActionController;
 use OpenAgenda\Application\Domain\Model\Account;
 
-class LoginController extends ActionController {
+class AuthenticationController extends \TYPO3\Flow\Security\Authentication\Controller\AbstractAuthenticationController {
 
-	/**
-	 * @return void
-	 */
-	public function indexAction() {
+	protected function onAuthenticationSuccess(\TYPO3\Flow\Mvc\ActionRequest $originalRequest = NULL) {
 
 	}
 

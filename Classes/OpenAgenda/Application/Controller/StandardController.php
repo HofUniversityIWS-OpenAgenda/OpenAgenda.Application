@@ -16,7 +16,7 @@ class StandardController extends ActionController {
 	 * @return void
 	 */
 	public function indexAction() {
-		$this->redirect('index', 'Login');
+		$this->redirect('login', 'Authentication');
 	}
 
 }
