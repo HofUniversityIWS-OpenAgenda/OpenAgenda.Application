@@ -2,7 +2,7 @@ var ApplicationControllers = angular.module('ApplicationControllers', []);
 
 ApplicationControllers.controller('DashboardCtrl', ['$scope', '$http',
     function ($scope, $http) {
-        console.log("kogretlörelkg");
+        console.log("Dashboard Controller Loaded");
         $http.get('/openagenda.application/dashboard/index.json').success(function(data) {
             $scope.data = data;
         });

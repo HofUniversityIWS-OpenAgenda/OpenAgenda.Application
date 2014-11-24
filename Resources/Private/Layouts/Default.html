@@ -12,10 +12,13 @@
         <meta name="author" content="">
 		<title><f:render section="Title" /></title>
         <twbs:include version="3.1" includeJQuery="true" />
+        <ng:include route="1"></ng:include>
+        <script src="../../Public/Scripts/app.js"></script>
+        <script src="../../Public/Scripts/controller.js"></script>
 
         <!-- Custom CSS -->
-        <link href="../../../Public/Styles/lib/sb-admin-2.css" rel="stylesheet">
-        <link href="../../../Public/Styles/main.css" rel="stylesheet">
+        <link href="../../Public/Styles/lib/sb-admin-2.css" rel="stylesheet">
+        <link href="../../Public/Styles/main.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -30,7 +33,7 @@
 		<f:base />
 	</head>
 
-	<body>
+	<body ng-app="OpenAgenda">
     <f:comment><f:flashMessages class="flashmessages" />
     </f:comment>
 
