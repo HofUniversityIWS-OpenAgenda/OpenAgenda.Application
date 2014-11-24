@@ -47,7 +47,7 @@ class AgendaItem {
 
 	/**
 	 * @var \Doctrine\Common\Collections\Collection<\TYPO3\Flow\Resource\Resource>
-	 * @ORM\OneToMany(mappedBy="resourcePointer")
+	 * @ORM\ManyToMany
 	 */
 	protected $resources;
 
