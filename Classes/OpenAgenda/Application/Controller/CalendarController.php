@@ -7,9 +7,8 @@ namespace OpenAgenda\Application\Controller;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Mvc\Controller\ActionController;
 
-class CalendarController extends ActionController {
+class CalendarController extends AbstractController {
 
 	/**
 	 * @Flow\Inject
@@ -22,13 +21,6 @@ class CalendarController extends ActionController {
 	 * @var \OpenAgenda\Application\Domain\Repository\TaskRepository
 	 */
 	protected $taskRepository;
-
-	/**
-	 * @return void
-	 */
-	public function indexAction() {
-		$this->view->assign('meetings', $this->meetingRepository->findAll());
-	}
 
 	/**
 	 * @return void

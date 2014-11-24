@@ -7,15 +7,11 @@ namespace OpenAgenda\Application\Controller;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Mvc\Controller\ActionController;
-use OpenAgenda\Application\MeetingController;
-use OpenAgenda\Application\CalendarController;
-use OpenAgenda\Application\TaskController;
 
-class DashboardController extends ActionController {
+class DashboardController extends AbstractController {
 
 	/**
-	 * @return void	
+	 * @return void
 	 */
 	public function indexAction() {
 		
