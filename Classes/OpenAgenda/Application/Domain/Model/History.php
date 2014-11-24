@@ -119,6 +119,6 @@ class History {
 	{
 		$this->previousData = $previousData;
 	}
-	
+
 
 }

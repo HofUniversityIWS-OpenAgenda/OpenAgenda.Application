@@ -25,21 +25,39 @@ class ProtocolItem {
 	 */
 	protected $sorting;
 
-    /**
-     * @param int $sorting
-     */
-    public function setSorting($sorting)
-    {
-        $this->sorting = $sorting;
-    }
+	/**
+	 * @return Meeting
+	 */
+	public function getMeeting()
+	{
+		return $this->meeting;
+	}
 
-    /**
-     * @return int
-     */
-    public function getSorting()
-    {
-        return $this->sorting;
-    }
+	/**
+	 * @return int
+	 */
+	public function getSorting()
+	{
+		return $this->sorting;
+	}
+
+	/**
+	 * @param Meeting $meeting
+	 */
+	public function setMeeting($meeting)
+	{
+		$this->meeting = $meeting;
+	}
+
+	/**
+	 * @param int $sorting
+	 */
+	public function setSorting($sorting)
+	{
+		$this->sorting = $sorting;
+	}
+
+
 
 
 

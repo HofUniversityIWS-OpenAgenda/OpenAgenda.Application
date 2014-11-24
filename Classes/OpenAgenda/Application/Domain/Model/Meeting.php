@@ -56,76 +56,132 @@ class Meeting {
 	 */
 	protected $modificationDate;
 
+	/**
+	 * @return \Doctrine\Common\Collections\Collection
+	 */
+	public function getAgendaItems()
+	{
+		return $this->agendaItems;
+	}
+
+	/**
+	 * @return \DateTime
+	 */
+	public function getCreationDate()
+	{
+		return $this->creationDate;
+	}
+
+	/**
+	 * @return \DateTime
+	 */
+	public function getEndDate()
+	{
+		return $this->endDate;
+	}
+
+	/**
+	 * @return \DateTime
+	 */
+	public function getModificationDate()
+	{
+		return $this->modificationDate;
+	}
+
+	/**
+	 * @return \Doctrine\Common\Collections\Collection
+	 */
+	public function getProtocolItems()
+	{
+		return $this->protocolItems;
+	}
+
+	/**
+	 * @return \DateTime
+	 */
+	public function getStartDate()
+	{
+		return $this->startDate;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getStatus()
+	{
+		return $this->status;
+	}
 
 	/**
 	 * @return string
 	 */
-	public function getTitle() {
+	public function getTitle()
+	{
 		return $this->title;
 	}
 
 	/**
-	 * @param string $title
-	 * @return void
+	 * @param \Doctrine\Common\Collections\Collection $agendaItems
 	 */
-	public function setTitle($title) {
-		$this->title = $title;
+	public function setAgendaItems($agendaItems)
+	{
+		$this->agendaItems = $agendaItems;
 	}
 
-    /**
-     * @return \DateTime
-     */
-    public function getCreationDate()
-    {
-        return $this->creationDate;
-    }
+	/**
+	 * @param \DateTime $creationDate
+	 */
+	public function setCreationDate($creationDate)
+	{
+		$this->creationDate = $creationDate;
+	}
 
-    /**
-     * @return \DateTime
-     */
-    public function getEndDate()
-    {
-        return $this->endDate;
-    }
+	/**
+	 * @param \DateTime $endDate
+	 */
+	public function setEndDate($endDate)
+	{
+		$this->endDate = $endDate;
+	}
 
-    /**
-     * @return \DateTime
-     */
-    public function getModificationDate()
-    {
-        return $this->modificationDate;
-    }
+	/**
+	 * @param \DateTime $modificationDate
+	 */
+	public function setModificationDate($modificationDate)
+	{
+		$this->modificationDate = $modificationDate;
+	}
 
-    /**
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getAgendaItems()
-    {
-        return $this->agendaItems;
-    }
+	/**
+	 * @param \Doctrine\Common\Collections\Collection $protocolItems
+	 */
+	public function setProtocolItems($protocolItems)
+	{
+		$this->protocolItems = $protocolItems;
+	}
 
-    /**
-     * @return mixed
-     */
-    public function getProtocolItems()
-    {
-        return $this->protocolItems;
-    }
+	/**
+	 * @param \DateTime $startDate
+	 */
+	public function setStartDate($startDate)
+	{
+		$this->startDate = $startDate;
+	}
 
-    /**
-     * @return \DateTime
-     */
-    public function getStartDate()
-    {
-        return $this->startDate;
-    }
+	/**
+	 * @param int $status
+	 */
+	public function setStatus($status)
+	{
+		$this->status = $status;
+	}
 
-    /**
-     * @return int
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
+	/**
+	 * @param string $title
+	 */
+	public function setTitle($title)
+	{
+		$this->title = $title;
+	}
 
 }

@@ -27,18 +27,140 @@ class Message {
 	protected $recipient;
 
 	/**
-	 * @var \string
+	 * @var string
 	 */
 	protected $subject;
 
 	/**
-	 * @var \string
+	 * @var string
 	 */
 	protected $richTextBody;
 
 	/**
-	 * @var \string
+	 * @var string
 	 */
 	protected $plainTextBody;
+
+	/**
+	 * @var integer
+	 */
+	protected $status;
+
+	/**
+	 * @var \DateTime
+	 */
+	protected $DateTime;
+
+	/**
+	 * @return \DateTime
+	 */
+	public function getDateTime()
+	{
+		return $this->DateTime;
+	}
+
+	/**
+	 * @return \Doctrine\Common\Collections\Collection
+	 */
+	public function getAttachments()
+	{
+		return $this->attachments;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getPlainTextBody()
+	{
+		return $this->plainTextBody;
+	}
+
+	/**
+	 * @return \TYPO3\Flow\Security\Account
+	 */
+	public function getRecipient()
+	{
+		return $this->recipient;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getRichTextBody()
+	{
+		return $this->richTextBody;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getStatus()
+	{
+		return $this->status;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getSubject()
+	{
+		return $this->subject;
+	}
+
+	/**
+	 * @param \DateTime $DateTime
+	 */
+	public function setDateTime($DateTime)
+	{
+		$this->DateTime = $DateTime;
+	}
+
+	/**
+	 * @param \Doctrine\Common\Collections\Collection $attachments
+	 */
+	public function setAttachments($attachments)
+	{
+		$this->attachments = $attachments;
+	}
+
+	/**
+	 * @param string $plainTextBody
+	 */
+	public function setPlainTextBody($plainTextBody)
+	{
+		$this->plainTextBody = $plainTextBody;
+	}
+
+	/**
+	 * @param \TYPO3\Flow\Security\Account $recipient
+	 */
+	public function setRecipient($recipient)
+	{
+		$this->recipient = $recipient;
+	}
+
+	/**
+	 * @param string $richTextBody
+	 */
+	public function setRichTextBody($richTextBody)
+	{
+		$this->richTextBody = $richTextBody;
+	}
+
+	/**
+	 * @param int $status
+	 */
+	public function setStatus($status)
+	{
+		$this->status = $status;
+	}
+
+	/**
+	 * @param string $subject
+	 */
+	public function setSubject($subject)
+	{
+		$this->subject = $subject;
+	}
 
 }
