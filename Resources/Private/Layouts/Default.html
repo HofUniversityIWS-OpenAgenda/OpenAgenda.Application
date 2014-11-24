@@ -1,19 +1,51 @@
 {namespace ng=Google\AngularJs\ViewHelpers}
 {namespace twbs=TYPO3\Twitter\Bootstrap\ViewHelpers}
 {namespace oa=OpenAgenda\Application\ViewHelpers}
-        
+
 <!DOCTYPE html>
-<html>
+<html xmlns:f="http://www.w3.org/1999/html">
 	<head>
 		<meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
 		<title><f:render section="Title" /></title>
+        <twbs:include version="3.1" includeJQuery="true" />
+
+        <!-- Custom CSS -->
+        <link href="../../../Public/Styles/lib/sb-admin-2.css" rel="stylesheet">
+        <link href="../../../Public/Styles/main.css" rel="stylesheet">
+
+        <!-- Custom Fonts -->
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
 		<f:render section="HeaderIncludes" />
 		<f:base />
 	</head>
-	<body>
-		<f:flashMessages class="flashmessages" />
 
-		<f:render section="Content" />
-		<f:render section="FooterIncludes" />
-	</body>
+	<body>
+    <f:comment><f:flashMessages class="flashmessages" />
+    </f:comment>
+
+        <div id="wrapper">
+            <f:render partial="Common/Menu"></f:render>
+            <div id="page-wrapper">
+                <div class="container-fluid">
+
+                    <f:render partial="Common/Breadcrumb"></f:render>
+                    <f:render section="Content" />
+                </div>
+             </div>
+        <!-- /#page-wrapper -->
+        </div>
+        <!-- /#wrapper -->
+        <f:render section="FooterIncludes" />
+    </body>
 </html>
