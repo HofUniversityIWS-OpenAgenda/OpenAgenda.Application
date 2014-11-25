@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<xliff version="1.2">
+	<file original="" source-language="de" datatype="plaintext">
+		<body>
+			<trans-unit id="1221560718.newAccount.username">
+				<source>Please specify a valid email address.</source>
+				<target>Bitte geben Sie eine gültige E-Mail-Adresse an</target>
+			</trans-unit>
+			<trans-unit id="1355785874.newAccount.username">
+				<source>This email address is already being used.</source>
+				<target>Diese E-Mail Adresse wird bereits verwendet.</target>
+			</trans-unit>
+
+			<trans-unit id="1221560718.newAccount.password">
+				<source>Enter a password.</source>
+				<target>Geben Sie ein Passwort an</target>
+			</trans-unit>
+			<trans-unit id="1238108068.newAccount.password">
+				<source>The password must contain at least {0,number} characters.</source>
+				<target>Dass Passwort muss mindestens {0,number} Zeichen enthalten.</target>
+			</trans-unit>
+			<trans-unit id="1221560718.newAccount.passwordRepeat">
+				<source>Repeat the password.</source>
+				<target>Wiederholen Sie das Passwort.</target>
+			</trans-unit>
+			<trans-unit id="1238108068.newAccount.passwordRepeat">
+				<source>The password must contain at least {0,number} characters.</source>
+				<target>Dass Passwort muss mindestens {0,number} Zeichen enthalten.</target>
+			</trans-unit>
+			<trans-unit id="1416916268.newAccount.passwordRepeat">
+				<source>Password are not identical.</source>
+				<target>Die Passwörter sind nicht identisch.</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
