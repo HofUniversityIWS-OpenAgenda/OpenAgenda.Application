@@ -1,16 +1,20 @@
 var ApplicationControllers = angular.module('ApplicationControllers', []);
 
-ApplicationControllers.controller('DashboardCtrl', ['$scope', '$http',
-    function ($scope, $http) {
+ApplicationControllers.controller('DashboardCtrl', ['$scope', '$http', "breadcrumbs",
+    function ($scope, $http, breadcrumbs) {
         console.log("Dashboard Controller Loaded");
+        $scope.breadcrumbs = breadcrumbs;
         $http.get('/openagenda.application/dashboard/index.json').success(function(data) {
             $scope.data = data;
         });
         $scope.orderProp = 'userPriority';
     }]);
 
-ApplicationControllers.controller('MeetingCtrl', ['$scope', '$http',
-    function ($scope, $http) {
+ApplicationControllers.controller('MeetingCtrl', ['$scope', '$http', "breadcrumbs",
+    function ($scope, $http,breadcrumbs) {
+        console.log("Meeting Controller Loaded")
+        $scope.breadcrumbs = breadcrumbs;
+        console.log($scope.breadcrumbs);
         //$http.get('/openagenda.application/meetings/index.json').success(function(data) {
             $scope.meetings = [{"meetingId":"1", "meetingName":"Meeting 1" }];  //data;
         //});
