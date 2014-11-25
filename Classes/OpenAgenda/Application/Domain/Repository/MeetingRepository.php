@@ -14,11 +14,13 @@ use TYPO3\Flow\Annotations as Flow;
 class MeetingRepository extends AbstractRepository {
 
 	/**
-	 * @return object The matching object if found, otherwise NULL
+	 * @return \TYPO3\Flow\Persistence\QueryResultInterface|\OpenAgenda\Application\Domain\Model\Meeting[]
+	 * @todo SECURITY: Only allowed entities shall be queried
 	 */
 	public function findAllowed() {
-		//return $this->persistenceManager->getObjectByIdentifier($identifier, $this->entityClassName);
+		return $this->findAll();
 	}
+
 	/**
 	 * @return object The matching object if found, otherwise NULL
 	 */

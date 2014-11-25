@@ -15,6 +15,14 @@ use OpenAgenda\Application\Domain\Model\Meeting;
 class TaskRepository extends AbstractRepository {
 
 	/**
+	 * @return \TYPO3\Flow\Persistence\QueryResultInterface|\OpenAgenda\Application\Domain\Model\Task[]
+	 * @todo SECURITY: Only allowed entities shall be queried
+	 */
+	public function findAllowed() {
+		return $this->findAll();
+	}
+
+	/**
 	 * @param \OpenAgenda\Application\Domain\Model\Meeting $meeting
 	 * @return object The matching object if found, otherwise NULL
 	 */
@@ -22,10 +30,4 @@ class TaskRepository extends AbstractRepository {
 		//return $this->persistenceManager->getObjectByIdentifier($identifier, $this->entityClassName);
 	}
 
-	/**
-	 * @return object The matching object if found, otherwise NULL
-	 */
-	public function findAllowed() {
-		//return $this->persistenceManager->getObjectByIdentifier($identifier, $this->entityClassName);
-	}
 }
