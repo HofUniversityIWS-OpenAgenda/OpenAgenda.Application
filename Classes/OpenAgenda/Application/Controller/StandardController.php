@@ -10,7 +10,7 @@ use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Mvc\Controller\ActionController;
 use OpenAgenda\Application\Domain\Model\Account;
 
-class StandardController extends ActionController {
+class StandardController extends AbstractController {
 
 	/**
 	 * @return void

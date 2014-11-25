@@ -30,6 +30,12 @@ class AuthenticationController extends \TYPO3\Flow\Security\Authentication\Contr
 	protected $accountRepository;
 
 	/**
+	 * @var array
+	 * @Flow\Inject(setting="Authentication")
+	 */
+	protected $authenticationSettings;
+
+	/**
 	 * Shows input form to create a new account.
 	 */
 	public function newAction() {
@@ -49,8 +55,8 @@ class AuthenticationController extends \TYPO3\Flow\Security\Authentication\Contr
 		}
 
 		$role = self::ROLE_DefaultRole;
-		if (!empty($this->settings['Authentication']['defaultRole'])) {
-			$role = $this->settings['Authentication']['defaultRole'];
+		if (!empty($this->authenticationSettings['defaultRole'])) {
+			$role = $this->authenticationSettings['defaultRole'];
 		}
 
 		$account = $this->accountFactory->createAccountWithPassword(

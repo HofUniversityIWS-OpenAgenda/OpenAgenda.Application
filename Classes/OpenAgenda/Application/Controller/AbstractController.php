@@ -35,7 +35,7 @@ class AbstractController extends ActionController {
 	/**
 	 * @return void
 	 */
-	public function initializeAction() {
+	protected  function initializeAction() {
 
 	}
 
