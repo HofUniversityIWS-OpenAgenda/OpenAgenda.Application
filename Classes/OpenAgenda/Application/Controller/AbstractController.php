@@ -13,6 +13,14 @@ use TYPO3\Flow\Mvc\Controller\ActionController;
 class AbstractController extends ActionController {
 
 	/**
+	 * @var string
+	 */
+	protected $viewFormatToObjectNameMap = array(
+		'html' => 'TYPO3\Fluid\View\TemplateView',
+		'json' => 'TYPO3\Flow\Mvc\View\JsonView',
+	);
+
+	/**
 	 * @Flow\Inject
 	 * @var \TYPO3\Flow\Security\Context
 	 */
@@ -36,6 +44,7 @@ class AbstractController extends ActionController {
 	 * @api
 	 */
 	protected function initializeView(\TYPO3\Flow\Mvc\View\ViewInterface $view) {
+
 	}
 
 	/**
