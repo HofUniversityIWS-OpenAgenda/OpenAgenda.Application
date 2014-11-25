@@ -1,0 +1,18 @@
+{namespace oa=OpenAgenda\Application\ViewHelpers}
+<div class="openagenda openagenda-validation-errors">
+	<f:validation.results for="{propertyName}" as="validationResult">
+		<f:for each="{validationResult.errors}" as="error">
+			<oa:exception.fallback message="{error.message}">
+				<f:translate id="{error.code}.{propertyName}" arguments="{error.arguments}" source="ValidationErrors">
+					<f:translate id="{error.code}" arguments="{error.arguments}" source="ValidationErrors">
+						<f:translate id="{error.code}" arguments="{error.arguments}" package="TYPO3.Flow" source="ValidationErrors">
+							<f:format.printf arguments="{error.arguments}">
+								{error.code}.{propertyName}: {error.message}
+							</f:format.printf>
+						</f:translate>
+					</f:translate>
+				</f:translate>
+			</oa:exception.fallback>
+		</f:for>
+	</f:validation.results>
+</div>
