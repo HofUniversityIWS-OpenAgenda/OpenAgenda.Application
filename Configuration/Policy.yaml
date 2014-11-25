@@ -1,0 +1,7 @@
+roles:
+  Listener: []
+  Participant: [Listener]
+  MeetingChair: [Participant]
+  MeetingManager: [MeetingChair]
+  Chairman: [MeetingManager]
+  Administrator: []
