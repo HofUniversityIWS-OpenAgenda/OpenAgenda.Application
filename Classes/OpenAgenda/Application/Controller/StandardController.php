@@ -16,7 +16,9 @@ class StandardController extends AbstractController {
 	 * @return void
 	 */
 	public function indexAction() {
-		#$this->redirect('login', 'Authentication');
+		if ($this->getAccount() === NULL) {
+			$this->redirect('login', 'Authentication');
+		}
 	}
 
 }

@@ -13,6 +13,12 @@ use TYPO3\Flow\Mvc\Controller\ActionController;
 class AbstractController extends ActionController {
 
 	/**
+	 * @Flow\Inject
+	 * @var \TYPO3\Flow\Security\Context
+	 */
+	protected $securityContext;
+
+	/**
 	* @Flow\Inject
 	* @var \OpenAgenda\Application\Security\PermissionService
 	*/
@@ -37,6 +43,13 @@ class AbstractController extends ActionController {
 	 */
 	protected  function initializeAction() {
 
+	}
+
+	/**
+	 * @return \TYPO3\Flow\Security\Account
+	 */
+	protected function getAccount() {
+		return $this->securityContext->getAccount();
 	}
 
 }

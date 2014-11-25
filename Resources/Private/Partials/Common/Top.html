@@ -37,7 +37,10 @@
             <li><a href="#"><i class="fa fa-gear fa-fw"></i> Benutzereinstellugen</a>
             </li>
             <li class="divider"></li>
-            <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Abmelden</a>
+            <li>
+				<f:link.action action="logout" controller="Authentication">
+					<i class="fa fa-sign-out fa-fw"></i> Abmelden
+				</f:link.action>
             </li>
         </ul>
         <!-- /.dropdown-user -->

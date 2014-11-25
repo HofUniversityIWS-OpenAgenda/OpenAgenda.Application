@@ -79,8 +79,36 @@ class AuthenticationController extends \TYPO3\Flow\Security\Authentication\Contr
 
 	}
 
-	protected function onAuthenticationSuccess(\TYPO3\Flow\Mvc\ActionRequest $originalRequest = NULL) {
+	/**
+	 * Logs out and ends the current account session.
+	 *
+	 * @return void
+	 */
+	public function logoutAction() {
+		$this->authenticationManager->logout();
 
+		if (!empty($this->authenticationSettings['postLogoutUri'])) {
+			$this->redirectToUri($this->authenticationSettings['postLogoutUri']);
+		}
+
+		$this->redirectToUri('/');
+	}
+
+	/**
+	 * @param \TYPO3\Flow\Mvc\ActionRequest $originalRequest
+	 * @return string|void
+	 * @throws \TYPO3\Flow\Mvc\Exception\StopActionException
+	 */
+	protected function onAuthenticationSuccess(\TYPO3\Flow\Mvc\ActionRequest $originalRequest = NULL) {
+		if ($originalRequest !== NULL) {
+			$this->redirectToRequest($originalRequest);
+		}
+
+		if (!empty($this->authenticationSettings['postLoginUri'])) {
+			$this->redirectToUri($this->authenticationSettings['postLoginUri']);
+		}
+
+		$this->redirectToUri('/');
 	}
 
 }
