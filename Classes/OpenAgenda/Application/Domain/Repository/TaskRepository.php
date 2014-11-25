@@ -25,7 +25,7 @@ class TaskRepository extends AbstractRepository {
 	/**
 	 * @return object The matching object if found, otherwise NULL
 	 */
-	public function findAllow () {
+	public function findAllowed() {
 		//return $this->persistenceManager->getObjectByIdentifier($identifier, $this->entityClassName);
 	}
 }

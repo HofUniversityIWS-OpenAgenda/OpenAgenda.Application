@@ -18,7 +18,7 @@ class MessageRepository extends AbstractRepository {
 	 * @param \OpenAgenda\Application\Domain\Model\Meeting $meeting
 	 * @return object The matching object if found, otherwise NULL
 	 */
-	public function findByStatus (Meeting $meeting) {
+	public function findByStatus(Meeting $meeting) {
 		//return $this->persistenceManager->getObjectByIdentifier($identifier, $this->entityClassName);
 	}
 

@@ -16,13 +16,13 @@ class MeetingRepository extends AbstractRepository {
 	/**
 	 * @return object The matching object if found, otherwise NULL
 	 */
-	public function findAllow () {
+	public function findAllowed() {
 		//return $this->persistenceManager->getObjectByIdentifier($identifier, $this->entityClassName);
 	}
 	/**
 	 * @return object The matching object if found, otherwise NULL
 	 */
-	public function findByFilterContraint() {
+	public function findByFilterConstraint() {
 		//return $this->persistenceManager->getObjectByIdentifier($identifier, $this->entityClassName);
 	}
 
