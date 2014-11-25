@@ -45,26 +45,29 @@
 				</div>
 
 				<div class="panel-body">
-					<oa:form action="create" method="post" role="form">
+					<oa:form action="create" method="post" role="form" object="{newAccount}" name="newAccount">
 						<fieldset>
 							<div class="form-group">
+								<f:render partial="Common/ValidationErrors" arguments="{propertyName: 'newAccount.username'}" />
 								<div class="input-group">
 									<span class="input-group-addon"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></span>
-									<f:form.textfield name="username" class="form-control" placeholder="Benutzername" />
+									<f:form.textfield property="username" class="form-control" placeholder="Benutzername" />
 								</div>
 							</div>
 
 							<div class="form-group">
+								<f:render partial="Common/ValidationErrors" arguments="{propertyName: 'newAccount.password'}" />
 								<div class="input-group">
 									<span class="input-group-addon"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></span>
-									<f:form.password name="password" class="form-control" placeholder="Kennwort" value="" />
+									<f:form.password property="password" class="form-control" placeholder="Kennwort" value="" />
 								</div>
 							</div>
 
 							<div class="form-group">
+								<f:render partial="Common/ValidationErrors" arguments="{propertyName: 'newAccount.passwordRepeat'}" />
 								<div class="input-group">
 									<span class="input-group-addon"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></span>
-									<f:form.password name="passwordRepeat" class="form-control" placeholder="Kennwort wiederholen" value="" />
+									<f:form.password property="passwordRepeat" class="form-control" placeholder="Kennwort wiederholen" value="" />
 								</div>
 							</div>
 

@@ -1,0 +1,43 @@
+TYPO3:
+  Flow:
+    configuration:
+      compileConfigurationFiles: FALSE
+    security:
+      enable: TRUE
+      authentication:
+        authenticationStrategy: oneToken
+        providers:
+          DefaultProvider:
+            provider: PersistedUsernamePasswordProvider
+
+OpenAgenda:
+  Application:
+    Authentication:
+      defaultRole: 'OpenAgenda.Application:Listener'
+    Validation:
+      ModelScopeValidator:
+        OpenAgenda\Application\Structure\Model\Account:
+          create:
+            properties:
+              username:
+                validators:
+                  NotEmpty: []
+                  EmailAddress: []
+              password:
+                validators:
+                  NotEmpty: []
+                  StringLength:
+                    minimum: 8
+              passwordRepeat:
+                validators:
+                  NotEmpty: []
+                  StringLength:
+                    minimum: 8
+                  OpenAgenda\Application\Validation\Validator\SameValidator:
+                    propertyValue: '$password'
+            entity:
+              factoryCallback: 'TYPO3\Flow\Security\AccountFactory->createAccountWithPassword($username, "")'
+              resultProperty: 'username'
+              validators:
+                UniqueEntity:
+                  identityProperties: ['accountIdentifier']

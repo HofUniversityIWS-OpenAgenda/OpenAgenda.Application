@@ -29,17 +29,36 @@ class AuthenticationController extends \TYPO3\Flow\Security\Authentication\Contr
 	 */
 	protected $accountRepository;
 
+	/**
+	 * Shows input form to create a new account.
+	 */
 	public function newAction() {
-
+		$newAccount = new \OpenAgenda\Application\Structure\Model\Account();
+		$this->view->assign('newAccount', $newAccount);
 	}
 
 	/**
-	 * @param string $username
-	 * @param string $password
-	 * @param string $passwordRepeat
+	 * Creates a new account.
+	 *
+	 * @param \OpenAgenda\Application\Structure\Model\Account $newAccount
+	 * @Flow\Validate(argumentName="newAccount", type="OpenAgenda.Application:ModelScope", options={"scopeName"="create"})
 	 */
-	public function createAction($username, $password, $passwordRepeat) {
+	public function createAction(\OpenAgenda\Application\Structure\Model\Account $newAccount = NULL) {
+		if ($newAccount === NULL) {
+			$this->redirect('new');
+		}
 
+		$role = self::ROLE_DefaultRole;
+		if (!empty($this->settings['Authentication']['defaultRole'])) {
+			$role = $this->settings['Authentication']['defaultRole'];
+		}
+
+		$account = $this->accountFactory->createAccountWithPassword(
+			$newAccount->getUsername(),
+			$newAccount->getPassword(),
+			array($role)
+		);
+		$this->accountRepository->add($account);
 	}
 
 	public function confirmAction() {
