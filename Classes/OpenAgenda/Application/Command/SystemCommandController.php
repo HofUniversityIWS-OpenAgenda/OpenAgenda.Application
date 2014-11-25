@@ -21,9 +21,11 @@ class SystemCommandController extends CommandController {
 	protected $messageRepository;
 
 	/**
+	 * Sends messages.
 	 * @return void
 	 */
-	protected function sendMessages() {
+	public function sendMessagesCommand() {
+
 	}
 
 }
