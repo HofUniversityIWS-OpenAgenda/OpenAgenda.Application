@@ -5,6 +5,11 @@ namespace OpenAgenda\Application\ViewHelpers;
  * This script belongs to the TYPO3 Flow package "OpenAgenda.Application".*
  *                                                                        */
 
+/**
+ * Class FormViewHelper
+ * @package OpenAgenda\Application\ViewHelpers
+ * @author Oliver Hader <oliver@typo3.org>
+ */
 class FormViewHelper extends \TYPO3\Fluid\ViewHelpers\FormViewHelper {
 
 	/**

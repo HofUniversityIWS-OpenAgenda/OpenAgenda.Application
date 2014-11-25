@@ -7,9 +7,15 @@ namespace OpenAgenda\Application\Controller;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use OpenAgenda\Application\Domain\Model\Account;
 
+/**
+ * Class AuthenticationController
+ * @package OpenAgenda\Application\Controller
+ * @author Oliver Hader <oliver@typo3.org>
+ */
 class AuthenticationController extends \TYPO3\Flow\Security\Authentication\Controller\AbstractAuthenticationController {
+
+	const ROLE_DefaultRole = 'Anonymous';
 
 	/**
 	 * @var \TYPO3\Flow\Security\AccountFactory
