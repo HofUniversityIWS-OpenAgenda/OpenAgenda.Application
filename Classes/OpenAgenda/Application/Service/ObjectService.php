@@ -40,7 +40,12 @@ class ObjectService {
 		$callable = array($components['className']);
 
 		if (!empty($components['methodName'])) {
-			$object = \TYPO3\Flow\Core\Bootstrap::$staticObjectManager->get($components['className']);
+			if ($components['className'] === '$self') {
+				$object = $subject;
+			} else {
+				$object = \TYPO3\Flow\Core\Bootstrap::$staticObjectManager->get($components['className']);
+			}
+
 			$callable = array($object, $components['methodName']);
 		}
 
