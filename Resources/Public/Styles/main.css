@@ -72,6 +72,10 @@
 {
     margin-left: -25px;
 }
+.meeting-map
+{
+    margin-right: 34px;
+}
 
 @media(min-width:768px)
 {
