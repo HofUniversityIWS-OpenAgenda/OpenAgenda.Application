@@ -104,7 +104,6 @@ class ModelScopeValidator extends \TYPO3\Flow\Validation\Validator\AbstractValid
 
 		$result = $this->result;
 		if (!empty($this->settings['entity']['resultProperty'])) {
-			#1355785874
 			$resultProperty = $this->settings['entity']['resultProperty'];
 			$result = $result->forProperty($resultProperty);
 		}
