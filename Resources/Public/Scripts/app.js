@@ -8,15 +8,23 @@ Application.config(['$routeProvider',
                 templateUrl: '/openagenda.application/dashboard/index',
                 controller: 'DashboardCtrl'
             }).
-            when('/meetingABC', {
+            when('/meetings', {
                 templateUrl: '/openagenda.application/meeting/index',
                 controller: 'MeetingCtrl'
             }).
-            when('/meeting/show/:meetingId', {
+            when('/meetings/new', {
+                templateUrl: '/openagenda.application/meeting/new'//,
+                //controller: 'MeetingDetailCtrl'
+            }).
+            when('/meetings/show/:meetingId', {
                 templateUrl: '/openagenda.application/meeting/show',
                 controller: 'MeetingDetailCtrl'
             }).
-            when('/task', {
+            when('/tasks', {
+                templateUrl: '/openagenda.application/task/index',
+                controller: 'TaskCtrl'
+            }).
+            when('/tasks/others', {
                 templateUrl: '/openagenda.application/task/index',
                 controller: 'TaskCtrl'
             }).
@@ -28,11 +36,15 @@ Application.config(['$routeProvider',
                 templateUrl: 'openagenda.application/calendar/show',
                 controller: 'CalendarDetailCtrl'
             }).
-            when('/setting', {
+            when('/settings/user/', {
+                templateUrl: '/openagenda.application/setting/index',
+                controller: 'SettingCtrl'
+            }).
+            when('/settings/user/profile', {
                 templateUrl: '/openagenda.application/setting/index',
                 controller: 'SettingCtrl'
             }).
             otherwise({
-                redirectTo: '/login'
+                redirectTo: '/dashboard'
             });
     }]);

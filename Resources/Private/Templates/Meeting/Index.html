@@ -1,1 +1,76 @@
-ddd
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"
+      xmlns:ng="http://typo3.org/ns/Google/AngularJs/ViewHelpers"
+      xmlns:twbs="http://typo3.org/ns/Twitter/Bootstrap/ViewHelpers"
+      xmlns:oa="http://typo3.org/ns/OpenAgenda/Application/ViewHelpers"
+      xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
+
+<f:layout name="Content"></f:layout>
+
+<!-- Page Content ------------------------------------------- -->
+<f:section name="Content">
+<div class="page-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Meeting Übersicht</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Kommende Meetings
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                            <thead>
+                            <tr>
+                                <th>Datum / Uhrzeit</th>
+                                <th>Meeting</th>
+                                <th>Teilnehmer</th>
+                                <th>Status</th>
+                                <th>Aktionen</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="odd gradeX">
+                                <td>[[DATUM]]</td>
+                                <td>[[MEETING]]</td>
+                                <td>
+                                    [[5]] <img src="../../../Public/Images/invitee_unkown.png"/>&nbsp;
+                                    [[5]] <img src="../../../Public/Images/invitee_agreed.png"/>&nbsp;
+                                    [[5]] <img src="../../../Public/Images/invitee_canceled.png"/>
+                                </td>
+                                <td>[[STATUS]]</td>
+                                <td>
+                                    Anzeigen <img src="../../../Public/Images/meeting_show.png"/>&nbsp;
+                                    Editieren <img src="../../../Public/Images/meeting_edit.png"/>&nbsp;
+                                    Durchführen <img src="../../../Public/Images/meeting_exec.png"/>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.table-responsive -->
+
+                </div>
+                <!-- /.panel-body -->
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- DataTables JavaScript -->
+    <script src="../../../Public/Scripts/lib/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="../../../Public/Scripts/lib/plugins/dataTables/dataTables.bootstrap.js"></script>
+
+    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    <script>
+        $(document).ready(function () {
+            $('#dataTables-example').dataTable();
+        });
+    </script>
+    </f:section>>
+<!-- Page Content ------------------------------------------- -->
+</html>

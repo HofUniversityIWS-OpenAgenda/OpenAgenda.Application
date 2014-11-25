@@ -10,15 +10,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
+
 		<title><f:render section="Title" /></title>
+
         <twbs:include version="3.1" includeJQuery="true" />
         <ng:include route="1"></ng:include>
+
+        <!-- Custom JS -->
         <script src="../../Public/Scripts/app.js"></script>
         <script src="../../Public/Scripts/controller.js"></script>
 
         <!-- Custom CSS -->
         <link href="../../Public/Styles/lib/sb-admin-2.css" rel="stylesheet">
         <link href="../../Public/Styles/main.css" rel="stylesheet">
+        <link href="../../Public/Styles/lib/plugins/dataTables.bootstrap.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -39,6 +44,7 @@
 
         <div id="wrapper">
             <f:render partial="Common/Menu"></f:render>
+
             <div id="page-wrapper">
                 <div class="container-fluid">
 
@@ -49,6 +55,15 @@
         <!-- /#page-wrapper -->
         </div>
         <!-- /#wrapper -->
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../../Public/Scripts/lib/plugins/metisMenu/metisMenu.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../../Public/Scripts/lib/sb-admin-2.js"></script>
+
         <f:render section="FooterIncludes" />
+
+
     </body>
 </html>

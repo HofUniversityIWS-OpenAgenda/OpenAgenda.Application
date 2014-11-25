@@ -14,30 +14,32 @@
 
             <ul class="nav" id="side-menu">
                 <li class="sidebar-heading">MENU</li>
+                <li><a href="#dashboard"><i class="fa fa-dashboard fa-fw"></i>Dashboard</a></li>
                 <li>
-                    <a href="#"><i class="fa fa-dashboard fa-fw"></i>Dashboard</a>
+                    <a href="#"><i class="fa fa-users"></i> Meetings<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a href="#meetings">Meeting-Übersicht</a> </li>
+                        <li><a href="#/meetings/new">Meeting anlegen</a></li>
+                    </ul>
+                    <!-- /.nav-second-level -->
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-tasks"></i> Aufgaben<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                        <li>
-                            <a style="padding-left: 50px" href="#">Flot Charts</a>
-                        </li>
-                        <li>
-                            <a href="#">Morris.js Charts</a>
-                        </li>
+                        <li><a href="#tasks">Meine Aufgaben</a> </li>
+                        <li><a href="#meetings/new">Aufgaben anderer</a></li>
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>
 
                 <li class="active">
-                    <a href="#"><i class="fa fa-files-o fa-fw"></i> Sample Pages<span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-cog"></i> Einstellungen<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a class="active" href="#">Start</a>
+                            <a class="active" href="#settings/user">Benutzereinstellungen</a>
                         </li>
                         <li>
-                            <a href="#">Login Page</a>
+                            <a href="#settings/user/profile">Profilverwaltung</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->
