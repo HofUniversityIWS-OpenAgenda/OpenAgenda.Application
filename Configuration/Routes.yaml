@@ -10,3 +10,10 @@
     '@controller': 'Standard'
     '@action':     'index'
     '@format':     'html'
+-
+  name: 'JSON list'
+  uriPattern: '{@controller}/list.json'
+  defaults:
+    '@package':    'OpenAgenda.Application'
+    '@action':     'list'
+    '@format':     'json'

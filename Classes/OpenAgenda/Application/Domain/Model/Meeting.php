@@ -6,6 +6,7 @@ namespace OpenAgenda\Application\Domain\Model;
  *                                                                        *
  *                                                                        */
 
+use OpenAgenda\Application\Annotations as OA;
 use TYPO3\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -17,42 +18,50 @@ class Meeting {
     /**
      * @var \Doctrine\Common\Collections\Collection<\OpenAgenda\Application\Domain\Model\AgendaItem>
      * @ORM\OneToMany(mappedBy="meeting")
+	 * @OA\ToArray
      */
     protected $agendaItems;
 
     /**
      * @var \Doctrine\Common\Collections\Collection<\OpenAgenda\Application\Domain\Model\ProtocolItem>
      * @ORM\OneToMany(mappedBy="meeting")
+	 * @OA\ToArray
      */
     protected $protocolItems;
 
 	/**
 	 * @var string
+	 * @OA\ToArray
 	 */
 	protected $title;
 
-    /**
+	/**
 	 * @var \DateTime
+	 * @OA\ToArray(callback="$self->format('c')")
 	 */
 	protected $startDate;
 
     /**
 	 * @var \DateTime
+	 * @OA\ToArray(callback="$self->format('c')")
 	 */
 	protected $endDate;
 
     /**
 	 * @var integer
+	 * @OA\ToArray
 	 */
 	protected $status;
 
     /**
 	 * @var \DateTime
+	 * @OA\ToArray(callback="$self->format('c')")
 	 */
 	protected $creationDate;
 
     /**
 	 * @var \DateTime
+	 * @OA\ToArray(callback="$self->format('c')")
 	 */
 	protected $modificationDate;
 
