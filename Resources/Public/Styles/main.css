@@ -76,6 +76,10 @@
 {
     margin-right: 34px;
 }
+a.list-group-item
+{
+    color:#555;
+}
 
 @media(min-width:768px)
 {
