@@ -18,13 +18,13 @@ class ProtocolItem {
 	/**
 	 * @var \OpenAgenda\Application\Domain\Model\Meeting
 	 * @ORM\ManyToOne(inversedBy="protocolItems")
-	 * @OA\ToArray
+	 * @OA\ToFlatArray
 	 */
 	protected $meeting;
 
 	/**
 	 * @var integer
-	 * @OA\ToArray
+	 * @OA\ToFlatArray
 	 */
 	protected $sorting;
 

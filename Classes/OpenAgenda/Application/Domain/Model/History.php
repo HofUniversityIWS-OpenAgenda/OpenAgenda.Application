@@ -18,31 +18,31 @@ class History {
 	/**
 	 * @var \TYPO3\Flow\Security\Account
 	 * @ORM\OneToOne(mappedBy="accountIdentifier")
-	 * @OA\ToArray
+	 * @OA\ToFlatArray
 	 */
 	protected $issuer;
 
 	/**
 	 * @var string
-	 * @OA\ToArray
+	 * @OA\ToFlatArray
 	 */
 	protected $entityIdentifier;
 
 	/**
 	 * @var \string
-	 * @OA\ToArray
+	 * @OA\ToFlatArray
 	 */
 	protected $entityType;
 
 	/**
 	 * @var \string
-	 * @OA\ToArray
+	 * @OA\ToFlatArray
 	 */
 	protected $previousData;
 
 	/**
 	 * @var \DateTime
-	 * @OA\ToArray(callback="$self->format('c')")
+	 * @OA\ToFlatArray(callback="$self->format('c')")
 	 */
 	protected $creationDate;
 

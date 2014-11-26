@@ -22,52 +22,52 @@ class Meeting {
 	/**
 	 * @var \Doctrine\Common\Collections\Collection<\OpenAgenda\Application\Domain\Model\AgendaItem>
 	 * @ORM\OneToMany(mappedBy="meeting")
-	 * @OA\ToArray
+	 * @OA\ToFlatArray
 	 */
 	protected $agendaItems;
 
 	/**
 	 * @var \Doctrine\Common\Collections\Collection<\OpenAgenda\Application\Domain\Model\ProtocolItem>
 	 * @ORM\OneToMany(mappedBy="meeting")
-	 * @OA\ToArray
+	 * @OA\ToFlatArray
 	 */
 	protected $protocolItems;
 
 	/**
 	 * @var string
-	 * @OA\ToArray
+	 * @OA\ToFlatArray
 	 */
 	protected $title;
 
 	/**
 	 * @var \DateTime
-	 * @OA\ToArray(callback="$self->format('c')")
+	 * @OA\ToFlatArray(callback="$self->format('c')")
 	 */
 	protected $startDate;
 
 	/**
 	 * @var \DateTime
 	 * @ORM\Column(nullable=true)
-	 * @OA\ToArray(callback="$self->format('c')")
+	 * @OA\ToFlatArray(callback="$self->format('c')")
 	 */
 	protected $endDate;
 
 	/**
 	 * @var integer
-	 * @OA\ToArray
+	 * @OA\ToFlatArray
 	 */
 	protected $status;
 
 	/**
 	 * @var \DateTime
-	 * @OA\ToArray(callback="$self->format('c')")
+	 * @OA\ToFlatArray(callback="$self->format('c')")
 	 */
 	protected $creationDate;
 
 	/**
 	 * @var \DateTime
 	 * @ORM\Column(nullable=true)
-	 * @OA\ToArray(callback="$self->format('c')")
+	 * @OA\ToFlatArray(callback="$self->format('c')")
 	 */
 	protected $modificationDate;
 

@@ -18,44 +18,44 @@ class Message {
 	/**
 	 * @var \Doctrine\Common\Collections\Collection<\TYPO3\Flow\Resource\Resource>
 	 * @ORM\ManyToMany
-	 * @OA\ToArray
+	 * @OA\ToFlatArray
 	 */
 	protected $attachments;
 
 	/**
 	 * @var \TYPO3\Flow\Security\Account
 	 * @ORM\OneToOne(mappedBy="accountIdentifier")
-	 * @OA\ToArray
+	 * @OA\ToFlatArray
 	 */
 	protected $recipient;
 
 	/**
 	 * @var string
-	 * @OA\ToArray
+	 * @OA\ToFlatArray
 	 */
 	protected $subject;
 
 	/**
 	 * @var string
-	 * @OA\ToArray
+	 * @OA\ToFlatArray
 	 */
 	protected $richTextBody;
 
 	/**
 	 * @var string
-	 * @OA\ToArray
+	 * @OA\ToFlatArray
 	 */
 	protected $plainTextBody;
 
 	/**
 	 * @var integer
-	 * @OA\ToArray
+	 * @OA\ToFlatArray
 	 */
 	protected $status;
 
 	/**
 	 * @var \DateTime
-	 * @OA\ToArray(callback="$self->format('c')")
+	 * @OA\ToFlatArray(callback="$self->format('c')")
 	 */
 	protected $DateTime;
 

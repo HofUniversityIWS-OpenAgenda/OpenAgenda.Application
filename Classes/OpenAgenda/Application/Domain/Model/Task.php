@@ -18,43 +18,43 @@ class Task {
 	/**
 	 * @var \TYPO3\Flow\Security\Account
 	 * @ORM\OneToOne(mappedBy="accountIdentifier")
-	 * @OA\ToArray
+	 * @OA\ToFlatArray
 	 */
 	protected $assignee;
 
 	/**
 	 * @var string
-	 * @OA\ToArray
+	 * @OA\ToFlatArray
 	 */
 	protected $title;
 
 	/**
 	 * @var \DateTime
-	 * @OA\ToArray(callback="$self->format('c')")
+	 * @OA\ToFlatArray(callback="$self->format('c')")
 	 */
 	protected $dueDate;
 
 	/**
 	 * @var string
-	 * @OA\ToArray
+	 * @OA\ToFlatArray
 	 */
 	protected $description;
 
 	/**
 	 * @var integer
-	 * @OA\ToArray
+	 * @OA\ToFlatArray
 	 */
 	protected $status;
 
 	/**
 	 * @var \DateTime
-	 * @OA\ToArray(callback="$self->format('c')")
+	 * @OA\ToFlatArray(callback="$self->format('c')")
 	 */
 	protected $creationDate;
 
 	/**
 	 * @var \DateTime
-	 * @OA\ToArray(callback="$self->format('c')")
+	 * @OA\ToFlatArray(callback="$self->format('c')")
 	 */
 	protected $modificationDate;
 

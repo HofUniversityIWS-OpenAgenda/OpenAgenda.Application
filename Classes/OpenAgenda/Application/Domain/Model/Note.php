@@ -17,13 +17,13 @@ class Note {
 
 	/**
 	 * @var string
-	 * @OA\ToArray
+	 * @OA\ToFlatArray
 	 */
 	protected $description;
 
 	/**
 	 * @var \DateTime
-	 * @OA\ToArray(callback="$self->format('c')")
+	 * @OA\ToFlatArray(callback="$self->format('c')")
 	 */
 	protected $creationDate;
 

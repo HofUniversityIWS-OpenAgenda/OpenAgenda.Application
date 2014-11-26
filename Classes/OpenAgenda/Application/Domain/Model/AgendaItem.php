@@ -18,44 +18,44 @@ class AgendaItem {
 	/**
 	 * @var \OpenAgenda\Application\Domain\Model\Meeting
 	 * @ORM\ManyToOne(inversedBy="agendaItems")
-	 * @OA\ToArray
+	 * @OA\ToFlatArray
 	 */
 	protected $meeting;
 
 	/**
 	 * @var string
-	 * @OA\ToArray
+	 * @OA\ToFlatArray
 	 */
 	protected $title;
 
 	/**
 	 * @var string
-	 * @OA\ToArray
+	 * @OA\ToFlatArray
 	 */
 	protected $description;
 
 	/**
 	 * @var \DateTime
-	 * @OA\ToArray(callback="$self->format('c')")
+	 * @OA\ToFlatArray(callback="$self->format('c')")
 	 */
 	protected $creationDate;
 
 	/**
 	 * @var \DateTime
-	 * @OA\ToArray(callback="$self->format('c')")
+	 * @OA\ToFlatArray(callback="$self->format('c')")
 	 */
 	protected $modificationDate;
 
 	/**
 	 * @var integer
-	 * @OA\ToArray
+	 * @OA\ToFlatArray
 	 */
 	protected $sorting;
 
 	/**
 	 * @var \Doctrine\Common\Collections\Collection<\TYPO3\Flow\Resource\Resource>
 	 * @ORM\ManyToMany
-	 * @OA\ToArray
+	 * @OA\ToFlatArray
 	 */
 	protected $resources;
 

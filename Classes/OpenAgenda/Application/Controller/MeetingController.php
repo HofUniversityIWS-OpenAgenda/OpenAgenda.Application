@@ -34,7 +34,7 @@ class MeetingController extends AbstractController {
 	 * @return void
 	 */
 	public function listAction() {
-		$this->view->assign('value', $this->meetingRepository->findAllowed()->toArray());
+		$this->view->assign('value', $this->meetingRepository->findAllowed()->toFlatArray());
 	}
 
 	/**

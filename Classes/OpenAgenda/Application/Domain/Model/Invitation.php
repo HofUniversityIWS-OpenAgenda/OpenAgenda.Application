@@ -18,25 +18,25 @@ class Invitation {
 	/**
 	 * @var \TYPO3\Flow\Security\Account
 	 * @ORM\ManyToOne(inversedBy="accountIdentifier")
-	 * @OA\ToArray
+	 * @OA\ToFlatArray
 	 */
 	protected $participant;
 
 	/**
 	 * @var integer
-	 * @OA\ToArray
+	 * @OA\ToFlatArray
 	 */
 	protected $status;
 
 	/**
 	 * @var \DateTime
-	 * @OA\ToArray(callback="$self->format('c')")
+	 * @OA\ToFlatArray(callback="$self->format('c')")
 	 */
 	protected $creationDate;
 
 	/**
 	 * @var \DateTime
-	 * @OA\ToArray(callback="$self->format('c')")
+	 * @OA\ToFlatArray(callback="$self->format('c')")
 	 */
 	protected $modificationDate;
 
