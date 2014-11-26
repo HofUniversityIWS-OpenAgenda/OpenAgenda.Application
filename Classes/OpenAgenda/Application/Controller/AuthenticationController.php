@@ -39,17 +39,17 @@ class AuthenticationController extends \TYPO3\Flow\Security\Authentication\Contr
 	 * Shows input form to create a new account.
 	 */
 	public function newAction() {
-		$newAccount = new \OpenAgenda\Application\Structure\Model\Account();
+		$newAccount = new \OpenAgenda\Application\Framework\Model\Account();
 		$this->view->assign('newAccount', $newAccount);
 	}
 
 	/**
 	 * Creates a new account.
 	 *
-	 * @param \OpenAgenda\Application\Structure\Model\Account $newAccount
+	 * @param \OpenAgenda\Application\Framework\Model\Account $newAccount
 	 * @Flow\Validate(argumentName="newAccount", type="OpenAgenda.Application:ModelScope", options={"scopeName"="create"})
 	 */
-	public function createAction(\OpenAgenda\Application\Structure\Model\Account $newAccount = NULL) {
+	public function createAction(\OpenAgenda\Application\Framework\Model\Account $newAccount = NULL) {
 		if ($newAccount === NULL) {
 			$this->redirect('new');
 		}

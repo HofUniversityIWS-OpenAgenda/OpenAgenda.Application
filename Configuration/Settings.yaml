@@ -18,7 +18,7 @@ OpenAgenda:
       postLogoutUri: '/'
     Validation:
       ModelScopeValidator:
-        OpenAgenda\Application\Structure\Model\Account:
+        OpenAgenda\Application\Framework\Model\Account:
           create:
             properties:
               username:
