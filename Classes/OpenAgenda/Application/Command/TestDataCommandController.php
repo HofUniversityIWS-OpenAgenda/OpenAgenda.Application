@@ -9,7 +9,7 @@ namespace OpenAgenda\Application\Command;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Cli\CommandController;
 use \OpenAgenda\Application\Domain\Model\Meeting;
-//use \OpenAgenda\Application\Domain\Model\AgendaItem;
+use \OpenAgenda\Application\Domain\Model\AgendaItem;
 
 /**
  * @author Andreas Steiger <andreas.steiger@hof-university.de>
@@ -35,8 +35,14 @@ class TestDataCommandController extends CommandController {
 
 		$this->meetingRepository->removeAll();
 
-		//$newAgendaItem = new AgendaItem;
-		//$newAgendaItem->set
+		new \Doctrine\Common\Collections\ArrayCollection();
+		$newAgendaItem = new AgendaItem;
+		$newAgendaItem->setCreationDate($creationDate);
+		$newAgendaItem->setDescription($description);
+		$newAgendaItem->setModificationDate($modificationDate);
+		$newAgendaItem->setResources($resources);
+		$newAgendaItem->setSorting($sorting);
+		$newAgendaItem->setTitle("First AgendaItem");
 
 		$newMeeting = new Meeting;
 		//$newMeeting->setAgendaItems();
