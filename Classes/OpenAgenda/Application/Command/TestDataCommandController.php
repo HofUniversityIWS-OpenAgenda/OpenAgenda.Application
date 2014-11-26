@@ -25,37 +25,31 @@ class TestDataCommandController extends CommandController {
 	/**
 	 * ### meetings for testing ###
 	 *
-	 * This Command removes all meetings and creates a new meeting with dummy data to the DB.
+	 * This Command removes all existing meetings and creates new meetings (default = 5) with dummy data to the DB.
 	 * !!! Without AgendaItem and ProtocolItem !!!
 	 *
+	 * @param integer $quantity The quantity of new meetings
 	 * @return string
 	 */
-	public function addMeetingsCommand() {
+	public function createMeetingsCommand($quantity = 5) {
 		$dateNow = new \DateTime('now',  new \DateTimeZone( 'GMT+1' ));
-
 		$this->meetingRepository->removeAll();
 
-		new \Doctrine\Common\Collections\ArrayCollection();
-		$newAgendaItem = new AgendaItem;
-		$newAgendaItem->setCreationDate($creationDate);
-		$newAgendaItem->setDescription($description);
-		$newAgendaItem->setModificationDate($modificationDate);
-		$newAgendaItem->setResources($resources);
-		$newAgendaItem->setSorting($sorting);
-		$newAgendaItem->setTitle("First AgendaItem");
+		for($counter = 0;$counter < $quantity; $counter++){
 
-		$newMeeting = new Meeting;
-		//$newMeeting->setAgendaItems();
-		$newMeeting->setEndDate(new \DateTime('2014-11-12 13:00'));
-		$newMeeting->setModificationDate(new \DateTime('2014-11-11 10:00'));
-		//$newMeeting->setProtocolItems();
-		$newMeeting->setCreationDate($dateNow);
-		$newMeeting->setStartDate(new \DateTime('2014-11-12 12:00'));
-		$newMeeting->setStatus(1);
-		$newMeeting->setTitle('First Meeting');
+			$newMeeting = new Meeting;
+			//$newMeeting->setAgendaItems();
+			//$newMeeting->setEndDate(new \DateTime('2014-11-12 13:00'));
+			//$newMeeting->setModificationDate(new \DateTime('2014-11-11 10:00'));
+			//$newMeeting->setProtocolItems();
+			$newMeeting->setCreationDate($dateNow);
+			$newMeeting->setStartDate(new \DateTime('2014-11-12 12:00'));
+			$newMeeting->setStatus(1);
+			$newMeeting->setTitle('Meeting '.($counter+1));
 
-		$this->meetingRepository->add($newMeeting);
-		return "Created a new meeting.";
+			$this->meetingRepository->add($newMeeting);
+		}
+		return "Created ".$quantity." meetings.";
 	}
 
 }
