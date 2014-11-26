@@ -6,7 +6,7 @@ namespace OpenAgenda\Application\Domain\Model;
  *                                                                        *
  *                                                                        */
 
-use OpenAgenda\Application\Annotations as OA;
+use OpenAgenda\Application\Framework\Annotations as OA;
 use TYPO3\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
 

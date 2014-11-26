@@ -18,7 +18,7 @@ use TYPO3\Flow\Reflection\ObjectAccess;
  */
 class ArrayService {
 
-	const ANNOTATION_ToArray = 'OpenAgenda\\Application\\Annotations\\ToArray';
+	const ANNOTATION_ToArray = 'OpenAgenda\\Application\\Framework\\Annotations\\ToArray';
 
 	/**
 	 * @var \TYPO3\Flow\Reflection\ReflectionService
@@ -46,7 +46,7 @@ class ArrayService {
 		);
 
 		foreach ($propertyNames as $propertyName) {
-			/** @var \OpenAgenda\Application\Annotations\ToArray $propertyAnnotation */
+			/** @var \OpenAgenda\Application\Framework\Annotations\ToArray $propertyAnnotation */
 			$propertyAnnotation = $this->reflectionService->getPropertyAnnotation(
 				$className,
 				$propertyName,
