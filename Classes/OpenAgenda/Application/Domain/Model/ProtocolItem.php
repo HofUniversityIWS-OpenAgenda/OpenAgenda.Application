@@ -31,37 +31,29 @@ class ProtocolItem {
 	/**
 	 * @return Meeting
 	 */
-	public function getMeeting()
-	{
+	public function getMeeting() {
 		return $this->meeting;
 	}
 
 	/**
 	 * @return int
 	 */
-	public function getSorting()
-	{
+	public function getSorting() {
 		return $this->sorting;
 	}
 
 	/**
 	 * @param Meeting $meeting
 	 */
-	public function setMeeting($meeting)
-	{
+	public function setMeeting($meeting) {
 		$this->meeting = $meeting;
 	}
 
 	/**
 	 * @param int $sorting
 	 */
-	public function setSorting($sorting)
-	{
+	public function setSorting($sorting) {
 		$this->sorting = $sorting;
 	}
-
-
-
-
 
 }

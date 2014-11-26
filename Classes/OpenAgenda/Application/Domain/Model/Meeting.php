@@ -15,19 +15,19 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Meeting {
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection<\OpenAgenda\Application\Domain\Model\AgendaItem>
-     * @ORM\OneToMany(mappedBy="meeting")
+	/**
+	 * @var \Doctrine\Common\Collections\Collection<\OpenAgenda\Application\Domain\Model\AgendaItem>
+	 * @ORM\OneToMany(mappedBy="meeting")
 	 * @OA\ToArray
-     */
-    protected $agendaItems;
+	 */
+	protected $agendaItems;
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection<\OpenAgenda\Application\Domain\Model\ProtocolItem>
-     * @ORM\OneToMany(mappedBy="meeting")
+	/**
+	 * @var \Doctrine\Common\Collections\Collection<\OpenAgenda\Application\Domain\Model\ProtocolItem>
+	 * @ORM\OneToMany(mappedBy="meeting")
 	 * @OA\ToArray
-     */
-    protected $protocolItems;
+	 */
+	protected $protocolItems;
 
 	/**
 	 * @var string
@@ -41,26 +41,26 @@ class Meeting {
 	 */
 	protected $startDate;
 
-    /**
+	/**
 	 * @var \DateTime
 	 * @ORM\Column(nullable=true)
 	 * @OA\ToArray(callback="$self->format('c')")
 	 */
 	protected $endDate;
 
-    /**
+	/**
 	 * @var integer
 	 * @OA\ToArray
 	 */
 	protected $status;
 
-    /**
+	/**
 	 * @var \DateTime
 	 * @OA\ToArray(callback="$self->format('c')")
 	 */
 	protected $creationDate;
 
-    /**
+	/**
 	 * @var \DateTime
 	 * @ORM\Column(nullable=true)
 	 * @OA\ToArray(callback="$self->format('c')")
@@ -70,128 +70,112 @@ class Meeting {
 	/**
 	 * @return \Doctrine\Common\Collections\Collection
 	 */
-	public function getAgendaItems()
-	{
+	public function getAgendaItems() {
 		return $this->agendaItems;
 	}
 
 	/**
 	 * @return \DateTime
 	 */
-	public function getCreationDate()
-	{
+	public function getCreationDate() {
 		return $this->creationDate;
 	}
 
 	/**
 	 * @return \DateTime
 	 */
-	public function getEndDate()
-	{
+	public function getEndDate() {
 		return $this->endDate;
 	}
 
 	/**
 	 * @return \DateTime
 	 */
-	public function getModificationDate()
-	{
+	public function getModificationDate() {
 		return $this->modificationDate;
 	}
 
 	/**
 	 * @return \Doctrine\Common\Collections\Collection
 	 */
-	public function getProtocolItems()
-	{
+	public function getProtocolItems() {
 		return $this->protocolItems;
 	}
 
 	/**
 	 * @return \DateTime
 	 */
-	public function getStartDate()
-	{
+	public function getStartDate() {
 		return $this->startDate;
 	}
 
 	/**
 	 * @return int
 	 */
-	public function getStatus()
-	{
+	public function getStatus() {
 		return $this->status;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getTitle()
-	{
+	public function getTitle() {
 		return $this->title;
 	}
 
 	/**
 	 * @param \Doctrine\Common\Collections\Collection $agendaItems
 	 */
-	public function setAgendaItems($agendaItems)
-	{
+	public function setAgendaItems($agendaItems) {
 		$this->agendaItems = $agendaItems;
 	}
 
 	/**
 	 * @param \DateTime $creationDate
 	 */
-	public function setCreationDate($creationDate)
-	{
+	public function setCreationDate($creationDate) {
 		$this->creationDate = $creationDate;
 	}
 
 	/**
 	 * @param \DateTime $endDate
 	 */
-	public function setEndDate($endDate)
-	{
+	public function setEndDate($endDate) {
 		$this->endDate = $endDate;
 	}
 
 	/**
 	 * @param \DateTime $modificationDate
 	 */
-	public function setModificationDate($modificationDate)
-	{
+	public function setModificationDate($modificationDate) {
 		$this->modificationDate = $modificationDate;
 	}
 
 	/**
 	 * @param \Doctrine\Common\Collections\Collection $protocolItems
 	 */
-	public function setProtocolItems($protocolItems)
-	{
+	public function setProtocolItems($protocolItems) {
 		$this->protocolItems = $protocolItems;
 	}
 
 	/**
 	 * @param \DateTime $startDate
 	 */
-	public function setStartDate($startDate)
-	{
+	public function setStartDate($startDate) {
 		$this->startDate = $startDate;
 	}
 
 	/**
 	 * @param int $status
 	 */
-	public function setStatus($status)
-	{
+	public function setStatus($status) {
 		$this->status = $status;
 	}
 
 	/**
 	 * @param string $title
 	 */
-	public function setTitle($title)
-	{
+	public function setTitle($title) {
 		$this->title = $title;
 	}
 

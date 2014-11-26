@@ -62,100 +62,85 @@ class AgendaItem {
 	/**
 	 * @return \DateTime
 	 */
-	public function getCreationDate()
-	{
+	public function getCreationDate() {
 		return $this->creationDate;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getDescription()
-	{
+	public function getDescription() {
 		return $this->description;
 	}
 
 	/**
 	 * @return \DateTime
 	 */
-	public function getModificationDate()
-	{
+	public function getModificationDate() {
 		return $this->modificationDate;
 	}
 
 	/**
 	 * @return \Doctrine\Common\Collections\Collection
 	 */
-	public function getResources()
-	{
+	public function getResources() {
 		return $this->resources;
 	}
 
 	/**
 	 * @return int
 	 */
-	public function getSorting()
-	{
+	public function getSorting() {
 		return $this->sorting;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getTitle()
-	{
+	public function getTitle() {
 		return $this->title;
 	}
 
 	/**
 	 * @param \DateTime $creationDate
 	 */
-	public function setCreationDate($creationDate)
-	{
+	public function setCreationDate($creationDate) {
 		$this->creationDate = $creationDate;
 	}
 
 	/**
 	 * @param string $description
 	 */
-	public function setDescription($description)
-	{
+	public function setDescription($description) {
 		$this->description = $description;
 	}
 
 	/**
 	 * @param \DateTime $modificationDate
 	 */
-	public function setModificationDate($modificationDate)
-	{
+	public function setModificationDate($modificationDate) {
 		$this->modificationDate = $modificationDate;
 	}
 
 	/**
 	 * @param \Doctrine\Common\Collections\Collection $resources
 	 */
-	public function setResources($resources)
-	{
+	public function setResources($resources) {
 		$this->resources = $resources;
 	}
 
 	/**
 	 * @param int $sorting
 	 */
-	public function setSorting($sorting)
-	{
+	public function setSorting($sorting) {
 		$this->sorting = $sorting;
 	}
 
 	/**
 	 * @param string $title
 	 */
-	public function setTitle($title)
-	{
+	public function setTitle($title) {
 		$this->title = $title;
 	}
-
-
-
 
 }

@@ -15,49 +15,45 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Note {
 
-    /**
-     * @var string
+	/**
+	 * @var string
 	 * @OA\ToArray
-     */
-    protected $description;
+	 */
+	protected $description;
 
-    /**
-     * @var \DateTime
+	/**
+	 * @var \DateTime
 	 * @OA\ToArray(callback="$self->format('c')")
-     */
-    protected $creationDate;
+	 */
+	protected $creationDate;
 
-    /**
-     * @return \DateTime
-     */
-    public function getCreationDate()
-    {
-        return $this->creationDate;
-    }
+	/**
+	 * @return \DateTime
+	 */
+	public function getCreationDate() {
+		return $this->creationDate;
+	}
 
-    /**
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
+	/**
+	 * @return string
+	 */
+	public function getDescription() {
+		return $this->description;
+	}
 
-    /**
-     * @param \DateTime $creationDate
-     */
-    public function setCreationDate($creationDate)
-    {
-        $this->creationDate = $creationDate;
-    }
+	/**
+	 * @param \DateTime $creationDate
+	 */
+	public function setCreationDate($creationDate) {
+		$this->creationDate = $creationDate;
+	}
 
-    /**
-     * @param string $description
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-    }
+	/**
+	 * @param string $description
+	 */
+	public function setDescription($description) {
+		$this->description = $description;
+	}
 
 
 }

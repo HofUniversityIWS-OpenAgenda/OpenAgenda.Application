@@ -49,82 +49,71 @@ class History {
 	/**
 	 * @return \DateTime
 	 */
-	public function getCreationDate()
-	{
+	public function getCreationDate() {
 		return $this->creationDate;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getEntityIdentifier()
-	{
+	public function getEntityIdentifier() {
 		return $this->entityIdentifier;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getEntityType()
-	{
+	public function getEntityType() {
 		return $this->entityType;
 	}
 
 	/**
 	 * @return mixed
 	 */
-	public function getIssuer()
-	{
+	public function getIssuer() {
 		return $this->issuer;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getPreviousData()
-	{
+	public function getPreviousData() {
 		return $this->previousData;
 	}
 
 	/**
 	 * @param \DateTime $creationDate
 	 */
-	public function setCreationDate($creationDate)
-	{
+	public function setCreationDate($creationDate) {
 		$this->creationDate = $creationDate;
 	}
 
 	/**
 	 * @param string $entityIdentifier
 	 */
-	public function setEntityIdentifier($entityIdentifier)
-	{
+	public function setEntityIdentifier($entityIdentifier) {
 		$this->entityIdentifier = $entityIdentifier;
 	}
 
 	/**
 	 * @param string $entityType
 	 */
-	public function setEntityType($entityType)
-	{
+	public function setEntityType($entityType) {
 		$this->entityType = $entityType;
 	}
 
 	/**
 	 * @param mixed $issuer
 	 */
-	public function setIssuer($issuer)
-	{
+	public function setIssuer($issuer) {
 		$this->issuer = $issuer;
 	}
 
 	/**
 	 * @param string $previousData
 	 */
-	public function setPreviousData($previousData)
-	{
+	public function setPreviousData($previousData) {
 		$this->previousData = $previousData;
 	}
-
 
 }
