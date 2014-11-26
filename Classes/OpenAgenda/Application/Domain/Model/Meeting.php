@@ -72,6 +72,14 @@ class Meeting {
 	protected $modificationDate;
 
 	/**
+	 * Initializes this object.
+	 */
+	public function __construct() {
+		$this->agendaItems = new \Doctrine\Common\Collections\ArrayCollection();
+		$this->protocolItems = new \Doctrine\Common\Collections\ArrayCollection();
+	}
+
+	/**
 	 * @return \Doctrine\Common\Collections\Collection
 	 */
 	public function getAgendaItems() {
