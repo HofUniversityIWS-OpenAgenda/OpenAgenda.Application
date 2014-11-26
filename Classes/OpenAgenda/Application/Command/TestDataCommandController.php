@@ -29,9 +29,10 @@ class TestDataCommandController extends CommandController {
 	 * !!! Without AgendaItem and ProtocolItem !!!
 	 *
 	 * @param integer $quantity The quantity of new meetings
+	 * @param integer $itemQuantity The quantity of new sub-items
 	 * @return string
 	 */
-	public function createMeetingsCommand($quantity = 5) {
+	public function createMeetingsCommand($quantity = 5, $itemQuantity = 3) {
 		$dateNow = new \DateTime('now',  new \DateTimeZone( 'GMT+1' ));
 		$this->meetingRepository->removeAll();
 
@@ -46,6 +47,18 @@ class TestDataCommandController extends CommandController {
 			$newMeeting->setStartDate(new \DateTime('2014-11-12 12:00'));
 			$newMeeting->setStatus(Meeting::STATUS_CREATED);
 			$newMeeting->setTitle('Meeting '.($counter+1));
+
+			for ($itemCounter = 0; $itemCounter < $itemQuantity; $itemCounter++) {
+				$newAgendaItem = new AgendaItem();
+				$newAgendaItem->setCreationDate(new \DateTime());
+				$newAgendaItem->setModificationDate($newAgendaItem->getCreationDate());
+				$newAgendaItem->setTitle('Item #' . ($itemCounter + 1));
+				$newAgendaItem->setDescription('Description #' . ($itemCounter + 1));
+				$newAgendaItem->setSorting($itemCounter + 1);
+
+				$newAgendaItem->setMeeting($newMeeting);
+				$newMeeting->getAgendaItems()->add($newAgendaItem);
+			}
 
 			$this->meetingRepository->add($newMeeting);
 		}
