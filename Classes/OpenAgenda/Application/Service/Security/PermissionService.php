@@ -1,5 +1,5 @@
 <?php
-namespace OpenAgenda\Application\Communication;
+namespace OpenAgenda\Application\Service\Security;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "OpenAgenda.Application".*
@@ -9,17 +9,25 @@ namespace OpenAgenda\Application\Communication;
 use TYPO3\Flow\Annotations as Flow;
 
 
-class MessagingService {
+class PermissionService {
 
-	/**
-	 * @Flow\Inject
-	 * @var \OpenAgenda\Application\Domain\Repository\MessageRepository
-	 */
-	protected $messageRepository;
 	/**
 	* @var
 	*/
-	protected $documentRenderingService;
+	protected $securityContext;
 
+	/**
+	 * @return void
+	 */
+	public function isControllerAllowed() {
+		
+	}
+
+	/**
+	 * @return void
+	 */
+	public function isControllerActionAllowed() {
+
+	}
 
 }

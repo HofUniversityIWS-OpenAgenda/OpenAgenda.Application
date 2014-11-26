@@ -1,5 +1,5 @@
 <?php
-namespace OpenAgenda\Application\Export;
+namespace OpenAgenda\Application\Service\Export;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "OpenAgenda.Application".*

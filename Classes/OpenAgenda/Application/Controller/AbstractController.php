@@ -28,13 +28,13 @@ class AbstractController extends ActionController {
 
 	/**
 	* @Flow\Inject
-	* @var \OpenAgenda\Application\Security\PermissionService
+	* @var \OpenAgenda\Application\Service\Security\PermissionService
 	*/
 	protected $permissionService;
 
 	/**
 	 * @Flow\Inject
-	 * @var \OpenAgenda\Application\Communication\MessagingService
+	 * @var \OpenAgenda\Application\Service\Communication\MessagingService
 	 */
 	protected $messagingService;
 
