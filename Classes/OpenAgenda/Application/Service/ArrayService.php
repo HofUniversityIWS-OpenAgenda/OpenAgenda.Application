@@ -27,6 +27,12 @@ class ArrayService {
 	protected $reflectionService;
 
 	/**
+	 * @var \TYPO3\Flow\Persistence\PersistenceManagerInterface
+	 * @Flow\Inject
+	 */
+	protected $persistenceManager;
+
+	/**
 	 * @var ObjectService
 	 * @Flow\Inject
 	 */
@@ -64,9 +70,12 @@ class ArrayService {
 				$propertyName,
 				static::ANNOTATION_ToArray
 			);
+
 			$propertyValue = ObjectAccess::getProperty($source, $propertyName);
 
-			if ($propertyAnnotation->getCallback() !== NULL) {
+			if ($propertyAnnotation->getUseIdentifier()) {
+				$propertyValue = $this->persistenceManager->getIdentifierByObject($propertyValue);
+			} elseif ($propertyAnnotation->getCallback() !== NULL) {
 				$propertyValue = $this->objectService->executeStringCallback(
 					$propertyAnnotation->getCallback(),
 					$propertyValue
@@ -84,7 +93,7 @@ class ArrayService {
 	}
 
 	/**
-	 * @param \Iterator $source
+	 * @param \Iterator|\ArrayAccess $source
 	 * @return array
 	 */
 	public function flattenIterator($source) {
@@ -118,7 +127,7 @@ class ArrayService {
 	 * @return bool
 	 */
 	protected function canIterate($source) {
-		return (is_array($source) || $source instanceof \Iterator);
+		return (is_array($source) || $source instanceof \Iterator || $source instanceof \ArrayAccess);
 	}
 
 }

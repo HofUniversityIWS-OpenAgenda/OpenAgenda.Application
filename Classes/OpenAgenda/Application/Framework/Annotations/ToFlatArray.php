@@ -25,10 +25,17 @@ final class ToFlatArray {
 	protected $callback;
 
 	/**
+	 * @var bool
+	 */
+	protected $useIdentifier = FALSE;
+
+	/**
 	 * @param array $values
 	 */
 	public function __construct(array $values) {
-		if (isset($values['callback'])) {
+		if (isset($values['useIdentifier'])) {
+			$this->useIdentifier = TRUE;
+		} elseif (!empty($values['callback'])) {
 			$this->callback = $values['callback'];
 		}
 	}
@@ -38,6 +45,13 @@ final class ToFlatArray {
 	 */
 	public function getCallback() {
 		return $this->callback;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function getUseIdentifier() {
+		return $this->useIdentifier;
 	}
 
 }
