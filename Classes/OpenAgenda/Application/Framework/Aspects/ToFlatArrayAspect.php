@@ -12,12 +12,12 @@ use TYPO3\Flow\Reflection\ObjectAccess;
 /**
  * Class ArrayTypeConversionAspect
  *
- * @Flow\Introduce("class(OpenAgenda\Application\Domain\Model\.*)", interfaceName="OpenAgenda\Application\Framework\Aspects\ToArrayInterface")
+ * @Flow\Introduce("class(OpenAgenda\Application\Domain\Model\.*) || within(Iterator)", interfaceName="OpenAgenda\Application\Framework\Aspects\ToFlatArrayInterface")
  * @Flow\Aspect
  * @package OpenAgenda\Application\Service\TypeConversion
  * @author Oliver Hader <oliver@typo3.org>
  */
-class ToArrayAspect {
+class ToFlatArrayAspect {
 
 	/**
 	 * @var \OpenAgenda\Application\Service\ArrayService
@@ -29,23 +29,13 @@ class ToArrayAspect {
 	 * Around advice, implements the new method "newMethod" of the
 	 * "NewInterface" interface
 	 *
-	 * @Flow\Around("method(.*->toArray())")
-	 * @param  \TYPO3\Flow\AOP\JoinPointInterface $joinPoint The current join point
+	 * @Flow\Around("method(.*->toFlatArray())")
+	 * @param \TYPO3\Flow\AOP\JoinPointInterface $joinPoint The current join point
 	 * @return array
 	 */
-	public function toArrayImplementation(\TYPO3\Flow\AOP\JoinPointInterface $joinPoint) {
+	public function toFlatArrayImplementation(\TYPO3\Flow\AOP\JoinPointInterface $joinPoint) {
 		$source = $joinPoint->getProxy();
-
-		if ($source instanceof \TYPO3\Flow\Persistence\QueryResultInterface) {
-			$result = array();
-			foreach ($source as $key => $value) {
-				$result[] = $value->toArray();
-			}
-		} else {
-			$result = $this->arrayService->convert($source);
-		}
-
-		return $result;
+		return $this->arrayService->flatten($source);
 	}
 
 }

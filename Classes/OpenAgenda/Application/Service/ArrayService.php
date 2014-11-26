@@ -18,7 +18,7 @@ use TYPO3\Flow\Reflection\ObjectAccess;
  */
 class ArrayService {
 
-	const ANNOTATION_ToArray = 'OpenAgenda\\Application\\Framework\\Annotations\\ToArray';
+	const ANNOTATION_ToArray = 'OpenAgenda\\Application\\Framework\\Annotations\\ToFlatArray';
 
 	/**
 	 * @var \TYPO3\Flow\Reflection\ReflectionService
@@ -36,7 +36,19 @@ class ArrayService {
 	 * @param mixed $source
 	 * @return array
 	 */
-	public function convert($source) {
+	public function flatten($source) {
+		if ($this->canIterate($source)) {
+			return $this->flattenIterator($source);
+		} else {
+			return $this->flattenObject($source);
+		}
+	}
+
+	/**
+	 * @param object $source
+	 * @return array
+	 */
+	public function flattenObject($source) {
 		$target = array();
 		$className = get_class($source);
 
@@ -46,7 +58,7 @@ class ArrayService {
 		);
 
 		foreach ($propertyNames as $propertyName) {
-			/** @var \OpenAgenda\Application\Framework\Annotations\ToArray $propertyAnnotation */
+			/** @var \OpenAgenda\Application\Framework\Annotations\ToFlatArray $propertyAnnotation */
 			$propertyAnnotation = $this->reflectionService->getPropertyAnnotation(
 				$className,
 				$propertyName,
@@ -61,10 +73,52 @@ class ArrayService {
 				);
 			}
 
+			if ($this->canDescend($propertyValue)) {
+				$propertyValue = $this->flatten($propertyValue);
+			}
+
 			$target[$propertyName] = $propertyValue;
 		}
 
 		return $target;
+	}
+
+	/**
+	 * @param \Iterator $source
+	 * @return array
+	 */
+	public function flattenIterator($source) {
+		if (!$this->canIterate($source)) {
+			throw new \RuntimeException(
+				'"' . get_class($source) . '" cannot be iterated',
+				1416993624
+			);
+		}
+
+		$flatArray = array();
+		foreach ($source as $key => $value) {
+			if ($this->canDescend($value)) {
+				$value = $this->flatten($value);
+			}
+			$flatArray[$key] = $value;
+		}
+		return $flatArray;
+	}
+
+	/**
+	 * @param mixed $source
+	 * @return bool
+	 */
+	protected function canDescend($source) {
+		return (is_object($source) || $this->canIterate($source));
+	}
+
+	/**
+	 * @param mixed $source
+	 * @return bool
+	 */
+	protected function canIterate($source) {
+		return (is_array($source) || $source instanceof \Iterator);
 	}
 
 }
