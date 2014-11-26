@@ -23,10 +23,15 @@ class TestDataCommandController extends CommandController {
 	protected $meetingRepository;
 
 	/**
+	 * @Flow\Inject
+	 * @var \OpenAgenda\Application\Domain\Repository\AgendaItemRepository
+	 */
+	protected $agendaItemRepository;
+
+	/**
 	 * ### meetings for testing ###
 	 *
-	 * This Command removes all existing meetings and creates new meetings (default = 5) with dummy data to the DB.
-	 * !!! Without AgendaItem and ProtocolItem !!!
+	 * This Command removes all existing meetings / AgendaItems and creates new meetings (default = 5) and new AgendaItems (default 3 for each) with dummy data to the DB.
 	 *
 	 * @param integer $quantity The quantity of new meetings
 	 * @param integer $itemQuantity The quantity of new sub-items
@@ -34,15 +39,14 @@ class TestDataCommandController extends CommandController {
 	 */
 	public function createMeetingsCommand($quantity = 5, $itemQuantity = 3) {
 		$dateNow = new \DateTime('now',  new \DateTimeZone( 'GMT+1' ));
+		$this->agendaItemRepository->removeAll();
 		$this->meetingRepository->removeAll();
 
 		for($counter = 0;$counter < $quantity; $counter++){
 
 			$newMeeting = new Meeting;
-			//$newMeeting->setAgendaItems();
 			//$newMeeting->setEndDate(new \DateTime('2014-11-12 13:00'));
 			//$newMeeting->setModificationDate(new \DateTime('2014-11-11 10:00'));
-			//$newMeeting->setProtocolItems();
 			$newMeeting->setCreationDate($dateNow);
 			$newMeeting->setStartDate(new \DateTime('2014-11-12 12:00'));
 			$newMeeting->setStatus(Meeting::STATUS_CREATED);
@@ -62,7 +66,7 @@ class TestDataCommandController extends CommandController {
 
 			$this->meetingRepository->add($newMeeting);
 		}
-		return "Created ".$quantity." meetings.";
+		return "Created ".$quantity." Meetings and ".$itemQuantity." AgendaItems for each Meeting.";
 	}
 
 }
