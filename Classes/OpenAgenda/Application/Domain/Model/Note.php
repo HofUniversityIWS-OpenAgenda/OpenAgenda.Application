@@ -6,6 +6,7 @@ namespace OpenAgenda\Application\Domain\Model;
  *                                                                        *
  *                                                                        */
 
+use OpenAgenda\Application\Framework\Annotations as OA;
 use TYPO3\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -16,11 +17,13 @@ class Note {
 
     /**
      * @var string
+	 * @OA\ToArray
      */
     protected $description;
 
     /**
      * @var \DateTime
+	 * @OA\ToArray(callback="$self->format('c')")
      */
     protected $creationDate;
 

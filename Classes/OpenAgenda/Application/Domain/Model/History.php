@@ -6,6 +6,7 @@ namespace OpenAgenda\Application\Domain\Model;
  *                                                                        *
  *                                                                        */
 
+use OpenAgenda\Application\Framework\Annotations as OA;
 use TYPO3\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -17,26 +18,31 @@ class History {
 	/**
 	 * @var \TYPO3\Flow\Security\Account
 	 * @ORM\OneToOne(mappedBy="accountIdentifier")
+	 * @OA\ToArray
 	 */
 	protected $issuer;
 
 	/**
 	 * @var string
+	 * @OA\ToArray
 	 */
 	protected $entityIdentifier;
 
 	/**
 	 * @var \string
+	 * @OA\ToArray
 	 */
 	protected $entityType;
 
 	/**
 	 * @var \string
+	 * @OA\ToArray
 	 */
 	protected $previousData;
 
 	/**
 	 * @var \DateTime
+	 * @OA\ToArray(callback="$self->format('c')")
 	 */
 	protected $creationDate;
 

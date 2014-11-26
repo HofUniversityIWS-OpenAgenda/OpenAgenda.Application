@@ -6,6 +6,7 @@ namespace OpenAgenda\Application\Domain\Model;
  *                                                                        *
  *                                                                        */
 
+use OpenAgenda\Application\Framework\Annotations as OA;
 use TYPO3\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -17,11 +18,13 @@ class ProtocolItem {
 	/**
 	 * @var \OpenAgenda\Application\Domain\Model\Meeting
 	 * @ORM\ManyToOne(inversedBy="protocolItems")
+	 * @OA\ToArray
 	 */
 	protected $meeting;
 
 	/**
 	 * @var integer
+	 * @OA\ToArray
 	 */
 	protected $sorting;
 

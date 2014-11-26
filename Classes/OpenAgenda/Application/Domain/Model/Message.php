@@ -6,6 +6,7 @@ namespace OpenAgenda\Application\Domain\Model;
  *                                                                        *
  *                                                                        */
 
+use OpenAgenda\Application\Framework\Annotations as OA;
 use TYPO3\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -17,37 +18,44 @@ class Message {
 	/**
 	 * @var \Doctrine\Common\Collections\Collection<\TYPO3\Flow\Resource\Resource>
 	 * @ORM\ManyToMany
+	 * @OA\ToArray
 	 */
 	protected $attachments;
 
 	/**
 	 * @var \TYPO3\Flow\Security\Account
 	 * @ORM\OneToOne(mappedBy="accountIdentifier")
+	 * @OA\ToArray
 	 */
 	protected $recipient;
 
 	/**
 	 * @var string
+	 * @OA\ToArray
 	 */
 	protected $subject;
 
 	/**
 	 * @var string
+	 * @OA\ToArray
 	 */
 	protected $richTextBody;
 
 	/**
 	 * @var string
+	 * @OA\ToArray
 	 */
 	protected $plainTextBody;
 
 	/**
 	 * @var integer
+	 * @OA\ToArray
 	 */
 	protected $status;
 
 	/**
 	 * @var \DateTime
+	 * @OA\ToArray(callback="$self->format('c')")
 	 */
 	protected $DateTime;
 

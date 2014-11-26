@@ -6,6 +6,7 @@ namespace OpenAgenda\Application\Domain\Model;
  *                                                                        *
  *                                                                        */
 
+use OpenAgenda\Application\Framework\Annotations as OA;
 use TYPO3\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -17,37 +18,44 @@ class AgendaItem {
 	/**
 	 * @var \OpenAgenda\Application\Domain\Model\Meeting
 	 * @ORM\ManyToOne(inversedBy="agendaItems")
+	 * @OA\ToArray
 	 */
 	protected $meeting;
 
 	/**
 	 * @var string
+	 * @OA\ToArray
 	 */
 	protected $title;
 
 	/**
 	 * @var string
+	 * @OA\ToArray
 	 */
 	protected $description;
 
 	/**
 	 * @var \DateTime
+	 * @OA\ToArray(callback="$self->format('c')")
 	 */
 	protected $creationDate;
 
 	/**
 	 * @var \DateTime
+	 * @OA\ToArray(callback="$self->format('c')")
 	 */
 	protected $modificationDate;
 
 	/**
 	 * @var integer
+	 * @OA\ToArray
 	 */
 	protected $sorting;
 
 	/**
 	 * @var \Doctrine\Common\Collections\Collection<\TYPO3\Flow\Resource\Resource>
 	 * @ORM\ManyToMany
+	 * @OA\ToArray
 	 */
 	protected $resources;
 
