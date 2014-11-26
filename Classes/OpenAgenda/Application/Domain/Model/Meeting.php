@@ -43,6 +43,7 @@ class Meeting {
 
     /**
 	 * @var \DateTime
+	 * @ORM\Column(nullable=true)
 	 * @OA\ToArray(callback="$self->format('c')")
 	 */
 	protected $endDate;
@@ -61,6 +62,7 @@ class Meeting {
 
     /**
 	 * @var \DateTime
+	 * @ORM\Column(nullable=true)
 	 * @OA\ToArray(callback="$self->format('c')")
 	 */
 	protected $modificationDate;
