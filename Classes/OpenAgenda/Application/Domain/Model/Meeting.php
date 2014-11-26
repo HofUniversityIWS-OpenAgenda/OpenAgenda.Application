@@ -15,6 +15,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Meeting {
 
+	const STATUS_CREATED = 0;
+	const STATUS_STARTED = 1;
+	const STATUS_CLOSED = 2;
+
 	/**
 	 * @var \Doctrine\Common\Collections\Collection<\OpenAgenda\Application\Domain\Model\AgendaItem>
 	 * @ORM\OneToMany(mappedBy="meeting")
