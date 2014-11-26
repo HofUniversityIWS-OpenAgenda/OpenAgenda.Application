@@ -38,17 +38,14 @@ class TestDataCommandController extends CommandController {
 	 * @return string
 	 */
 	public function createMeetingsCommand($quantity = 5, $itemQuantity = 3) {
-		$dateNow = new \DateTime('now',  new \DateTimeZone( 'GMT+1' ));
 		$this->agendaItemRepository->removeAll();
 		$this->meetingRepository->removeAll();
 
 		for($counter = 0;$counter < $quantity; $counter++){
-
 			$newMeeting = new Meeting;
-			//$newMeeting->setEndDate(new \DateTime('2014-11-12 13:00'));
-			//$newMeeting->setModificationDate(new \DateTime('2014-11-11 10:00'));
-			$newMeeting->setCreationDate($dateNow);
-			$newMeeting->setStartDate(new \DateTime('2014-11-12 12:00'));
+			$newMeeting->setCreationDate(new \DateTime());
+			$newMeeting->setModificationDate($newMeeting->getCreationDate());
+			$newMeeting->setStartDate(new \DateTime('2015-01-05 12:00'));
 			$newMeeting->setStatus(Meeting::STATUS_CREATED);
 			$newMeeting->setTitle('Meeting '.($counter+1));
 

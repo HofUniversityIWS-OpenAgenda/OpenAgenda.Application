@@ -66,7 +66,6 @@ class Meeting {
 
 	/**
 	 * @var \DateTime
-	 * @ORM\Column(nullable=true)
 	 * @OA\ToFlatArray(callback="$self->format('c')")
 	 */
 	protected $modificationDate;
