@@ -26,7 +26,7 @@ class ObjectService {
 	/**
 	 * @param string $stringCallback
 	 * @param mixed $subject
-	 * @return mixed
+	 * @return mixed|NULL
 	 * @throws \TYPO3\Flow\Reflection\Exception\PropertyNotAccessibleException
 	 */
 	public function executeStringCallback($stringCallback, $subject) {
@@ -44,6 +44,10 @@ class ObjectService {
 				$object = $subject;
 			} else {
 				$object = \TYPO3\Flow\Core\Bootstrap::$staticObjectManager->get($components['className']);
+			}
+
+			if ($object === NULL) {
+				return NULL;
 			}
 
 			$callable = array($object, $components['methodName']);
