@@ -11,6 +11,7 @@ use TYPO3\Flow\Cli\CommandController;
 use \OpenAgenda\Application\Domain\Model\Meeting;
 use \OpenAgenda\Application\Domain\Model\AgendaItem;
 use \OpenAgenda\Application\Domain\Model\ProtocolItem;
+use \OpenAgenda\Application\Domain\Model\Task;
 
 /**
  * @author Andreas Steiger <andreas.steiger@hof-university.de>
@@ -34,6 +35,24 @@ class TestDataCommandController extends CommandController {
 	 * @var \OpenAgenda\Application\Domain\Repository\ProtocolItemRepository
 	 */
 	protected $protocolItemRepository;
+
+	/**
+	 * @Flow\Inject
+	 * @var \OpenAgenda\Application\Domain\Repository\TaskRepository
+	 */
+	protected $taskRepository;
+
+	/**
+	 * @var \TYPO3\Flow\Security\AccountFactory
+	 * @Flow\Inject
+	 */
+	protected $accountFactory;
+
+	/**
+	 * @var \TYPO3\Flow\Security\AccountRepository
+	 * @Flow\Inject
+	 */
+	protected $accountRepository;
 
 	/**
 	 * ### meetings for testing ###
@@ -80,6 +99,39 @@ class TestDataCommandController extends CommandController {
 			$this->meetingRepository->add($newMeeting);
 		}
 		return "Created ".$quantity." Meetings and ".$itemQuantity." AgendaItems + ".$itemQuantity." ProtocolItems for each Meeting.";
+	}
+
+	/**
+	 * @param int $quantity Quantity of tasks to be created
+	 */
+	public function createTasksCommand($quantity = 5) {
+		$this->taskRepository->removeAll();
+		$adminAccount = $this->accountRepository->findByAccountIdentifierAndAuthenticationProviderName('admin@openagenda.org', 'DefaultProvider');
+
+		for ($counter = 0; $counter < $quantity; $counter++) {
+			$newTask = new Task();
+			$newTask->setTitle('Task #' . ($counter + 1));
+			$newTask->setDescription('Description #' . ($counter + 1));
+			$newTask->setDueDate(new \DateTime());
+			$newTask->setCreationDate(new \DateTime());
+			$newTask->setModificationDate(new \DateTime());
+			$newTask->setStatus(0);
+			$newTask->setAssignee($adminAccount);
+			$this->taskRepository->add($newTask);
+		}
+
+		$this->response->appendContent($quantity . ' tasks created' . PHP_EOL);
+	}
+
+	/**
+	 * @param string $identifier Account identifier (default: 'admin@openagenda.org')
+	 */
+	public function createAdminUserCommand($identifier = 'admin@openagenda.org') {
+		$role = 'OpenAgenda.Application:Administrator';
+		$newAccount = $this->accountFactory->createAccountWithPassword($identifier, 'password', array($role));
+		$this->accountRepository->add($newAccount);
+
+		$this->response->appendContent('Admin User "' . $identifier . '" created' . PHP_EOL);
 	}
 
 }
