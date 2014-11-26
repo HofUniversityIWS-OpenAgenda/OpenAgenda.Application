@@ -17,7 +17,7 @@ class Task {
 
 	/**
 	 * @var \TYPO3\Flow\Security\Account
-	 * @ORM\OneToOne(mappedBy="accountIdentifier")
+	 * @ORM\ManyToOne
 	 * @OA\ToFlatArray
 	 */
 	protected $assignee;
