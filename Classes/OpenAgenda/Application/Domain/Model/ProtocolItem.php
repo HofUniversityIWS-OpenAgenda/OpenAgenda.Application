@@ -18,7 +18,7 @@ class ProtocolItem {
 	/**
 	 * @var \OpenAgenda\Application\Domain\Model\Meeting
 	 * @ORM\ManyToOne(inversedBy="protocolItems")
-	 * @OA\ToFlatArray
+	 * @OA\ToFlatArray(useIdentifier=true)
 	 */
 	protected $meeting;
 
