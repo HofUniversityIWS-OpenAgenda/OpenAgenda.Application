@@ -44,7 +44,7 @@ class TestDataCommandController extends CommandController {
 			//$newMeeting->setProtocolItems();
 			$newMeeting->setCreationDate($dateNow);
 			$newMeeting->setStartDate(new \DateTime('2014-11-12 12:00'));
-			$newMeeting->setStatus(1);
+			$newMeeting->setStatus(Meeting::STATUS_CREATED);
 			$newMeeting->setTitle('Meeting '.($counter+1));
 
 			$this->meetingRepository->add($newMeeting);
