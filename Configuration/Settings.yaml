@@ -8,7 +8,7 @@ TYPO3:
         authenticationStrategy: oneToken
         providers:
           DefaultProvider:
-            provider: PersistedUsernamePasswordProvider
+            provider: 'PersistedUsernamePasswordProvider'
 
 OpenAgenda:
   Application:
