@@ -21,6 +21,7 @@ class TaskController extends AbstractController {
 	 * @return void
 	 */
 	public function listAction() {
+		$this->view->assign('value', $this->taskRepository->findAllowed()->toFlatArray());
 	}
 
 	/**
@@ -34,7 +35,7 @@ class TaskController extends AbstractController {
 	 * @return void
 	 */
 	public function showAction(Task $task) {
-		$this->view->assign('task', $task);
+		$this->view->assign('value', $task->toFlatArray());
 	}
 
 	/**

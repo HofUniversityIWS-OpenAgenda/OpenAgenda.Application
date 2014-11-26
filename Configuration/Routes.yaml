@@ -11,9 +11,29 @@
     '@action':     'index'
     '@format':     'html'
 -
-  name: 'JSON list'
+  name: 'JSON list view'
   uriPattern: '{@controller}/list.json'
   defaults:
     '@package':    'OpenAgenda.Application'
     '@action':     'list'
     '@format':     'json'
+-
+  name: 'JSON show view meeting'
+  uriPattern: '{@controller}/{meeting}/show.json'
+  defaults:
+    '@package':    'OpenAgenda.Application'
+    '@action':     'show'
+    '@format':     'json'
+  routeParts:
+    meeting:
+      objectType: 'OpenAgenda\Application\Domain\Model\Meeting'
+-
+  name: 'JSON show view task'
+  uriPattern: '{@controller}/{task}/show.json'
+  defaults:
+    '@package':    'OpenAgenda.Application'
+    '@action':     'show'
+    '@format':     'json'
+  routeParts:
+    meeting:
+      objectType: 'OpenAgenda\Application\Domain\Model\Task'
