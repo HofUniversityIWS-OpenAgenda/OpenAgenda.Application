@@ -60,6 +60,20 @@ class AgendaItem {
 	protected $resources;
 
 	/**
+	 * @param Meeting $meeting
+	 */
+	public function setMeeting(Meeting $meeting) {
+		$this->meeting = $meeting;
+	}
+
+	/**
+	 * @return Meeting
+	 */
+	public function getMeeting() {
+		return $this->meeting;
+	}
+
+	/**
 	 * @return \DateTime
 	 */
 	public function getCreationDate() {

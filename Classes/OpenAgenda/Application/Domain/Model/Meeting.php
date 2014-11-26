@@ -21,14 +21,14 @@ class Meeting {
 
 	/**
 	 * @var \Doctrine\Common\Collections\Collection<\OpenAgenda\Application\Domain\Model\AgendaItem>
-	 * @ORM\OneToMany(mappedBy="meeting")
+	 * @ORM\OneToMany(mappedBy="meeting",cascade="persist")
 	 * @OA\ToFlatArray
 	 */
 	protected $agendaItems;
 
 	/**
 	 * @var \Doctrine\Common\Collections\Collection<\OpenAgenda\Application\Domain\Model\ProtocolItem>
-	 * @ORM\OneToMany(mappedBy="meeting")
+	 * @ORM\OneToMany(mappedBy="meeting",cascade="persist")
 	 * @OA\ToFlatArray
 	 */
 	protected $protocolItems;
