@@ -25,6 +25,7 @@ angular.module("Dashboard", [])
         $scope.findUpcomingMeetings = function(meetingList){
             //search for upcoming Meetings
             $scope.upcomingMeetings = meetingList;
+
         };
 
         $scope.getNotifications = function() {
