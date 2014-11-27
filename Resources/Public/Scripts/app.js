@@ -1,4 +1,4 @@
-var Application = angular.module('OpenAgenda', ['ngRoute', 'ng-breadcrumbs', 'ApplicationControllers']);
+var Application = angular.module('OpenAgenda', ['ngRoute', 'ngResource', 'ng-breadcrumbs', 'ApplicationControllers', 'Dashboard']);
 
 Application.config(['$routeProvider',
     function($routeProvider) {

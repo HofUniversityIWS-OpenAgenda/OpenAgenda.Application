@@ -1,14 +1,5 @@
 var ApplicationControllers = angular.module('ApplicationControllers', []);
 
-ApplicationControllers.controller('DashboardCtrl', ['$scope', '$http', "breadcrumbs",
-    function ($scope, $http, breadcrumbs) {
-        console.log("Dashboard Controller Loaded");
-        $scope.breadcrumbs = breadcrumbs;
-        $http.get('/openagenda.application/dashboard/index.json').success(function(data) {
-            $scope.data = data;
-        });
-        $scope.orderProp = 'userPriority';
-    }]);
 
 ApplicationControllers.controller('MeetingCtrl', ['$scope', '$http', "breadcrumbs",
     function ($scope, $http,breadcrumbs) {
