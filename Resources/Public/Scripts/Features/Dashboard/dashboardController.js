@@ -14,17 +14,27 @@ angular.module("Dashboard", [])
 
             $scope.currentUser = "Thomas"; // From where?
 
+            $scope.events = [];
+
             $scope.meetingList = Meetinglist.query(function (data) {
                 console.log('success, got data: ', data);
                 $scope.findUpcomingMeetings(data);
+                angular.forEach( $scope.upcomingMeetings, function (meeting) {
+                    var tag = $scope.getDateFromJSONString(meeting.startDate);
+                    console.log(tag);
+                    tag.setMonth(10);       // Test zu Meetings anzeigen
+                    tag.setFullYear(2014);
+                    console.log(tag);
+                    console.log(new Date());
+                    $scope.events.push( {title: meeting.title, start: new Date(tag) });
+
+                });
             }, function (err) {
                 alert('request failed');
             });
 
             $scope.getDateFromJSONString = function (string) {
-                var all = string.substr(1, string.length - 2);
-
-                return new Date(all);
+                return new Date(string.substr(1, string.length - 2));
             };
             $scope.findUpcomingMeetings = function (meetingList) {
                 //search for upcoming Meetings
@@ -44,9 +54,7 @@ angular.module("Dashboard", [])
             var m = date.getMonth();
             var y = date.getFullYear();
 
-            $scope.events = [
-                {title: 'All Day Event', start: new Date(y, m, 1)}
-            ];
+
 
             /* event source that contains custom events on the scope */
 
