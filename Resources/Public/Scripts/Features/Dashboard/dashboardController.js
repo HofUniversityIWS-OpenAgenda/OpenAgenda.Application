@@ -2,8 +2,8 @@
  * Created by Thomas on 27.11.14.
  */
 angular.module("Dashboard", [])
-.controller('DashboardCtrl', ['$scope','$rootScope', '$resource', "breadcrumbs", "Meetinglist", "$sce",
-        function ($scope, $rootScope, $http, breadcrumbs, Meetinglist, $sce) {
+.controller('DashboardCtrl', ['$scope','$rootScope', '$resource', "breadcrumbs", "Meetinglist",
+        function ($scope, $rootScope, $http, breadcrumbs, Meetinglist) {
         console.log("Dashboard Controller Loaded");
         $scope.breadcrumbs = breadcrumbs;
         /*$http.get('/openagenda.application/dashboard/index.json').success(function(data) {
@@ -30,9 +30,6 @@ angular.module("Dashboard", [])
         $scope.getNotifications = function() {
             return $rootScope.notifications;
         };
-        $scope.t ="<div style='border: solid'>d</div>";
+        //$rootScope.changeToolBar("<div>IF NEEDED TOOLBAR</div>");
 
-        $scope.to_trusted = function() {
-            return $sce.trustAsHtml($scope.t);
-        };
     }]);
