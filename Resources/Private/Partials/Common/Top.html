@@ -1,5 +1,4 @@
-<ul class="nav navbar-top-links navbar-right">
-
+<ul class="nav navbar-top-links navbar-right" ng-controller="TobBarCtrl">
     <!-- /.dropdown -->
 
     <!-- /.dropdown -->
@@ -9,10 +8,10 @@
         </a>
         <ul class="dropdown-menu dropdown-alerts">
             <li>
-                <a href="#">
+                <a href="#" ng-repeat="notification in getNotifications()">
                     <div>
-                        <i class="fa fa-comment fa-fw"></i> New Comment
-                        <span class="pull-right text-muted small">4 minutes ago</span>
+                        <i class="fa fa-comment fa-fw"></i> notification.title
+                        <span class="pull-right text-muted small">notification.creationDate</span>
                     </div>
                 </a>
             </li>

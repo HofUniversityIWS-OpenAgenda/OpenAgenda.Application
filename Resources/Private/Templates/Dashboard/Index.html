@@ -10,10 +10,11 @@
 <!-- Page Content ------------------------------------------- -->
                 <f:section name="Content">
                     <f:render partial="Common/Breadcrumb"></f:render>
+                    <div ng-bind-html="to_trusted()"></div>
                     <div class="page-content">
                         <div class="row">
                             <div class="col-lg-12">
-                                <div class="page-header"><h1>Dashboard</h1><h4>Hallo {{currentUser}}</h4></div>
+                                <div class="page-header"><h1 ng-click="tt()">Dashboard</h1><h4>Hallo {{currentUser}}</h4></div>
 
                             </div>
                         </div>
@@ -49,7 +50,7 @@
                                                 <i class="fa fa-tasks fa-5x"></i>
                                             </div>
                                             <div class="col-xs-9 text-right">
-                                                <div class="huge">12</div>
+                                                <div class="huge">{{toBeDoneTasks.length}}</div>
                                                 <div>Noch zu erledigende Aufgaben!</div>
                                             </div>
                                         </div>
@@ -71,7 +72,7 @@
                                                 <i class="fa fa-bell fa-5x"></i>
                                             </div>
                                             <div class="col-xs-9 text-right">
-                                                <div class="huge">124</div>
+                                                <div class="huge">{{getNotifications().length}}</div>
                                                 <div>Neue Nachrichten!</div>
                                             </div>
                                         </div>
@@ -117,9 +118,9 @@
                                     <!-- /.panel-heading -->
                                     <div class="panel-body">
                                         <div class="list-group">
-                                            <a href="#" class="list-group-item">
-                                                <i class="fa fa-tasks fa-fw"></i> Task
-                                            <span class="pull-right text-muted small badge">4 minutes ago
+                                            <a href="#" class="list-group-item" ng-repeat="task in needToBeDoneTasks">
+                                                <i class="fa fa-tasks fa-fw"></i>task.title
+                                            <span class="pull-right text-muted small badge">task.dueDate
                                             </span>
                                             </a>
                                         </div>
