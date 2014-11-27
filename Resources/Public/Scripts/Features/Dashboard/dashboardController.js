@@ -2,12 +2,6 @@
  * Created by Thomas on 27.11.14.
  */
 angular.module("Dashboard", [])
-.factory('Meetinglist', ['$resource',
-    function($resource){
-        return $resource('meeting/list.json', {}, {
-            query: {method:'GET', isArray:true}
-            });
-    }])
 .controller('DashboardCtrl', ['$scope', '$http', "breadcrumbs", "Meetinglist",
     function ($scope, $http, breadcrumbs, Meetinglist) {
         console.log("Dashboard Controller Loaded");
