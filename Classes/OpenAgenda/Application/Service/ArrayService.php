@@ -10,7 +10,7 @@ use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Reflection\ObjectAccess;
 
 /**
- * Class ObjectService
+ * Class ArrayService
  *
  * @Flow\Scope("singleton")
  * @package OpenAgenda\Application\Service
