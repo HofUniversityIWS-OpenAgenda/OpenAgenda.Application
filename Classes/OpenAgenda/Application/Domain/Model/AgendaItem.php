@@ -18,7 +18,6 @@ class AgendaItem {
 	/**
 	 * @var \OpenAgenda\Application\Domain\Model\Meeting
 	 * @ORM\ManyToOne(inversedBy="agendaItems")
-	 * @OA\ToFlatArray(useIdentifier=true)
 	 */
 	protected $meeting;
 
