@@ -18,6 +18,7 @@ use TYPO3\Flow\Reflection\ObjectAccess;
  */
 class ArrayService {
 
+	const ANNOTATION_Entity = 'TYPO3\\Flow\\Annotations\\Entity';
 	const ANNOTATION_ToArray = 'OpenAgenda\\Application\\Framework\\Annotations\\ToFlatArray';
 
 	/**
@@ -40,23 +41,30 @@ class ArrayService {
 
 	/**
 	 * @param mixed $source
+	 * @param string $scopeName
 	 * @return array
 	 */
-	public function flatten($source) {
+	public function flatten($source, $scopeName = NULL) {
 		if ($this->canIterate($source)) {
-			return $this->flattenIterator($source);
+			return $this->flattenIterator($source, $scopeName);
 		} else {
-			return $this->flattenObject($source);
+			return $this->flattenObject($source, $scopeName);
 		}
 	}
 
 	/**
 	 * @param object $source
+	 * @param string $scopeName
 	 * @return array
 	 */
-	public function flattenObject($source) {
+	public function flattenObject($source, $scopeName = NULL) {
 		$target = array();
 		$className = get_class($source);
+
+		$classAnnotation = $this->reflectionService->getClassAnnotation($className, static::ANNOTATION_Entity);
+		if ($classAnnotation !== NULL) {
+			$target['__identity'] = $this->persistenceManager->getIdentifierByObject($source);
+		}
 
 		$propertyNames = $this->reflectionService->getPropertyNamesByAnnotation(
 			$className,
@@ -71,6 +79,12 @@ class ArrayService {
 				static::ANNOTATION_ToArray
 			);
 
+			// Skip property if requested scope name is not defined for the current entity property
+			$propertyScopeNames = $propertyAnnotation->getScopeNames();
+			if ($propertyScopeNames !== NULL && $scopeName !== NULL && !in_array($scopeName, $propertyScopeNames)) {
+				continue;
+			}
+
 			$propertyValue = ObjectAccess::getProperty($source, $propertyName);
 
 			if ($propertyAnnotation->getUseIdentifier()) {
@@ -83,7 +97,7 @@ class ArrayService {
 			}
 
 			if ($this->canDescend($propertyValue)) {
-				$propertyValue = $this->flatten($propertyValue);
+				$propertyValue = $this->flatten($propertyValue, $scopeName);
 			}
 
 			$target[$propertyName] = $propertyValue;
@@ -94,9 +108,10 @@ class ArrayService {
 
 	/**
 	 * @param \Iterator|\ArrayAccess $source
+	 * @param string $scopeName
 	 * @return array
 	 */
-	public function flattenIterator($source) {
+	public function flattenIterator($source, $scopeName) {
 		if (!$this->canIterate($source)) {
 			throw new \RuntimeException(
 				'"' . get_class($source) . '" cannot be iterated',
@@ -107,7 +122,7 @@ class ArrayService {
 		$flatArray = array();
 		foreach ($source as $key => $value) {
 			if ($this->canDescend($value)) {
-				$value = $this->flatten($value);
+				$value = $this->flatten($value, $scopeName);
 			}
 			$flatArray[$key] = $value;
 		}

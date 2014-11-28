@@ -35,7 +35,8 @@ class ToFlatArrayAspect {
 	 */
 	public function toFlatArrayImplementation(\TYPO3\Flow\AOP\JoinPointInterface $joinPoint) {
 		$source = $joinPoint->getProxy();
-		return $this->arrayService->flatten($source);
+		$scopeName = $joinPoint->getMethodArgument('scopeName');
+		return $this->arrayService->flatten($source, $scopeName);
 	}
 
 }

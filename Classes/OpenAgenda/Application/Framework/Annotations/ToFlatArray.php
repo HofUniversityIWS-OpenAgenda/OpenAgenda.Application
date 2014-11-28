@@ -30,6 +30,11 @@ final class ToFlatArray {
 	protected $useIdentifier = FALSE;
 
 	/**
+	 * @var array
+	 */
+	protected $scopeNames;
+
+	/**
 	 * @param array $values
 	 */
 	public function __construct(array $values) {
@@ -37,6 +42,17 @@ final class ToFlatArray {
 			$this->useIdentifier = TRUE;
 		} elseif (!empty($values['callback'])) {
 			$this->callback = $values['callback'];
+		}
+
+		if (isset($values['scope'])) {
+			if (is_array($values['scope'])) {
+				$this->scopeNames = $values['scope'];
+			} elseif (is_string($values['scope'])) {
+				$this->scopeNames = array_map(
+					'trim',
+					explode(',', $values['scope'])
+				);
+			}
 		}
 	}
 
@@ -52,6 +68,13 @@ final class ToFlatArray {
 	 */
 	public function getUseIdentifier() {
 		return $this->useIdentifier;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getScopeNames() {
+		return $this->scopeNames;
 	}
 
 }

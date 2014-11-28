@@ -18,8 +18,9 @@ use TYPO3\Flow\Reflection\ObjectAccess;
 interface ToFlatArrayInterface {
 
 	/**
+	 * @param string $scopeName
 	 * @return array
 	 */
-	public function toFlatArray();
+	public function toFlatArray($scopeName = NULL);
 
 }
