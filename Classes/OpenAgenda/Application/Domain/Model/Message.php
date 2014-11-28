@@ -18,7 +18,7 @@ class Message {
 	/**
 	 * @var \Doctrine\Common\Collections\Collection<\TYPO3\Flow\Resource\Resource>
 	 * @ORM\ManyToMany
-	 * @OA\ToFlatArray
+	 * @OA\ToFlatArray(scope="show")
 	 */
 	protected $attachments;
 
