@@ -23,8 +23,8 @@ class Message {
 	protected $attachments;
 
 	/**
-	 * @var \TYPO3\Flow\Security\Account
-	 * @ORM\OneToOne(mappedBy="accountIdentifier")
+	 * @var \TYPO3\Party\Domain\Model\Person
+	 * @ORM\OneToOne
 	 * @OA\ToFlatArray
 	 */
 	protected $recipient;
@@ -81,7 +81,7 @@ class Message {
 	}
 
 	/**
-	 * @return \TYPO3\Flow\Security\Account
+	 * @return \TYPO3\Party\Domain\Model\Person
 	 */
 	public function getRecipient() {
 		return $this->recipient;
@@ -130,9 +130,9 @@ class Message {
 	}
 
 	/**
-	 * @param \TYPO3\Flow\Security\Account $recipient
+	 * @param \TYPO3\Party\Domain\Model\Person $recipient
 	 */
-	public function setRecipient($recipient) {
+	public function setRecipient(\TYPO3\Party\Domain\Model\Person $recipient) {
 		$this->recipient = $recipient;
 	}
 
