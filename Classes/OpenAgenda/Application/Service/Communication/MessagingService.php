@@ -7,7 +7,7 @@ namespace OpenAgenda\Application\Service\Communication;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-
+use TYPO3\Flow\Security\Account;
 
 class MessagingService {
 
@@ -21,5 +21,12 @@ class MessagingService {
 	*/
 	protected $documentRenderingService;
 
+	public function prepareForAccount(Account $account, array $variables) {
+		$recipient = $account->getParty();
+		$variables['account'] = $account;
+		$variables['recipient'] = $recipient;
+
+		$message = \OpenAgenda\Application\Domain\Model\Message::create();
+	}
 
 }
