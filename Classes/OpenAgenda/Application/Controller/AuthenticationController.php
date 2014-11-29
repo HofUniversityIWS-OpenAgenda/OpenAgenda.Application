@@ -30,6 +30,18 @@ class AuthenticationController extends \TYPO3\Flow\Security\Authentication\Contr
 	protected $accountRepository;
 
 	/**
+	 * @Flow\Inject
+	 * @var \OpenAgenda\Application\Domain\Factory\PersonFactory
+	 */
+	protected $personFactory;
+
+	/**
+	 * @Flow\Inject
+	 * @var \TYPO3\Party\Domain\Repository\PartyRepository
+	 */
+	protected $partyRepository;
+
+	/**
 	 * @var array
 	 * @Flow\Inject(setting="Authentication")
 	 */
@@ -54,16 +66,18 @@ class AuthenticationController extends \TYPO3\Flow\Security\Authentication\Contr
 			$this->redirect('new');
 		}
 
-		$role = self::ROLE_DefaultRole;
-		if (!empty($this->authenticationSettings['defaultRole'])) {
-			$role = $this->authenticationSettings['defaultRole'];
-		}
-
 		$account = $this->accountFactory->createAccountWithPassword(
 			$newAccount->getUsername(),
 			$newAccount->getPassword(),
-			array($role)
+			array($this->getDefaultRoleIdentifier())
 		);
+
+		$person = $this->personFactory->createAnonymousPersonWithElectronicAddress(
+			$newAccount->getUsername()
+		);
+		$account->setParty($person);
+
+		$this->partyRepository->add($person);
 		$this->accountRepository->add($account);
 	}
 
@@ -109,6 +123,17 @@ class AuthenticationController extends \TYPO3\Flow\Security\Authentication\Contr
 		}
 
 		$this->redirectToUri('/');
+	}
+
+	/**
+	 * @return string
+	 */
+	protected function getDefaultRoleIdentifier() {
+		$roleIdentifier = self::ROLE_DefaultRole;
+		if (!empty($this->authenticationSettings['defaultRole'])) {
+			$roleIdentifier = $this->authenticationSettings['defaultRole'];
+		}
+		return $roleIdentifier;
 	}
 
 }
