@@ -30,11 +30,24 @@ class SynchronizationService {
 	protected $authenticationSettings;
 
 	/**
+	 * @Flow\Inject
+	 * @var \OpenAgenda\Application\Domain\Repository\PersonRepository
+	 */
+	protected $personRepository;
+
+	/**
+	 * @Flow\Inject
+	 * @var \OpenAgenda\Application\Domain\Repository\ElectronicAddressRepository
+	 */
+	protected $electronicAddressRepository;
+
+	/**
 	 * @param \TYPO3\Flow\Security\Account $account
 	 * @param array $ldapSearchResult
 	 */
 	public function create(\TYPO3\Flow\Security\Account $account, array $ldapSearchResult) {
-		$this->setRoles($account);
+		$this->setRoles($account, $ldapSearchResult);
+		$this->setPerson($account, $ldapSearchResult);
 	}
 
 	/**
@@ -42,17 +55,47 @@ class SynchronizationService {
 	 * @param array $ldapSearchResult
 	 */
 	public function update(\TYPO3\Flow\Security\Account $account, array $ldapSearchResult) {
-		$this->setRoles($account);
+		$this->setRoles($account, $ldapSearchResult);
+		$this->setPerson($account, $ldapSearchResult);
 	}
 
 	/**
 	 * @param \TYPO3\Flow\Security\Account $account
+	 * @param array $ldapSearchResult
 	 * @throws \TYPO3\Flow\Security\Exception\NoSuchRoleException
 	 */
-	protected function setRoles(\TYPO3\Flow\Security\Account $account) {
+	protected function setRoles(\TYPO3\Flow\Security\Account $account, array $ldapSearchResult) {
 		if (count($account->getRoles()) === 0) {
 			$role = $this->policyService->getRole($this->getDefaultRoleIdentifier());
 			$account->addRole($role);
+		}
+	}
+
+	/**
+	 * @param \TYPO3\Flow\Security\Account $account
+	 * @param array $ldapSearchResult
+	 */
+	protected function setPerson(\TYPO3\Flow\Security\Account $account, array $ldapSearchResult) {
+		if (empty($this->authenticationSettings['directory']['mailIdentifier'])) {
+			return;
+		}
+
+		$mailIdentifier = $this->authenticationSettings['directory']['mailIdentifier'];
+
+		if (empty($ldapSearchResult[$mailIdentifier])) {
+			return;
+		}
+
+		$mailAddresses = $ldapSearchResult[$mailIdentifier];
+		if (isset($mailAddresses['count'])) {
+			unset($mailAddresses['count']);
+		}
+
+		$electronicAddresses = $this->electronicAddressRepository->findByMailAddresses($mailAddresses);
+		$persons = $this->personRepository->findByElectronicAddresses($electronicAddresses->toArray());
+
+		if ($persons->count() > 0) {
+			$account->setParty($persons->getFirst());
 		}
 	}
 
