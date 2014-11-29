@@ -16,6 +16,17 @@ use Doctrine\ORM\Mapping as ORM;
 class Message {
 
 	/**
+	 * @return Message
+	 */
+	static public function create() {
+		/** @var Message $message */
+		$message = \TYPO3\Flow\Core\Bootstrap::$staticObjectManager->get(__CLASS__);
+		$message->setDateTime(new \DateTime());
+		$message->setStatus(0);
+		return $message;
+	}
+
+	/**
 	 * @var \Doctrine\Common\Collections\Collection<\TYPO3\Flow\Resource\Resource>
 	 * @ORM\ManyToMany
 	 * @OA\ToFlatArray(scope="show")
