@@ -12,8 +12,9 @@ use TYPO3\Flow\Annotations as Flow;
 class PermissionService {
 
 	/**
-	* @var
-	*/
+	 * @Flow\Inject
+	 * @var \TYPO3\Flow\Security\Context
+	 */
 	protected $securityContext;
 
 	/**
