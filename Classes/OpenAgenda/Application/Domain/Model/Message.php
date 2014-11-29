@@ -57,13 +57,13 @@ class Message {
 	 * @var \DateTime
 	 * @OA\ToFlatArray(callback="$self->format('c')")
 	 */
-	protected $DateTime;
+	protected $dateTime;
 
 	/**
 	 * @return \DateTime
 	 */
 	public function getDateTime() {
-		return $this->DateTime;
+		return $this->dateTime;
 	}
 
 	/**
@@ -109,16 +109,16 @@ class Message {
 	}
 
 	/**
-	 * @param \DateTime $DateTime
+	 * @param \DateTime $dateTime
 	 */
-	public function setDateTime($DateTime) {
-		$this->DateTime = $DateTime;
+	public function setDateTime(\DateTime $dateTime) {
+		$this->dateTime = $dateTime;
 	}
 
 	/**
 	 * @param \Doctrine\Common\Collections\Collection $attachments
 	 */
-	public function setAttachments($attachments) {
+	public function setAttachments(\Doctrine\Common\Collections\Collection $attachments) {
 		$this->attachments = $attachments;
 	}
 
