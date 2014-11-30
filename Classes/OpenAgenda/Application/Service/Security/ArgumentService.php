@@ -30,6 +30,12 @@ class ArgumentService {
 	protected $hashService;
 
 	/**
+	 * @Flow\Inject
+	 * @var \TYPO3\Flow\Persistence\PersistenceManagerInterface
+	 */
+	protected $persistenceManager;
+
+	/**
 	 * @param array $arguments
 	 * @param bool $addTimestamp
 	 * @return array
@@ -76,7 +82,30 @@ class ArgumentService {
 		}
 
 		ksort($arguments);
+		$arguments = array_map(
+			array($this, 'flatten'),
+			$this->persistenceManager->convertObjectsToIdentityArrays($arguments)
+		);
+
 		return implode('::', array_keys($arguments)) . '//' . implode('::', array_values($arguments));
+	}
+
+	/**
+	 * @param string|array $value
+	 * @return string
+	 */
+	protected function flatten($value) {
+		if (!is_array($value)) {
+			return $value;
+		}
+
+		foreach ($value as &$item) {
+			if (is_array($item)) {
+				$item = $this->flatten($item);
+			}
+		}
+
+		return implode('', $value);
 	}
 
 }
