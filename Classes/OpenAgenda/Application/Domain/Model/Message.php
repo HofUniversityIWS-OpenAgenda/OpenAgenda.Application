@@ -15,6 +15,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Message {
 
+	const STATUS_Created = 0;
+	const STATUS_Active = 2;
+	const STATUS_Failure = 5;
+	const STATUS_Delivered = 9;
+
 	/**
 	 * @return Message
 	 */
@@ -22,7 +27,7 @@ class Message {
 		/** @var Message $message */
 		$message = \TYPO3\Flow\Core\Bootstrap::$staticObjectManager->get(__CLASS__);
 		$message->setDateTime(new \DateTime());
-		$message->setStatus(0);
+		$message->setStatus(static::STATUS_Created);
 		return $message;
 	}
 
@@ -166,6 +171,13 @@ class Message {
 	 */
 	public function setSubject($subject) {
 		$this->subject = $subject;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isActive() {
+		return ($this->status === static::STATUS_Active);
 	}
 
 }
