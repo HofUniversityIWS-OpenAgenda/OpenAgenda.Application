@@ -48,6 +48,12 @@ class AuthenticationController extends \TYPO3\Flow\Security\Authentication\Contr
 	protected $authenticationSettings;
 
 	/**
+	 * @Flow\Inject
+	 * @var \OpenAgenda\Application\Service\Communication\MessagingService
+	 */
+	protected $messagingService;
+
+	/**
 	 * Shows input form to create a new account.
 	 */
 	public function newAction() {
@@ -79,6 +85,10 @@ class AuthenticationController extends \TYPO3\Flow\Security\Authentication\Contr
 
 		$this->partyRepository->add($person);
 		$this->accountRepository->add($account);
+		$this->persistenceManager->persistAll();
+
+		// @todo Validate mail delivery
+		// $this->messagingService->prepareForAccount($account, 'Account/Create');
 	}
 
 	public function confirmAction() {
