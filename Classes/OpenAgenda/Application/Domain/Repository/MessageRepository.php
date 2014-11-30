@@ -7,19 +7,28 @@ namespace OpenAgenda\Application\Domain\Repository;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use OpenAgenda\Application\Domain\Model\Meeting;
 
 /**
+ * Class MessageRepository
+ *
  * @Flow\Scope("singleton")
+ * @package OpenAgenda\Application\Domain\Repository
+ * @author Oliver Hader <oliver@typo3.org>
  */
 class MessageRepository extends AbstractRepository {
 
 	/**
-	 * @param \OpenAgenda\Application\Domain\Model\Meeting $meeting
-	 * @return object The matching object if found, otherwise NULL
+	 * @param int|array $status
+	 * @return \TYPO3\Flow\Persistence\QueryResultInterface|\OpenAgenda\Application\Domain\Model\Message[]
 	 */
-	public function findByStatus(Meeting $meeting) {
-		//return $this->persistenceManager->getObjectByIdentifier($identifier, $this->entityClassName);
+	public function findByStatus($status) {
+		if (!is_array($status)) {
+			$status = array($status);
+		}
+
+		$query = $this->createQuery();
+		$query->matching($query->in('status', $status));
+		return $query->execute();
 	}
 
 }
