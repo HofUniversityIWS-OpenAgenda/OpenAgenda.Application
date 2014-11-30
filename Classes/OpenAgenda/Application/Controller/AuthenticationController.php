@@ -86,8 +86,7 @@ class AuthenticationController extends \TYPO3\Flow\Security\Authentication\Contr
 		$this->accountRepository->add($account);
 		$this->persistenceManager->persistAll();
 
-		// @todo Validate mail delivery
-		// $this->messagingService->prepareForAccount($account, 'Account/Create');
+		$this->messagingService->prepareForAccount($account, 'Account/Create');
 	}
 
 	public function confirmAction() {
