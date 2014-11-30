@@ -21,11 +21,9 @@ angular.module("Dashboard", [])
                 $scope.findUpcomingMeetings(data);
                 angular.forEach( $scope.upcomingMeetings, function (meeting) {
                     var tag = $scope.getDateFromJSONString(meeting.startDate);
-                    console.log(tag);
-                    tag.setMonth(10);       // Test zu Meetings anzeigen
-                    tag.setFullYear(2014);
-                    console.log(tag);
-                    console.log(new Date());
+                    //tag.setMonth(10);       // Test zu Meetings anzeigen
+                    //tag.setFullYear(2014);
+
                     $scope.events.push( {title: meeting.title, start: new Date(tag) });
 
                 });
@@ -54,12 +52,6 @@ angular.module("Dashboard", [])
             var m = date.getMonth();
             var y = date.getFullYear();
 
-
-
-            /* event source that contains custom events on the scope */
-
-
-
             /* event source that calls a function on every view switch */
             $scope.eventsF = function (start, end, timezone, callback) {
                 var s = new Date(start).getTime() / 1000;
@@ -75,33 +67,6 @@ angular.module("Dashboard", [])
                 callback(events);
             };
 
-            $scope.calEventsExt = {
-                color: '#f00',
-                textColor: 'yellow',
-                events: [
-                    {
-                        type: 'party',
-                        title: 'Lunch',
-                        start: new Date(y, m, d, 12, 0),
-                        end: new Date(y, m, d, 14, 0),
-                        allDay: false
-                    },
-                    {
-                        type: 'party',
-                        title: 'Lunch 2',
-                        start: new Date(y, m, d, 12, 0),
-                        end: new Date(y, m, d, 14, 0),
-                        allDay: false
-                    },
-                    {
-                        type: 'party',
-                        title: 'Click for Google',
-                        start: new Date(y, m, 28),
-                        end: new Date(y, m, 29),
-                        url: 'http://google.com/'
-                    }
-                ]
-            };
             /* alert on eventClick */
             $scope.alertOnEventClick = function (date, jsEvent, view) {
                 $scope.alertMessage = (date.title + ' was clicked ');
@@ -165,7 +130,7 @@ angular.module("Dashboard", [])
                     header: {
                         left: 'title',
                         center: '',
-                        right: 'today prev,next'
+                        right: ''
                     },
                     eventClick: $scope.alertOnEventClick,
                     eventDrop: $scope.alertOnDrop,
