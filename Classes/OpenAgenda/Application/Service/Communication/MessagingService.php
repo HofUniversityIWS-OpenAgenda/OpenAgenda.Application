@@ -31,7 +31,7 @@ class MessagingService {
 
 	/**
 	 * @Flow\Inject
-	 * @var \TYPO3\Flow\Persistence\Generic\PersistenceManager
+	 * @var \TYPO3\Flow\Package\PackageManagerInterface
 	 */
 	protected $persistenceManager;
 
