@@ -20,6 +20,18 @@ use TYPO3\Party\Domain\Model\ElectronicAddress;
 class PersonFactory {
 
 	/**
+	 * @Flow\Inject
+	 * @var \OpenAgenda\Application\Domain\Repository\ElectronicAddressRepository
+	 */
+	protected $electronicAddressRepository;
+
+	/**
+	 * @Flow\Inject
+	 * @var \OpenAgenda\Application\Domain\Repository\PersonRepository
+	 */
+	protected $personRepository;
+
+	/**
 	 * @param string $email
 	 * @return Person
 	 */
@@ -36,6 +48,9 @@ class PersonFactory {
 		$person = new Person();
 		$person->setName($name);
 		$person->setPrimaryElectronicAddress($electronicAddress);
+
+		$this->electronicAddressRepository->add($electronicAddress);
+		$this->personRepository->add($person);
 
 		return $person;
 	}
