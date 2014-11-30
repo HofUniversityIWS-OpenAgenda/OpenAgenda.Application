@@ -5,6 +5,8 @@ namespace OpenAgenda\Application\ViewHelpers\Exception;
  * This script belongs to the TYPO3 Flow package "OpenAgenda.Application".*
  *                                                                        */
 
+use TYPO3\Flow\Annotations as Flow;
+
 /**
  * Class FallbackViewHelper
  * @package OpenAgenda\Application\ViewHelpers\Exception
