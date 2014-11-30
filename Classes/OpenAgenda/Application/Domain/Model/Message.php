@@ -24,8 +24,7 @@ class Message {
 	 * @return Message
 	 */
 	static public function create() {
-		/** @var Message $message */
-		$message = \TYPO3\Flow\Core\Bootstrap::$staticObjectManager->get(__CLASS__);
+		$message = new Message();
 		$message->setDateTime(new \DateTime());
 		$message->setStatus(static::STATUS_Created);
 		return $message;
