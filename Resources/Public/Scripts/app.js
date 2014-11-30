@@ -1,5 +1,5 @@
 var Application = angular.module('OpenAgenda', ['ngRoute', 'ngResource', 'ng-breadcrumbs',
-    'ApplicationControllers','CommonFactories', 'TopBar','Dashboard', 'Menu', 'ngSanitize',
+    'ApplicationControllers','CommonFactories', 'TopBar','Dashboard', 'Menu','Meeting', 'ngSanitize',
     'ui.calendar','ui.bootstrap']);
 
 Application.config(['$routeProvider',
@@ -13,7 +13,7 @@ Application.config(['$routeProvider',
             }).
             when('/meetings', {
                 templateUrl: '/openagenda.application/meeting/index',
-                controller: 'MeetingCtrl',
+                controller: 'MeetingIndexCtrl',
                 label: 'Meetings'
             }).
             when('/meetings/new', {

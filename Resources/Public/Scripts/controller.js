@@ -1,16 +1,5 @@
 var ApplicationControllers = angular.module('ApplicationControllers', []);
 
-
-ApplicationControllers.controller('MeetingCtrl', ['$scope', '$http', "breadcrumbs",
-    function ($scope, $http,breadcrumbs) {
-        console.log("Meeting Controller Loaded")
-        $scope.breadcrumbs = breadcrumbs;
-        console.log($scope.breadcrumbs);
-        //$http.get('/openagenda.application/meetings/index.json').success(function(data) {
-            $scope.meetings = [{"meetingId":"1", "meetingName":"Meeting 1" }];  //data;
-        //});
-        $scope.orderProp = 'startDateTime';
-    }]);
 ApplicationControllers.controller('MeetingDetailCtrl', ['$scope', '$routeParams',
     function($scope, $routeParams) {
         $scope.meeting = $routeParams.meetingId;
