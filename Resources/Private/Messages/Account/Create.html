@@ -1,0 +1,18 @@
+{namespace oa=OpenAgenda\Application\ViewHelpers}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+<oa:message.subject>Registrierung</oa:message.subject>
+<p>
+	Vielen Dank für Ihre Registrierungen. Bitte aktivieren Sie ihren Zugang durch Klick auf den folgenden Link:</p>
+<p>
+	<oa:link.hashed action="confirm" controller="Authentication" package="OpenAgenda.Application" arguments="{account: account}" as="uri">
+		{uri}
+	</oa:link.hashed>
+</p>
+</body>
+</html>

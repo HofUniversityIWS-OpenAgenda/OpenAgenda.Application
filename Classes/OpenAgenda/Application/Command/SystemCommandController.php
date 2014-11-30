@@ -16,16 +16,18 @@ class SystemCommandController extends CommandController {
 
 	/**
 	* @Flow\Inject
-	* @var \OpenAgenda\Application\Domain\Repository\MessageRepository
+	* @var \OpenAgenda\Application\Service\Communication\MessagingService
 	*/
-	protected $messageRepository;
+	protected $messagingService;
 
 	/**
 	 * Sends messages.
+	 *
 	 * @return void
+	 * @author Oliver Hader <oliver@typo3.org>
 	 */
 	public function sendMessagesCommand() {
-
+		$this->messagingService->deliver();
 	}
 
 }

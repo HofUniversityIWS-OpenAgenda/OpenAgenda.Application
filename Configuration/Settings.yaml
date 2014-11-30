@@ -45,3 +45,7 @@ OpenAgenda:
               validators:
                 UniqueEntity:
                   identityProperties: ['accountIdentifier']
+    Messaging:
+      sender:
+        mail: 'openagenda@hof-university.de'
+        name: 'OpenAgenda'
