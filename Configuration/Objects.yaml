@@ -1,0 +1,4 @@
+OpenAgenda\Application\View\MessageView:
+  properties:
+    renderingContext:
+      object: TYPO3\Fluid\Core\Rendering\RenderingContext
