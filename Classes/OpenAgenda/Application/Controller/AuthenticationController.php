@@ -83,7 +83,6 @@ class AuthenticationController extends \TYPO3\Flow\Security\Authentication\Contr
 		);
 		$account->setParty($person);
 
-		$this->partyRepository->add($person);
 		$this->accountRepository->add($account);
 		$this->persistenceManager->persistAll();
 
