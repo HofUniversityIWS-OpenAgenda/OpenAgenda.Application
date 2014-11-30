@@ -13,13 +13,32 @@ use TYPO3\Flow\Annotations as Flow;
  * @package OpenAgenda\Application\ViewHelpers\Message
  * @author Oliver Hader <oliver@typo3.org>
  */
-class HashedViewHelper extends \TYPO3\Fluid\ViewHelpers\Link\ActionViewHelper {
+class HashedViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper {
 
 	/**
 	 * @Flow\Inject
 	 * @var \OpenAgenda\Application\Service\Security\ArgumentService
 	 */
 	protected $argumentService;
+
+	/**
+	 * @var string
+	 */
+	protected $tagName = 'a';
+
+	/**
+	 * Initialize arguments
+	 *
+	 * @return void
+	 * @api
+	 */
+	public function initializeArguments() {
+		$this->registerUniversalTagAttributes();
+		$this->registerTagAttribute('name', 'string', 'Specifies the name of an anchor');
+		$this->registerTagAttribute('rel', 'string', 'Specifies the relationship between the current document and the linked document');
+		$this->registerTagAttribute('rev', 'string', 'Specifies the relationship between the linked document and the current document');
+		$this->registerTagAttribute('target', 'string', 'Specifies where to open the linked document');
+	}
 
 	/**
 	 * @param string $action
