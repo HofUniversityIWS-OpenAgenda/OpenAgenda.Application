@@ -45,13 +45,6 @@ class Meeting {
 	 * @var \DateTime
 	 * @OA\ToFlatArray(callback="$self->format('c')")
 	 */
-	protected $scheduleStartDate;
-
-	/**
-	 * @var \DateTime
-	 * @ORM\Column(nullable=true)
-	 * @OA\ToFlatArray(callback="$self->format('c')")
-	 */
 	protected $startDate;
 
 	/**
@@ -99,13 +92,6 @@ class Meeting {
 	 */
 	public function getCreationDate() {
 		return $this->creationDate;
-	}
-
-	/**
-	 * @return \DateTime
-	 */
-	public function getScheduleStartDate() {
-		return $this->$scheduleStartDate;
 	}
 
 	/**
@@ -162,13 +148,6 @@ class Meeting {
 	 */
 	public function setCreationDate($creationDate) {
 		$this->creationDate = $creationDate;
-	}
-
-	/**
-	 * @param \DateTime $scheduleStartDate
-	 */
-	public function setScheduleStartDate($scheduleStartDate) {
-		$this->scheduleStartDate = $scheduleStartDate;
 	}
 
 	/**
