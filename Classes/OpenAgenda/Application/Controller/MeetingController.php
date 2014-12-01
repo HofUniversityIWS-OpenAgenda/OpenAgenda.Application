@@ -20,6 +20,13 @@ class MeetingController extends AbstractController {
 	/**
 	 * @return void
 	 */
+	public function indexAction() {
+		$this->view->assign('meetings', $this->meetingRepository->findAll());
+	}
+
+	/**
+	 * @return void
+	 */
 	public function dashboardAction() {
 	}
 
