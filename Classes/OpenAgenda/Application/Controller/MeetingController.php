@@ -24,6 +24,26 @@ class MeetingController extends AbstractController {
 	}
 
 	/**
+	 * @param \OpenAgenda\Application\Domain\Model\Meeting $meeting
+	 * @return void
+	 */
+	public function startAction(Meeting $meeting) {
+		$meeting->setStatus(Meeting::STATUS_STARTED);
+		$meeting->setModificationDate(new \DateTime());
+		$this->meetingRepository->update($meeting);
+	}
+
+	/**
+	 * @param \OpenAgenda\Application\Domain\Model\Meeting $meeting
+	 * @return void
+	 */
+	public function closeAction(Meeting $meeting) {
+		$meeting->setStatus(Meeting::STATUS_CLOSED);
+		$meeting->setModificationDate(new \DateTime());
+		$this->meetingRepository->update($meeting);
+	}
+
+	/**
 	 * @return void
 	 */
 	public function listAction() {
