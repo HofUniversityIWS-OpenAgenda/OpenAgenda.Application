@@ -78,7 +78,7 @@ class Invitation implements ModificationInterface {
 	/**
 	 * @param \DateTime $modificationDate
 	 */
-	public function setModificationDate($modificationDate) {
+	public function setModificationDate(\DateTime $modificationDate) {
 		$this->modificationDate = $modificationDate;
 	}
 
