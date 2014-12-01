@@ -7,45 +7,45 @@ Application.config(['$routeProvider',
 
         $routeProvider.
             when('/dashboard', {
-                templateUrl: '/openagenda.application/dashboard/index',
+                templateUrl: '/template/dashboard/index.html',
                 controller: 'DashboardCtrl',
                 label: 'Dashboard'
             }).
             when('/meetings', {
-                templateUrl: '/openagenda.application/meeting/index',
+                templateUrl: '/template/meeting/index.html',
                 controller: 'MeetingIndexCtrl',
                 label: 'Meetings'
             }).
             when('/meetings/new', {
-                templateUrl: '/openagenda.application/meeting/new'//,
+                templateUrl: '/template/meeting/new.html'//,
                 //controller: 'MeetingDetailCtrl'
             }).
             when('/meetings/show/:meetingId', {
-                templateUrl: '/openagenda.application/meeting/show',
+                templateUrl: '/template/meeting/show.html',
                 controller: 'MeetingDetailCtrl'
             }).
             when('/tasks', {
-                templateUrl: '/openagenda.application/task/index',
+                templateUrl: '/template/task/index.html',
                 controller: 'TaskCtrl'
             }).
             when('/tasks/others', {
-                templateUrl: '/openagenda.application/task/index',
+                templateUrl: '/template/task/index.html',
                 controller: 'TaskCtrl'
             }).
             when('/calendar', {
-                templateUrl: 'openagenda.application/calendar/index',
+                templateUrl: '/template/calendar/index.html',
                 controller: 'CalendarCtrl'
             }).
             when('/calendar/show/:eventId', {
-                templateUrl: 'openagenda.application/calendar/show',
+                templateUrl: '/template/calendar/show.html',
                 controller: 'CalendarDetailCtrl'
             }).
             when('/settings/user/', {
-                templateUrl: '/openagenda.application/setting/index',
+                templateUrl: '/template/setting/index.html',
                 controller: 'SettingCtrl'
             }).
             when('/settings/user/profile', {
-                templateUrl: '/openagenda.application/setting/index',
+                templateUrl: '/template/setting/index.html',
                 controller: 'SettingCtrl'
             }).
             otherwise({
