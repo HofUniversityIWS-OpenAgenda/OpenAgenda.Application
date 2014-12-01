@@ -68,7 +68,7 @@ class History {
 	}
 
 	/**
-	 * @return mixed
+	 * @return \TYPO3\Party\Domain\Model\Person
 	 */
 	public function getIssuer() {
 		return $this->issuer;
@@ -103,9 +103,9 @@ class History {
 	}
 
 	/**
-	 * @param mixed $issuer
+	 * @param \TYPO3\Party\Domain\Model\Person $issuer
 	 */
-	public function setIssuer($issuer) {
+	public function setIssuer(\TYPO3\Party\Domain\Model\Person $issuer) {
 		$this->issuer = $issuer;
 	}
 
