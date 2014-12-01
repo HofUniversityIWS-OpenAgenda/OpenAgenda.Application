@@ -16,8 +16,8 @@ use Doctrine\ORM\Mapping as ORM;
 class History {
 
 	/**
-	 * @var \TYPO3\Flow\Security\Account
-	 * @ORM\OneToOne(mappedBy="accountIdentifier")
+	 * @var \TYPO3\Party\Domain\Model\Person
+	 * @ORM\OneToOne
 	 * @OA\ToFlatArray
 	 */
 	protected $issuer;
