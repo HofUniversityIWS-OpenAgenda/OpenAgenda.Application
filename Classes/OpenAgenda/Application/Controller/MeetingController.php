@@ -48,10 +48,17 @@ class MeetingController extends AbstractController {
 	 * @param \OpenAgenda\Application\Domain\Model\Meeting $newMeeting
 	 * @return void
 	 */
-	public function createAction(Meeting $newMeeting) {
+	public function createAction(Meeting $newMeeting = NULL) {
+		if ($newMeeting === NULL) {
+			$this->redirect('new');
+		}
+
+		$newMeeting->setCreationDate(new \DateTime());
+		$newMeeting->setModificationDate($newMeeting->getCreationDate());
+		$newMeeting->setStatus(Meeting::STATUS_CREATED);
+
 		$this->meetingRepository->add($newMeeting);
-		$this->addFlashMessage('Created a new meeting.');
-		$this->redirect('index');
+		$this->redirect('\OpenAgenda\Application\Resources\Templates\Dashboard\Index');
 	}
 
 	/**
@@ -67,9 +74,8 @@ class MeetingController extends AbstractController {
 	 * @return void
 	 */
 	public function updateAction(Meeting $meeting) {
+		$meeting->setModificationDate(new \DateTime());
 		$this->meetingRepository->update($meeting);
-		$this->addFlashMessage('Updated the meeting.');
-		$this->redirect('index');
 	}
 
 	/**
@@ -78,8 +84,6 @@ class MeetingController extends AbstractController {
 	 */
 	public function deleteAction(Meeting $meeting) {
 		$this->meetingRepository->remove($meeting);
-		$this->addFlashMessage('Deleted a meeting.');
-		$this->redirect('index');
 	}
 
 	/**
