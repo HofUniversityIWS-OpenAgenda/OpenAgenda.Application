@@ -36,7 +36,8 @@ class MeetingController extends AbstractController {
 	 */
 	public function startAction(Meeting $meeting) {
 		$meeting->setStatus(Meeting::STATUS_STARTED);
-		$meeting->setModificationDate(new \DateTime());
+		$meeting->setStartDate(new \DateTime());
+		$meeting->setModificationDate($meeting->getStartDate());
 		$this->meetingRepository->update($meeting);
 	}
 
@@ -46,7 +47,8 @@ class MeetingController extends AbstractController {
 	 */
 	public function closeAction(Meeting $meeting) {
 		$meeting->setStatus(Meeting::STATUS_CLOSED);
-		$meeting->setModificationDate(new \DateTime());
+		$meeting->setEndDate(new \DateTime());
+		$meeting->setModificationDate($meeting->getEndDate());
 		$this->meetingRepository->update($meeting);
 	}
 
