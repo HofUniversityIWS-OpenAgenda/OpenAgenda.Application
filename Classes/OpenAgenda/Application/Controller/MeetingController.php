@@ -18,6 +18,12 @@ class MeetingController extends AbstractController {
 	protected $meetingRepository;
 
 	/**
+	 * @Flow\Inject
+	 * @var \OpenAgenda\Application\Service\HistoryService
+	 */
+	protected $historyService;
+
+	/**
 	 * @return void
 	 */
 	public function indexAction() {
@@ -105,6 +111,7 @@ class MeetingController extends AbstractController {
 	public function updateAction(Meeting $meeting) {
 		$meeting->setModificationDate(new \DateTime());
 		$this->meetingRepository->update($meeting);
+		$this->historyService->invoke($meeting);
 	}
 
 	/**
