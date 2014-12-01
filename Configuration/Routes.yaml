@@ -37,4 +37,11 @@
   routeParts:
     task:
       objectType: 'OpenAgenda\Application\Domain\Model\Task'
-
+-
+  name: 'Template: HTML'
+  uriPattern: 'template/{controller}/{action}.{format}'
+  defaults:
+    '@package':    'OpenAgenda.Application'
+    '@controller': 'Template'
+    '@action':     'get'
+    '@format':     'html'
