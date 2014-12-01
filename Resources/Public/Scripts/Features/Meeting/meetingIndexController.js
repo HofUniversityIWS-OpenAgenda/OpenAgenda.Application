@@ -3,14 +3,30 @@
  */
 
 angular.module("Meeting", [])
+    .filter('upComing', function () {
+        return function (items, field, startDate, endDate) {
+
+            var timeStart = startDate;
+            var timeEnd = endDate; // 1 day in ms
+            return items.filter(function (item) {
+                return (item[field] > timeStart && item[field] < timeEnd);
+            });
+        };
+    })
     .controller('MeetingIndexCtrl', ['$scope', '$rootScope', '$resource', "breadcrumbs", "Meetinglist",
         function ($scope, $rootScope, $http, breadcrumbs, Meetinglist) {
             console.log("Dashboard Controller Loaded");
             $scope.breadcrumbs = breadcrumbs;
 
+            $scope.getDateFromJSONString = function (string) {
+                return new Date(string.substr(1, string.length - 2));
+            };
 
             $scope.meetingList = Meetinglist.query(function (data) {
-                console.log('success, got data: ', data);
+                angular.forEach($scope.meetingList, function (meeting) {
+                    meeting.startDate = $scope.getDateFromJSONString(meeting.startDate);
+                });
+                console.log('success, got data: ', $scope.meetingList);
 
             }, function (err) {
                 alert('request failed');
@@ -18,35 +34,35 @@ angular.module("Meeting", [])
 
             //$rootScope.changeToolBar("");
 
+            /* Datepicker*/
+            $scope.toggleMin = function () {
+                $scope.minDate = $scope.minDate ? null : new Date();
+            };
+            $scope.toggleMin();
 
-        }])
-    .controller('DatepickerCtrl', function ($scope) {
+            $scope.openStart = function ($event) {
+                $event.preventDefault();
+                $event.stopPropagation();
+                $scope.openedStart = true;
+            };
 
+            $scope.openEnd = function ($event) {
+                $event.preventDefault();
+                $event.stopPropagation();
 
+                $scope.openedEnd = true;
+            };
 
-        $scope.toggleMin = function() {
-            $scope.minDate = $scope.minDate ? null : new Date();
-        };
-        $scope.toggleMin();
+            $scope.dateOptions = {
+                formatYear: 'yyyy',
+                startingDay: 1,
+                "init-date": new Date()
+            };
 
-        $scope.open = function($event) {
-            $event.preventDefault();
-            $event.stopPropagation();
-            $scope.opened = true;
-        };
-        $scope.open2 = function($event) {
-            $event.preventDefault();
-            $event.stopPropagation();
+            var tempDate = new Date().getFullYear() + "/" + new Date().getMonth() + "/" + new Date().getDay();
+            $scope.endDate = tempDate;
+            $scope.startDate = tempDate;
 
-            $scope.opened2 = true;
-        };
-
-        $scope.dateOptions = {
-            formatYear: 'yy',
-            startingDay: 1
-        };
-
-
-        $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-        $scope.format = $scope.formats[1];
-    });
+            $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+            $scope.format = $scope.formats[1];
+        }]);

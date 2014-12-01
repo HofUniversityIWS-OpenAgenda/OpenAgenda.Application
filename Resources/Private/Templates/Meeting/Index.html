@@ -34,22 +34,22 @@
                                     <span class="input-group-addon"><i class="fa fa-search"></i></span>
                                 </div>
                             </div>
-                            <div ng-controller="DatepickerCtrl">
+                            <div>
                                 <div class="form-group">
                                     <label>Datum Anfang</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dt" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="startDate" is-open="opened" init-date="initDate" min-date="minDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
                                         <span class="input-group-btn">
-                                            <button type="button" class="btn btn-default" ng-click="open($event)"><i class="fa fa-calendar"></i></button>
+                                            <button type="button" class="btn btn-default" ng-click="openStart($event)"><i class="fa fa-calendar"></i></button>
                                         </span>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Datum Ende</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dt2" is-open="opened2" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="endDate" is-open="opened2" min-date="minDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
                                         <span class="input-group-btn">
-                                            <button type="button" class="btn btn-default" ng-click="open2($event)"><i class="fa fa-calendar"></i></button>
+                                            <button type="button" class="btn btn-default" ng-click="openEnd($event)"><i class="fa fa-calendar"></i></button>
                                         </span>
                                     </div>
                                 </div>
@@ -72,15 +72,16 @@
                                 </thead>
                                 <tbody>
 
-                                <tr class="odd gradeX" ng-repeat="meeting in meetingList  | filter:searchText">
-                                    <td>[[DATUM]]</td>
+                                <tr class="odd gradeX" ng-repeat="meeting in meetingList | upComing:'startDate':startDate:endDate | orderBy:'+startDate'  | filter:searchText">
+                                    <td>{{meeting.startDate}}</td>
+
                                     <td>{{meeting.title}}</td>
                                     <td>
                                         [[5]] <img src="../../../Public/Images/invitee_unkown.png"/>&nbsp;
                                         [[5]] <img src="../../../Public/Images/invitee_agreed.png"/>&nbsp;
                                         [[5]] <img src="../../../Public/Images/invitee_canceled.png"/>
                                     </td>
-                                    <td>[[STATUS]]</td>
+                                    <td>{{meeting.status}}</td>
                                     <td>
                                         Anzeigen <img src="../../../Public/Images/meeting_show.png"/>&nbsp;
                                         Editieren <img src="../../../Public/Images/meeting_edit.png"/>&nbsp;
