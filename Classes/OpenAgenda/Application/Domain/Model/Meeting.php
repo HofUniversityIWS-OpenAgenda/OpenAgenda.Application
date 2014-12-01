@@ -16,8 +16,10 @@ use Doctrine\ORM\Mapping as ORM;
 class Meeting {
 
 	const STATUS_CREATED = 0;
-	const STATUS_STARTED = 1;
-	const STATUS_CLOSED = 2;
+	const STATUS_COMMIT = 1;
+	const STATUS_STARTED = 2;
+	const STATUS_CLOSED = 3;
+	const STATUS_CANCEL = 4;
 
 	/**
 	 * @var \Doctrine\Common\Collections\Collection<\OpenAgenda\Application\Domain\Model\AgendaItem>
