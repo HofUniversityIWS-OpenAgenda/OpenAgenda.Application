@@ -25,4 +25,4 @@ URIs
 * Templates
   * /template/Meeting/Index.html *to read from Resource/Private/Templates/Meeting/Index.html*
   
-Identifiers can be taken from *'__identity'* properties of the accordant JSON responses.
+Identifiers can be taken from *__identity* properties of the accordant JSON responses.
