@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @Flow\Entity
  */
-class AgendaItem {
+class AgendaItem implements ModificationInterface {
 
 	/**
 	 * @var \OpenAgenda\Application\Domain\Model\Meeting

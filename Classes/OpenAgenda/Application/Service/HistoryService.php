@@ -40,6 +40,10 @@ class HistoryService {
 	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
 	 */
 	public function invoke($subject) {
+		if ($subject instanceof \OpenAgenda\Application\Domain\Model\ModificationInterface) {
+			$subject->setModificationDate(new \DateTime());
+		}
+
 		$history = new History();
 		$history->setCreationDate(new \DateTime());
 		$history->setEntityType(get_class($subject));

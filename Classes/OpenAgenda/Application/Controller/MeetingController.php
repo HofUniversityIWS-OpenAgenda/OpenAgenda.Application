@@ -42,8 +42,8 @@ class MeetingController extends AbstractController {
 	 */
 	public function startAction(Meeting $meeting) {
 		$meeting->setStatus(Meeting::STATUS_STARTED);
-		$meeting->setModificationDate(new \DateTime());
 		$this->meetingRepository->update($meeting);
+		$this->historyService->invoke($meeting);
 	}
 
 	/**
@@ -52,8 +52,8 @@ class MeetingController extends AbstractController {
 	 */
 	public function closeAction(Meeting $meeting) {
 		$meeting->setStatus(Meeting::STATUS_CLOSED);
-		$meeting->setModificationDate(new \DateTime());
 		$this->meetingRepository->update($meeting);
+		$this->historyService->invoke($meeting);
 	}
 
 	/**
@@ -87,10 +87,10 @@ class MeetingController extends AbstractController {
 		}
 
 		$newMeeting->setCreationDate(new \DateTime());
-		$newMeeting->setModificationDate($newMeeting->getCreationDate());
 		$newMeeting->setStatus(Meeting::STATUS_CREATED);
 
 		$this->meetingRepository->add($newMeeting);
+		$this->historyService->invoke($newMeeting);
 		$this->redirect('\OpenAgenda\Application\Resources\Templates\Dashboard\Index');
 	}
 
@@ -107,7 +107,6 @@ class MeetingController extends AbstractController {
 	 * @return void
 	 */
 	public function updateAction(Meeting $meeting) {
-		$meeting->setModificationDate(new \DateTime());
 		$this->meetingRepository->update($meeting);
 		$this->historyService->invoke($meeting);
 	}
@@ -118,6 +117,7 @@ class MeetingController extends AbstractController {
 	 */
 	public function deleteAction(Meeting $meeting) {
 		$this->meetingRepository->remove($meeting);
+		$this->historyService->invoke($meeting);
 	}
 
 	/**

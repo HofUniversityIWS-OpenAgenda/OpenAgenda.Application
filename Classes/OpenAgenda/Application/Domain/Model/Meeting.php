@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @Flow\Entity
  */
-class Meeting {
+class Meeting implements ModificationInterface {
 
 	const STATUS_CREATED = 0;
 	const STATUS_COMMITTED = 1;

@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @Flow\Entity
  */
-class Task {
+class Task implements ModificationInterface {
 
 	/**
 	 * @var \TYPO3\Flow\Security\Account
