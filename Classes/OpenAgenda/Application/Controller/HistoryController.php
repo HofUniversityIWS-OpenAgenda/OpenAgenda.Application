@@ -44,9 +44,8 @@ class HistoryController extends ActionController {
 	 * @return void
 	 */
 	public function createAction(History $newHistory) {
+		$newHistory->setCreationDate(new \DateTime());
 		$this->historyRepository->add($newHistory);
-		$this->addFlashMessage('Created a new history.');
-		$this->redirect('index');
 	}
 
 	/**
