@@ -60,16 +60,6 @@ class HistoryController extends ActionController {
 	 * @param \OpenAgenda\Application\Domain\Model\History $history
 	 * @return void
 	 */
-	public function updateAction(History $history) {
-		$this->historyRepository->update($history);
-		$this->addFlashMessage('Updated the history.');
-		$this->redirect('index');
-	}
-
-	/**
-	 * @param \OpenAgenda\Application\Domain\Model\History $history
-	 * @return void
-	 */
 	public function deleteAction(History $history) {
 		$this->historyRepository->remove($history);
 		$this->addFlashMessage('Deleted a history.');
