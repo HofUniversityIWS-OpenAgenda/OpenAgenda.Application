@@ -93,9 +93,15 @@ class MessagingService {
 				$this->messageRepository->update($message);
 				$this->persistenceManager->persistAll();
 
-				$this->createMailMessage($message)->send();
+				$mailMessage = $this->createMailMessage($message);
+				$mailMessage->send();
 
-				$message->setStatus(Message::STATUS_Delivered);
+				if (count($mailMessage->getFailedRecipients()) === 0) {
+					$message->setStatus(Message::STATUS_Delivered);
+				} else {
+					$message->setStatus(Message::STATUS_Failure);
+				}
+
 				$this->messageRepository->update($message);
 				$this->persistenceManager->persistAll();
 			} catch (\Exception $exception) {
