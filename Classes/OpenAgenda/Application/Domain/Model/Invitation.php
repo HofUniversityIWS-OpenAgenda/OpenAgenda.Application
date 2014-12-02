@@ -16,8 +16,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Invitation implements ModificationInterface {
 
 	/**
-	 * @var \TYPO3\Flow\Security\Account
-	 * @ORM\ManyToOne(inversedBy="accountIdentifier")
+	 * @var \TYPO3\Party\Domain\Model\Person
+	 * @ORM\ManyToMany
 	 * @OA\ToFlatArray
 	 */
 	protected $participant;
@@ -55,7 +55,7 @@ class Invitation implements ModificationInterface {
 	}
 
 	/**
-	 * @return mixed
+	 * @return \TYPO3\Party\Domain\Model\Person
 	 */
 	public function getParticipant() {
 		return $this->participant;
@@ -83,7 +83,7 @@ class Invitation implements ModificationInterface {
 	}
 
 	/**
-	 * @param mixed $participant
+	 * @param \TYPO3\Party\Domain\Model\Person $participant
 	 */
 	public function setParticipant($participant) {
 		$this->participant = $participant;
