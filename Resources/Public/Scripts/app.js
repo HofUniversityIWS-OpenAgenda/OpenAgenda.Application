@@ -17,8 +17,9 @@ Application.config(['$routeProvider',
                 label: 'Meetings'
             }).
             when('/meetings/new', {
-                templateUrl: '/template/meeting/new.html'//,
-                //controller: 'MeetingDetailCtrl'
+                templateUrl: '/template/meeting/new.html',
+                controller: 'MeetingCreateCtrl',
+                label: 'Meeting anlegen'
             }).
             when('/meeting/show/:meetingId', {
                 templateUrl: '/template/meeting/show.html',

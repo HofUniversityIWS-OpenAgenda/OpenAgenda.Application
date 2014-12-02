@@ -1,18 +1,17 @@
-<f:layout name="Default" />
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"
+      xmlns:ng="http://typo3.org/ns/Google/AngularJs/ViewHelpers"
+      xmlns:twbs="http://typo3.org/ns/Twitter/Bootstrap/ViewHelpers"
+      xmlns:oa="http://typo3.org/ns/OpenAgenda/Application/ViewHelpers"
+      xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
 
-<f:section name="Title">Edit meeting "{meeting.name}"</f:section>
+<f:layout name="Content"></f:layout>
 
+<!-- Page Content ------------------------------------------- -->
 <f:section name="Content">
-	<f:form action="update" object="{meeting}" objectName="meeting">
-		<ol>
-			<li>
-				<label for="name">Name</label>
-				<f:form.textfield property="name" id="name" />
-			</li>
-		
-			<li>
-				<f:form.submit value="Update" />
-			</li>
-		</ol>
-	</f:form>
+    <f:render partial="Common/Breadcrumb"></f:render>
+edit
 </f:section>
+<!-- Page Content ------------------------------------------- -->
+
+</html>

@@ -84,9 +84,15 @@ div.form-group
 {
     margin-top: 10px;
 }
-img-user {
+.img-user {
     height: 150px;
     width: auto;
+}
+.top-border {
+    border-color: #eee;
+    border-width: 1px;
+    border-top-style: solid;
+
 }
 
 @media(min-width:768px)
