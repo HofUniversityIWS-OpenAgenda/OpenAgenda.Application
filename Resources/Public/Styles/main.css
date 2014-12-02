@@ -54,6 +54,10 @@
 {
     padding-left: 53px;
 }
+.navbar
+{
+    margin-bottom:0px;
+}
 
 .breadcrumb
 {
@@ -94,6 +98,15 @@ div.form-group
     border-top-style: solid;
 
 }
+.editable-click
+{
+    color: #ffffff;
+}
+.editable-click:hover
+{
+    color: #ffffff;
+}
+
 
 @media(min-width:768px)
 {

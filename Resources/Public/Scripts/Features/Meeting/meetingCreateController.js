@@ -9,4 +9,19 @@ angular.module("Meeting")
     function ($scope, $rootScope, $http, breadcrumbs, Meetinglist) {
         $scope.breadcrumbs = breadcrumbs;
         console.log("Create meeting Conroller loaded");
-        }]);
+        $scope.meeting;
+
+        $scope.$watchCollection('meeting', function(newValue, oldValue) {
+            console.log(newValue);
+        });
+    }])
+    .directive("pointMe", function() {
+        return {
+            restrict : "AC",
+            link : function(scope, element, attrs) {
+
+                element.css("cursor", "pointer");
+
+            }
+        };
+    });
