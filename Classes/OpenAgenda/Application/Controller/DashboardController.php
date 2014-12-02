@@ -17,11 +17,4 @@ class DashboardController extends AbstractController {
 		
 	}
 
-	/**
-	 * @param \OpenAgenda\Application\Domain\Model\Meeting $meeting
-	 * @return void
-	 */
-	public function showAction(Meeting $meeting) {
-		$this->view->assign('meeting', $meeting);
-	}
 }
