@@ -92,6 +92,7 @@ class Meeting implements ModificationInterface {
 	public function __construct() {
 		$this->agendaItems = new \Doctrine\Common\Collections\ArrayCollection();
 		$this->protocolItems = new \Doctrine\Common\Collections\ArrayCollection();
+		$this->invitations = new \Doctrine\Common\Collections\ArrayCollection();
 	}
 
 	/**
@@ -134,6 +135,13 @@ class Meeting implements ModificationInterface {
 	 */
 	public function getProtocolItems() {
 		return $this->protocolItems;
+	}
+
+	/**
+	 * @return \Doctrine\Common\Collections\Collection
+	 */
+	public function getInvitations() {
+		return $this->invitations;
 	}
 
 	/**
@@ -197,6 +205,13 @@ class Meeting implements ModificationInterface {
 	 */
 	public function setProtocolItems($protocolItems) {
 		$this->protocolItems = $protocolItems;
+	}
+
+	/**
+	 * @param \Doctrine\Common\Collections\Collection $invitations
+	 */
+	public function setInvitations($invitations) {
+		$this->invitations = $invitations;
 	}
 
 	/**
