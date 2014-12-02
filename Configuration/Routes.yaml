@@ -45,3 +45,16 @@
     '@controller': 'Template'
     '@action':     'get'
     '@format':     'html'
+-
+  name: 'Registration'
+  uriPattern: 'registration/{account}/{@action}/{_time}-{_hash}'
+  defaults:
+    '@package':    'OpenAgenda.Application'
+    '@controller': 'Authentication'
+    '@format':     'html'
+  routeParts:
+    account:
+      handler:    'OpenAgenda\Application\Routing\EntityHandler'
+      options:
+        objectType: '\TYPO3\Flow\Security\Account'
+        processInvalid: true

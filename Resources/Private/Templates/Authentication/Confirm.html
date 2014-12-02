@@ -1,0 +1,79 @@
+{namespace ng=Google\AngularJs\ViewHelpers}
+{namespace twbs=TYPO3\Twitter\Bootstrap\ViewHelpers}
+{namespace oa=OpenAgenda\Application\ViewHelpers}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>OpenAgenda</title>
+
+	<!-- Bootstrap Core CSS -->
+
+	<twbs:include version="3.1" includeJQuery="true" />
+
+	<!-- Custom CSS -->
+	<link href="../../../Public/Styles/lib/sb-admin-2.css" rel="stylesheet">
+	<link href="../../../Public/Styles/main.css" rel="stylesheet">
+
+	<f:comment>
+		<!-- Custom Fonts -->
+		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	</f:comment>
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-4 col-md-offset-4">
+			<div class="login-panel panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Registrieren</h3>
+					<a href="#">Kennwort vergessen?</a>
+				</div>
+
+				<div class="panel-body">
+					<f:if condition="{success}">
+						<f:then>
+							<h4>Zugang aktiviert</h4>
+							<p>
+								Ihr Zugang wurde erfolgreich aktiviert.
+							</p>
+						</f:then>
+						<f:else>
+							<h4>Ungültiger Link</h4>
+							<p>
+								Ihr Zugang konnte nich aktiviert werden, da der Link ungültig ist.
+							</p>
+						</f:else>
+					</f:if>
+
+					<p>
+						<f:link.action action="login">zurück zum Login</f:link.action>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="js/plugins/metisMenu/metisMenu.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="js/sb-admin-2.js"></script>
+
+</body>
+</html>

@@ -54,6 +54,12 @@ class AuthenticationController extends \TYPO3\Flow\Security\Authentication\Contr
 	protected $messagingService;
 
 	/**
+	 * @Flow\Inject
+	 * @var \OpenAgenda\Application\Service\Security\ArgumentService
+	 */
+	protected $argumentService;
+
+	/**
 	 * Shows input form to create a new account.
 	 */
 	public function newAction() {
@@ -78,6 +84,9 @@ class AuthenticationController extends \TYPO3\Flow\Security\Authentication\Contr
 			array($this->getDefaultRoleIdentifier())
 		);
 
+		// Disable account until it has been confirmed:
+		$account->setExpirationDate(\DateTime::createFromFormat('U', 0));
+
 		$person = $this->personFactory->createAnonymousPersonWithElectronicAddress(
 			$newAccount->getUsername()
 		);
@@ -89,8 +98,23 @@ class AuthenticationController extends \TYPO3\Flow\Security\Authentication\Contr
 		$this->messagingService->prepareForAccount($account, 'Account/Create');
 	}
 
-	public function confirmAction() {
+	/**
+	 * @param \TYPO3\Flow\Security\Account $account
+	 */
+	public function confirmAction(\TYPO3\Flow\Security\Account $account = NULL) {
+		if ($account === NULL || $account->getExpirationDate() === NULL) {
+			return;
+		}
 
+		try {
+			$this->argumentService->validate($this->request->getArguments());
+			$account->setExpirationDate(NULL);
+			$this->accountRepository->update($account);
+		} catch (\TYPO3\Flow\Security\Exception $exception) {
+			return;
+		}
+
+		$this->view->assign('success', TRUE);
 	}
 
 	public function forgotAction() {
