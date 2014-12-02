@@ -11,11 +11,10 @@
     '@action':     'index'
     '@format':     'html'
 -
-  name: 'All lists: JSON'
-  uriPattern: '{@controller}/list.json'
+  name: 'All actions: JSON'
+  uriPattern: '{@controller}/{@action}.json'
   defaults:
     '@package':    'OpenAgenda.Application'
-    '@action':     'list'
     '@format':     'json'
 -
   name: 'Meeting: JSON'
