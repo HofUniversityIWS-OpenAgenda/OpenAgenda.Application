@@ -85,8 +85,6 @@ class TestDataCommandController extends CommandController {
 		$this->meetingRepository->removeAll();
 
 		$adminAccount = $this->accountRepository->findByAccountIdentifierAndAuthenticationProviderName('admin@openagenda.org', 'DefaultProvider');
-		$adminPerson = $this->personFactory->createAnonymousPersonWithElectronicAddress($adminAccount->getAccountIdentifier());
-
 
 		for($counter = 0;$counter < $quantity; $counter++){
 			$newMeeting = new Meeting;
@@ -118,7 +116,7 @@ class TestDataCommandController extends CommandController {
 
 			for ($invitationCounter = 0; $invitationCounter < $invitations; $invitationCounter++) {
 				$newInvitation = new Invitation();
-				$newInvitation->setParticipant($adminPerson);
+				$newInvitation->setParticipant($adminAccount->getParty());
 				$newInvitation->setStatus(Invitation::STATUS_OPEN);
 				$newInvitation->setCreationDate(new \DateTime());
 				$newInvitation->setModificationDate($newInvitation->getCreationDate());
@@ -158,11 +156,22 @@ class TestDataCommandController extends CommandController {
 	 * @param string $identifier Account identifier (default: 'admin@openagenda.org')
 	 */
 	public function createAdminUserCommand($identifier = 'admin@openagenda.org') {
-		$role = 'OpenAgenda.Application:Administrator';
-		$newAccount = $this->accountFactory->createAccountWithPassword($identifier, 'password', array($role));
-		$this->accountRepository->add($newAccount);
+		$account = $this->accountRepository->findByAccountIdentifierAndAuthenticationProviderName($identifier, 'DefaultProvider');
 
-		$this->response->appendContent('Admin User "' . $identifier . '" created' . PHP_EOL);
+		if ($account === NULL) {
+			$role = 'OpenAgenda.Application:Administrator';
+			$account = $this->accountFactory->createAccountWithPassword($identifier, 'password', array($role));
+			$this->accountRepository->add($account);
+			$this->response->appendContent('Admin User "' . $identifier . '" created' . PHP_EOL);
+		}
+
+		if ($account->getParty() === NULL) {
+			$person = $this->personFactory->createAnonymousPersonWithElectronicAddress($identifier);
+			$account->setParty($person);
+			$this->accountRepository->update($account);
+			$this->response->appendContent('Admin Person "' . $identifier . '" created' . PHP_EOL);
+		}
+
 	}
 
 }
