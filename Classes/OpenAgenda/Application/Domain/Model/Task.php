@@ -122,7 +122,7 @@ class Task implements ModificationInterface {
 	}
 
 	/**
-	 * @param sting $description
+	 * @param string $description
 	 */
 	public function setDescription($description) {
 		$this->description = $description;
