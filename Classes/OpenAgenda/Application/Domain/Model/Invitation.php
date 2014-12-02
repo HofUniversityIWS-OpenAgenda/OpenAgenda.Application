@@ -20,6 +20,12 @@ class Invitation implements ModificationInterface {
 	const STATUS_CANCELED = 2;
 
 	/**
+	 * @var \OpenAgenda\Application\Domain\Model\Meeting
+	 * @ORM\ManyToOne(inversedBy="invitations")
+	 */
+	protected $meeting;
+
+	/**
 	 * @var \TYPO3\Party\Domain\Model\Person
 	 * @ORM\ManyToMany
 	 * @OA\ToFlatArray
@@ -43,6 +49,13 @@ class Invitation implements ModificationInterface {
 	 * @OA\ToFlatArray(callback="$self->format('c')")
 	 */
 	protected $modificationDate;
+
+	/**
+	 * @return Meeting
+	 */
+	public function getMeeting() {
+		return $this->meeting;
+	}
 
 	/**
 	 * @return \DateTime
@@ -70,6 +83,13 @@ class Invitation implements ModificationInterface {
 	 */
 	public function getStatus() {
 		return $this->status;
+	}
+
+	/**
+	 * @param Meeting $meeting
+	 */
+	public function setMeeting($meeting) {
+		$this->meeting = $meeting;
 	}
 
 	/**
