@@ -12,6 +12,7 @@ use \OpenAgenda\Application\Domain\Model\Meeting;
 use \OpenAgenda\Application\Domain\Model\AgendaItem;
 use \OpenAgenda\Application\Domain\Model\ProtocolItem;
 use \OpenAgenda\Application\Domain\Model\Task;
+use \OpenAgenda\Application\Domain\Model\Invitation;
 
 /**
  * @author Andreas Steiger <andreas.steiger@hof-university.de>
@@ -38,6 +39,12 @@ class TestDataCommandController extends CommandController {
 
 	/**
 	 * @Flow\Inject
+	 * @var \OpenAgenda\Application\Domain\Repository\InvitationRepository
+	 */
+	protected $invitationRepository;
+
+	/**
+	 * @Flow\Inject
 	 * @var \OpenAgenda\Application\Domain\Repository\TaskRepository
 	 */
 	protected $taskRepository;
@@ -47,6 +54,13 @@ class TestDataCommandController extends CommandController {
 	 * @Flow\Inject
 	 */
 	protected $accountFactory;
+
+
+	/**
+	 * @var \OpenAgenda\Application\Domain\Factory\PersonFactory
+	 * @Flow\Inject
+	 */
+	protected $personFactory;
 
 	/**
 	 * @var \TYPO3\Flow\Security\AccountRepository
@@ -61,12 +75,18 @@ class TestDataCommandController extends CommandController {
 	 *
 	 * @param integer $quantity The quantity of new meetings
 	 * @param integer $itemQuantity The quantity of new sub-items
+	 * @param integer $invitations The quantity of Invitations
 	 * @return string
 	 */
-	public function createMeetingsCommand($quantity = 5, $itemQuantity = 3) {
+	public function createMeetingsCommand($quantity = 5, $itemQuantity = 3, $invitations = 1) {
 		$this->agendaItemRepository->removeAll();
 		$this->protocolItemRepository->removeAll();
+		$this->invitationRepository->removeAll();
 		$this->meetingRepository->removeAll();
+
+		$adminAccount = $this->accountRepository->findByAccountIdentifierAndAuthenticationProviderName('admin@openagenda.org', 'DefaultProvider');
+		$adminPerson = $this->personFactory->createAnonymousPersonWithElectronicAddress($adminAccount->getAccountIdentifier());
+
 
 		for($counter = 0;$counter < $quantity; $counter++){
 			$newMeeting = new Meeting;
@@ -94,6 +114,17 @@ class TestDataCommandController extends CommandController {
 
 				$newProtocolItem->setMeeting($newMeeting);
 				$newMeeting->getProtocolItems()->add($newProtocolItem);
+			}
+
+			for ($invitationCounter = 0; $invitationCounter < $invitations; $invitationCounter++) {
+				$newInvitation = new Invitation();
+				$newInvitation->setParticipant($adminPerson);
+				$newInvitation->setStatus(Invitation::STATUS_OPEN);
+				$newInvitation->setCreationDate(new \DateTime());
+				$newInvitation->setModificationDate($newInvitation->getCreationDate());
+
+				$newInvitation->setMeeting($newMeeting);
+				//$newMeeting->getInvitations()->add($newInvitation);
 			}
 
 			$this->meetingRepository->add($newMeeting);
