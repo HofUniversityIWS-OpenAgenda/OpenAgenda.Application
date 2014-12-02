@@ -1,0 +1,35 @@
+language: php
+
+php:
+  - 5.3
+  - 5.4
+  - 5.5
+  - 5.6
+
+env:
+  - DB=mysql
+
+services:
+  - memcached
+  - redis-server
+
+before_script:
+  - if [ -e ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini ]; then echo "extension = memcache.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
+  - if [ -e ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini ]; then echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
+  - git clone https://github.com/OpenAgenda/OpenAgenda.Base.git OpenAgenda.Base/
+  - cd OpenAgenda.Base/
+  - export FLOW_CONTEXT=Testing/Travis
+  - sudo apt-get install parallel
+  - composer self-update
+  - composer install
+
+script:
+  - >
+    echo;
+    echo "Running php lint";
+    /bin/bash -c "
+        if ! find Packages/Application/ -name \*.php | parallel --gnu 'php -l {}' > /tmp/errors 2>&1; then
+            grep -v \"No syntax errors detected in\" /tmp/errors;
+            exit 99;
+        fi
+    "
