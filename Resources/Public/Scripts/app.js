@@ -23,7 +23,7 @@ Application.config(['$routeProvider',
             }).
             when('/meeting/show/:meetingId', {
                 templateUrl: '/template/meeting/show.html',
-                controller: 'MeetingDetailCtrl'
+                controller: 'MeetingShowCtrl'
             }).
             when('/tasks', {
                 templateUrl: '/template/task/index.html',
