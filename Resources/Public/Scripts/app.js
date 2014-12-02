@@ -40,12 +40,12 @@ Application.config(['$routeProvider',
                 templateUrl: '/template/calendar/show.html',
                 controller: 'CalendarDetailCtrl'
             }).
-            when('/settings/user/', {
-                templateUrl: '/template/setting/index.html',
+            when('/settings/user', {
+                templateUrl: '/template/setting/userSetting.html',
                 controller: 'SettingCtrl'
             }).
             when('/settings/user/profile', {
-                templateUrl: '/template/setting/index.html',
+                templateUrl: '/template/setting/userProfile.html',
                 controller: 'SettingCtrl'
             }).
             otherwise({

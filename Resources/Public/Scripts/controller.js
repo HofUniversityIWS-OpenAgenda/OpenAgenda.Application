@@ -27,6 +27,7 @@ ApplicationControllers.controller('CalendarDetailCtrl', ['$scope', '$routeParams
 
 ApplicationControllers.controller('SettingCtrl', ['$scope', '$http',
     function ($scope, $http) {
+        console.log("Settings Controller Loaded");
         $http.get('/openagenda.application/setting/index.json').success(function(data) {
             $scope.setting = data;
         });

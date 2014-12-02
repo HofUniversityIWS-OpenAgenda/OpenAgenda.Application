@@ -20,7 +20,7 @@ angular.module("Dashboard", [])
                 console.log('success, got data: ', data);
                 $scope.findUpcomingMeetings(data);
                 angular.forEach( $scope.upcomingMeetings, function (meeting) {
-                    var tag = $scope.getDateFromJSONString(meeting.startDate);
+                    var tag = $scope.getDateFromJSONString(meeting.scheduledStartDate);
                     //tag.setMonth(10);       // Test zu Meetings anzeigen
                     //tag.setFullYear(2014);
 

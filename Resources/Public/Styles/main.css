@@ -80,6 +80,14 @@ a.list-group-item
 {
     color:#555;
 }
+div.form-group
+{
+    margin-top: 10px;
+}
+img-user {
+    height: 150px;
+    width: auto;
+}
 
 @media(min-width:768px)
 {
