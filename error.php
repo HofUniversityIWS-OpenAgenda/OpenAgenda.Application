@@ -1,0 +1,2 @@
+<?php
+THIS_IS_WRONG
