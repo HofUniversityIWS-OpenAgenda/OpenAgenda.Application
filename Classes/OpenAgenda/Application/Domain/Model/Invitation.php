@@ -15,6 +15,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Invitation implements ModificationInterface {
 
+	const STATUS_OPEN = 0;
+	const STATUS_COMMITTED = 1;
+	const STATUS_CANCELED = 2;
+
 	/**
 	 * @var \TYPO3\Party\Domain\Model\Person
 	 * @ORM\ManyToMany
