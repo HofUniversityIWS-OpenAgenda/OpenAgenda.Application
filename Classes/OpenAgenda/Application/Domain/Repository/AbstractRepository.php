@@ -26,11 +26,4 @@ class AbstractRepository extends Repository {
 		//return $this->persistenceManager->getObjectByIdentifier($identifier, $this->entityClassName);
 	}
 
-	/**
-	* @return object The matching object if found, otherwise NULL
-	*/
-	public function findByAccount() {
-		//return $this->persistenceManager->getObjectByIdentifier($identifier, $this->entityClassName);
-	}
-
 }
