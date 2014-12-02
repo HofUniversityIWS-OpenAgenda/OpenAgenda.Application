@@ -120,7 +120,8 @@ class MessagingService {
 				=> $message->getRecipient()->getName()->getFullName()
 		);
 
-		return (new \TYPO3\SwiftMailer\Message())
+		$mailMessage = new \TYPO3\SwiftMailer\Message();
+		return $mailMessage
 			->setSender($sender)
 			->setFrom($sender)
 			->setTo($recipient)
