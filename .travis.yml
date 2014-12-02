@@ -17,9 +17,10 @@ before_script:
   - if [ -e ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini ]; then echo "extension = memcache.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
   - if [ -e ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini ]; then echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
   - git clone https://github.com/OpenAgenda/OpenAgenda.Base.git OpenAgenda.Base/
-  - cd OpenAgenda.Base/
-  - export FLOW_CONTEXT=Testing/Travis
   - sudo apt-get install parallel
+  - cd OpenAgenda.Base/
+  - mysql -e 'CREATE DATABASE openagenda DEFAULT CHARACTER SET "utf8" DEFAULT COLLATE "utf8_unicode_ci";'
+  - export FLOW_CONTEXT=Testing/Travis
   - composer self-update
   - composer install
   - ./flow doctrine:migrate
