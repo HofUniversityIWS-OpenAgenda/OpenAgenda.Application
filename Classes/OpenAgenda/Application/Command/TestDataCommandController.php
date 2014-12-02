@@ -127,7 +127,10 @@ class TestDataCommandController extends CommandController {
 
 			$this->meetingRepository->add($newMeeting);
 		}
-		return "Created ".$quantity." Meetings and ".$itemQuantity." AgendaItems + ".$itemQuantity." ProtocolItems for each Meeting.";
+
+		$this->response->appendContent('Created ' . $quantity . ' Meetings' . PHP_EOL);
+		$this->response->appendContent('+ with each having ' . $itemQuantity . ' AgendaItems' . PHP_EOL);
+		$this->response->appendContent('+ with each having ' . $itemQuantity . ' ProtocolItems' . PHP_EOL);
 	}
 
 	/**
