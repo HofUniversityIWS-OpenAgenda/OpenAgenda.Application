@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"
+      xmlns:ng="http://typo3.org/ns/Google/AngularJs/ViewHelpers"
+      xmlns:twbs="http://typo3.org/ns/Twitter/Bootstrap/ViewHelpers"
+      xmlns:oa="http://typo3.org/ns/OpenAgenda/Application/ViewHelpers"
+      xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
+
+<f:layout name="Content"></f:layout>
+
+<!-- Page Content ------------------------------------------- -->
+<f:section name="Content">
+    <f:render partial="Common/Breadcrumb"></f:render>
+    <div class="page-content">
+
+        <div class="col-lg-12">
+            <h1 class="page-header">Benutzereinstellungen</h1>
+        </div>
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-bell fa-fw"></i>Benachrichtigungsvarianten</h3>
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8 col-xs-12">
+                            <label>Mich informieren, wenn sich...</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div>...wenn sich die Agenda ändert</div>
+                        <label class="checkbox-inline">
+                            <input type="checkbox">wöchentlich
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox">täglich
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox">sofort
+                        </label>
+
+                    </div>
+                    <div class="form-group">
+                        <div>...wenn sich die Beschreibung ändert</div>
+                        <label class="checkbox-inline">
+                            <input type="checkbox">wöchentlich
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox">täglich
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox">sofort
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <div> ...wenn sich der Termin ändert</div>
+                        <label class="checkbox-inline">
+                            <input type="checkbox">wöchentlich
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox">täglich
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox">sofort
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-bell fa-fw"></i>Tag und Uhrzeit</h3>
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8 col-xs-12">
+                            <label>Mich informieren, wenn sich...</label>
+                        </div>
+                    </div>
+
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                            <label style="width: 200px;">Uhrzeit der Benachrichtigung</label>
+                            <input type="text" class="form-control" placeholder="00" style="width: 50px">
+                        </div>
+                        <div class="form-group">
+                            <label>:</label>
+                            <input type="text" class="form-control" placeholder="00" style="width: 50px">
+                            <label> Uhr</label>
+                        </div>
+                    </form>
+                    <div><label style="margin-top: 10px;">Tag der Benachrichtigung</label></div>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="inlineCheckbox1" value="option1"> MO
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="inlineCheckbox2" value="option2"> DI
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="inlineCheckbox3" value="option3"> MI
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="inlineCheckbox4" value="option1"> DO
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="inlineCheckbox5" value="option2"> FR
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="inlineCheckbox6" value="option3"> SA
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="inlineCheckbox7" value="option3"> SO
+                    </label>
+
+                    <p class="bg-info" style="padding: 20px; margin-top:20px;">Die Einstellungen greifen nur, wenn die
+                        Termine für Meetings nach der Benachrichtigungszeit liegen!</p>
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <button type="submit" class="btn btn-danger pull-right">Speichern</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</f:section>
+<!-- Page Content ------------------------------------------- -->
+
+</html>
