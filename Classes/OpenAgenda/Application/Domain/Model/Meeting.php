@@ -36,6 +36,13 @@ class Meeting implements ModificationInterface {
 	protected $protocolItems;
 
 	/**
+	 * @var \Doctrine\Common\Collections\Collection<\OpenAgenda\Application\Domain\Model\Invitation>
+	 * @ORM\ManyToMany
+	 * @OA\ToFlatArray(scope="show")
+	 */
+	protected $invitations;
+
+	/**
 	 * @var string
 	 * @OA\ToFlatArray
 	 */
