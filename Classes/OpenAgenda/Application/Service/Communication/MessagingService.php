@@ -61,10 +61,10 @@ class MessagingService {
 		$variables['person'] = $person;
 
 		$view = $this->createView($messageName, $variables);
-		$subject = $view->getSubject();
 		$htmlBody = $view->render($messageName, $variables);
 		// @todo For readable plain text view, strip_tags is too much in terms of removing information
 		$textBody = strip_tags($htmlBody);
+		$subject = $view->getSubject();
 
 		$message = Message::create();
 		$message->setRecipient($person);
