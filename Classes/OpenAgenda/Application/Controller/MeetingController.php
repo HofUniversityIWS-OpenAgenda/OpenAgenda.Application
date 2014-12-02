@@ -60,7 +60,7 @@ class MeetingController extends AbstractController {
 	 * @return void
 	 */
 	public function listAction() {
-		$this->view->assign('value', $this->meetingRepository->findAllowed()->toFlatArray('list'));
+		$this->view->assign('value', $this->arrayService->flatten($this->meetingRepository->findAllowed(), 'list'));
 	}
 
 	/**
@@ -68,7 +68,7 @@ class MeetingController extends AbstractController {
 	 * @return void
 	 */
 	public function showAction(Meeting $meeting) {
-		$this->view->assign('value', $meeting->toFlatArray('show'));
+		$this->view->assign('value', $this->arrayService->flatten($meeting, 'show'));
 	}
 
 	/**
