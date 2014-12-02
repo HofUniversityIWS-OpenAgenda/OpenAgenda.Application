@@ -20,7 +20,7 @@ Application.config(['$routeProvider',
                 templateUrl: '/template/meeting/new.html'//,
                 //controller: 'MeetingDetailCtrl'
             }).
-            when('/meetings/show/:meetingId', {
+            when('/meeting/show/:meetingId', {
                 templateUrl: '/template/meeting/show.html',
                 controller: 'MeetingDetailCtrl'
             }).
@@ -28,8 +28,8 @@ Application.config(['$routeProvider',
                 templateUrl: '/template/task/index.html',
                 controller: 'TaskCtrl'
             }).
-            when('/tasks/others', {
-                templateUrl: '/template/task/index.html',
+            when('/task/show/:taskId', {
+                templateUrl: '/template/task/show.html',
                 controller: 'TaskCtrl'
             }).
             when('/calendar', {

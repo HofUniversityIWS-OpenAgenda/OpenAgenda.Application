@@ -32,7 +32,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <a ng-href="/#meetings/test">
+                                    <a ng-href="/#meetings/">
                                         <div class="panel-footer">
                                             <span class="pull-left">Details ansehen</span>
                                             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -54,7 +54,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <a href="#">
+                                    <a href="/#tasks/">
                                         <div class="panel-footer">
                                             <span class="pull-left">Details anzeigen</span>
                                             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -76,7 +76,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <a href="#">
+                                    <a href="/#notifikations/">
                                         <div class="panel-footer">
                                             <span class="pull-left">Details anzeigen</span>
                                             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -97,12 +97,12 @@
                                     <!-- /.panel-heading -->
                                     <div class="panel-body">
                                         <div class="list-group">
-                                            <a href="#" class="list-group-item" ng-repeat="meeting in upcomingMeetings | orderBy:['startDate', 'title']">
+                                            <a ng-href="/#meeting/show/{{meeting.__identity}}" class="list-group-item" ng-repeat="meeting in upcomingMeetings | orderBy:['startDate', 'title']">
                                                 <i class="fa fa-users fa-fw"></i> {{meeting.title}}
                                             </a>
                                         </div>
                                         <!-- /.list-group -->
-                                        <a href="#" class="pull-right">Alle Meetings anzeigen...</a>
+                                        <a href="/#meetings/" class="pull-right">Alle Meetings anzeigen...</a>
                                     </div>
                                     <!-- /.panel-body -->
                                 </div>
@@ -117,14 +117,14 @@
                                     <!-- /.panel-heading -->
                                     <div class="panel-body">
                                         <div class="list-group">
-                                            <a href="#" class="list-group-item" ng-repeat="task in needToBeDoneTasks">
+                                            <a href="/#task/show/{{task.__identity}}" class="list-group-item" ng-repeat="task in needToBeDoneTasks">
                                                 <i class="fa fa-tasks fa-fw"></i>task.title
                                             <span class="pull-right text-muted small badge">task.dueDate
                                             </span>
                                             </a>
                                         </div>
                                         <!-- /.list-group -->
-                                        <a href="#" class="pull-right">Alle Nachrichten anzeigen...</a>
+                                        <a href="/#tasks/" class="pull-right">Alle Aufgaben anzeigen...</a>
                                     </div>
                                     <!-- /.panel-body -->
                                 </div>
