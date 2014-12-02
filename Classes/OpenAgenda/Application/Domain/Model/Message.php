@@ -53,12 +53,14 @@ class Message {
 	/**
 	 * @var string
 	 * @OA\ToFlatArray
+	 * @ORM\Column(type="text")
 	 */
 	protected $richTextBody;
 
 	/**
 	 * @var string
 	 * @OA\ToFlatArray
+	 * @ORM\Column(type="text")
 	 */
 	protected $plainTextBody;
 
