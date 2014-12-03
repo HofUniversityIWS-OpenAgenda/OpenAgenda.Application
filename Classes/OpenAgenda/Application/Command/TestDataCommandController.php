@@ -69,6 +69,18 @@ class TestDataCommandController extends CommandController {
 	protected $accountRepository;
 
 	/**
+	 * @var \OpenAgenda\Application\Domain\Repository\HistoryRepository
+	 * @Flow\Inject
+	 */
+	protected $historyRepository;
+
+	/**
+	 * @Flow\Inject
+	 * @var \OpenAgenda\Application\Service\HistoryService
+	 */
+	protected $historyService;
+
+	/**
 	 * ### meetings for testing ###
 	 *
 	 * This Command removes all existing meetings / AgendaItems and creates new meetings (default = 5) and new AgendaItems / ProtocolItems (default 3 for each) with dummy data to the DB.
@@ -175,6 +187,16 @@ class TestDataCommandController extends CommandController {
 			$this->response->appendContent('Admin Person "' . $identifier . '" created' . PHP_EOL);
 		}
 
+	}
+
+	public function historyCommand(){
+		$this->historyRepository->removeAll();
+		$meeting = $this->meetingRepository->findByIdentifier('1f9d3208-4d0a-9cd6-8c4c-84eaa2586b04');
+
+		$meeting->setModificationDate(new \DateTime());
+
+		$this->historyService->invoke($meeting);
+		//$this->meetingRepository->update($meeting);
 	}
 
 }

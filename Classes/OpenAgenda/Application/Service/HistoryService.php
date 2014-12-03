@@ -36,6 +36,12 @@ class HistoryService {
 	protected $historyRepository;
 
 	/**
+	 * @Flow\Inject
+	 * @var \OpenAgenda\Application\Domain\Repository\HistoryRepository
+	 */
+	protected $meetingRepository;
+
+	/**
 	 * @param object $subject
 	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
 	 */
@@ -47,8 +53,9 @@ class HistoryService {
 		$history = new History();
 		$history->setCreationDate(new \DateTime());
 		$history->setEntityType(get_class($subject));
-		$history->setIssuer($this->securityContext->getParty());
+		//$history->setIssuer($this->securityContext->getParty());
 		$history->setEntityIdentifier($this->persistenceManager->getIdentifierByObject($subject));
+		$history->setPreviousData(serialize($this->meetingRepository->findByIdentifier($this->persistenceManager->getIdentifierByObject($subject))));
 		// @todo Determine changes in current modified object and persisted entity
 		$this->historyRepository->add($history);
 	}
