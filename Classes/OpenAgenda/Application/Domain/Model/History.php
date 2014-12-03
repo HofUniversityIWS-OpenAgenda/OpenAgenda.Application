@@ -36,6 +36,7 @@ class History {
 
 	/**
 	 * @var \string
+	 * @ORM\Column(type="text")
 	 * @OA\ToFlatArray
 	 */
 	protected $previousData;
