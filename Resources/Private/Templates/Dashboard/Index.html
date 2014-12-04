@@ -117,9 +117,9 @@
                                     <!-- /.panel-heading -->
                                     <div class="panel-body">
                                         <div class="list-group">
-                                            <a ng-href="/#task/show/{{task.__identity}}" class="list-group-item" ng-repeat="task in needToBeDoneTasks">
-                                                <i class="fa fa-tasks fa-fw"></i>task.title
-                                            <span class="pull-right text-muted small badge">task.dueDate
+                                            <a ng-href="/#task/show/{{task.__identity}}" class="list-group-item" ng-repeat="task in needToBeDoneTasks | orderBy:['dueDate', 'title']">
+                                                <i class="fa fa-tasks fa-fw"></i>{{task.title}}
+                                            <span class="pull-right text-muted small badge">{{task.dueDate | date:'dd.MM.yyyy  H:mm'}}
                                             </span>
                                             </a>
                                         </div>

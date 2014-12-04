@@ -27,5 +27,21 @@ angular.module("CommonFactories", [])
                 });
             }
         };
+
+    }])
+    .factory('TaskResourceHelper', ['$resource', function($resource) {
+        return {
+            getTaskList: function() {
+                return $resource('task/list.json', {}, {
+                    query: {method:'GET', isArray:true}
+                });
+            },
+            getTaskDetail: function(id) {
+                return $resource('meeting/:taskId/show.json',{taskId:id}, {
+                    get: {method:'GET'}
+                });
+            }
+        };
+
     }]);
 

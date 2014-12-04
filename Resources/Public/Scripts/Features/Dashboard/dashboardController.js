@@ -2,22 +2,22 @@
  * Created by Thomas on 27.11.14.
  */
 angular.module("Dashboard", [])
-    .controller('DashboardCtrl', ['$scope', '$rootScope', '$resource', "breadcrumbs", "MeetingResourceHelper",
-        function ($scope, $rootScope, $http, breadcrumbs, MeetingResourceHelper) {
+    .controller('DashboardCtrl', ['$scope', '$rootScope', '$resource', "breadcrumbs", "MeetingResourceHelper",'TaskResourceHelper', 'CommonHelperMethods',
+        function ($scope, $rootScope, $http, breadcrumbs, MeetingResourceHelper, TaskResourceHelper, CommonHelperMethods) {
             console.log("Dashboard Controller Loaded");
             $scope.breadcrumbs = breadcrumbs;
             /*$http.get('/openagenda.application/dashboard/index.json').success(function(data) {
              $scope.data = data;
              });*/
             $scope.upcomingMeetings = [];
-            $scope.needToBeDoneTasks = [1, 2, 3];
+
 
             $scope.currentUser = "Thomas"; // From where?
 
             $scope.events = [];
 
             $scope.meetingList = MeetingResourceHelper.getMeetingList().query(function (data) {
-                console.log('success, got data: ', data);
+                console.log('success, got meeting: ', data);
                 $scope.findUpcomingMeetings(data);
                 angular.forEach( $scope.upcomingMeetings, function (meeting) {
                     var tag = $scope.getDateFromJSONString(meeting.scheduledStartDate);
@@ -25,6 +25,15 @@ angular.module("Dashboard", [])
                     //tag.setFullYear(2014);
                     $scope.events.push( {title: meeting.title, start: new Date(tag) });
                     meeting.invitationStatus = MeetingResourceHelper.getMeetingInvitations(meeting.__identity).get();
+                });
+            }, function (err) {
+                alert('request failed');
+            });
+
+            $scope.needToBeDoneTasks  = TaskResourceHelper.getTaskList().query(function (data) {
+                console.log('success, got task: ', data);
+                angular.forEach( $scope.needToBeDoneTasks, function (task) {
+                    task.dueDate = CommonHelperMethods.getDateFromJSONString(task.dueDate);
                 });
             }, function (err) {
                 alert('request failed');
