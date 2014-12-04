@@ -3,8 +3,8 @@
  */
 
 angular.module("Menu", [])
-    .controller('MenuCtrl', ['$scope','$rootScope', "$sce",
-        function ($scope, $rootScope, $sce) {
+    .controller('MenuCtrl', ['$scope','$rootScope', "$sce", "$location",
+        function ($scope, $rootScope, $sce, $location) {
             console.log("Menu Controller Loaded");
 
             $rootScope.toolBarHTML;
@@ -20,4 +20,8 @@ angular.module("Menu", [])
                 return $sce.trustAsHtml($scope.t)
             }
 
+            $scope.isActive = function (viewLocation) {
+                var active = (viewLocation === $location.path());
+                return active;
+            };
         }]);

@@ -14,12 +14,12 @@
 
             <ul class="nav" id="side-menu">
                 <li class="sidebar-heading">MENU</li>
-                <li><a href="#dashboard"><i class="fa fa-dashboard fa-fw"></i>Dashboard</a></li>
+                <li><a ng-class="{ active: isActive('/dashboard') }" href="#dashboard"><i class="fa fa-dashboard fa-fw"></i>Dashboard</a></li>
                 <li>
                     <a href="#"><i class="fa fa-users"></i> Meetings<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                        <li><a href="#meetings">Meeting-Übersicht</a> </li>
-                        <li><a href="#meetings/new">Meeting anlegen</a></li>
+                        <li><a ng-class="{ active: isActive('/meetings') }" href="#meetings">Meeting-Übersicht</a> </li>
+                        <li><a ng-class="{ active: isActive('/meetings/new') }"href="#meetings/new">Meeting anlegen</a></li>
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>
@@ -27,19 +27,19 @@
                     <a href="#"><i class="fa fa-tasks"></i> Aufgaben<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li><a href="#tasks">Meine Aufgaben</a> </li>
-                        <li><a href="#meetings/new">Aufgaben anderer</a></li>
+                        <li><a href="#tasks/new">Aufgaben anderer</a></li>
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>
 
-                <li class="active">
+                <li ng-class="{ active: isActive('/settings/user/profile') }">
                     <a href="#"><i class="fa fa-cog"></i> Einstellungen<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a class="active" href="#settings/user">Benutzereinstellungen</a>
+                            <a ng-class="{ active: isActive('/settings/user') }" href="#settings/user">Benutzereinstellungen</a>
                         </li>
                         <li>
-                            <a href="#settings/user/profile">Profilverwaltung</a>
+                            <a ng-class="{ active: isActive('/settings/user/profile') }" href="#settings/user/profile">Profilverwaltung</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->
