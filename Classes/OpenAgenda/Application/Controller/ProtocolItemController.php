@@ -59,11 +59,14 @@ class ProtocolItemController extends ActionController {
 
 	/**
 	 * @param \OpenAgenda\Application\Domain\Model\ProtocolItem $protocolItem
+	 * @param \OpenAgenda\Application\Domain\Model\Meeting $meeting
 	 * @return void
 	 */
-	public function deleteAction(ProtocolItem $protocolItem) {
-		$this->protocolItemRepository->remove($protocolItem);
+	public function deleteAction(ProtocolItem $protocolItem, Meeting $meeting) {
+		$meeting->getAgendaItems()->removeElement($protocolItem);
+		
 		$this->historyService->invoke($protocolItem);
+		$this->historyService->invoke($meeting);
 	}
 
 

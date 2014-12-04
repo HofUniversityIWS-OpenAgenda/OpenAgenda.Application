@@ -62,7 +62,7 @@ class AgendaItemController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	 * @return void
 	 */
 	public function deleteAction(AgendaItem $agendaItem, Meeting $meeting) {
-		$this->agendaItemRepository->remove($agendaItem);
+		$meeting->getAgendaItems()->removeElement($agendaItem);
 
 		$this->historyService->invoke($agendaItem);
 		$this->historyService->invoke($meeting);
