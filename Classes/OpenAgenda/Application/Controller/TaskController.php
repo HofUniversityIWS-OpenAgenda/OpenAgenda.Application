@@ -18,6 +18,12 @@ class TaskController extends AbstractController {
 	protected $taskRepository;
 
 	/**
+	 * @Flow\Inject
+	 * @var \OpenAgenda\Application\Service\HistoryService
+	 */
+	protected $historyService;
+
+	/**
 	 * @return void
 	 */
 	public function listAction() {
@@ -49,9 +55,8 @@ class TaskController extends AbstractController {
 	 * @return void
 	 */
 	public function createAction(Task $newTask) {
-		$this->taskRepository->add($newTask);
-		$this->addFlashMessage('Created a new task.');
-		$this->redirect('index');
+		$newTask->setCreationDate(new \DateTime());
+		$this->historyService->invoke($newTask);
 	}
 
 	/**
@@ -68,8 +73,7 @@ class TaskController extends AbstractController {
 	 */
 	public function updateAction(Task $task) {
 		$this->taskRepository->update($task);
-		$this->addFlashMessage('Updated the task.');
-		$this->redirect('index');
+		$this->historyService->invoke($task);
 	}
 
 	/**
@@ -78,8 +82,7 @@ class TaskController extends AbstractController {
 	 */
 	public function deleteAction(Task $task) {
 		$this->taskRepository->remove($task);
-		$this->addFlashMessage('Deleted a task.');
-		$this->redirect('index');
+		$this->historyService->invoke($task);
 	}
 
 	/**
