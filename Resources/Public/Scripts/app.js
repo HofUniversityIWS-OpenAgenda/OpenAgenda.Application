@@ -11,19 +11,20 @@ Application.config(['$routeProvider',
                 controller: 'DashboardCtrl',
                 label: 'Dashboard'
             }).
-            when('/meetings', {
+            when('/meeting', {
                 templateUrl: '/template/meeting/index.html',
                 controller: 'MeetingIndexCtrl',
                 label: 'Meetings'
             }).
-            when('/meetings/new', {
-                templateUrl: '/template/meeting/new.html',
-                controller: 'MeetingCreateCtrl',
+            when('/meeting/new', {
+                templateUrl: '/template/meeting/edit.html',
+                controller: 'MeetingEditCtrl',
                 label: 'Meeting anlegen'
             }).
             when('/meeting/show/:meetingId', {
-                templateUrl: '/template/meeting/show.html',
-                controller: 'MeetingShowCtrl'
+                templateUrl: '/template/meeting/edit.html',
+                controller: 'MeetingEditCtrl',
+                label: 'Meeting bearbeiten'
             }).
             when('/meeting/start/:meetingId', {
                 templateUrl: '/template/meeting/Execute.html',

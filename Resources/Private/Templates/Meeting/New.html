@@ -16,7 +16,7 @@
         <div class="page-content">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Meeting anlegen</h1>
+                    <h1 class="page-header">{{headerTitle}}</h1>
                 </div>
             </div>
             <div class="row">
@@ -42,7 +42,7 @@
                             </div>
                             <h3 class="top-border">Agenda</h3>
 
-                            <div class="agenda-punkt" ng-repeat="apt in meeting.agendaItems">
+                            <div class="agenda-punkt" ng-repeat="apt in meeting.agendaItems | orderBy:'sorting':false">
                                 <div class="panel-entry row">
                                     <div class=" col-sm-12 col-md-12 col-lg-6 ">
                                         <div><label><b><a href="#" editable-text="apt.title">{{apt.sorting}}. {{ apt.title|| 'Kein Agendapunkt-Titel festgelegt' }}</a></b></label></div>
@@ -52,19 +52,17 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <div ng-controller="uploadCtrl" class="col-sm-12 col-md-12 col-lg-6">
+                                    <div  class="col-sm-12 col-md-12 col-lg-6">
                                         <div class="pull-right">
                                             <ul>
-                                                <li ng-repeat="item in uploader.queue">
+                                                <li ng-repeat="item in getUploader($index).queue">
                                                     Name: <span ng-bind="item.file.name"></span><br/>
                                                     <!--<button ng-click="item.upload()">upload</button>-->
                                                 </li>
                                             </ul>
                                         </div>
                                         <div><b>Anhänge</b></div>
-
-
-                                        <span class="btn btn-default btn-xs btn-file"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><input type="file" nv-file-select uploader="getUploader()"/><br/></span>
+                                        <span class="btn btn-default btn-xs btn-file"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><input type="file" nv-file-select uploader="getUploader($index)"/><br/></span>
                                     </div>
                                 </div>
                             </div>

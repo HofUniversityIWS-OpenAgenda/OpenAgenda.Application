@@ -10,7 +10,120 @@
 <!-- Page Content ------------------------------------------- -->
 <f:section name="Content">
     <f:render partial="Common/Breadcrumb"></f:render>
-edit
+    <f:section name="Content">
+        <f:render partial="Common/Breadcrumb"></f:render>
+
+        <div class="page-content">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">{{headerTitle}}</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 style="color: #ffffff" class="panel-title"><span point-me="true" href="#" editable-text="meeting.title">{{ meeting.title || 'Noch kein Titel festgelegt' }}</span></h3>
+                        </div>
+                        <div class="panel-body">
+                            <!--<div style="height: 100px; width: 150px; border: solid #000000" class="pull-right meeting-map">KARTE
+                            </div>-->
+                            <h3>Termin</h3>
+
+                            <div class="panel-entry">
+                                <a href="#" editable-bsdate="meeting.scheduledStartDate" e-datepicker-popup="dd-MMMM-yyyy">
+                                    {{ (meeting.scheduledStartDate | date:"dd/MM/yyyy") || 'Kein Datum festgelegt' }}
+                                </a><br/>
+
+                                <a href="#" editable-bstime="meeting.scheduledStartDate" e-show-meridian="false" e-minute-step="10">
+                                    {{ (meeting.scheduledStartDate | date:"HH:mm") || 'empty' }}
+                                </a><br/>
+                                <a href="#" editable-text="meeting.place">{{ meeting.place || 'Kein Ort festgelegt' }}</a>
+                            </div>
+                            <h3 class="top-border">Agenda</h3>
+
+                            <div class="agenda-punkt" ng-repeat="apt in meeting.agendaItems | orderBy:'sorting':false">
+                                <div class="panel-entry row">
+                                    <div class=" col-sm-12 col-md-12 col-lg-6 ">
+                                        <div><label><b><a href="#" editable-text="apt.title">{{apt.sorting}}. {{ apt.title|| 'Kein Agendapunkt-Titel festgelegt' }}</a></b></label></div>
+                                        <div>
+                                            <a href="#" editable-textarea="apt.description" e-rows="7" e-cols="40">
+                                                <pre>{{ apt.description || 'Keine Agendapunkt-Beschreibung festgelegt' }}</pre>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div  class="col-sm-12 col-md-12 col-lg-6">
+                                        <div class="pull-right">
+                                            <ul>
+                                                <li ng-repeat="item in getUploader($index).queue">
+                                                    Name: <span ng-bind="item.file.name"></span><br/>
+                                                    <!--<button ng-click="item.upload()">upload</button>-->
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div><b>Anhänge</b></div>
+                                        <span class="btn btn-default btn-xs btn-file"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><input type="file" nv-file-select uploader="getUploader($index)"/><br/></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-top: 20px;"class="panel-entry">
+                                <button ng-click="addNewAgendaItem()" class="btn btn-default btn-xs">
+                                    Neuer Agendapunkt anlegen
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 style="color: #ffffff" class="panel-title">Meeting Teinehmer festlegen</span></h3>
+                                </div>
+                                <div class="panel-body">
+
+                                    <form name="myForm" >
+                                        <div class="form-group">
+                                            <label for="invitiationMail">Mail Adresse des Teilnehmers (später autocomplete)</label>
+                                            <input type="email" name="input" class="form-control" ng-model="invitiationMailAddress" id="invitiationMail" placeholder="Mail Adresse" required>
+                                        </div>
+                                        <div ng-show="myForm.input.$error.required" class="alert alert-info" role="alert">
+                                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                            <span class="sr-only">Info:</span>
+                                            Mail Adresse benötigt
+                                        </div>
+                                        <div ng-show="myForm.input.$error.email" class="alert alert-danger" role="alert">
+                                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                            <span class="sr-only">Fehler:</span>
+                                            Gültige Mail Adresse eingeben!
+                                        </div>
+                                    </form>
+
+
+                                    <button ng-click="addNewInvitation(invitiationMailAddress)" class="btn btn-default btn-xs">
+                                        Teilnehmer Hinzufügen
+                                    </button>
+                                    <div ng-show="meeting.invitations.length > 0">
+                                        <label style="margin-top: 20px">Hinzugefügte Teinehmer</label>
+                                        <ul>
+                                            <li ng-repeat="invitation in meeting.invitations">{{invitation.mail}} <a point-me="true" ng-click="deleteInvitation($index)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                            </a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="clearfix panel-entry">
+                                        <button ng-click="sendMeetingData()" style="margin-bottom: 20px; margin-right: 15px" class=" pull-right btn btn-danger">
+                                            Meeting anlegen
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </f:section>
 </f:section>
 <!-- Page Content ------------------------------------------- -->
 
