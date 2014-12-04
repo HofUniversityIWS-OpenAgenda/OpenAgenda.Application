@@ -25,6 +25,10 @@ Application.config(['$routeProvider',
                 templateUrl: '/template/meeting/show.html',
                 controller: 'MeetingShowCtrl'
             }).
+            when('/meeting/start/:meetingId', {
+                templateUrl: '/template/meeting/Execute.html',
+                controller: 'MeetingExecuteCtrl'
+            }).
             when('/tasks', {
                 templateUrl: '/template/task/index.html',
                 controller: 'TaskCtrl'

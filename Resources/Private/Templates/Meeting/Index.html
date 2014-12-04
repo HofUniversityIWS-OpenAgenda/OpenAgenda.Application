@@ -39,18 +39,14 @@
                                     <label>Datum Anfang</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="startDate" is-open="opened" init-date="initDate" min-date="minDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
-                                        <span class="input-group-btn">
-                                            <button type="button" class="btn btn-default" ng-click="openStart($event)"><i class="fa fa-calendar"></i></button>
-                                        </span>
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Datum Ende</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="endDate" is-open="opened2" min-date="minDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
-                                        <span class="input-group-btn">
-                                            <button type="button" class="btn btn-default" ng-click="openEnd($event)"><i class="fa fa-calendar"></i></button>
-                                        </span>
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                     </div>
                                 </div>
                             </div>
@@ -73,7 +69,7 @@
                                 <tbody>
 
                                 <tr class="odd gradeX" ng-repeat="meeting in meetingList | upComing:'startDate':startDate:endDate | orderBy:'+startDate'  | filter:searchText">
-                                    <td>{{meeting.startDate}}</td>
+                                    <td>{{meeting.formatStartDate}}</td>
 
                                     <td>{{meeting.title}}</td>
                                     <td>
@@ -81,11 +77,14 @@
                                         [[5]] <img src="../../../Public/Images/invitee_agreed.png"/>&nbsp;
                                         [[5]] <img src="../../../Public/Images/invitee_canceled.png"/>
                                     </td>
-                                    <td>{{meeting.status}}</td>
+                                    <td>{{meeting.formatStatus}}</td>
                                     <td>
-                                        Anzeigen <img src="../../../Public/Images/meeting_show.png"/>&nbsp;
-                                        Editieren <img src="../../../Public/Images/meeting_edit.png"/>&nbsp;
-                                        Durchführen <img src="../../../Public/Images/meeting_exec.png"/>
+                                        <a href="/#meeting/show/{{meeting.__identity}}">Anzeigen</a>
+                                            <a ng-href="/#meeting/show/{{meeting.__identity}}"><img src="../../../Public/Images/meeting_show.png"/> </a>&nbsp;
+                                        <a href="/#meeting/show/{{meeting.__identity}}">Editieren</a>
+                                            <a ng-href="/#meeting/show/{{meeting.__identity}}"><img src="../../../Public/Images/meeting_edit.png"/></a>&nbsp;
+                                        <a href="/#meeting/start/{{meeting.__identity}}">Durchführen</a>
+                                            <a ng-href="/#meeting/start/{{meeting.__identity}}"><img src="../../../Public/Images/meeting_exec.png"/></a>
                                     </td>
                                 </tr>
                                 </tbody>

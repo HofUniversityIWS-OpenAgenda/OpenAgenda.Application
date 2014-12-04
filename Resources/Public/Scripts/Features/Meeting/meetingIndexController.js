@@ -15,7 +15,7 @@ angular.module("Meeting", [])
     })
     .controller('MeetingIndexCtrl', ['$scope', '$rootScope', '$resource', "breadcrumbs", "Meetinglist",
         function ($scope, $rootScope, $http, breadcrumbs, Meetinglist) {
-            console.log("Dashboard Controller Loaded");
+            console.log("Meeting Index Controller Loaded");
             $scope.breadcrumbs = breadcrumbs;
 
             $scope.getDateFromJSONString = function (string) {
@@ -24,7 +24,27 @@ angular.module("Meeting", [])
 
             $scope.meetingList = Meetinglist.query(function (data) {
                 angular.forEach($scope.meetingList, function (meeting) {
+                    console.log('alt: ', $scope.startDate);
                     meeting.startDate = $scope.getDateFromJSONString(meeting.startDate);
+                    meeting.formatStartDate = DateFormatter.format(meeting.startDate, "Y/m/d H:i") + ' Uhr';
+                    console.log('neu: ', meeting.startDate);
+                    console.log('neu2: ', meeting.formatStartDate);
+                    switch (meeting.status) {
+                        case 0:
+                            meeting.formatStatus = "vorgeplant";
+                            break;
+                        case 1:
+                            meeting.formatStatus = "geplant";
+                            break;
+                        case 2:
+                            meeting.formatStatus = "läuft";
+                            break;
+                        case 3:
+                            meeting.formatStatus = "abgeschlossen";
+                            break;
+
+                    }
+                    ;
                 });
                 console.log('success, got data: ', $scope.meetingList);
 
@@ -33,6 +53,10 @@ angular.module("Meeting", [])
             });
 
             //$rootScope.changeToolBar("");
+
+            $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/d', 'dd.MM.yyyy', 'shortDate'];
+            $scope.format = $scope.formats[1];
+            console.log($scope.format)
 
             /* Datepicker*/
             $scope.toggleMin = function () {
@@ -57,12 +81,16 @@ angular.module("Meeting", [])
                 formatYear: 'yyyy',
                 startingDay: 1,
                 "init-date": new Date()
-            };
 
-            var tempDate = new Date().getFullYear() + "/" + new Date().getMonth() + "/" + new Date().getDay();
-            $scope.endDate = tempDate;
+            };
+            var now = new Date();
+            var tempDate = now.getFullYear() + "/" + (now.getMonth()+1) + "/" + now.getDay();
             $scope.startDate = tempDate;
 
-            $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-            $scope.format = $scope.formats[1];
+            var then = new Date();
+            then.setDate(then.getDate());
+
+            var tempDate2 = then.getFullYear() + "/" + (then.getMonth()+1) + "/" + (then.getDay());
+            $scope.endDate = tempDate2;
+
         }]);
