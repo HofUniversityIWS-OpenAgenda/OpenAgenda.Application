@@ -15,5 +15,12 @@ angular.module("CommonFactories", [])
                     get: {method:'GET'}
                 });
             };
-        }]);
+        }])
+    .factory('CommonHelperMethods', function() {
+        return {
+            getDateFromJSONString: function (string) {
+                return new Date(string.substr(1, string.length - 2));
+            }
+    };
+});;
 

@@ -5,8 +5,8 @@
  * Created by Thomas on 27.11.14.
  */
 angular.module("Meeting")
-    .controller('MeetingEditCtrl', ['$scope', '$rootScope', '$routeParams', '$resource', "breadcrumbs", 'FileUploader', "MeetingDetail",
-        function ($scope, $rootScope, $routeParams, $resource, breadcrumbs, FileUploader, MeetingDetail, Meetinglist) {
+    .controller('MeetingEditCtrl', ['$scope', '$rootScope', '$routeParams', '$resource', "breadcrumbs", 'FileUploader', "MeetingDetail", 'CommonHelperMethods',
+        function ($scope, $rootScope, $routeParams, $resource, breadcrumbs, FileUploader, MeetingDetail, CommonHelperMethods) {
             $scope.breadcrumbs = breadcrumbs;
             console.log("Create meeting Conroller loaded");
             $scope.headerTitle = "Meeting anlegen";
@@ -14,10 +14,13 @@ angular.module("Meeting")
             $scope.meetingId = $routeParams.meetingId;
             $scope.uploaders = [];
 
+
             if (typeof $scope.meetingId != "undefined") {
                 $scope.headerTitle = "Meeting bearbeiten";
                 $scope.meeting = MeetingDetail($routeParams.meetingId).get(function (data) {
+                    data.scheduledStartDate = CommonHelperMethods.getDateFromJSONString(data.scheduledStartDate);
                 console.log('success, got data: ', data);
+
                     for(var i = 0; i<= $scope.meeting.agendaItems.length; i++)
                     {
                         if (typeof $scope.uploaders[i] === "undefined") {
@@ -82,7 +85,7 @@ angular.module("Meeting")
             });
 
             $scope.sendMeetingData = function () {
-                console.log( $scope.uploader);
+                console.log( $scope.uploaders);
             };
 
             $scope.getUploader = function (idx) {
