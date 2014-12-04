@@ -105,6 +105,7 @@ class TestDataCommandController extends CommandController {
 			$newMeeting->setScheduleStartDate(new \DateTime('2015-01-05 12:00'));
 			$newMeeting->setStatus(Meeting::STATUS_CREATED);
 			$newMeeting->setTitle('Meeting '.($counter+1));
+			$this->historyService->invoke($newMeeting);
 
 			for ($itemCounter = 0; $itemCounter < $itemQuantity; $itemCounter++) {
 				$newAgendaItem = new AgendaItem();
@@ -116,6 +117,7 @@ class TestDataCommandController extends CommandController {
 
 				$newAgendaItem->setMeeting($newMeeting);
 				$newMeeting->getAgendaItems()->add($newAgendaItem);
+				$this->historyService->invoke($newAgendaItem);
 			}
 
 			for ($itemCounter = 0; $itemCounter < $itemQuantity; $itemCounter++) {
@@ -124,6 +126,7 @@ class TestDataCommandController extends CommandController {
 
 				$newProtocolItem->setMeeting($newMeeting);
 				$newMeeting->getProtocolItems()->add($newProtocolItem);
+				$this->historyService->invoke($newProtocolItem);
 			}
 
 			for ($invitationCounter = 0; $invitationCounter < $invitations; $invitationCounter++) {
@@ -135,6 +138,7 @@ class TestDataCommandController extends CommandController {
 
 				$newInvitation->setMeeting($newMeeting);
 				//$newMeeting->getInvitations()->add($newInvitation);
+				//$this->historyService->invoke($newInvitation);
 			}
 
 			$this->meetingRepository->add($newMeeting);
@@ -162,6 +166,7 @@ class TestDataCommandController extends CommandController {
 			$newTask->setStatus(0);
 			$newTask->setAssignee($adminAccount);
 			$this->taskRepository->add($newTask);
+			$this->historyService->invoke($newTask);
 		}
 
 		$this->response->appendContent($quantity . ' tasks created' . PHP_EOL);
@@ -189,14 +194,16 @@ class TestDataCommandController extends CommandController {
 
 	}
 
-	public function historyCommand(){
-		$this->historyRepository->removeAll();
-		$meeting = $this->meetingRepository->findByIdentifier('1f9d3208-4d0a-9cd6-8c4c-84eaa2586b04');
-
-		$meeting->setModificationDate(new \DateTime());
-
-		$this->historyService->invoke($meeting);
-		//$this->meetingRepository->update($meeting);
+	/**
+	 * @param boolean $sureToDeleteFlag Are you sure you want to delete the complete History?
+	 */
+	public function clearHistoryCommand($sureToDeleteFlag = false){
+		if($sureToDeleteFlag === true) {
+			$this->historyRepository->removeAll();
+			$this->response->appendContent('Cleared History' . PHP_EOL);
+		}else{
+			$this->response->appendContent('History was not cleared. Please set the flag.' . PHP_EOL);
+		}
 	}
 
 }
