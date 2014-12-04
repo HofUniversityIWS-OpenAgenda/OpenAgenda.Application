@@ -24,11 +24,9 @@ angular.module("Meeting", [])
 
             $scope.meetingList = Meetinglist.query(function (data) {
                 angular.forEach($scope.meetingList, function (meeting) {
-                    console.log('alt: ', $scope.startDate);
-                    meeting.startDate = $scope.getDateFromJSONString(meeting.startDate);
-                    meeting.formatStartDate = DateFormatter.format(meeting.startDate, "Y/m/d H:i") + ' Uhr';
-                    console.log('neu: ', meeting.startDate);
-                    console.log('neu2: ', meeting.formatStartDate);
+                    meeting.scheduledStartDate = $scope.getDateFromJSONString(meeting.scheduledStartDate);
+                    meeting.formatStartDate = DateFormatter.format(meeting.scheduledStartDate, "Y/m/d H:i") + ' Uhr';
+
                     switch (meeting.status) {
                         case 0:
                             meeting.formatStatus = "vorgeplant";
