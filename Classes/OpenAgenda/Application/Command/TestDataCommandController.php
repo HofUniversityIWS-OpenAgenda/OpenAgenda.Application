@@ -90,7 +90,7 @@ class TestDataCommandController extends CommandController {
 	 * @param integer $invitations The quantity of Invitations
 	 * @return string
 	 */
-	public function createMeetingsCommand($quantity = 5, $itemQuantity = 3, $invitations = 1) {
+	public function createMeetingsCommand($quantity = 5, $itemQuantity = 3, $invitations = 10) {
 		$this->agendaItemRepository->removeAll();
 		$this->protocolItemRepository->removeAll();
 		$this->invitationRepository->removeAll();
