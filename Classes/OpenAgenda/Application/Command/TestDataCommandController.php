@@ -131,14 +131,15 @@ class TestDataCommandController extends CommandController {
 
 			for ($invitationCounter = 0; $invitationCounter < $invitations; $invitationCounter++) {
 				$newInvitation = new Invitation();
-				$newInvitation->setParticipant($adminAccount->getParty());
+				// @todo Determine the right object here (Person?!)
+				//$newInvitation->setParticipant($adminAccount->getParty());
 				$newInvitation->setStatus(Invitation::STATUS_OPEN);
 				$newInvitation->setCreationDate(new \DateTime());
 				$newInvitation->setModificationDate($newInvitation->getCreationDate());
 
 				$newInvitation->setMeeting($newMeeting);
-				//$newMeeting->getInvitations()->add($newInvitation);
-				//$this->historyService->invoke($newInvitation);
+				$newMeeting->getInvitations()->add($newInvitation);
+				$this->historyService->invoke($newInvitation);
 			}
 
 			$this->meetingRepository->add($newMeeting);
