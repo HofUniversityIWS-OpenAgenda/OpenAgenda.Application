@@ -2,8 +2,8 @@
  * Created by Thomas on 27.11.14.
  */
 angular.module("Dashboard", [])
-    .controller('DashboardCtrl', ['$scope', '$rootScope', '$resource', "breadcrumbs", "Meetinglist",
-        function ($scope, $rootScope, $http, breadcrumbs, Meetinglist) {
+    .controller('DashboardCtrl', ['$scope', '$rootScope', '$resource', "breadcrumbs", "MeetingResourceHelper",
+        function ($scope, $rootScope, $http, breadcrumbs, MeetingResourceHelper) {
             console.log("Dashboard Controller Loaded");
             $scope.breadcrumbs = breadcrumbs;
             /*$http.get('/openagenda.application/dashboard/index.json').success(function(data) {
@@ -16,7 +16,7 @@ angular.module("Dashboard", [])
 
             $scope.events = [];
 
-            $scope.meetingList = Meetinglist.query(function (data) {
+            $scope.meetingList = MeetingResourceHelper.getMeetingList().query(function (data) {
                 console.log('success, got data: ', data);
                 $scope.findUpcomingMeetings(data);
                 angular.forEach( $scope.upcomingMeetings, function (meeting) {
