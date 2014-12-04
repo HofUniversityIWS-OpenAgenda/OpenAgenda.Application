@@ -38,7 +38,7 @@ angular.module("Meeting", [])
                             break;
 
                     }
-                    meeting.invitationStatus = MeetingResourceHelper.getMeetingInvitations("11fab19c-2454-7858-67f4-5130eea684f5").get(function (data) {
+                    meeting.invitationStatus = MeetingResourceHelper.getMeetingInvitations(meeting.__identity).get(function (data) {
                         console.log('success, got invitation: ', data);
 
                     }, function (err) {
