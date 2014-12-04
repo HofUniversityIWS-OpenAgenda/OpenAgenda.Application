@@ -9,6 +9,7 @@ namespace OpenAgenda\Application\Controller;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Mvc\Controller\ActionController;
 use OpenAgenda\Application\Domain\Model\ProtocolItem;
+use OpenAgenda\Application\Domain\Model\Meeting;
 
 class ProtocolItemController extends ActionController {
 
@@ -19,41 +20,31 @@ class ProtocolItemController extends ActionController {
 	protected $protocolItemRepository;
 
 	/**
+	 * @Flow\Inject
+	 * @var \OpenAgenda\Application\Service\HistoryService
+	 */
+	protected $historyService;
+
+	/**
+	 * @param \OpenAgenda\Application\Domain\Model\ProtocolItem $newProtocolItem
+	 * @param \OpenAgenda\Application\Domain\Model\Meeting $meeting
 	 * @return void
 	 */
-	public function indexAction() {
-		$this->view->assign('protocolItems', $this->protocolItemRepository->findAll());
+	public function createAction(ProtocolItem $newProtocolItem, Meeting $meeting) {
+		$newProtocolItem->setCreationDate(new \DateTime());
+
+		$newProtocolItem->setMeeting($meeting);
+		$meeting->getAgendaItems()->add($newProtocolItem);
+
+		$this->historyService->invoke($newProtocolItem);
+		$this->historyService->invoke($meeting);
 	}
 
 	/**
 	 * @param \OpenAgenda\Application\Domain\Model\ProtocolItem $protocolItem
 	 * @return void
 	 */
-	public function showAction(protocolItem $protocolItem) {
-		$this->view->assign('protocolItem', $protocolItem);
-	}
-
-	/**
-	 * @return void
-	 */
-	public function newAction() {
-	}
-
-	/**
-	 * @param \OpenAgenda\Application\Domain\Model\ProtocolItem $newprotocolItem
-	 * @return void
-	 */
-	public function createAction(protocolItem $newprotocolItem) {
-		$this->protocolItemRepository->add($newprotocolItem);
-		$this->addFlashMessage('Created a new protocol item.');
-		$this->redirect('index');
-	}
-
-	/**
-	 * @param \OpenAgenda\Application\Domain\Model\ProtocolItem $protocolItem
-	 * @return void
-	 */
-	public function editAction(protocolItem $protocolItem) {
+	public function editAction(ProtocolItem $protocolItem) {
 		$this->view->assign('protocolItem', $protocolItem);
 	}
 
@@ -61,20 +52,19 @@ class ProtocolItemController extends ActionController {
 	 * @param \OpenAgenda\Application\Domain\Model\ProtocolItem $protocolItem
 	 * @return void
 	 */
-	public function updateAction(protocolItem $protocolItem) {
+	public function updateAction(ProtocolItem $protocolItem) {
 		$this->protocolItemRepository->update($protocolItem);
-		$this->addFlashMessage('Updated the protocol item.');
-		$this->redirect('index');
+		$this->historyService->invoke($protocolItem);
 	}
 
 	/**
 	 * @param \OpenAgenda\Application\Domain\Model\ProtocolItem $protocolItem
 	 * @return void
 	 */
-	public function deleteAction(protocolItem $protocolItem) {
+	public function deleteAction(ProtocolItem $protocolItem) {
 		$this->protocolItemRepository->remove($protocolItem);
-		$this->addFlashMessage('Deleted a protocol item.');
-		$this->redirect('index');
+		$this->historyService->invoke($protocolItem);
 	}
+
 
 }
