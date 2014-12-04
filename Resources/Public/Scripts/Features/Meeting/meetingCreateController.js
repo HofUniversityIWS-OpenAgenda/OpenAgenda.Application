@@ -60,27 +60,24 @@ angular.module("Meeting")
         });
 
         $scope.sendMeetingData = function () {
-            console.log("SEND DATA " + $scope.uploader);
+            console.log($rootScope.uploader);
         };
     }])
     .controller('uploadCtrl', function($scope, $rootScope, FileUploader) {
         console.log("Upload Controller loaded");
 
         $rootScope.uploader = new FileUploader();
+        console.log("ee");
         console.log($rootScope.uploader);
 
         $scope.getUploader = function() {
             return  $rootScope.uploader;
         };
+        var myDate = new Date();
+        console.log(myDate);
+        myDate.setDate(myDate.getDate() + 8);
+        console.log(myDate);
+
 
     })
-    .directive("pointMe", function() {
-        return {
-            restrict : "AC",
-            link : function(scope, element, attrs) {
-
-                element.css("cursor", "pointer");
-
-            }
-        };
-    });
+   ;
