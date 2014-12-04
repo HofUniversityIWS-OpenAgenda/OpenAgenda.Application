@@ -70,9 +70,9 @@
 
                                     <td>{{meeting.title}}</td>
                                     <td>
-                                        [[5]] <img src="../../../Public/Images/invitee_unkown.png"/>&nbsp;
-                                        [[5]] <img src="../../../Public/Images/invitee_agreed.png"/>&nbsp;
-                                        [[5]] <img src="../../../Public/Images/invitee_canceled.png"/>
+                                        {{meeting.invitationStatus.committed}} <img src="../../../Public/Images/invitee_unkown.png"/>&nbsp;
+                                        {{meeting.invitationStatus.canceled}} <img src="../../../Public/Images/invitee_agreed.png"/>&nbsp;
+                                        {{meeting.invitationStatus.open}} <img src="../../../Public/Images/invitee_canceled.png"/>
                                     </td>
                                     <td>{{meeting.formatStatus}}</td>
                                     <td>

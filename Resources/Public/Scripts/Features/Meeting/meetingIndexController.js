@@ -13,18 +13,14 @@ angular.module("Meeting", [])
             });
         };
     })
-    .controller('MeetingIndexCtrl', ['$scope', '$rootScope', '$resource', "breadcrumbs", "Meetinglist",
-        function ($scope, $rootScope, $http, breadcrumbs, Meetinglist) {
+    .controller('MeetingIndexCtrl', ['$scope', '$rootScope', '$resource', "breadcrumbs", "MeetingResourceHelper","CommonHelperMethods",
+        function ($scope, $rootScope, $http, breadcrumbs, MeetingResourceHelper, CommonHelperMethods) {
             console.log("Meeting Index Controller Loaded");
             $scope.breadcrumbs = breadcrumbs;
 
-            $scope.getDateFromJSONString = function (string) {
-                return new Date(string.substr(1, string.length - 2));
-            };
-
-            $scope.meetingList = Meetinglist.query(function (data) {
+            $scope.meetingList = MeetingResourceHelper.getMeetingList().query(function (data) {
                 angular.forEach($scope.meetingList, function (meeting) {
-                    meeting.scheduledStartDate = $scope.getDateFromJSONString(meeting.scheduledStartDate);
+                    meeting.scheduledStartDate = CommonHelperMethods.getDateFromJSONString(meeting.scheduledStartDate);
                     meeting.formatStartDate = DateFormatter.format(meeting.scheduledStartDate, "Y/m/d H:i") + ' Uhr';
 
                     switch (meeting.status) {
@@ -42,13 +38,22 @@ angular.module("Meeting", [])
                             break;
 
                     }
-                    ;
+                    meeting.invitationStatus = MeetingResourceHelper.getMeetingInvitations("11fab19c-2454-7858-67f4-5130eea684f5").get(function (data) {
+                        console.log('success, got invitation: ', data);
+
+                    }, function (err) {
+                        alert('request getMeetingInvitations failed');
+                    });
                 });
-                console.log('success, got data: ', $scope.meetingList);
+                console.log('success, got meeting: ', $scope.meetingList);
+
+
 
             }, function (err) {
                 alert('request failed');
             });
+
+
 
             //$rootScope.changeToolBar("");
 
