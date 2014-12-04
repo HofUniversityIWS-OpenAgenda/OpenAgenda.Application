@@ -30,11 +30,13 @@ class AgendaItemController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	 * @return void
 	 */
 	public function createAction(AgendaItem $newAgendaItem, Meeting $meeting) {
-		$meeting->setCreationDate(new \DateTime());
+		$newAgendaItem->setCreationDate(new \DateTime());
 
 		$newAgendaItem->setMeeting($meeting);
 		$meeting->getAgendaItems()->add($newAgendaItem);
+
 		$this->historyService->invoke($newAgendaItem);
+		$this->historyService->invoke($meeting);
 	}
 
 	/**
@@ -42,7 +44,7 @@ class AgendaItemController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	 * @return void
 	 */
 	public function editAction(AgendaItem $agendaItem) {
-		$this->view->assign('meeting', $agendaItem);
+		$this->view->assign('agendaItem', $agendaItem);
 	}
 
 	/**
@@ -56,11 +58,14 @@ class AgendaItemController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 
 	/**
 	 * @param \OpenAgenda\Application\Domain\Model\AgendaItem $agendaItem
+	 * @param \OpenAgenda\Application\Domain\Model\Meeting $meeting
 	 * @return void
 	 */
-	public function deleteAction(AgendaItem $agendaItem) {
+	public function deleteAction(AgendaItem $agendaItem, Meeting $meeting) {
 		$this->agendaItemRepository->remove($agendaItem);
+
 		$this->historyService->invoke($agendaItem);
+		$this->historyService->invoke($meeting);
 	}
 
 }
