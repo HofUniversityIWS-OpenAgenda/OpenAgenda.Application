@@ -1,4 +1,4 @@
-var Application = angular.module('OpenAgenda', ['ngRoute', 'ngResource', 'ng-breadcrumbs', 'xeditable',
+var Application = angular.module('OpenAgenda', ['ngRoute', 'ngResource', 'angularFileUpload','ng-breadcrumbs', 'xeditable',
     'ApplicationControllers','CommonFactories', 'TopBar','Dashboard', 'Menu','Meeting', 'ngSanitize',
     'ui.calendar','ui.bootstrap']);
 
@@ -56,4 +56,6 @@ Application.config(['$routeProvider',
 
 Application.run(function(editableOptions) {
     editableOptions.theme = 'bs3';
-})
+});
+
+

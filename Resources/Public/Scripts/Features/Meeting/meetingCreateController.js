@@ -10,6 +10,7 @@ angular.module("Meeting")
         $scope.breadcrumbs = breadcrumbs;
         console.log("Create meeting Conroller loaded");
 
+
         function agendaItem(sorting) {
             this.__identity = "38fa3590-9095-c080-da99-c15f1710cfed";
             this.title;
@@ -57,7 +58,22 @@ angular.module("Meeting")
         $scope.$watchCollection('meeting', function(newValue, oldValue) {
             console.log(newValue);
         });
+
+        $scope.sendMeetingData = function () {
+            console.log("SEND DATA " + $scope.uploader);
+        };
     }])
+    .controller('uploadCtrl', function($scope, $rootScope, FileUploader) {
+        console.log("Upload Controller loaded");
+
+        $rootScope.uploader = new FileUploader();
+        console.log($rootScope.uploader);
+
+        $scope.getUploader = function() {
+            return  $rootScope.uploader;
+        };
+
+    })
     .directive("pointMe", function() {
         return {
             restrict : "AC",

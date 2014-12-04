@@ -26,8 +26,8 @@
                             <h3 style="color: #ffffff" class="panel-title"><span point-me="true" href="#" editable-text="meeting.title">{{ meeting.title || 'Noch kein Titel festgelegt' }}</span></h3>
                         </div>
                         <div class="panel-body">
-                            <div style="height: 100px; width: 150px; border: solid #000000" class="pull-right meeting-map">KARTE
-                            </div>
+                            <!--<div style="height: 100px; width: 150px; border: solid #000000" class="pull-right meeting-map">KARTE
+                            </div>-->
                             <h3>Termin</h3>
 
                             <div class="panel-entry">
@@ -44,7 +44,7 @@
 
                             <div class="agenda-punkt" ng-repeat="apt in meeting.agendaItems">
                                 <div class="panel-entry row">
-                                    <div class=" col-sm-6">
+                                    <div class=" col-sm-12 col-md-12 col-lg-6 ">
                                         <div><label><b><a href="#" editable-text="apt.title">{{apt.sorting}}. {{ apt.title|| 'Kein Agendapunkt-Titel festgelegt' }}</a></b></label></div>
                                         <div>
                                             <a href="#" editable-textarea="apt.description" e-rows="7" e-cols="40">
@@ -52,13 +52,19 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div ng-controller="uploadCtrl" class="col-sm-12 col-md-12 col-lg-6">
                                         <div class="pull-right">
-                                            [[ANHANG]]<br/>
-                                            [[ANHANG]]
+                                            <ul>
+                                                <li ng-repeat="item in uploader.queue">
+                                                    Name: <span ng-bind="item.file.name"></span><br/>
+                                                    <!--<button ng-click="item.upload()">upload</button>-->
+                                                </li>
+                                            </ul>
                                         </div>
                                         <div><b>Anhänge</b></div>
-                                        <button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+
+
+                                        <span class="btn btn-default btn-xs btn-file"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><input type="file" nv-file-select uploader="getUploader()"/><br/></span>
                                     </div>
                                 </div>
                             </div>
@@ -107,7 +113,7 @@
                                         </ul>
                                     </div>
                                     <div class="clearfix panel-entry">
-                                        <button style="margin-bottom: 20px; margin-right: 15px" class=" pull-right btn btn-danger">
+                                        <button ng-click="sendMeetingData()" style="margin-bottom: 20px; margin-right: 15px" class=" pull-right btn btn-danger">
                                             Meeting anlegen
                                         </button>
                                     </div>
