@@ -57,6 +57,36 @@ class MeetingController extends AbstractController {
 	}
 
 	/**
+	 * @param \OpenAgenda\Application\Domain\Model\Meeting $meeting
+	 * @return void
+	 */
+	public function showStatusOfInvitationsAction(Meeting $meeting) {
+		$invitationsOpen = array();
+		$invitationsCommitted = array();
+		$invitationsCanceled = array();
+		$invitations = $meeting->getInvitations()->toArray();
+
+		foreach($invitations as $invitation){
+			if($invitation->getStatus() === 0){
+				array_push($invitationsOpen, $invitation);
+			}
+			else if($invitation->getStatus() === 1){
+				array_push($invitationsCommitted, $invitation);
+			}
+			else if($invitation->getStatus() === 2){
+				array_push($invitationsCanceled, $invitation);
+			}
+		}
+
+		$invitationsStatusCounter = array(
+			"open" => sizeof($invitationsOpen),
+			"committed" => sizeof($invitationsCommitted),
+			"canceled" => sizeof($invitationsCanceled),
+		);
+		$this->view->assign('value', $this->arrayService->flatten($invitationsStatusCounter, 'show'));
+	}
+
+	/**
 	 * @return void
 	 */
 	public function listAction() {
