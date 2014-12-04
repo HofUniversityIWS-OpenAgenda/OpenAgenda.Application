@@ -23,9 +23,8 @@ angular.module("Dashboard", [])
                     var tag = $scope.getDateFromJSONString(meeting.scheduledStartDate);
                     //tag.setMonth(10);       // Test zu Meetings anzeigen
                     //tag.setFullYear(2014);
-
                     $scope.events.push( {title: meeting.title, start: new Date(tag) });
-
+                    meeting.invitationStatus = MeetingResourceHelper.getMeetingInvitations(meeting.__identity).get();
                 });
             }, function (err) {
                 alert('request failed');
