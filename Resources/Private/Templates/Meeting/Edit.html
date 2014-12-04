@@ -42,7 +42,7 @@
                             </div>
                             <h3 class="top-border">Agenda</h3>
 
-                            <div class="agenda-punkt" ng-repeat="apt in meeting.agendaItems | orderBy:'sorting':false">
+                            <div class="agenda-punkt" ng-repeat="apt in meeting.agendaItems | orderBy:'+sorting'">
                                 <div class="panel-entry row">
                                     <div class=" col-sm-12 col-md-12 col-lg-6 ">
                                         <div><label><b><a href="#" editable-text="apt.title">{{apt.sorting}}. {{ apt.title|| 'Kein Agendapunkt-Titel festgelegt' }}</a></b></label></div>
@@ -106,7 +106,7 @@
                                     <div ng-show="meeting.invitations.length > 0">
                                         <label style="margin-top: 20px">Hinzugefügte Teinehmer</label>
                                         <ul>
-                                            <li ng-repeat="invitation in meeting.invitations">{{invitation.mail}} <a point-me="true" ng-click="deleteInvitation($index)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                            <li ng-repeat="invitation in meeting.invitations">In Participant steht noch nix <a point-me="true" ng-click="deleteInvitation($index)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                             </a></li>
                                         </ul>
                                     </div>
