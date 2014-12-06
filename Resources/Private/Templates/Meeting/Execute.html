@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"
+      xmlns:ng="http://typo3.org/ns/Google/AngularJs/ViewHelpers"
+      xmlns:twbs="http://typo3.org/ns/Twitter/Bootstrap/ViewHelpers"
+      xmlns:oa="http://typo3.org/ns/OpenAgenda/Application/ViewHelpers"
+      xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
+
+<f:layout name="Content"></f:layout>
+
+<!-- Page Content ------------------------------------------- -->
+<f:section name="Content">
+    <f:render partial="Common/Breadcrumb"></f:render>
+
+    <div class="page-content">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Meeting durchführen</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{meeting.title}}</h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <h3>Termin</h3>
+
+                        <div class="panel-entry">
+                            {{meeting.formatScheduledStartDate}}<br/>
+                            {{meeting.formatScheduledTime}} (begonnen am {{meeting.formatStartDate}} um {{meeting.formatTime}})<br/>
+                            <span ng-show="meeting.location">Ort: {{meeting.location}}</span>
+                        </div>
+                        <h3>Agenda</h3>
+
+                        <div class="panel-entry" ng-repeat="agendaItem in meeting.agendaItems | orderBy:'+sorting'">
+                            <div class="agenda-punkt">
+                                <div class="panel-entry row">
+                                    <div class=" col-sm-6">
+                                        <div class="checkbox">
+                                            <label><input type="checkbox" value="">
+                                                <b>{{agendaItem.title}}</b>
+                                            </label>
+                                        </div>
+                                        <div>{{agendaItem.description}}</div>
+                                    </div>
+                                    <div class="col-sm-6">
+
+                                        <div><b>Anhänge</b></div>
+                                        <div >Anhang1.txt <br/>Anhang2.docx</div>
+                                    </div>
+                                </div>
+
+
+                                <h4>Protokoll</h4>
+
+                                    <div class="Protokoll">
+                                        <div>
+                                            {{getProtocolItem($index+1).__identity}} Hier könnte Ihre Protokollbeschreibung stehen!
+                                        </div>
+                                    </div>
+
+                            </div>
+                        </div>
+                        <h4>Aufgaben</h4>
+                        <div class="panel-entry">
+                            <div class="aufgabe">
+                                <button class="pull-right btn btn-default"><span
+                                        class="glyphicon glyphicon-minus"
+                                        aria-hidden="true"></span></button>
+                                <div style="margin-bottom: 20px"><b>Lorum Ipsum Beschriebung</b></div>
+
+                                <div style="padding: 0px" class="col-sm-5">
+                                    <select class="form-control">
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group input-group">
+                                        <input type="text" class="form-control"/>
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"
+                                                                              aria-hidden="true"></span></span>
+                                    </div>
+                                </div>
+                                <div style="padding: 0px" class="col-sm-3">
+                                    <input class="form-control">
+                                </div>
+                                <textarea class="form-control" rows="3"></textarea>
+                            </div>
+
+                            <button style="margin-top: 15px;" class="btn btn-primary btn-xs">Aufgbe hinzufügen
+                            </button>
+                        </div>
+
+
+
+                    </div>
+                    <div class=" clearfix panel-entry">
+                        <button style="margin-bottom: 20px; margin-right: 15px" class=" pull-right btn btn-danger">
+                            Meeting abschließen
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</f:section>
+<!-- Page Content ------------------------------------------- -->
+</html>
