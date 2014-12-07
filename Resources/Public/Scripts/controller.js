@@ -10,8 +10,8 @@ ApplicationControllers.controller('TaskCtrl', ['$scope', '$http',
 
 
 
-ApplicationControllers.controller('MeetingExecuteCtrl', ['$scope', '$rootScope', '$routeParams', '$resource', "breadcrumbs", "MeetingDetail",
-    function ($scope, $rootScope, $routeParams, $resource, breadcrumbs, MeetingDetail, Meetinglist) {
+ApplicationControllers.controller('MeetingExecuteCtrl', ['$scope', '$rootScope', '$filter','$routeParams', '$resource', "breadcrumbs", "MeetingResourceHelper",
+    function ($scope, $rootScope, $filter, $routeParams, $resource, breadcrumbs, MeetingResourceHelper) {
         $scope.meetingId = $routeParams.meetingId;
         console.log($routeParams.meetingId);
 
@@ -19,7 +19,7 @@ ApplicationControllers.controller('MeetingExecuteCtrl', ['$scope', '$rootScope',
             return new Date(string.substr(1, string.length - 2));
         };
 
-        $scope.meeting = MeetingDetail($routeParams.meetingId).get(function (data) {
+        $scope.meeting = MeetingResourceHelper.getMeetingDetail($routeParams.meetingId).get(function (data) {
             console.log('success, got data: ', data);
             console.log('datum', data.startDate);
             data.startDate = $scope.getDateFromJSONString(data.startDate);
@@ -37,6 +37,8 @@ ApplicationControllers.controller('MeetingExecuteCtrl', ['$scope', '$rootScope',
             alert('request failed');
         });
 
+        $scope.task;
+
         $scope.getProtocolItem = function(index){
             console.log('getProtocolItem Start');
             for (var i = 0; $scope.meeting.protocolItems.length; i++)
@@ -47,8 +49,21 @@ ApplicationControllers.controller('MeetingExecuteCtrl', ['$scope', '$rootScope',
                 }
             }
         };
+        $scope.imgTask = {
 
+        };
 
+        $scope.invitedUsers = [
+            {value: 1, text: 'tt@tt.de'},
+            {value: 2, text: 'xx@tt.de'},
+            {value: 3, text: 'txxt@tt.de'},
+            {value: 4, text: 'tfggt@tt.de'}
+        ];
+
+        $scope.showStatus = function() {
+            var selected = $filter('filter')($scope.invitedUsers, {value: $scope.imgTask.user});
+            return ($scope.imgTask.user && selected.length) ? selected[0].text : 'Not set';
+        };
     }]);
 
 ApplicationControllers.controller('CalendarCtrl', ['$scope', '$http',

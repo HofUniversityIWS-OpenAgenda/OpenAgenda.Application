@@ -52,15 +52,13 @@
                                     </div>
                                 </div>
 
+                                <div class="panel-entry row">
+                                    <h4>Protokoll</h4>
 
-                                <h4>Protokoll</h4>
-
-                                    <div class="Protokoll">
-                                        <div>
-                                            {{getProtocolItem($index+1).__identity}} Hier könnte Ihre Protokollbeschreibung stehen!
+                                        <div class="Protokoll">
+                                                {{getProtocolItem($index+1).__identity}} Hier könnte Ihre Protokollbeschreibung stehen!
                                         </div>
-                                    </div>
-
+                                </div>
                             </div>
                         </div>
                         <h4>Aufgaben</h4>
@@ -69,28 +67,30 @@
                                 <button class="pull-right btn btn-default"><span
                                         class="glyphicon glyphicon-minus"
                                         aria-hidden="true"></span></button>
-                                <div style="margin-bottom: 20px"><b>Lorum Ipsum Beschriebung</b></div>
+                                <div>
+                                    <a href="#" editable-text="task.title">{{ task.title || 'Aufgabentitel festlegen' }}</a>
+                                </div>
 
                                 <div style="padding: 0px" class="col-sm-5">
-                                    <select class="form-control">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                    </select>
+                                    <a href="#" editable-select="imgTask.user" e-ng-options="s.value as s.text for s in invitedUsers">
+                                        {{ showStatus() }}
+                                    </a>
                                 </div>
                                 <div class="col-sm-4">
-                                    <div class="form-group input-group">
-                                        <input type="text" class="form-control"/>
-                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"
-                                                                              aria-hidden="true"></span></span>
-                                    </div>
+                                    <a href="#" editable-bsdate="task.scheduledDateTime" e-datepicker-popup="dd-MMMM-yyyy">
+                                        {{ (task.scheduledDateTime | date:"dd/MM/yyyy") || 'Datum festlegen' }}
+                                    </a><br/>
                                 </div>
-                                <div style="padding: 0px" class="col-sm-3">
-                                    <input class="form-control">
+                                <div>
+                                    <a href="#" editable-bstime="task.scheduledDateTime" e-show-meridian="false" e-minute-step="10">
+                                        {{ (task.scheduledDateTime | date:"HH:mm") || 'Uhrzeit festlegen' }}
+                                    </a><br/>
                                 </div>
-                                <textarea class="form-control" rows="3"></textarea>
+                                <div>
+                                    <a href="#" editable-textarea="task.description" e-rows="7" e-cols="40">
+                                        <pre>{{ task.description || 'Aufgabenbeschreibung festlegen' }}</pre>
+                                    </a>
+                                </div>
                             </div>
 
                             <button style="margin-top: 15px;" class="btn btn-primary btn-xs">Aufgbe hinzufügen
