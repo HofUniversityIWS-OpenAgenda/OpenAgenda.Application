@@ -22,17 +22,19 @@ ApplicationControllers.controller('MeetingExecuteCtrl', ['$scope', '$rootScope',
         $scope.meeting = MeetingResourceHelper.getMeetingDetail($routeParams.meetingId).get(function (data) {
             console.log('success, got data: ', data);
             console.log('datum', data.startDate);
-            data.startDate = $scope.getDateFromJSONString(data.startDate);
-            data.formatStartDate = DateFormatter.format(new Date(data.startDate), "Y/m/d"); // H:i") + ' Uhr';
-            data.formatTime = DateFormatter.format(new Date(data.startDate), "H:i") + ' Uhr';
+            if (data.startDate)
+            {
+
+                data.startDate = $scope.getDateFromJSONString(data.startDate);
+                data.formatStartDate = DateFormatter.format(new Date(data.startDate), "Y/m/d"); // H:i") + ' Uhr';
+                data.formatTime = DateFormatter.format(new Date(data.startDate), "H:i") + ' Uhr';
+            }
 
             data.scheduledStartDate = $scope.getDateFromJSONString(data.scheduledStartDate);
             data.formatScheduledStartDate = DateFormatter.format(data.scheduledStartDate, "Y/m/d");
             data.formatScheduledTime = DateFormatter.format(new Date(data.startDate), "H:i") + ' Uhr';
 
 
-
-            console.log('datum neu', data.formatStartDate);
         }, function (err) {
             alert('request failed');
         });
@@ -40,15 +42,21 @@ ApplicationControllers.controller('MeetingExecuteCtrl', ['$scope', '$rootScope',
         $scope.task;
 
         $scope.getProtocolItem = function(index){
-            console.log('getProtocolItem Start');
+            var found = false;
             for (var i = 0; $scope.meeting.protocolItems.length; i++)
             {
-                if ($scope.meeting.protocolItems[i].sorting = index)
+                if ($scope.meeting.protocolItems[i].sorting == index)
                 {
+                    found = true;
                     return $scope.meeting.protocolItems[i];
                 }
             }
+            if(!found)
+            {
+                //add new Item
+            }
         };
+
         $scope.imgTask = {
 
         };

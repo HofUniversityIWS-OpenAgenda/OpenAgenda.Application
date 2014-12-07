@@ -34,36 +34,46 @@
                         </div>
                         <h3>Agenda</h3>
 
-                        <div class="panel-entry" ng-repeat="agendaItem in meeting.agendaItems | orderBy:'+sorting'">
-                            <div class="agenda-punkt">
+                        <div ng-repeat="agendaItem in meeting.agendaItems | orderBy:'+sorting'">
+                            <div class="agenda-punkt" style="border-top: solid 1px #eeeeee">
+
                                 <div class="panel-entry row">
-                                    <div class=" col-sm-6">
+                                    <div class=" col-sm-12 col-md-12 col-lg-6 ">
                                         <div class="checkbox">
                                             <label><input type="checkbox" value="">
                                                 <b>{{agendaItem.title}}</b>
                                             </label>
                                         </div>
-                                        <div>{{agendaItem.description}}</div>
+                                        <div>
+                                            {{agendaItem.description}}
+                                        </div>
                                     </div>
-                                    <div class="col-sm-6">
-
+                                    <div class="col-sm-12 col-md-12 col-lg-6">
                                         <div><b>Anhänge</b></div>
-                                        <div >Anhang1.txt <br/>Anhang2.docx</div>
+                                        <div>
+                                            <ul>
+                                                <li> htijg</li>
+
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div class="panel-entry row">
+                                <div class="panel-entry">
                                     <h4>Protokoll</h4>
 
                                         <div class="Protokoll">
-                                                {{getProtocolItem($index+1).__identity}} Hier könnte Ihre Protokollbeschreibung stehen!
+
+                                            <a href="#" editable-textarea="getProtocolItem(agendaItem.sorting).text" e-rows="7" e-cols="40">
+                                                <pre>{{ getProtocolItem(agendaItem.sorting).text || 'Noch kein Protokolleintrag' }}</pre>
+                                            </a>
                                         </div>
                                 </div>
                             </div>
                         </div>
-                        <h4>Aufgaben</h4>
+                        <h3 style="border-top: solid 1px #eeeeee">Aufgaben</h3>
                         <div class="panel-entry">
-                            <div class="aufgabe">
+                            <div class="task">
                                 <button class="pull-right btn btn-default"><span
                                         class="glyphicon glyphicon-minus"
                                         aria-hidden="true"></span></button>
