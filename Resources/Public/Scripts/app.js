@@ -1,5 +1,5 @@
 var Application = angular.module('OpenAgenda', ['ngRoute', 'ngResource', 'angularFileUpload','ng-breadcrumbs', 'xeditable',
-    'ApplicationControllers','CommonFactories','CommonDirectives', 'TopBar','Dashboard', 'Menu','Meeting', 'ngSanitize',
+    'ApplicationControllers','CommonFactories','CommonDirectives', 'TopBar','Dashboard', 'Menu','Meeting', 'Task', 'ngSanitize',
     'ui.calendar','ui.bootstrap']);
 
 Application.config(['$routeProvider',
@@ -30,9 +30,10 @@ Application.config(['$routeProvider',
                 templateUrl: '/template/meeting/Execute.html',
                 controller: 'MeetingExecuteCtrl'
             }).
-            when('/tasks', {
+            when('/task', {
                 templateUrl: '/template/task/index.html',
-                controller: 'TaskCtrl'
+                controller: 'TaskIndexCtrl',
+                label:'Tasks'
             }).
             when('/task/show/:taskId', {
                 templateUrl: '/template/task/show.html',
