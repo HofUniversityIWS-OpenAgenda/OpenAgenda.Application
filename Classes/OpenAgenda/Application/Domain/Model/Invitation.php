@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @Flow\Entity
+ * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(columns={"meeting", "participant"})})
  */
 class Invitation implements ModificationInterface {
 
@@ -27,8 +28,8 @@ class Invitation implements ModificationInterface {
 
 	/**
 	 * @var \TYPO3\Party\Domain\Model\Person
-	 * @ORM\ManyToMany
-	 * @OA\ToFlatArray
+	 * @ORM\ManyToOne
+	 * @OA\ToFlatArray(useIdentifier=true)
 	 */
 	protected $participant;
 

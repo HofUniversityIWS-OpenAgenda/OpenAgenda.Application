@@ -90,7 +90,7 @@ class TestDataCommandController extends CommandController {
 	 * @param integer $invitations The quantity of Invitations
 	 * @return string
 	 */
-	public function createMeetingsCommand($quantity = 5, $itemQuantity = 3, $invitations = 10) {
+	public function createMeetingsCommand($quantity = 5, $itemQuantity = 3, $invitations = 1) {
 		$this->agendaItemRepository->removeAll();
 		$this->protocolItemRepository->removeAll();
 		$this->invitationRepository->removeAll();
@@ -131,8 +131,7 @@ class TestDataCommandController extends CommandController {
 
 			for ($invitationCounter = 0; $invitationCounter < $invitations; $invitationCounter++) {
 				$newInvitation = new Invitation();
-				// @todo Determine the right object here (Person?!)
-				//$newInvitation->setParticipant($adminAccount->getParty());
+				$newInvitation->setParticipant($adminAccount->getParty());
 				$newInvitation->setStatus(Invitation::STATUS_OPEN);
 				$newInvitation->setCreationDate(new \DateTime());
 				$newInvitation->setModificationDate($newInvitation->getCreationDate());
