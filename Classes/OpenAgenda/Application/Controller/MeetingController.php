@@ -23,6 +23,24 @@ class MeetingController extends AbstractController {
 	 */
 	protected $historyService;
 
+	protected function initializeCreateAction() {
+		if (!$this->arguments->hasArgument('newMeeting')) {
+			return;
+		}
+		$propertyMappingConfiguration = $this->arguments->getArgument('newMeeting')->getPropertyMappingConfiguration();
+		$propertyMappingConfiguration->setTypeConverterOption('TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter', \TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE);
+		$propertyMappingConfiguration->allowAllProperties();
+	}
+
+	protected function initializeUpdateAction() {
+		if (!$this->arguments->hasArgument('meeting')) {
+			return;
+		}
+		$propertyMappingConfiguration = $this->arguments->getArgument('meeting')->getPropertyMappingConfiguration();
+		$propertyMappingConfiguration->setTypeConverterOption('TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter', \TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_MODIFICATION_ALLOWED, TRUE);
+		$propertyMappingConfiguration->allowAllProperties();
+	}
+
 	/**
 	 * @return void
 	 */
@@ -115,7 +133,8 @@ class MeetingController extends AbstractController {
 
 		$this->meetingRepository->add($newMeeting);
 		$this->historyService->invoke($newMeeting);
-		$this->redirect('\OpenAgenda\Application\Resources\Templates\Dashboard\Index');
+
+		$this->view->assign('value', TRUE);
 	}
 
 	/**
@@ -133,6 +152,7 @@ class MeetingController extends AbstractController {
 	public function updateAction(Meeting $meeting) {
 		$this->meetingRepository->update($meeting);
 		$this->historyService->invoke($meeting);
+		$this->view->assign('value', TRUE);
 	}
 
 	/**
@@ -142,6 +162,7 @@ class MeetingController extends AbstractController {
 	public function deleteAction(Meeting $meeting) {
 		$this->meetingRepository->remove($meeting);
 		$this->historyService->invoke($meeting);
+		$this->view->assign('value', TRUE);
 	}
 
 	/**

@@ -87,7 +87,7 @@ angular.module("Meeting")
             $scope.sendMeetingData = function () {
                 console.log("SENDEN");
 
-                $http.post('meeting/create.json', $scope.sendThis).
+                $http.post('meeting/create.json', {newMeeting: $scope.sendThis}).
                     success(function(data, status, headers, config) {
                         // this callback will be called asynchronously
                         // when the response is available
@@ -107,7 +107,7 @@ angular.module("Meeting")
             }
 
             $scope.sendThis = {
-                "scheduledStartDate": new Date(),
+                "scheduledStartDate": moment(new Date()).format('YYYY-MM-DD\THH:mm:ssP'),
                 "title": "Test"
             };
 
