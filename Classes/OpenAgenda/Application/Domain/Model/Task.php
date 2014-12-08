@@ -16,6 +16,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Task extends ProtocolItem implements ModificationInterface {
 
+	const STATUS_CREATED = 0;
+	const STATUS_CLOSED = 1;
+	const STATUS_CANCELED= 2;
+
 	/**
 	 * @var \TYPO3\Party\Domain\Model\Person
 	 * @ORM\ManyToOne
