@@ -3,8 +3,8 @@
  */
 
 angular.module("Task", [])
-    .controller('TaskIndexCtrl', ['$scope', '$rootScope', '$resource', "breadcrumbs", "TaskResourceHelper","CommonHelperMethods",
-        function ($scope, $rootScope, $http, breadcrumbs, TaskResourceHelper, CommonHelperMethods) {
+    .controller('TaskIndexCtrl', ['$scope', '$rootScope', '$resource', "breadcrumbs", "TaskResourceHelper","CommonHelperMethods",'$modal', '$log',
+        function ($scope, $rootScope, $http, breadcrumbs, TaskResourceHelper, CommonHelperMethods, $modal, $log) {
             console.log("Task Index Controller Loaded");
             $scope.breadcrumbs = breadcrumbs;
 
@@ -15,6 +15,6 @@ angular.module("Task", [])
                 alert('request failed');
             });
 
+        }])
+    ;
 
-
-        }]);
