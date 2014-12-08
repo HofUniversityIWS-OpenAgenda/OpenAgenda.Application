@@ -10,7 +10,6 @@ use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Cli\CommandController;
 use \OpenAgenda\Application\Domain\Model\Meeting;
 use \OpenAgenda\Application\Domain\Model\AgendaItem;
-use \OpenAgenda\Application\Domain\Model\ProtocolItem;
 use \OpenAgenda\Application\Domain\Model\Task;
 use \OpenAgenda\Application\Domain\Model\Invitation;
 
@@ -33,12 +32,6 @@ class TestDataCommandController extends CommandController {
 
 	/**
 	 * @Flow\Inject
-	 * @var \OpenAgenda\Application\Domain\Repository\ProtocolItemRepository
-	 */
-	protected $protocolItemRepository;
-
-	/**
-	 * @Flow\Inject
 	 * @var \OpenAgenda\Application\Domain\Repository\InvitationRepository
 	 */
 	protected $invitationRepository;
@@ -48,6 +41,12 @@ class TestDataCommandController extends CommandController {
 	 * @var \OpenAgenda\Application\Domain\Repository\TaskRepository
 	 */
 	protected $taskRepository;
+
+	/**
+	 * @Flow\Inject
+	 * @var \OpenAgenda\Application\Domain\Repository\NoteRepository
+	 */
+	protected $noteRepository;
 
 	/**
 	 * @var \TYPO3\Flow\Security\AccountFactory
@@ -91,8 +90,9 @@ class TestDataCommandController extends CommandController {
 	 * @return string
 	 */
 	public function createMeetingsCommand($quantity = 5, $itemQuantity = 3, $invitations = 1) {
+		$this->taskRepository->removeAll();
+		$this->noteRepository->removeAll();
 		$this->agendaItemRepository->removeAll();
-		$this->protocolItemRepository->removeAll();
 		$this->invitationRepository->removeAll();
 		$this->meetingRepository->removeAll();
 
@@ -121,12 +121,25 @@ class TestDataCommandController extends CommandController {
 			}
 
 			for ($itemCounter = 0; $itemCounter < $itemQuantity; $itemCounter++) {
-				$newProtocolItem = new ProtocolItem();
-				$newProtocolItem->setSorting($itemCounter + 1);
+				$newNote = new \OpenAgenda\Application\Domain\Model\Note();
+				$newNote->setSorting($itemCounter + 1);
+				$newNote->setMeeting($newMeeting);
+				$newNote->setCreationDate(new \DateTime());
+				$newNote->setDescription('Description for Meeting #' . ($itemCounter + 1));
+				$this->historyService->invoke($newNote);
+				$newMeeting->getProtocolItems()->add($newNote);
 
-				$newProtocolItem->setMeeting($newMeeting);
-				$newMeeting->getProtocolItems()->add($newProtocolItem);
-				$this->historyService->invoke($newProtocolItem);
+				$newTask = new \OpenAgenda\Application\Domain\Model\Task();
+				$newTask->setSorting($itemCounter + 1);
+				$newTask->setMeeting($newMeeting);
+				$newTask->setCreationDate(new \DateTime());
+				$newTask->setTitle('Task #' . ($itemCounter + 1));
+				$newTask->setDescription('Description #' . ($itemCounter + 1));
+				$newTask->setDueDate(new \DateTime());
+				$newTask->setStatus(0);
+				$newTask->setAssignee($adminAccount->getParty());
+				$this->historyService->invoke($newTask);
+				$newMeeting->getProtocolItems()->add($newTask);
 			}
 
 			for ($invitationCounter = 0; $invitationCounter < $invitations; $invitationCounter++) {
