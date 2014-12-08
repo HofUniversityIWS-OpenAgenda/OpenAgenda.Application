@@ -82,10 +82,10 @@ class TestDataCommandController extends CommandController {
 	/**
 	 * ### meetings for testing ###
 	 *
-	 * This Command removes all existing meetings / AgendaItems and creates new meetings (default = 5) and new AgendaItems / ProtocolItems (default 3 for each) with dummy data to the DB.
+	 * This Command removes all existing meetings / AgendaItems and creates new meetings (default = 5) and new AgendaItems / ProtocolItems (default 3 for each) / Invitations (default 1) with dummy data to the DB.
 	 *
 	 * @param integer $quantity The quantity of new meetings
-	 * @param integer $itemQuantity The quantity of new sub-items
+	 * @param integer $itemQuantity The quantity of new sub-items (notes and tasks)
 	 * @param integer $invitations The quantity of Invitations
 	 * @return string
 	 */
@@ -159,7 +159,9 @@ class TestDataCommandController extends CommandController {
 
 		$this->response->appendContent('Created ' . $quantity . ' Meetings' . PHP_EOL);
 		$this->response->appendContent('+ with each having ' . $itemQuantity . ' AgendaItems' . PHP_EOL);
-		$this->response->appendContent('+ with each having ' . $itemQuantity . ' ProtocolItems' . PHP_EOL);
+		$this->response->appendContent('+ with each having ' . $itemQuantity . ' Notes' . PHP_EOL);
+		$this->response->appendContent('+ with each having ' . $itemQuantity . ' Task' . PHP_EOL);
+		$this->response->appendContent('+ with each having ' . $invitations . ' Invitations' . PHP_EOL);
 	}
 
 	/**
