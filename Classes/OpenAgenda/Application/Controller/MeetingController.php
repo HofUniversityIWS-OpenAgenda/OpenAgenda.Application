@@ -131,8 +131,8 @@ class MeetingController extends AbstractController {
 		$newMeeting->setCreationDate(new \DateTime());
 		$newMeeting->setStatus(Meeting::STATUS_CREATED);
 
-		$this->meetingRepository->add($newMeeting);
 		$this->historyService->invoke($newMeeting);
+		$this->meetingRepository->add($newMeeting);
 
 		$this->view->assign('value', TRUE);
 	}
@@ -150,8 +150,8 @@ class MeetingController extends AbstractController {
 	 * @return void
 	 */
 	public function updateAction(Meeting $meeting) {
-		$this->meetingRepository->update($meeting);
 		$this->historyService->invoke($meeting);
+		$this->meetingRepository->update($meeting);
 		$this->view->assign('value', TRUE);
 	}
 
@@ -160,8 +160,8 @@ class MeetingController extends AbstractController {
 	 * @return void
 	 */
 	public function deleteAction(Meeting $meeting) {
-		$this->meetingRepository->remove($meeting);
 		$this->historyService->invoke($meeting);
+		$this->meetingRepository->remove($meeting);
 		$this->view->assign('value', TRUE);
 	}
 
