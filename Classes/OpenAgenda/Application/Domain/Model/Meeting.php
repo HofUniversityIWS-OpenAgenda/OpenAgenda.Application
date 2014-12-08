@@ -49,6 +49,13 @@ class Meeting implements ModificationInterface {
 	protected $title;
 
 	/**
+	 * @var string
+	 * @ORM\Column(nullable=true)
+	 * @OA\ToFlatArray
+	 */
+	protected $location;
+
+	/**
 	 * @var \DateTime
 	 * @OA\ToFlatArray(callback="$self->format('c')")
 	 */
@@ -166,6 +173,13 @@ class Meeting implements ModificationInterface {
 	}
 
 	/**
+	 * @return string
+	 */
+	public function getLocation() {
+		return $this->location;
+	}
+
+	/**
 	 * @param \Doctrine\Common\Collections\Collection $agendaItems
 	 */
 	public function setAgendaItems($agendaItems) {
@@ -235,4 +249,10 @@ class Meeting implements ModificationInterface {
 		$this->title = $title;
 	}
 
+	/**
+	 * @param string $location
+	 */
+	public function setLocation($location) {
+		$this->title = $location;
+	}
 }
