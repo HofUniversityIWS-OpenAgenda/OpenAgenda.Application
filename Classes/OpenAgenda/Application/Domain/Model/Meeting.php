@@ -196,7 +196,7 @@ class Meeting implements ModificationInterface {
 	/**
 	 * @param \DateTime $scheduledStartDate
 	 */
-	public function setScheduleStartDate(\DateTime $scheduledStartDate) {
+	public function setScheduledStartDate(\DateTime $scheduledStartDate) {
 		$this->scheduledStartDate = $scheduledStartDate;
 	}
 
