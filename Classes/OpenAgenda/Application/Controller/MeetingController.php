@@ -61,29 +61,23 @@ class MeetingController extends AbstractController {
 	 * @return void
 	 */
 	public function showStatusOfInvitationsAction(Meeting $meeting) {
-		$invitationsOpen = array();
-		$invitationsCommitted = array();
-		$invitationsCanceled = array();
-		$invitations = $meeting->getInvitations()->toArray();
+		$invitationsStatusCounter = array(
+			'open' => 0,
+			'committed' => 0,
+			'canceled' => 0,
+		);
 
-		foreach($invitations as $invitation){
-			if($invitation->getStatus() === 0){
-				array_push($invitationsOpen, $invitation);
-			}
-			else if($invitation->getStatus() === 1){
-				array_push($invitationsCommitted, $invitation);
-			}
-			else if($invitation->getStatus() === 2){
-				array_push($invitationsCanceled, $invitation);
+		foreach ($meeting->getInvitations() as $invitation){
+			if($invitation->getStatus() === 0) {
+				$invitationsStatusCounter['open']++;
+			}  else if($invitation->getStatus() === 1){
+				$invitationsStatusCounter['committed']++;
+			} else if($invitation->getStatus() === 2){
+				$invitationsStatusCounter['canceled']++;
 			}
 		}
 
-		$invitationsStatusCounter = array(
-			"open" => sizeof($invitationsOpen),
-			"committed" => sizeof($invitationsCommitted),
-			"canceled" => sizeof($invitationsCanceled),
-		);
-		$this->view->assign('value', $this->arrayService->flatten($invitationsStatusCounter, 'show'));
+		$this->view->assign('value', $invitationsStatusCounter);
 	}
 
 	/**
