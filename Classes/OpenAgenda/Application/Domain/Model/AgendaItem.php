@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @Flow\Entity
+ * @ORM\Table(name="oa_agendaitem")
  */
 class AgendaItem implements ModificationInterface {
 
@@ -54,6 +55,7 @@ class AgendaItem implements ModificationInterface {
 	/**
 	 * @var \Doctrine\Common\Collections\Collection<\TYPO3\Flow\Resource\Resource>
 	 * @ORM\ManyToMany
+	 * @ORM\JoinTable(name="oa_agendaitem_resources")
 	 * @OA\ToFlatArray(scope="show")
 	 */
 	protected $resources;

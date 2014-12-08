@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @Flow\Entity
+ * @ORM\Table(name="oa_message")
  */
 class Message {
 
@@ -33,6 +34,7 @@ class Message {
 	/**
 	 * @var \Doctrine\Common\Collections\Collection<\TYPO3\Flow\Resource\Resource>
 	 * @ORM\ManyToMany
+	 * @ORM\JoinTable(name="oa_message_attachments")
 	 * @OA\ToFlatArray(scope="show")
 	 */
 	protected $attachments;

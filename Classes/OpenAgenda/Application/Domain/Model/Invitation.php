@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @Flow\Entity
- * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(columns={"meeting", "participant"})})
+ * @ORM\Table(name="oa_invitation", uniqueConstraints={@ORM\UniqueConstraint(columns={"meeting", "participant"})})
  */
 class Invitation implements ModificationInterface {
 

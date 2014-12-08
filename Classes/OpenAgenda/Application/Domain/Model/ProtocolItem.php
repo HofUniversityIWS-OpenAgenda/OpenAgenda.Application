@@ -13,12 +13,14 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @Flow\Entity
  * @ORM\InheritanceType("JOINED")
+ * @ORM\Table(name="oa_protocolitem")
  */
 abstract class ProtocolItem {
 
 	/**
 	 * @var \OpenAgenda\Application\Domain\Model\Meeting
 	 * @ORM\ManyToOne(inversedBy="protocolItems")
+	 * @OA\ToFlatArray(scope="list")
 	 */
 	protected $meeting;
 

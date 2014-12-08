@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @Flow\Entity
+ * @ORM\Table(name="oa_meeting")
  */
 class Meeting implements ModificationInterface {
 
