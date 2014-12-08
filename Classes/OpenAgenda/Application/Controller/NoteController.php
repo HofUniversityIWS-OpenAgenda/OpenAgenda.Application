@@ -7,10 +7,16 @@ namespace OpenAgenda\Application\Controller;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Mvc\Controller\ActionController;
+use OpenAgenda\Application\Domain\Model\Meeting;
 use OpenAgenda\Application\Domain\Model\Note;
 
-class NoteController extends ActionController {
+class NoteController extends AbstractController {
+
+	/**
+	 * @Flow\Inject
+	 * @var \OpenAgenda\Application\Service\HistoryService
+	 */
+	protected $historyService;
 
 	/**
 	 * @Flow\Inject
@@ -21,8 +27,8 @@ class NoteController extends ActionController {
 	/**
 	 * @return void
 	 */
-	public function indexAction() {
-		$this->view->assign('notes', $this->noteRepository->findAll());
+	public function listAction() {
+		$this->view->assign('value', $this->arrayService->flatten($this->noteRepository->findAll(), 'list'));
 	}
 
 	/**
@@ -30,31 +36,19 @@ class NoteController extends ActionController {
 	 * @return void
 	 */
 	public function showAction(Note $note) {
-		$this->view->assign('note', $note);
+		$this->view->assign('value', $this->arrayService->flatten($note, 'show'));
 	}
 
 	/**
-	 * @return void
-	 */
-	public function newAction() {
-	}
-
-	/**
+	 * @param \OpenAgenda\Application\Domain\Model\Meeting $meeting
 	 * @param \OpenAgenda\Application\Domain\Model\Note $newNote
 	 * @return void
 	 */
-	public function createAction(Note $newNote) {
-		$this->noteRepository->add($newNote);
-		$this->addFlashMessage('Created a new note.');
-		$this->redirect('index');
-	}
+	public function createAction(Meeting $meeting, Note $newNote) {
+		$newNote->setCreationDate(new \DateTime());
+		$this->historyService->invoke($newNote);
 
-	/**
-	 * @param \OpenAgenda\Application\Domain\Model\Note $note
-	 * @return void
-	 */
-	public function editAction(Note $note) {
-		$this->view->assign('note', $note);
+		$meeting->getProtocolItems()->add($newNote);
 	}
 
 	/**
@@ -62,19 +56,20 @@ class NoteController extends ActionController {
 	 * @return void
 	 */
 	public function updateAction(Note $note) {
+		$this->historyService->invoke($note);
 		$this->noteRepository->update($note);
-		$this->addFlashMessage('Updated the note.');
-		$this->redirect('index');
 	}
 
 	/**
+	 * @param \OpenAgenda\Application\Domain\Model\Meeting $meeting
 	 * @param \OpenAgenda\Application\Domain\Model\Note $note
 	 * @return void
 	 */
-	public function deleteAction(Note $note) {
-		$this->noteRepository->remove($note);
-		$this->addFlashMessage('Deleted a note.');
-		$this->redirect('index');
+	public function deleteAction(Meeting $meeting, Note $note) {
+		$this->historyService->invoke($note);
+		$this->historyService->invoke($meeting);
+
+		$meeting->getProtocolItems()->removeElement($note);
 	}
 
 }

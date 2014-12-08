@@ -7,6 +7,7 @@ namespace OpenAgenda\Application\Controller;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
+use OpenAgenda\Application\Domain\Model\Meeting;
 use OpenAgenda\Application\Domain\Model\Task;
 
 class TaskController extends AbstractController {
@@ -51,20 +52,15 @@ class TaskController extends AbstractController {
 	}
 
 	/**
+	 * @param \OpenAgenda\Application\Domain\Model\Meeting $meeting
 	 * @param \OpenAgenda\Application\Domain\Model\Task $newTask
 	 * @return void
 	 */
-	public function createAction(Task $newTask) {
+	public function createAction(Meeting $meeting, Task $newTask) {
 		$newTask->setCreationDate(new \DateTime());
 		$this->historyService->invoke($newTask);
-	}
 
-	/**
-	 * @param \OpenAgenda\Application\Domain\Model\Task $task
-	 * @return void
-	 */
-	public function editAction(Task $task) {
-		$this->view->assign('task', $task);
+		$meeting->getProtocolItems()->add($newTask);
 	}
 
 	/**
@@ -72,17 +68,20 @@ class TaskController extends AbstractController {
 	 * @return void
 	 */
 	public function updateAction(Task $task) {
-		$this->taskRepository->update($task);
 		$this->historyService->invoke($task);
+		$this->taskRepository->update($task);
 	}
 
 	/**
+	 * @param \OpenAgenda\Application\Domain\Model\Meeting $meeting
 	 * @param \OpenAgenda\Application\Domain\Model\Task $task
 	 * @return void
 	 */
-	public function deleteAction(Task $task) {
-		$this->taskRepository->remove($task);
+	public function deleteAction(Meeting $meeting, Task $task) {
 		$this->historyService->invoke($task);
+		$this->historyService->invoke($meeting);
+
+		$meeting->getProtocolItems()->removeElement($task);
 	}
 
 	/**
