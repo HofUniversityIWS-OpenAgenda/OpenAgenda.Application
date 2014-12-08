@@ -18,7 +18,7 @@ class History {
 
 	/**
 	 * @var \TYPO3\Party\Domain\Model\Person
-	 * @ORM\OneToOne
+	 * @ORM\ManyToOne
 	 * @OA\ToFlatArray
 	 */
 	protected $issuer;
