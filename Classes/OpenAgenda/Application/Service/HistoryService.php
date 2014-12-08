@@ -53,8 +53,9 @@ class HistoryService {
 		$history = new History();
 		$history->setCreationDate(new \DateTime());
 		$history->setEntityType(get_class($subject));
-		// @todo Determine cause of error using securityContext
-		//$history->setIssuer($this->securityContext->getParty());
+		if ($this->securityContext->isInitialized()) {
+			$history->setIssuer($this->securityContext->getParty());
+		}
 		$history->setEntityIdentifier($this->persistenceManager->getIdentifierByObject($subject));
 		// @todo Determine changes in current modified object and persisted entity
 		$history->setPreviousData(serialize($subject));
