@@ -12,8 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @Flow\Entity
+ * @ORM\InheritanceType("JOINED")
  */
-class ProtocolItem {
+abstract class ProtocolItem {
 
 	/**
 	 * @var \OpenAgenda\Application\Domain\Model\Meeting

@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @Flow\Entity
  */
-class Note {
+class Note extends ProtocolItem {
 
 	/**
 	 * @var string

@@ -13,10 +13,10 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @Flow\Entity
  */
-class Task implements ModificationInterface {
+class Task extends ProtocolItem implements ModificationInterface {
 
 	/**
-	 * @var \TYPO3\Flow\Security\Account
+	 * @var \TYPO3\Party\Domain\Model\Person
 	 * @ORM\ManyToOne
 	 * @OA\ToFlatArray(useIdentifier=true)
 	 */
@@ -59,7 +59,7 @@ class Task implements ModificationInterface {
 	protected $modificationDate;
 
 	/**
-	 * @return \TYPO3\Flow\Security\Account
+	 * @return \TYPO3\Party\Domain\Model\Person
 	 */
 	public function getAssignee() {
 		return $this->assignee;
@@ -108,9 +108,9 @@ class Task implements ModificationInterface {
 	}
 
 	/**
-	 * @param \TYPO3\Flow\Security\Account $assignee
+	 * @param \TYPO3\Party\Domain\Model\Person
 	 */
-	public function setAssignee($assignee) {
+	public function setAssignee(\TYPO3\Party\Domain\Model\Person $assignee) {
 		$this->assignee = $assignee;
 	}
 
