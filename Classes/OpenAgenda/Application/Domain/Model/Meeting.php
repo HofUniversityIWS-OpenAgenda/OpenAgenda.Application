@@ -138,7 +138,7 @@ class Meeting implements ModificationInterface {
 	}
 
 	/**
-	 * @return \Doctrine\Common\Collections\Collection
+	 * @return \Doctrine\Common\Collections\Collection|Invitation[]
 	 */
 	public function getInvitations() {
 		return $this->invitations;
