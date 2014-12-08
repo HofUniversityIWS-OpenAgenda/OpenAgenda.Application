@@ -102,7 +102,7 @@ class TestDataCommandController extends CommandController {
 			$newMeeting = new Meeting;
 			$newMeeting->setCreationDate(new \DateTime());
 			$newMeeting->setModificationDate($newMeeting->getCreationDate());
-			$newMeeting->setScheduleStartDate(new \DateTime('2015-01-05 12:00'));
+			$newMeeting->setScheduledStartDate(new \DateTime('2015-01-05 12:00'));
 			$newMeeting->setStatus(Meeting::STATUS_CREATED);
 			$newMeeting->setTitle('Meeting '.($counter+1));
 			$this->historyService->invoke($newMeeting);
