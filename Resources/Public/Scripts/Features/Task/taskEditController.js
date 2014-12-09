@@ -25,8 +25,10 @@ angular.module("Task")
                 modalInstance.result.then(function (string) {
                     $scope.selected = string;
                 }, function () {
+                    console.log($scope);
                     $log.info('Modal dismissed at: ' + new Date());
                 });
+
             };
 
 
@@ -37,7 +39,8 @@ angular.module("Task")
            $scope.task = task;
         });
         $scope.ok = function () {
-            console.log("OK, SAVE");
+            console.log("OK, SAVE Task: ");
+
             $modalInstance.close("OK");
         };
 
@@ -45,6 +48,7 @@ angular.module("Task")
             console.log("DISMISS");
             $modalInstance.dismiss('cancel');
         };
+
     })
 
 

@@ -3,29 +3,59 @@
  */
 
 angular.module("Task", [])
-    .controller('TaskIndexCtrl', ['$scope', '$rootScope', '$resource', "breadcrumbs", "MeetingResourceHelper", "TaskResourceHelper","CommonHelperMethods",'$modal', '$log',
-        function ($scope, $rootScope, $http, breadcrumbs, MeetingResourceHelper, TaskResourceHelper, CommonHelperMethods, $modal, $log) {
+    .controller('TaskIndexCtrl', ['$scope', '$rootScope','$location', '$resource',"breadcrumbs", "MeetingResourceHelper", "TaskResourceHelper","CommonHelperMethods",
+        function ($scope, $rootScope,$location, $resource, breadcrumbs, MeetingResourceHelper, TaskResourceHelper, CommonHelperMethods) {
             console.log("Task Index Controller Loaded");
             $scope.breadcrumbs = breadcrumbs;
 
-             TaskResourceHelper.getTaskList().query(function (data) {
-                console.log('success, got taskList: ', data);
-                angular.forEach(data, function (task) {
-                    task.dueDate = CommonHelperMethods.getDateFromJSONString(task.dueDate);
-                    $scope.getMeetingName(task);
-                });
-                 $scope.taskList = data;
-            }, function (err) {
-                alert('request failed');
-            });
+            $scope.showAllTasks = false;
+            if($location.url() == "/task/others")
+                $scope.showAllTasks = true;
 
-            $scope.getMeetingName = function (task) {
+
+               initTable();
+
+
+            $scope.$watch("showAllTasks", function (newVal) {
+                $scope.showAllTasksCheckboxDisabled = true;
+                console.log($scope.showAllTasks);
+                initTable();
+            })
+
+
+            function getMeetingName (task) {
 
                 MeetingResourceHelper.getMeetingDetail(task.meeting).get(function (data) {
-                    task.meeting = data.title;
+                    task.meeting = data.title
                 });
 
             };
+
+            function initTable () {
+                $scope.taskList =[];
+                if(!$scope.showAllTasks) {
+                    TaskResourceHelper.getTaskList().query(function (data) {
+                        console.log('success, got taskList: ', data);
+                        angular.forEach(data, function (task) {
+                            task.dueDate = CommonHelperMethods.getDateFromJSONString(task.dueDate);
+                            getMeetingName(task);
+                        });
+                        $scope.taskList = data;
+                        $scope.showAllTasksCheckboxDisabled = false;
+
+                    }, function (err) {
+                        alert('request failed');
+                    });
+                }
+                else{
+                    $scope.showAllTasksCheckboxDisabled = false;
+
+                }
+
+            };
+            $scope.$watchCollection("task", function() {
+               console.log("ohjkgptrjsfhjrtkmh");
+            });
         }])
     ;
 
