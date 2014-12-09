@@ -53,8 +53,6 @@ angular.module("Meeting", [])
                 alert('request failed');
             });
 
-
-
             //$rootScope.changeToolBar("");
 
             $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/d', 'dd.MM.yyyy', 'shortDate'];
@@ -82,18 +80,16 @@ angular.module("Meeting", [])
 
             $scope.dateOptions = {
                 formatYear: 'yyyy',
-                startingDay: 1,
-                "init-date": new Date()
-
+                startingDay: 1
             };
             var now = new Date();
-            var tempDate = now.getFullYear() + "/" + (now.getMonth()+1) + "/" + now.getDay();
+            var tempDate = now.getFullYear() + "/" + (now.getMonth()+1) + "/" + now.getDate();
             $scope.startDate = tempDate;
 
             var then = new Date();
             then.setDate(then.getDate());
 
-            var tempDate2 = then.getFullYear() + "/" + (then.getMonth()+1) + "/" + (then.getDay());
+            var tempDate2 = then.getFullYear() + "/" + (then.getMonth()+1) + "/" + (then.getDate());
             $scope.endDate = tempDate2;
 
         }]);
