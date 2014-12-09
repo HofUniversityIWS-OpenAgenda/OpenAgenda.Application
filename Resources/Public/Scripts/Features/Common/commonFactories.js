@@ -37,7 +37,7 @@ angular.module("CommonFactories", [])
                 });
             },
             getTaskDetail: function(id) {
-                return $resource('meeting/:taskId/show.json',{taskId:id}, {
+                return $resource('task/:taskId/show.json',{taskId:id}, {
                     get: {method:'GET'}
                 });
             }

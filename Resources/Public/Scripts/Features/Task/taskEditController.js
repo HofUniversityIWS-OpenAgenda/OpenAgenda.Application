@@ -3,29 +3,27 @@
  */
 
 angular.module("Task")
-    .controller('TaskEditCtrl', ['$scope', '$rootScope', '$resource', "breadcrumbs", "TaskResourceHelper","CommonHelperMethods",'$modal', '$log',
-        function ($scope, $rootScope, $http, breadcrumbs, TaskResourceHelper, CommonHelperMethods, $modal, $log) {
-            console.log("Task Index Controller Loaded");
-            $scope.breadcrumbs = breadcrumbs;
+    .controller('TaskEditCtrl', ['$scope', '$rootScope', '$resource', "TaskResourceHelper", "CommonHelperMethods", '$modal', '$log',
+        function ($scope, $rootScope, $resource, TaskResourceHelper, CommonHelperMethods, $modal, $log) {
+            console.log("Task Edit Controller Loaded");
 
-            $scope.items = ['item1', 'item2', 'item3'];
-//Task Detail abholen
+
             $scope.open = function (size, identity) {
-
+                console.log(identity);
 
                 var modalInstance = $modal.open({
                     templateUrl: '/template/task/edit.html',
                     controller: 'ModalInstanceCtrl',
                     size: size,
                     resolve: {
-                        items: function () {
-                            return $scope.items;
+                        identity: function () {
+                            return identity;
                         }
                     }
                 });
 
-                modalInstance.result.then(function (selectedItem) {
-                    $scope.selected = selectedItem;
+                modalInstance.result.then(function (string) {
+                    $scope.selected = string;
                 }, function () {
                     $log.info('Modal dismissed at: ' + new Date());
                 });
@@ -33,18 +31,18 @@ angular.module("Task")
 
 
         }])
-    .controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
-
-        $scope.items = items;
-        $scope.selected = {
-            item: $scope.items[0]
-        };
-
+    .controller('ModalInstanceCtrl', function ($scope, $modalInstance, TaskResourceHelper, CommonHelperMethods, identity) {
+       TaskResourceHelper.getTaskDetail(identity).get(function (task) {
+            task.dueDate = CommonHelperMethods.getDateFromJSONString(task.dueDate);
+           $scope.task = task;
+        });
         $scope.ok = function () {
-            $modalInstance.close($scope.selected.item);
+            console.log("OK, SAVE");
+            $modalInstance.close("OK");
         };
 
         $scope.cancel = function () {
+            console.log("DISMISS");
             $modalInstance.dismiss('cancel');
         };
     })

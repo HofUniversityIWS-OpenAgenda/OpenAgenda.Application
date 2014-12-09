@@ -39,12 +39,12 @@
                                 </thead>
                                 <tbody>
 
-                                <tr class="odd gradeX" ng-repeat="task in taskList | orderBy:'+title'">
-                                    <td>{{task.dueDate}}</td>
+                                <tr class="odd gradeX" ng-repeat="task in taskList | orderBy:'+dueDate +title'">
+                                    <td>{{task.dueDate | date:"dd/MM/yyyy HH:m"}} Uhr</td>
 
                                     <td>{{task.title}}</td>
-                                    <td>
-                                       {{task.status}}
+                                    <td task-status="true">
+
                                     </td>
                                     <td>{{task.meeting}}</td>
                                     <td point-me="true" ng-click="open('',task.__identity)">
@@ -66,4 +66,4 @@
 </div>
 </f:section>
 <!-- Page Content ------------------------------------------- -->
-</html>
+</html±±>

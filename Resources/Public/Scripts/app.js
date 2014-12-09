@@ -1,4 +1,4 @@
-var Application = angular.module('OpenAgenda', ['ngRoute', 'ngResource', 'angularFileUpload','ng-breadcrumbs', 'xeditable',
+var Application = angular.module('OpenAgenda', ['ngRoute', 'ngAnimate','ngResource', 'angularFileUpload','ng-breadcrumbs', 'xeditable',
     'ApplicationControllers','CommonFactories','CommonDirectives', 'TopBar','Dashboard', 'Menu','Meeting', 'Task', 'ngSanitize',
     'ui.calendar','ui.bootstrap']);
 

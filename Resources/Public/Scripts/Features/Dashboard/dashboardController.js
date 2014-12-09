@@ -24,6 +24,8 @@ angular.module("Dashboard", [])
                     meeting.invitationStatus = MeetingResourceHelper.getMeetingInvitations(meeting.__identity).get();
                 });
                 $scope.findUpcomingMeetings($scope.meetingList);
+
+                angular.copy( $scope.meetingList, $rootScope.meetingListGlobal);
             }, function (err) {
                 alert('request failed');
             });
