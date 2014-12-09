@@ -14,7 +14,7 @@ Application.config(['$routeProvider',
             when('/meeting', {
                 templateUrl: '/template/meeting/index.html',
                 controller: 'MeetingIndexCtrl',
-                label: 'Meetings'
+                label: 'Meeting Übersicht'
             }).
             when('/meeting/new', {
                 templateUrl: '/template/meeting/edit.html',
@@ -28,16 +28,17 @@ Application.config(['$routeProvider',
             }).
             when('/meeting/start/:meetingId', {
                 templateUrl: '/template/meeting/Execute.html',
-                controller: 'MeetingExecuteCtrl'
+                controller: 'MeetingExecuteCtrl',
+                label: 'Meeting durchführen'
             }).
             when('/task', {
                 templateUrl: '/template/task/index.html',
                 controller: 'TaskIndexCtrl',
-                label:'Tasks'
+                label:'Aufgaben Übersicht'
             }).
             when('/task/show/:taskId', {
                 templateUrl: '/template/task/show.html',
-                controller: 'TaskCtrl'
+                controller: 'Aufgabe bearbeiten'
             }).
             when('/calendar', {
                 templateUrl: '/template/calendar/index.html',

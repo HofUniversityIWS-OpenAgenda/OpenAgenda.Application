@@ -14,6 +14,7 @@ ApplicationControllers.controller('MeetingExecuteCtrl', ['$scope', '$rootScope',
     function ($scope, $rootScope, $filter, $routeParams, $resource, breadcrumbs, MeetingResourceHelper) {
         $scope.meetingId = $routeParams.meetingId;
         console.log($routeParams.meetingId);
+        $scope.breadcrumbs = breadcrumbs;
 
         $scope.getDateFromJSONString = function (string) {
             return new Date(string.substr(1, string.length - 2));
@@ -70,7 +71,7 @@ ApplicationControllers.controller('MeetingExecuteCtrl', ['$scope', '$rootScope',
 
         $scope.showStatus = function() {
             var selected = $filter('filter')($scope.invitedUsers, {value: $scope.imgTask.user});
-            return ($scope.imgTask.user && selected.length) ? selected[0].text : 'Not set';
+            return ($scope.imgTask.user && selected.length) ? selected[0].text : 'Verantwortlichen wählen';
         };
     }]);
 

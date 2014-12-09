@@ -25,11 +25,16 @@
                     </div>
                     <div class="panel-body">
 
-                        <h3>Termin</h3>
+                        <button style=" margin-right: 40px" class=" pull-right btn btn-danger">
+                            Meeting starten
+                        </button>
+
+                        <h3 style="display: inline">Termin</h3>
 
                         <div class="panel-entry">
                             {{meeting.formatScheduledStartDate}}<br/>
-                            {{meeting.formatScheduledTime}} (begonnen am {{meeting.formatStartDate}} um {{meeting.formatTime}})<br/>
+                            {{meeting.formatScheduledTime}}
+                            <span ng-show ="meeting.formatStartDate">(begonnen am {{meeting.formatStartDate}} um {{meeting.formatTime}})<br/> </span>
                             <span ng-show="meeting.location">Ort: {{meeting.location}}</span>
                         </div>
                         <h3>Agenda</h3>
@@ -40,34 +45,37 @@
                                 <div class="panel-entry row">
                                     <div class=" col-sm-12 col-md-12 col-lg-6 ">
                                         <div class="checkbox">
-                                            <label><input type="checkbox" value="">
+                                            <label><input type="checkbox" ng-model="checked">
                                                 <b>{{agendaItem.title}}</b>
                                             </label>
                                         </div>
                                         <div>
-                                            {{agendaItem.description}}
+                                            <div class="check-element animate-hide" ng-hide="checked">{{agendaItem.description}}</div>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-12 col-lg-6">
-                                        <div><b>Anhänge</b></div>
-                                        <div>
-                                            <ul>
-                                                <li> htijg</li>
+                                        <div class="check-element animate-hide" ng-hide="checked">
+                                            <div><b>Anhänge</b></div>
+                                            <div>
+                                                <ul>
+                                                    <li> htijg</li>
 
-                                            </ul>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="check-element animate-hide" ng-hide="checked">
+                                    <div class="panel-entry">
+                                        <h4>Protokoll</h4>
 
-                                <div class="panel-entry">
-                                    <h4>Protokoll</h4>
+                                            <div class="Protokoll">
 
-                                        <div class="Protokoll">
-
-                                            <a href="#" editable-textarea="getProtocolItem(agendaItem.sorting).text" e-rows="7" e-cols="40">
-                                                <pre>{{ getProtocolItem(agendaItem.sorting).text || 'Noch kein Protokolleintrag' }}</pre>
-                                            </a>
-                                        </div>
+                                                <a href="#" editable-textarea="getProtocolItem(agendaItem.sorting).text" e-rows="7" e-cols="40">
+                                                    <pre>{{ getProtocolItem(agendaItem.sorting).text || 'Noch kein Protokolleintrag' }}</pre>
+                                                </a>
+                                            </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
