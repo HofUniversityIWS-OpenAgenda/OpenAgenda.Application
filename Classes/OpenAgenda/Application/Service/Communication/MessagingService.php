@@ -73,6 +73,7 @@ class MessagingService {
 		$message->setPlainTextBody($textBody);
 
 		$this->messageRepository->add($message);
+		$this->persistenceManager->persistAll();
 	}
 
 	public function deliver() {
