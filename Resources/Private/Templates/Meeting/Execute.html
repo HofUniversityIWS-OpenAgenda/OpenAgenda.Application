@@ -24,17 +24,23 @@
                         <h3 class="panel-title">{{meeting.title}}</h3>
                     </div>
                     <div class="panel-body">
-
-                        <button style=" margin-right: 40px" class=" pull-right btn btn-danger">
-                            Meeting starten
-                        </button>
+                        <div class="check-element animate-hide" ng-hide="meeting.startDate">
+                            <button style=" margin-right: 40px" class=" pull-right btn btn-success" ng-click="startMeetng();">
+                                Meeting starten
+                            </button>
+                        </div>
+                        <div class="check-element animate-show" ng-show="meeting.startDate">
+                            <button style=" margin-right: 40px" class=" pull-right btn btn-success" ng-disabled='true' >
+                                Meeting läuft
+                            </button>
+                        </div>
 
                         <h3 style="display: inline">Termin</h3>
 
                         <div class="panel-entry">
-                            {{meeting.formatScheduledStartDate}}<br/>
-                            {{meeting.formatScheduledTime}}
-                            <span ng-show ="meeting.formatStartDate">(begonnen am {{meeting.formatStartDate}} um {{meeting.formatTime}})<br/> </span>
+                            {{meeting.scheduledStartDate | date:'dd.MM.yyyy'}}<br/>
+                            {{meeting.formatScheduledTime | date:'H:mm'}}
+                            <span ng-show ="meeting.startDate"><br/>(begonnen am {{meeting.startDate | date:'dd.MM.yyyy'}} um {{meeting.startDate | date:'H:mm'}} Uhr)<br/> </span>
                             <span ng-show="meeting.location">Ort: {{meeting.location}}</span>
                         </div>
                         <h3>Agenda</h3>
@@ -72,7 +78,7 @@
                                             <div class="Protokoll">
 
                                                 <a href="#" editable-textarea="getProtocolItem(agendaItem.sorting).text" e-rows="7" e-cols="40">
-                                                    <pre>{{ getProtocolItem(agendaItem.sorting).text || 'Noch kein Protokolleintrag' }}</pre>
+                                                    <pre>{{ getProtocolItem(agendaItem.sorting).description || 'Noch kein Protokolleintrag' }}</pre>
                                                 </a>
                                             </div>
                                     </div>
@@ -119,7 +125,7 @@
 
                     </div>
                     <div class=" clearfix panel-entry">
-                        <button style="margin-bottom: 20px; margin-right: 15px" class=" pull-right btn btn-danger">
+                        <button style="margin-bottom: 20px; margin-right: 15px" class=" pull-right btn btn-danger" ng-show="meeting.startDate" ng-click="endMeetng()">
                             Meeting abschließen
                         </button>
                     </div>

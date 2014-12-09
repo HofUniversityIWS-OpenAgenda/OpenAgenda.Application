@@ -28,7 +28,7 @@ ApplicationControllers.controller('MeetingExecuteCtrl', ['$scope', '$rootScope',
 
                 data.startDate = $scope.getDateFromJSONString(data.startDate);
                 data.formatStartDate = DateFormatter.format(new Date(data.startDate), "Y/m/d"); // H:i") + ' Uhr';
-                data.formatTime = DateFormatter.format(new Date(data.startDate), "H:i") + ' Uhr';
+                data.formatStartTime = DateFormatter.format(new Date(data.startDate), "H:i") + ' Uhr';
             }
 
             data.scheduledStartDate = $scope.getDateFromJSONString(data.scheduledStartDate);
@@ -42,11 +42,11 @@ ApplicationControllers.controller('MeetingExecuteCtrl', ['$scope', '$rootScope',
 
         $scope.task;
 
-        $scope.getProtocolItem = function(index){
+        $scope.getProtocolItem = function(sorting){
             var found = false;
             for (var i = 0; $scope.meeting.protocolItems.length; i++)
             {
-                if ($scope.meeting.protocolItems[i].sorting == index)
+                if ($scope.meeting.protocolItems[i].sorting == sorting)
                 {
                     found = true;
                     return $scope.meeting.protocolItems[i];
@@ -55,6 +55,15 @@ ApplicationControllers.controller('MeetingExecuteCtrl', ['$scope', '$rootScope',
             if(!found)
             {
                 //add new Item
+                var newProtocolItem = function ProtocollItem(sorting) {
+                    this.__identity;
+                    this.description=null;
+                    this.creationDate = new Date();
+                    this.modificationDate;
+                    this.sorting = sorting;
+                }
+                $scope.meeting.protocolItems.push(newProtocolItem);
+                return newProtocolItem;
             }
         };
 
@@ -73,6 +82,22 @@ ApplicationControllers.controller('MeetingExecuteCtrl', ['$scope', '$rootScope',
             var selected = $filter('filter')($scope.invitedUsers, {value: $scope.imgTask.user});
             return ($scope.imgTask.user && selected.length) ? selected[0].text : 'Verantwortlichen wählen';
         };
+
+        $scope.startMeetng = function(){
+            if ($scope.meeting.startDate == null)
+            {
+                $scope.meeting.startDate = new Date();
+
+            }
+        };
+        $scope.endMeetng = function(){
+            if ($scope.meeting.endDate == null)
+            {
+                $scope.meeting.endDate = new Date();
+
+            }
+        };
+
     }]);
 
 ApplicationControllers.controller('CalendarCtrl', ['$scope', '$http',
