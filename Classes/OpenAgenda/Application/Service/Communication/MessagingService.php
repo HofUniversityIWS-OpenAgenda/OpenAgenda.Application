@@ -85,32 +85,43 @@ class MessagingService {
 		$messages = $this->messageRepository->findByStatus($status);
 
 		foreach ($messages as $message) {
-			if ($message->isActive()) {
-				continue;
-			}
-
-			try {
-				$message->setStatus(Message::STATUS_Active);
-				$this->messageRepository->update($message);
-				$this->persistenceManager->persistAll();
-
-				$mailMessage = $this->createMailMessage($message);
-				$mailMessage->send();
-
-				if (count($mailMessage->getFailedRecipients()) === 0) {
-					$message->setStatus(Message::STATUS_Delivered);
-				} else {
-					$message->setStatus(Message::STATUS_Failure);
-				}
-
-				$this->messageRepository->update($message);
-				$this->persistenceManager->persistAll();
-			} catch (\Exception $exception) {
-				$message->setStatus(Message::STATUS_Failure);
-				$this->messageRepository->update($message);
-				$this->persistenceManager->persistAll();
-			}
+			$this->deliverMessage($message);
 		}
+	}
+
+	/**
+	 * @param Message $message
+	 * @return bool
+	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
+	 */
+	protected function deliverMessage(Message $message) {
+		if ($message->isActive()) {
+			return FALSE;
+		}
+
+		try {
+			$message->setStatus(Message::STATUS_Active);
+			$this->messageRepository->update($message);
+			$this->persistenceManager->persistAll();
+
+			$mailMessage = $this->createMailMessage($message);
+			$mailMessage->send();
+
+			if (count($mailMessage->getFailedRecipients()) === 0) {
+				$message->setStatus(Message::STATUS_Delivered);
+			} else {
+				$message->setStatus(Message::STATUS_Failure);
+			}
+
+			$this->messageRepository->update($message);
+			$this->persistenceManager->persistAll();
+		} catch (\Exception $exception) {
+			$message->setStatus(Message::STATUS_Failure);
+			$this->messageRepository->update($message);
+			$this->persistenceManager->persistAll();
+		}
+
+		return TRUE;
 	}
 
 	/**
