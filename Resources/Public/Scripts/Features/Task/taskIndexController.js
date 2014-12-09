@@ -3,37 +3,14 @@
  */
 
 angular.module("Task", [])
-    .controller('TaskIndexCtrl', ['$scope', '$rootScope','$location', '$resource',"breadcrumbs", "MeetingResourceHelper", "TaskResourceHelper","CommonHelperMethods",
-        function ($scope, $rootScope,$location, $resource, breadcrumbs, MeetingResourceHelper, TaskResourceHelper, CommonHelperMethods) {
+    .controller('TaskIndexCtrl', ['$scope', '$rootScope', '$location', '$resource', "breadcrumbs", "MeetingResourceHelper", "TaskResourceHelper", "CommonHelperMethods",
+        function ($scope, $rootScope, $location, $resource, breadcrumbs, MeetingResourceHelper, TaskResourceHelper, CommonHelperMethods) {
             console.log("Task Index Controller Loaded");
             $scope.breadcrumbs = breadcrumbs;
 
-            $scope.showAllTasks = false;
-            if($location.url() == "/task/others")
-                $scope.showAllTasks = true;
-
-
-               initTable();
-
-
-            $scope.$watch("showAllTasks", function (newVal) {
-                $scope.showAllTasksCheckboxDisabled = true;
-                console.log($scope.showAllTasks);
-                initTable();
-            })
-
-
-            function getMeetingName (task) {
-
-                MeetingResourceHelper.getMeetingDetail(task.meeting).get(function (data) {
-                    task.meeting = data.title
-                });
-
-            };
-
-            function initTable () {
-                $scope.taskList =[];
-                if(!$scope.showAllTasks) {
+            $scope.initTable = function () {
+                $scope.taskList = [];
+                if (!$scope.showAllTasks) {
                     TaskResourceHelper.getTaskList().query(function (data) {
                         console.log('success, got taskList: ', data);
                         angular.forEach(data, function (task) {
@@ -47,15 +24,31 @@ angular.module("Task", [])
                         alert('request failed');
                     });
                 }
-                else{
+                else {
                     $scope.showAllTasksCheckboxDisabled = false;
 
                 }
 
             };
-            $scope.$watchCollection("task", function() {
-               console.log("ohjkgptrjsfhjrtkmh");
-            });
-        }])
-    ;
+            $scope.showAllTasks = false;
+            if ($location.url() == "/task/others")
+                $scope.showAllTasks = true;
+
+            $scope.initTable();
+
+
+            $scope.$watch("showAllTasks", function (newVal) {
+                $scope.showAllTasksCheckboxDisabled = true;
+                console.log($scope.showAllTasks);
+                $scope.initTable();
+            })
+
+
+            function getMeetingName(task) {
+
+                MeetingResourceHelper.getMeetingDetail(task.meeting).get(function (data) {
+                    task.meeting = data.title
+                });
+            };
+        }]);
 

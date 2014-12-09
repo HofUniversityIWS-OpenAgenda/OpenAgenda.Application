@@ -7,9 +7,7 @@ angular.module("Task")
         function ($scope, $rootScope, $resource, TaskResourceHelper, CommonHelperMethods, $modal, $log) {
             console.log("Task Edit Controller Loaded");
 
-
             $scope.open = function (size, identity) {
-                console.log(identity);
 
                 var modalInstance = $modal.open({
                     templateUrl: '/template/task/edit.html',
@@ -22,34 +20,26 @@ angular.module("Task")
                     }
                 });
 
-                modalInstance.result.then(function (string) {
-                    $scope.selected = string;
-                }, function () {
-                    console.log($scope);
-                    $log.info('Modal dismissed at: ' + new Date());
-                });
-
+                modalInstance.close = function (string) {
+                    //Speichern, dann neu Laden
+                    $scope.$parent.initTable();
+                    console.log(string);
+                    modalInstance.dismiss();
+                };
             };
-
-
         }])
     .controller('ModalInstanceCtrl', function ($scope, $modalInstance, TaskResourceHelper, CommonHelperMethods, identity) {
-       TaskResourceHelper.getTaskDetail(identity).get(function (task) {
+        TaskResourceHelper.getTaskDetail(identity).get(function (task) {
             task.dueDate = CommonHelperMethods.getDateFromJSONString(task.dueDate);
-           $scope.task = task;
+            $scope.task = task;
         });
-        $scope.ok = function () {
-            console.log("OK, SAVE Task: ");
 
+        $scope.ok = function () {
             $modalInstance.close("OK");
         };
 
         $scope.cancel = function () {
-            console.log("DISMISS");
-            $modalInstance.dismiss('cancel');
+            $modalInstance.dismiss('DISSMISS');
         };
 
-    })
-
-
-;
+    });

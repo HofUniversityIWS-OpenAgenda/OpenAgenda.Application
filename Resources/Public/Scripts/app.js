@@ -31,15 +31,18 @@ Application.config(['$routeProvider',
                 controller: 'MeetingExecuteCtrl',
                 label: 'Meeting durchführen'
             }).
-            when('/task/:kind', {
-                templateUrl: '/template/task/index.html',
-                controller: 'TaskIndexCtrl',
-                label:'Meine Aufgaben - Übersicht'
-            }).
             when('/task', {
+                label:'Aufgaben'
+            }).
+            when('/task/others', {
                 templateUrl: '/template/task/index.html',
                 controller: 'TaskIndexCtrl',
-                label:'Meine Aufgaben - Übersicht'
+                label:'Aufgaben Anderer'
+            }).
+            when('/task/mine', {
+                templateUrl: '/template/task/index.html',
+                controller: 'TaskIndexCtrl',
+                label:'Meine Aufgaben'
             }).
             when('/task/show/:taskId', {
                 templateUrl: '/template/task/show.html',
