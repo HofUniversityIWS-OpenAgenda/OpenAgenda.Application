@@ -16,16 +16,14 @@ angular.module("Dashboard", [])
 
             $scope.events = [];
 
-            $scope.meetingList = MeetingResourceHelper.getMeetingList().query(function (data) {
-                console.log('success, got meeting: ', data);
-                $scope.findUpcomingMeetings(data);
-                angular.forEach( $scope.upcomingMeetings, function (meeting) {
-                    var tag = $scope.getDateFromJSONString(meeting.scheduledStartDate);
-                    //tag.setMonth(10);       // Test zu Meetings anzeigen
-                    //tag.setFullYear(2014);
-                    $scope.events.push( {title: meeting.title, start: new Date(tag) });
+            $scope.meetingList = MeetingResourceHelper.getMeetingList().query(function () {
+
+                angular.forEach( $scope.meetingList, function (meeting) {
+                    meeting.scheduledStartDate = CommonHelperMethods.getDateFromJSONString(meeting.scheduledStartDate);
+                    $scope.events.push( {title: meeting.title, start: new Date(meeting.scheduledStartDate) });
                     meeting.invitationStatus = MeetingResourceHelper.getMeetingInvitations(meeting.__identity).get();
                 });
+                $scope.findUpcomingMeetings($scope.meetingList);
             }, function (err) {
                 alert('request failed');
             });
@@ -39,12 +37,16 @@ angular.module("Dashboard", [])
                 alert('request failed');
             });
 
-            $scope.getDateFromJSONString = function (string) {
-                return new Date(string.substr(1, string.length - 2));
-            };
+
             $scope.findUpcomingMeetings = function (meetingList) {
                 //search for upcoming Meetings
-                $scope.upcomingMeetings = meetingList;
+                var now = new Date();
+                angular.forEach( meetingList, function (meeting) {
+                    if (now <= meeting.scheduledStartDate)
+                    {
+                        $scope.upcomingMeetings.push(meeting);
+                    }
+                });
             };
 
             $scope.getNotifications = function () {

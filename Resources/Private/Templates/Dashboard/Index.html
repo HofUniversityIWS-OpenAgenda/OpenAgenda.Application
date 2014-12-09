@@ -28,7 +28,7 @@
                                             </div>
                                             <div class="col-xs-9 text-right">
                                                 <div class="huge">{{upcomingMeetings.length}}</div>
-                                                <div>Neue Meetings!</div>
+                                                <div>zukünftige Meetings!</div>
                                             </div>
                                         </div>
                                     </div>
@@ -50,7 +50,7 @@
                                             </div>
                                             <div class="col-xs-9 text-right">
                                                 <div class="huge">{{needToBeDoneTasks.length}}</div>
-                                                <div>Noch zu erledigende Aufgaben!</div>
+                                                <div> zu erledigende Aufgaben!</div>
                                             </div>
                                         </div>
                                     </div>
@@ -72,7 +72,7 @@
                                             </div>
                                             <div class="col-xs-9 text-right">
                                                 <div class="huge">{{getNotifications().length}}</div>
-                                                <div>Neue Nachrichten!</div>
+                                                <div>neue Nachrichten!</div>
                                             </div>
                                         </div>
                                     </div>
@@ -97,7 +97,7 @@
                                     <!-- /.panel-heading -->
                                     <div class="panel-body">
                                         <div class="list-group">
-                                            <a ng-href="/#meeting/show/{{meeting.__identity}}" class="list-group-item" ng-repeat="meeting in upcomingMeetings | orderBy:['startDate', 'title']">
+                                            <a ng-href="/#meeting/show/{{meeting.__identity}}" class="list-group-item" ng-repeat="meeting in upcomingMeetings | orderBy: '+scheduledStartDate +title' | limitTo: 5 ">
                                                 <i class="fa fa-users fa-fw"></i> {{meeting.title}}
                                             </a>
                                         </div>
@@ -117,7 +117,7 @@
                                     <!-- /.panel-heading -->
                                     <div class="panel-body">
                                         <div class="list-group">
-                                            <a ng-href="/#task/show/{{task.__identity}}" class="list-group-item" ng-repeat="task in needToBeDoneTasks | orderBy:['dueDate', 'title']">
+                                            <a ng-href="/#task/show/{{task.__identity}}" class="list-group-item" ng-repeat="task in needToBeDoneTasks | orderBy:'+dueDate +title' | limitTo: 5">
                                                 <i class="fa fa-tasks fa-fw"></i>{{task.title}}
                                             <span class="pull-right text-muted small badge">{{task.dueDate | date:'dd.MM.yyyy  H:mm'}}
                                             </span>
