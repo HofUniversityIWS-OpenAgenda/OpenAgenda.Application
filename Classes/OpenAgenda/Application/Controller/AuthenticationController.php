@@ -87,8 +87,10 @@ class AuthenticationController extends \TYPO3\Flow\Security\Authentication\Contr
 		// Disable account until it has been confirmed:
 		$account->setExpirationDate(\DateTime::createFromFormat('U', 0));
 
-		$person = $this->personFactory->createAnonymousPersonWithElectronicAddress(
-			$newAccount->getUsername()
+		$person = $this->personFactory->createPerson(
+			$newAccount->getUsername(),
+			$newAccount->getFirstName(),
+			$newAccount->getLastName()
 		);
 		$account->setParty($person);
 

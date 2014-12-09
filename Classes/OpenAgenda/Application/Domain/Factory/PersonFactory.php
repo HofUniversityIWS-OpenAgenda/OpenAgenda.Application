@@ -34,6 +34,7 @@ class PersonFactory {
 	/**
 	 * @param string $email
 	 * @return Person
+	 * @deprecated Use createPerson() instead
 	 */
 	public function createAnonymousPersonWithElectronicAddress($email) {
 		$electronicAddress = new ElectronicAddress();
@@ -44,6 +45,31 @@ class PersonFactory {
 		// @todo Enrich with real data once registration form requires that
 		$name->setFirstName('Anonymous');
 		$name->setLastName('User');
+
+		$person = new Person();
+		$person->setName($name);
+		$person->setPrimaryElectronicAddress($electronicAddress);
+
+		$this->electronicAddressRepository->add($electronicAddress);
+		$this->personRepository->add($person);
+
+		return $person;
+	}
+
+	/**
+	 * @param string $email
+	 * @param string $firstName
+	 * @param string $lastName
+	 * @return Person
+	 */
+	public function createPerson($email, $firstName, $lastName) {
+		$electronicAddress = new ElectronicAddress();
+		$electronicAddress->setIdentifier($email);
+		$electronicAddress->setType(ElectronicAddress::TYPE_EMAIL);
+
+		$name = new \TYPO3\Party\Domain\Model\PersonName();
+		$name->setFirstName($firstName);
+		$name->setLastName($lastName);
 
 		$person = new Person();
 		$person->setName($name);

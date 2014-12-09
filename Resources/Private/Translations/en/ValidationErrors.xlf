@@ -9,6 +9,19 @@
 				<source>This email address is already being used.</source>
 			</trans-unit>
 
+			<trans-unit id="1221560718.newAccount.firstName">
+				<source>Enter a first name.</source>
+			</trans-unit>
+			<trans-unit id="1238108068.newAccount.firstName">
+				<source>The first name must contain at least {0,number} characters.</source>
+			</trans-unit>
+			<trans-unit id="1221560718.newAccount.lastName">
+				<source>Enter a last name.</source>
+			</trans-unit>
+			<trans-unit id="1238108068.newAccount.lastName">
+				<source>The last name must contain at least {0,number} characters.</source>
+			</trans-unit>
+
 			<trans-unit id="1221560718.newAccount.password">
 				<source>Enter a password.</source>
 			</trans-unit>

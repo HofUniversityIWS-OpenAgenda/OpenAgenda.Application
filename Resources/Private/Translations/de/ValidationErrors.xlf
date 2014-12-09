@@ -11,6 +11,23 @@
 				<target>Diese E-Mail Adresse wird bereits verwendet.</target>
 			</trans-unit>
 
+			<trans-unit id="1221560718.newAccount.firstName">
+				<source>Enter a first name.</source>
+				<target>Geben Sie Ihren Vornamen an</target>
+			</trans-unit>
+			<trans-unit id="1238108068.newAccount.firstName">
+				<source>The first name must contain at least {0,number} characters.</source>
+				<target>Ihr Vorname sollte mindestens {0,number} Zeichen enthalten.</target>
+			</trans-unit>
+			<trans-unit id="1221560718.newAccount.lastName">
+				<source>Enter a last name.</source>
+				<target>Geben Sie Ihren Nachnamen an</target>
+			</trans-unit>
+			<trans-unit id="1238108068.newAccount.lastName">
+				<source>The last name must contain at least {0,number} characters.</source>
+				<target>Ihr Nachname sollte mindestens {0,number} Zeichen enthalten.</target>
+			</trans-unit>
+
 			<trans-unit id="1221560718.newAccount.password">
 				<source>Enter a password.</source>
 				<target>Geben Sie ein Passwort an</target>

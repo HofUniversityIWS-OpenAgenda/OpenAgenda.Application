@@ -27,6 +27,16 @@ OpenAgenda:
                 validators:
                   NotEmpty: []
                   EmailAddress: []
+              firstName:
+                validators:
+                  NotEmpty: []
+                  StringLength:
+                    minimum: 2
+              lastName:
+                validators:
+                  NotEmpty: []
+                  StringLength:
+                    minimum: 2
               password:
                 validators:
                   NotEmpty: []
