@@ -56,6 +56,7 @@ OpenAgenda:
                 UniqueEntity:
                   identityProperties: ['accountIdentifier']
     Messaging:
+      deliver: 'immediately'
       sender:
         mail: 'openagenda@hof-university.de'
         name: 'OpenAgenda'

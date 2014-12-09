@@ -74,6 +74,11 @@ class MessagingService {
 
 		$this->messageRepository->add($message);
 		$this->persistenceManager->persistAll();
+
+		if (!empty($this->messagingSettings['deliver'])
+			&& $this->messagingSettings['deliver'] === 'immediately') {
+			$this->deliverMessage($message);
+		}
 	}
 
 	public function deliver() {
