@@ -11,7 +11,6 @@ angular.module("Dashboard", [])
              });*/
             $scope.upcomingMeetings = [];
 
-
             $scope.currentUser = "Thomas"; // From where?
 
             $scope.events = [];
