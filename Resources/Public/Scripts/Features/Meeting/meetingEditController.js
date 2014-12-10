@@ -107,7 +107,7 @@ angular.module("Meeting")
             }
 
             $scope.sendThis = {
-                "scheduledStartDate": moment(new Date()).format('YYYY-MM-DD\THH:mm:ssP'),
+                "scheduledStartDate": moment(new Date()).format(),
                 "title": "Test"
             };
 
