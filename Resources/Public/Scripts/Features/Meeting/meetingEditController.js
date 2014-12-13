@@ -87,7 +87,7 @@ angular.module("Meeting")
             $scope.sendMeetingData = function () {
                 console.log("SENDEN");
 
-                $http.post('meeting/create.json', {newMeeting: $scope.sendThis}).
+                $http.post('meeting/create.json', { newMeeting: $scope.sendThis }, { proxy: true }).
                     success(function(data, status, headers, config) {
                         // this callback will be called asynchronously
                         // when the response is available
