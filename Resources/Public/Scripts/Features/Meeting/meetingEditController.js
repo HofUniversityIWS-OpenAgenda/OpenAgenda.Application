@@ -104,7 +104,7 @@ angular.module("Meeting")
 
             $scope.getUploader = function (idx) {
                 return  $scope.uploaders[idx];
-            }
+            };
 
             $scope.sendThis = {
                 "scheduledStartDate": moment(new Date()).format(),
