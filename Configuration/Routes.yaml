@@ -45,6 +45,14 @@
     '@action':     'get'
     '@format':     'html'
 -
+  name: 'Ping: JSON'
+  uriPattern: 'ping'
+  defaults:
+    '@package':    'OpenAgenda.Application'
+    '@controller': 'Standard'
+    '@action':     'ping'
+    '@format':     'json'
+-
   name: 'Registration'
   uriPattern: 'registration/{account}/{@action}/{_time}-{_hash}'
   defaults:

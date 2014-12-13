@@ -18,12 +18,25 @@ use OpenAgenda\Application\Domain\Model\Account;
 class StandardController extends AbstractController {
 
 	/**
+	 * @Flow\Inject
+	 * @var \TYPO3\Flow\Utility\Now
+	 */
+	protected $now;
+
+	/**
 	 * @return void
 	 */
 	public function indexAction() {
 		if ($this->getAccount() === NULL) {
 			$this->redirect('login', 'Authentication');
 		}
+	}
+
+	public function pingAction() {
+		$value = array(
+			'time' => $this->now->format('U')
+		);
+		$this->view->assign('value', $value);
 	}
 
 }
