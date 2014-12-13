@@ -1,3 +1,20 @@
+/**
+ * Http module for capturing requests
+ *
+ * Use the configuration property *proxy* to enable this feature.
+ * The HttpInterceptor takes care of failed requests.
+ * The HttpManager interacts with the HttpQueue to replay requests.
+ * The HttpHeartbeat instance checks the Navigator and Server status.
+ *
+ * Changes to the online status are issued using the $rootScope.
+ * $rootScope.$watch('online', function(newValue, oldValue) { ... });
+ *
+ * Example:
+ * $http.get('url', {}, { proxy: true });
+ * $http.get({url: 'url', data: data, proxy: true});
+ *
+ * @author Oliver Hader <oliver@typo3.org>
+ */
 angular.module('Http', [])
 .run(['$rootScope', 'HttpManager', 'HttpHeartbeat', function($rootScope, HttpManager, HttpHeartbeat) {
 	$rootScope.$watch('online', handleOnline);
