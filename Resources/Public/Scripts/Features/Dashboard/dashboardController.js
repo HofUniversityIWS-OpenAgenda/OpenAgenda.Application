@@ -20,7 +20,6 @@ angular.module("Dashboard", [])
                 angular.forEach( $scope.meetingList, function (meeting) {
                     meeting.scheduledStartDate = CommonHelperMethods.getDateFromJSONString(meeting.scheduledStartDate);
                     $scope.events.push( {title: meeting.title, start: new Date(meeting.scheduledStartDate) });
-                    meeting.invitationStatus = MeetingResourceHelper.getMeetingInvitations(meeting.__identity).get();
                 });
                 $scope.findUpcomingMeetings($scope.meetingList);
 

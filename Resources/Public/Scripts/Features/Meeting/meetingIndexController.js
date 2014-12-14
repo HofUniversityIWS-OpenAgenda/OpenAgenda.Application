@@ -38,12 +38,6 @@ angular.module("Meeting", [])
                             break;
 
                     }
-                    meeting.invitationStatus = MeetingResourceHelper.getMeetingInvitations(meeting.__identity).get(function (data) {
-                        console.log('success, got invitation: ', data);
-
-                    }, function (err) {
-                        alert('request getMeetingInvitations failed');
-                    });
                 });
                 console.log('success, got meeting: ', $scope.meetingList);
 

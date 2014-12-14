@@ -20,11 +20,6 @@ angular.module("CommonFactories", [])
                 return $resource('meeting/:meetingId/show.json',{meetingId:id}, {
                     get: {method:'GET'}
                 });
-            },
-            getMeetingInvitations: function(id) {
-                return $resource('meeting/:meetingId/showstatusofinvitations.json',{meetingId:id}, {
-                    get: {method:'GET'}
-                });
             }
         };
 
