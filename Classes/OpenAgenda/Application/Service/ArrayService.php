@@ -19,6 +19,7 @@ use TYPO3\Flow\Reflection\ObjectAccess;
 class ArrayService {
 
 	const ANNOTATION_Entity = 'TYPO3\\Flow\\Annotations\\Entity';
+	const ANNOTATION_Transient = 'TYPO3\\Flow\\Annotations\\Transient';
 	const ANNOTATION_ToArray = 'OpenAgenda\\Application\\Framework\\Annotations\\ToFlatArray';
 
 	/**
@@ -72,26 +73,41 @@ class ArrayService {
 		);
 
 		foreach ($propertyNames as $propertyName) {
-			/** @var \OpenAgenda\Application\Framework\Annotations\ToFlatArray $propertyAnnotation */
-			$propertyAnnotation = $this->reflectionService->getPropertyAnnotation(
+			$propertyValue = NULL;
+
+			/** @var Flow\Transient $transientAnnotation */
+			$transientAnnotation = $this->reflectionService->getPropertyAnnotation(
+				$className,
+				$propertyName,
+				static::ANNOTATION_Transient
+			);
+
+			/** @var \OpenAgenda\Application\Framework\Annotations\ToFlatArray $toArrayAnnotation */
+			$toArrayAnnotation = $this->reflectionService->getPropertyAnnotation(
 				$className,
 				$propertyName,
 				static::ANNOTATION_ToArray
 			);
 
 			// Skip property if requested scope name is not defined for the current entity property
-			$propertyScopeNames = $propertyAnnotation->getScopeNames();
+			$propertyScopeNames = $toArrayAnnotation->getScopeNames();
 			if ($propertyScopeNames !== NULL && $scopeName !== NULL && !in_array($scopeName, $propertyScopeNames)) {
 				continue;
 			}
 
-			$propertyValue = ObjectAccess::getProperty($source, $propertyName);
+			// Get property value
+			if ($transientAnnotation === NULL) {
+				$propertyValue = ObjectAccess::getProperty($source, $propertyName);
+			// Use basic source subject if property is transient and does not contains anything
+			} else {
+				$propertyValue = $source;
+			}
 
-			if ($propertyAnnotation->getUseIdentifier()) {
+			if ($toArrayAnnotation->getUseIdentifier()) {
 				$propertyValue = $this->persistenceManager->getIdentifierByObject($propertyValue);
-			} elseif ($propertyAnnotation->getCallback() !== NULL) {
+			} elseif ($toArrayAnnotation->getCallback() !== NULL) {
 				$propertyValue = $this->objectService->executeStringCallback(
-					$propertyAnnotation->getCallback(),
+					$toArrayAnnotation->getCallback(),
 					$propertyValue
 				);
 			}

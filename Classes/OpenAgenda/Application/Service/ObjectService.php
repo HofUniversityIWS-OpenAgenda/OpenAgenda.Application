@@ -17,7 +17,7 @@ use TYPO3\Flow\Reflection\ObjectAccess;
  */
 class ObjectService {
 
-	const PATTERN_Components = '#^(?P<className>[^>-]+)(?:->(?P<methodName>[^(]+))\((?P<arguments>[^)]+)\)#';
+	const PATTERN_Components = '#^(?P<className>[^>-]+)(?:->(?P<methodName>[^(]+))\((?P<arguments>[^)]*)\)#';
 
 	protected $componentFilter = array(
 		'className', 'methodName', 'arguments'
@@ -85,11 +85,13 @@ class ObjectService {
 			return NULL;
 		}
 
-		if (isset($matches['arguments'])) {
+		if (!empty($matches['arguments'])) {
 			$matches['arguments'] = array_map(
 				'trim',
 				explode(',', $matches['arguments'])
 			);
+		} else {
+			$matches['arguments'] = array();
 		}
 
 		return array_intersect_key(
