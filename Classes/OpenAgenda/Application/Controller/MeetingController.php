@@ -77,25 +77,10 @@ class MeetingController extends AbstractController {
 	/**
 	 * @param \OpenAgenda\Application\Domain\Model\Meeting $meeting
 	 * @return void
+	 * @deprecated Use Meeting::determineInvitationStatus() instead
 	 */
 	public function showStatusOfInvitationsAction(Meeting $meeting) {
-		$invitationsStatusCounter = array(
-			'open' => 0,
-			'committed' => 0,
-			'canceled' => 0,
-		);
-
-		foreach ($meeting->getInvitations() as $invitation){
-			if($invitation->getStatus() === 0) {
-				$invitationsStatusCounter['open']++;
-			}  else if($invitation->getStatus() === 1){
-				$invitationsStatusCounter['committed']++;
-			} else if($invitation->getStatus() === 2){
-				$invitationsStatusCounter['canceled']++;
-			}
-		}
-
-		$this->view->assign('value', $invitationsStatusCounter);
+		$this->view->assign('value', $meeting->determineInvitationStatus());
 	}
 
 	/**

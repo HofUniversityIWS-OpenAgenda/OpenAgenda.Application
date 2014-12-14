@@ -256,4 +256,28 @@ class Meeting implements ModificationInterface {
 	public function setLocation($location) {
 		$this->title = $location;
 	}
+
+	/**
+	 * @return array
+	 */
+	public function determineInvitationStatus() {
+		$invitationsStatus = array(
+			'open' => 0,
+			'committed' => 0,
+			'canceled' => 0,
+		);
+
+		foreach ($this->getInvitations() as $invitation){
+			if($invitation->getStatus() === 0) {
+				$invitationsStatus['open']++;
+			}  else if($invitation->getStatus() === 1){
+				$invitationsStatus['committed']++;
+			} else if($invitation->getStatus() === 2){
+				$invitationsStatus['canceled']++;
+			}
+		}
+
+		return $invitationsStatus;
+	}
+
 }
