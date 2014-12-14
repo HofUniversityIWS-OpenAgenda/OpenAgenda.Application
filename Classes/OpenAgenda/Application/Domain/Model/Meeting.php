@@ -44,6 +44,13 @@ class Meeting implements ModificationInterface {
 	protected $invitations;
 
 	/**
+	 * @var array
+	 * @Flow\Transient
+	 * @OA\ToFlatArray(callback="$self->determineInvitationStatus()")
+	 */
+	protected $invitationStatus;
+
+	/**
 	 * @var string
 	 * @OA\ToFlatArray
 	 */
