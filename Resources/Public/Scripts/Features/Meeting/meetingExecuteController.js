@@ -23,7 +23,31 @@ angular.module("Meeting")
             alert('request failed');
         });
 
-        $scope.task;
+        $scope.task = {
+
+        };
+
+        // Neue Aufgabe
+        //$scope.task;
+
+        $scope.addTask = function(){
+            // sendTask
+            this.description = $scope.task.description;
+            this.creationDate = new Date();
+            this.scheduledDateTime = $scope.task.scheduledDateTime;
+            this.user = $scope.task.user;
+            this.title = $scope.task.title;
+
+            //an server senden
+
+            // task leeren;
+            this.description = null;
+            this.creationDate = null;
+            this.scheduledDateTime = null;
+            this.user = null;
+            this.title = null;
+
+        };
 
         $scope.getProtocolItem = function(sorting){
             var found = false;
@@ -49,6 +73,7 @@ angular.module("Meeting")
                 return newProtocolItem;
             }
         };
+
 
         $scope.imgTask = {
 

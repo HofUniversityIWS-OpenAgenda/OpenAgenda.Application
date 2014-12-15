@@ -10,7 +10,6 @@
 <!-- Page Content ------------------------------------------- -->
 <f:section name="Content">
     <f:render partial="Common/Breadcrumb"></f:render>
-
     <div class="page-content">
         <div class="row">
             <div class="col-lg-12">
@@ -29,6 +28,7 @@
                                 Meeting starten
                             </button>
                         </div>
+                        <button type="button" class="btn btn-primary" ng-model="editMode" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false">ACHTUNG</button>
                         <div class="check-element animate-show" ng-show="meeting.status == 2">
                             <button style=" margin-right: 40px" class=" pull-right btn btn-success" ng-disabled='true' >
                                 Meeting läuft
@@ -43,22 +43,20 @@
                         <h3 style="display: inline">Termin</h3>
 
                         <div class="panel-entry">
-                            {{meeting.scheduledStartDate | date:'dd.MM.yyyy'}}<br/>
-                            {{meeting.scheduledStartDate | date:'H:mm'}}
+                            <span ng-show="meeting.scheduledStartDate">{{meeting.scheduledStartDate | date:'dd.MM.yyyy'}}<br/> </span>
+                            <span ng-show="meeting.scheduledStartDate">{{meeting.scheduledStartDate | date:'H:mm'}} Uhr </span>
                             <span ng-show="meeting.location">Ort: {{meeting.location}}</span>
-                            <span ng-show ="meeting.startDate && meeting.status >= 2"><br/>begonnen am {{meeting.startDate | date:'dd.MM.yyyy'}} um {{meeting.startDate | date:'H:mm'}} Uhr </span>
-                            <span ng-show ="meeting.endDate && meeting.status >= 3"><br/>geendet am {{meeting.startDate | date:'dd.MM.yyyy'}} um {{meeting.startDate | date:'H:mm'}} Uhr </span>
-
+                            <span ng-show="meeting.startDate && meeting.status >= 2"><br/>begonnen am {{meeting.startDate | date:'dd.MM.yyyy'}} um {{meeting.startDate | date:'H:mm'}} Uhr </span>
+                            <span ng-show="meeting.endDate && meeting.status >= 3"><br/>geendet am {{meeting.startDate | date:'dd.MM.yyyy'}} um {{meeting.startDate | date:'H:mm'}} Uhr </span>
                         </div>
-                        <h3>Agenda</h3>
 
+                        <h3>Agenda</h3>
                         <div ng-repeat="agendaItem in meeting.agendaItems | orderBy:'+sorting'">
                             <div class="agenda-punkt" style="border-top: solid 1px #eeeeee">
-
                                 <div class="panel-entry row">
                                     <div class=" col-sm-12 col-md-12 col-lg-6 ">
                                         <div class="checkbox">
-                                            <label><input type="checkbox" ng-model="checked">
+                                            <label><input type="checkbox" ng-model="checked" ng-disabled='meeting.status != 2'>
                                                 <b>{{agendaItem.title}}</b>
                                             </label>
                                         </div>
@@ -67,31 +65,35 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-12 col-lg-6">
-                                        <div class="check-element animate-hide" ng-hide="checked">
+                                        <div class="check-element animate-hide" ng-hide="meeting.status != 2 || checked">
                                             <div><b>Anhänge</b></div>
                                             <div>
                                                 <ul>
                                                     <li> htijg</li>
-
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="check-element animate-hide" ng-hide="checked">
+                                <div class="check-element animate-hide" ng-hide="meeting.status != 2 || checked">
                                     <div class="panel-entry">
                                         <h4>Protokoll</h4>
-
-                                            <div class="Protokoll">
-
-                                                <a href="#" editable-textarea="getProtocolItem(agendaItem.sorting).text" e-rows="7" e-cols="40">
+                                        <div class="Protokoll">
+                                            <span ng-switch on="editMode">
+                                                <a ng-switch-when="true" href="#" editable-textarea="getProtocolItem(agendaItem.sorting).description" e-rows="7" e-cols="40">
                                                     <pre>{{ getProtocolItem(agendaItem.sorting).description || 'Noch kein Protokolleintrag' }}</pre>
                                                 </a>
-                                            </div>
+                                                <div ng-switch-default>
+                                                    <pre>{{ getProtocolItem(agendaItem.sorting).description || 'Noch kein Protokolleintrag' }}</pre>
+                                                </div>
+                                            </span>
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                         <h3 style="border-top: solid 1px #eeeeee">Aufgaben</h3>
                         <div class="panel-entry">
                             <div class="task">
@@ -103,7 +105,7 @@
                                 </div>
 
                                 <div style="padding: 0px" class="col-sm-5">
-                                    <a href="#" editable-select="imgTask.user" e-ng-options="s.value as s.text for s in invitedUsers">
+                                    <a href="#" editable-select="task.user" e-ng-options="s.value as s.text for s in invitedUsers">
                                         {{ showStatus() }}
                                     </a>
                                 </div>
@@ -123,13 +125,10 @@
                                     </a>
                                 </div>
                             </div>
-
-                            <button style="margin-top: 15px;" class="btn btn-primary btn-xs">Aufgbe hinzufügen
+                            <button style="margin-top: 15px;" class="btn btn-primary btn-xs" ng-click="addTask()">
+                                Aufgabe hinzufügen
                             </button>
                         </div>
-
-
-
                     </div>
                     <div class=" clearfix panel-entry">
                         <button style="margin-bottom: 20px; margin-right: 15px" class=" pull-right btn btn-danger" ng-show="meeting.status == 2" ng-click="endMeetng()">
