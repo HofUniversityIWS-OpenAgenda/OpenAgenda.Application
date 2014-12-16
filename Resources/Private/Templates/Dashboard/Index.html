@@ -99,6 +99,9 @@
                                         <div class="list-group">
                                             <a ng-href="/#meeting/show/{{meeting.__identity}}" class="list-group-item" ng-repeat="meeting in upcomingMeetings | orderBy: '+scheduledStartDate +title' | limitTo: 5 ">
                                                 <i class="fa fa-users fa-fw"></i> {{meeting.title}}
+                                                <span class="pull-right text-muted small badge">
+                                                    {{meeting.scheduledStartDate | date:'dd.MM.yyyy  H:mm'}}
+                                                </span>
                                             </a>
                                         </div>
                                         <!-- /.list-group -->
@@ -119,8 +122,9 @@
                                         <div class="list-group">
                                             <a ng-href="/#task/show/{{task.__identity}}" class="list-group-item" ng-repeat="task in needToBeDoneTasks | orderBy:'+dueDate +title' | limitTo: 5">
                                                 <i class="fa fa-tasks fa-fw"></i>{{task.title}}
-                                            <span class="pull-right text-muted small badge">{{task.dueDate | date:'dd.MM.yyyy  H:mm'}}
-                                            </span>
+                                                <span class="pull-right text-muted small badge">
+                                                    {{task.dueDate | date:'dd.MM.yyyy  H:mm'}}
+                                                </span>
                                             </a>
                                         </div>
                                         <!-- /.list-group -->
@@ -138,28 +142,26 @@
                                         <h3 class="panel-title">Kalender</h3>
                                     </div>
                                     <div class="panel-body ">
-                                        <div style="margin-top: 20px" class="panel panel-default">
-                                            <div class="panel-body">
-                                                <section id="directives-calendar" ng-controller="DashboardCalendarCtrl">
+                                        <div class="panel-body">
+                                            <section id="directives-calendar" ng-controller="DashboardCalendarCtrl">
 
-                                                    <div class="row-fluid">
+                                                <div class="row-fluid">
 
-                                                        <div class="alert-success calAlert" ng-show="alertMessage != undefined && alertMessage != ''">
-                                                            <h4>{{alertMessage}}</h4>
-                                                        </div>
-                                                        <div class="btn-toolbar">
-                                                            <div class="btn-group" role="group" aria-label="...">
-                                                                <button type="button" ng-click="changeView('agendaDay', 'myCalendar1')" class="btn btn-default">Tag</button>
-                                                                <button type="button" ng-click="changeView('agendaWeek', 'myCalendar1')"class="btn btn-default">Woche</button>
-                                                                <button type="button" ng-click="changeView('month', 'myCalendar1')" class="btn btn-default">Monat</button>
-                                                            </div>
-                                                        </div>
-                                                        <div class="calendar" ng-model="eventSources" calendar="myCalendar1" ui-calendar="uiConfig.calendar"></div>
-
+                                                    <div class="alert-success calAlert" ng-show="alertMessage != undefined && alertMessage != ''">
+                                                        <h4>{{alertMessage}}</h4>
                                                     </div>
+                                                    <div class="btn-toolbar">
+                                                        <div class="btn-group" role="group" aria-label="...">
+                                                            <button type="button" ng-click="changeView('agendaDay', 'myCalendar1')" class="btn btn-default">Tag</button>
+                                                            <button type="button" ng-click="changeView('agendaWeek', 'myCalendar1')"class="btn btn-default">Woche</button>
+                                                            <button type="button" ng-click="changeView('month', 'myCalendar1')" class="btn btn-default">Monat</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="calendar" ng-model="eventSources" calendar="myCalendar1" ui-calendar="uiConfig.calendar"></div>
 
-                                                </section>
-                                            </div>
+                                                </div>
+
+                                            </section>
                                         </div>
                                     </div>
                                 </div>
