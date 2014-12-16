@@ -1,5 +1,7 @@
 /**
- * Created by Thomas on 27.11.14.
+ * This Module contains the Menu
+ *
+ * @author Thomas Winkler <thomas.winkler@hof-university.de>
  */
 
 angular.module("Menu", [])
@@ -7,19 +9,19 @@ angular.module("Menu", [])
         function ($scope, $rootScope, $sce, $location) {
             console.log("Menu Controller Loaded");
 
-            $rootScope.toolBarHTML;
-
-            $scope.t;
-
-
+            /*Should be used to add a Toolbar
+            * Not used in this version
+            * */
+            $scope.toolBar;
             $rootScope.changeToolBar = function (htmlCode) {
-                $scope.t = htmlCode;
+                $scope.toolBar = htmlCode;
             };
 
             $scope.insertToolbar = function() {
-                return $sce.trustAsHtml($scope.t)
+                return $sce.trustAsHtml($scope.toolBar)
             }
 
+            /*Set the active Menu item*/
             $scope.isActive = function (viewLocation) {
                 var active = (viewLocation === $location.path());
                 return active;

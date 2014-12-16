@@ -1,5 +1,13 @@
 /**
- * Created by Thomas on 04.12.14.
+ * This Module defines Directives for changing the HTML Output
+ *
+ * Use it as HTML-Tags
+ * Examples:
+ * <td task-status="true"></td>
+ *
+ * Note: Specify a value the attributes to fulfill the XHTML Standard
+ *
+ * @author Thomas Winkler <thomas.winkler@hof-university.de>
  */
 
 angular.module("CommonDirectives", [])

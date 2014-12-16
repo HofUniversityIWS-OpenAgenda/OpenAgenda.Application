@@ -1,8 +1,11 @@
 /**
- * Created by Thomas on 30.11.14.
+ * This Module contains the Meeting Index
+ *
+ * @author Thomas Winkler <thomas.winkler@hof-university.de>
  */
 
 angular.module("Meeting", [])
+    /*Filter to show only the upcomming meetings in the table*/
     .filter('upComing', function () {
         return function (items, field, startDate, endDate) {
 
@@ -33,12 +36,10 @@ angular.module("Meeting", [])
 
             //$rootScope.changeToolBar("");
 
-            /** Requirements for Datepicker
+            /* Below are the requirements for Datepicker
              *
              * Due to a bug in ui-bootstrap library, the first date is not formatted properly
              */
-
-
             $scope.format = 'dd.MM.yyyy';
 
             $scope.toggleMin = function () {
@@ -65,7 +66,7 @@ angular.module("Meeting", [])
                 startingDay: 1
             };
 
-            //Using rootScope to save current Selection
+            /*Using rootScope to save current Selection globally*/
 
             $scope.getStartDate = function () {
 
@@ -112,6 +113,7 @@ angular.module("Meeting", [])
                 $scope.searchText = $scope.getSearchText();
             }
 
+            /*Set start and enddate to filtering meetings*/
             $scope.startDate = $scope.getStartDate();
             $scope.endDate = $scope.getEndDate();
             $scope.searchText = $scope.getSearchText();

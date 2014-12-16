@@ -1,22 +1,20 @@
 /**
- * Created by Thomas on 27.11.14.
+ * This Module defines the Dashboard
+ *
+ * @author Thomas Winkler <thomas.winkler@hof-university.de>
  */
 angular.module("Dashboard", [])
     .controller('DashboardCtrl', ['$scope', '$rootScope', '$resource', "breadcrumbs", "MeetingResourceHelper",'TaskResourceHelper', 'CommonHelperMethods',
         function ($scope, $rootScope, $http, breadcrumbs, MeetingResourceHelper, TaskResourceHelper, CommonHelperMethods) {
             console.log("Dashboard Controller Loaded");
+
+            //Init
             $scope.breadcrumbs = breadcrumbs;
-            /*$http.get('/openagenda.application/dashboard/index.json').success(function(data) {
-             $scope.data = data;
-             });*/
             $scope.upcomingMeetings = [];
-
             $scope.currentUser = "Thomas"; // TODO: From where?
-
             $scope.events = [];
 
             $scope.meetingList = MeetingResourceHelper.getMeetingList().query(function () {
-
                 angular.forEach( $scope.meetingList, function (meeting) {
                     meeting.scheduledStartDate = CommonHelperMethods.getDateFromJSONString(meeting.scheduledStartDate);
                     $scope.events.push( {title: meeting.title, start: new Date(meeting.scheduledStartDate) });
@@ -28,6 +26,7 @@ angular.module("Dashboard", [])
                 alert('request failed');
             });
 
+            //Get all Tasks TODO: Only my Tasks
             $scope.needToBeDoneTasks  = TaskResourceHelper.getTaskList().query(function (data) {
                 console.log('success, got task: ', data);
                 angular.forEach( $scope.needToBeDoneTasks, function (task) {
@@ -36,7 +35,6 @@ angular.module("Dashboard", [])
             }, function (err) {
                 alert('request failed');
             });
-
 
             $scope.findUpcomingMeetings = function (meetingList) {
                 //search for upcoming Meetings
@@ -55,6 +53,10 @@ angular.module("Dashboard", [])
             //$rootScope.changeToolBar("<div>IF NEEDED TOOLBAR</div>");
 
         }])
+        /*  Controller especially for the Calendar in the Dashboard
+        *   Due to a bug in the Library only meetings of the current view are shown in the Calendar
+        * */
+
     .controller('DashboardCalendarCtrl', ['$scope', '$compile', "uiCalendarConfig",
         function ($scope, $compile, uiCalendarConfig) {
             var date = new Date();
@@ -62,34 +64,19 @@ angular.module("Dashboard", [])
             var m = date.getMonth();
             var y = date.getFullYear();
 
-            /* event source that calls a function on every view switch */
-            $scope.eventsF = function (start, end, timezone, callback) {
-                var s = new Date(start).getTime() / 1000;
-                var e = new Date(end).getTime() / 1000;
-                var m = new Date(start).getMonth();
-                var events = [{
-                    title: 'Feed Me ' + m,
-                    start: s + (50000),
-                    end: s + (100000),
-                    allDay: false,
-                    className: ['customFeed']
-                }];
-                callback(events);
-            };
-
-            /* alert on eventClick */
+            /* Alert on eventClick */
             $scope.alertOnEventClick = function (date, jsEvent, view) {
                 $scope.alertMessage = (date.title + ' ausgewählt');
             };
-            /* alert on Drop */
+            /* Alert on Drop */
             $scope.alertOnDrop = function (event, delta, revertFunc, jsEvent, ui, view) {
                 $scope.alertMessage = ('Event Droped to make dayDelta ' + delta);
             };
-            /* alert on Resize */
+            /* Alert on Resize */
             $scope.alertOnResize = function (event, delta, revertFunc, jsEvent, ui, view) {
                 $scope.alertMessage = ('Event Resized to make dayDelta ' + delta);
             };
-            /* add and removes an event source of choice */
+            /* Add and removes an event source of choice */
             $scope.addRemoveEventSource = function (sources, source) {
                 var canAdd = 0;
                 angular.forEach(sources, function (value, key) {
@@ -122,7 +109,7 @@ angular.module("Dashboard", [])
                 $compile(element)($scope);
             };
             $scope.locale = "de";
-            /* config object */
+            /* Config object */
             $scope.uiConfig = {
                 calendar: {
                     height: 450,
@@ -141,20 +128,12 @@ angular.module("Dashboard", [])
             };
 
             $scope.changeLang = function () {
-                if ($scope.changeTo === 'Hungarian') {
-                    $scope.uiConfig.calendar.dayNames = ["Vasárnap", "Hétfő", "Kedd", "Szerda", "Csütörtök", "Péntek", "Szombat"];
-                    $scope.uiConfig.calendar.dayNamesShort = ["Vas", "Hét", "Kedd", "Sze", "Csüt", "Pén", "Szo"];
+                $scope.uiConfig.calendar.dayNames = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"];
+                $scope.uiConfig.calendar.dayNamesShort = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
 
-                } else {
-                    $scope.uiConfig.calendar.dayNames = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"];
-                    $scope.uiConfig.calendar.dayNamesShort = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
-
-                }
             };
             $scope.changeTo = "German";
             $scope.changeLang();
 
-            /* event sources array*/
-            $scope.eventSources = [$scope.events, $scope.eventsF];
-            $scope.eventSources2 = [$scope.calEventsExt, $scope.eventsF, $scope.events];
+            $scope.eventSources = [$scope.events];
         }]);

@@ -1,6 +1,10 @@
 /**
- * Created by Thomas on 08.12.14.
+ * This Module contains the list of all tasks
+ * Its possible to either view only personal tasks or to view all tasks from others
+ *
+ * @author Thomas Winkler <thomas.winkler@hof-university.de>
  */
+
 
 angular.module("Task", [])
     .controller('TaskIndexCtrl', ['$scope', '$rootScope', '$location', '$resource', "breadcrumbs", "MeetingResourceHelper", "TaskResourceHelper", "CommonHelperMethods",
@@ -25,8 +29,8 @@ angular.module("Task", [])
                     });
                 }
                 else {
-                    $scope.showAllTasksCheckboxDisabled = false;
-
+                  console.log("LOAD OTHERS");
+                  //TODO: No rest interface for personal or others taks
                 }
 
             };
@@ -36,13 +40,11 @@ angular.module("Task", [])
 
             $scope.initTable();
 
-
             $scope.$watch("showAllTasks", function (newVal) {
                 $scope.showAllTasksCheckboxDisabled = true;
                 console.log($scope.showAllTasks);
                 $scope.initTable();
             })
-
 
             function getMeetingName(task) {
 

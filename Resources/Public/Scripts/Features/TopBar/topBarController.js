@@ -1,6 +1,11 @@
 /**
- * Created by Thomas on 27.11.14.
+ * This Module contains the controller for the topbar
+ *
+ * Its used to load personal notifications e.g. initiations
+ *
+ * @author Thomas Winkler <thomas.winkler@hof-university.de>
  */
+
 angular.module("TopBar", [])
     .controller('TobBarCtrl', ['$scope','$rootScope',
         function ($scope, $rootScope) {
@@ -10,9 +15,10 @@ angular.module("TopBar", [])
              $scope.data = data;
              });*/
 
+            //TODO: No rest interface to get all personal notifications
+
             $rootScope.notifications = [1,2,3,4];
             //getNotifications from Server
-
 
             $scope.test = function (){
                 console.log($scope.getNotifications());

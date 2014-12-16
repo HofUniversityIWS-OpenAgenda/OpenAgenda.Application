@@ -1,6 +1,9 @@
 /**
- * Created by Thomas on 27.11.14.
+ * This Module defines custom Factories to use in the whole application
+ *
+ * @author Thomas Winkler <thomas.winkler@hof-university.de>
  */
+
 angular.module("CommonFactories", [])
     .factory('CommonHelperMethods', function() {
         return {

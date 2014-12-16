@@ -70,7 +70,7 @@ Application.config(['$routeProvider',
                 redirectTo: '/dashboard'
             });
     }]);
-
+/*Required for xeditable Library*/
 Application.run(function(editableOptions) {
     editableOptions.theme = 'bs3';
 });
