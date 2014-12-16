@@ -45,7 +45,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr class="odd gradeX repeat-animation" ng-repeat="task in taskList | orderBy:'+dueDate +title'">
+                                <tr class="odd gradeX" ng-repeat="task in taskList | orderBy:'+dueDate +title +meeting'">
                                     <td>{{task.dueDate | date:"dd/MM/yyyy HH:m"}} Uhr</td>
 
                                     <td>{{task.title}}</td>
