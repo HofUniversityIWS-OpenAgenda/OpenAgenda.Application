@@ -26,6 +26,9 @@
                     <!-- /.panel-heading -->
                     <div class="panel-body">
 
+                        <!-- >  Button nach User-Berechtigungen entfernen </!--> 
+                        <button type="button" class="btn btn-primary" ng-model="editMode" btn-checkbox="false" btn-checkbox-true="true" btn-checkbox-false="false">Enable Edit</button>
+
                         <form role="form">
                             <div class="form-group">
                                 <label>Suche</label>
@@ -76,10 +79,10 @@
                                     </td>
                                     <td meeting-status="true"> </td>
                                     <td>
-                                        <a href="/#meeting/show/{{meeting.__identity}}">Anzeigen</a>
-                                        <a ng-href="/#meeting/show/{{meeting.__identity}}"><img src="../../../Public/Images/meeting_show.png"/> </a>&nbsp;
-                                        <a href="/#meeting/show/{{meeting.__identity}}">Editieren</a>
-                                        <a ng-href="/#meeting/show/{{meeting.__identity}}"><img src="../../../Public/Images/meeting_edit.png"/></a>&nbsp;
+                                        <a ng-show="!editMode" href="/#meeting/show/{{meeting.__identity}}">Anzeigen</a>
+                                        <a ng-show="!editMode"ng-href="/#meeting/show/{{meeting.__identity}}"><img src="../../../Public/Images/meeting_show.png"/> </a>&nbsp;
+                                        <a ng-show="editMode"href="/#meeting/show/{{meeting.__identity}}">Anzeigen/Editieren</a>
+                                        <a ng-show="editMode"ng-href="/#meeting/show/{{meeting.__identity}}"><img src="../../../Public/Images/meeting_edit.png"/></a>&nbsp;
                                         <a href="/#meeting/start/{{meeting.__identity}}">Durchführen</a>
                                         <a ng-href="/#meeting/start/{{meeting.__identity}}"><img src="../../../Public/Images/meeting_exec.png"/></a>
                                     </td>

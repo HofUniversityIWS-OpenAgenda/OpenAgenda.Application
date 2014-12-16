@@ -31,6 +31,9 @@ angular.module("Meeting")
                     alert('request failed');
                 });
             }
+            if ((typeof $scope.meetingId != "undefined") && !$scope.editMode ){
+                $scope.headerTitle = "Meeting anzeigen";
+            }
 
             function AgendaItem(sorting) {
                 this.__identity = "38fa3590-9095-c080-da99-c15f1710cfed";

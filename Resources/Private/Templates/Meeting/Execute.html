@@ -23,7 +23,7 @@
                         <h3 class="panel-title">{{meeting.title}}</h3>
                     </div>
                     <div class="panel-body">
-                        <div class="check-element animate-hide" ng-show="meeting.status < 2">
+                        <div class="check-element animate-hide" ng-show="meeting.status < 2 && editMode">
                             <button style=" margin-right: 40px" class=" pull-right btn btn-success" ng-click="startMeetng();">
                                 Meeting starten
                             </button>
@@ -50,13 +50,15 @@
                         </div>
 
                         <h3>Agenda</h3>
-                        <button type="button" class="btn btn-primary" ng-model="editMode" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false">Enable/Disable Protokol Edit</button>
+                        <!-- >  Button nach User-Berechtigungen entfernen </!-->
+                        <button type="button" class="btn btn-primary" ng-model="editMode" btn-checkbox="false" btn-checkbox-true="true" btn-checkbox-false="false">Enable Edit</button>
+
                         <div ng-repeat="agendaItem in meeting.agendaItems | orderBy:'+sorting'">
                             <div class="agenda-punkt" style="border-top: solid 1px #eeeeee">
                                 <div class="panel-entry row">
                                     <div class=" col-sm-12 col-md-12 col-lg-6 ">
                                         <div class="checkbox">
-                                            <label><input type="checkbox" ng-model="checked" ng-disabled='meeting.status != 2'>
+                                            <label><input type="checkbox" ng-model="checked" ng-disabled='meeting.status != 2 || !editMode'/>
                                                 <b>{{agendaItem.title}}</b>
                                             </label>
                                         </div>
