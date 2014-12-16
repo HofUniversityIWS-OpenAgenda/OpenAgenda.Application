@@ -32,7 +32,7 @@ angular.module("Task")
                     $http.post('/task/'+ task.__identity +'/update.json', task).
                         success(function(data, status, headers, config) {
                             console.log("SUCCESSFULLY SAVED TASK");
-                            $scope.$parent.initTable();
+                            $scope.$parent.reloadTasks();
                         }).
                         error(function(data, status, headers, config) {
                             // called asynchronously if an error occurs

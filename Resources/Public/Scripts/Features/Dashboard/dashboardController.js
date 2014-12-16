@@ -27,14 +27,18 @@ angular.module("Dashboard", [])
             });
 
             //Get all Tasks TODO: Only my Tasks
-            $scope.needToBeDoneTasks  = TaskResourceHelper.getTaskList().query(function (data) {
-                console.log('success, got task: ', data);
-                angular.forEach( $scope.needToBeDoneTasks, function (task) {
-                    task.dueDate = CommonHelperMethods.getDateFromJSONString(task.dueDate);
+            $scope.reloadTasks = function () {
+                $scope.needToBeDoneTasks  = TaskResourceHelper.getTaskList().query(function (data) {
+                    console.log('success, got task: ', data);
+                    angular.forEach( $scope.needToBeDoneTasks, function (task) {
+                        task.dueDate = CommonHelperMethods.getDateFromJSONString(task.dueDate);
+                    });
+                }, function (err) {
+                    alert('request failed');
                 });
-            }, function (err) {
-                alert('request failed');
-            });
+            };
+            $scope.reloadTasks();
+
 
             $scope.findUpcomingMeetings = function (meetingList) {
                 //search for upcoming Meetings

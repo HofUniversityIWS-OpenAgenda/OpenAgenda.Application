@@ -118,9 +118,9 @@
                                         <h3 class="panel-title"><i class="fa fa-tasks fa-fw"></i> Meine Aufgaben</h3>
                                     </div>
                                     <!-- /.panel-heading -->
-                                    <div class="panel-body">
+                                    <div ng-controller="TaskEditCtrl" class="panel-body">
                                         <div class="list-group">
-                                            <a ng-href="/#task/show/{{task.__identity}}" class="list-group-item" ng-repeat="task in needToBeDoneTasks | orderBy:'+dueDate +title' | limitTo: 5">
+                                            <a point-me="true" ng-click="open('',task.__identity)" class="list-group-item" ng-repeat="task in needToBeDoneTasks | orderBy:'+dueDate +title' | limitTo: 5">
                                                 <i class="fa fa-tasks fa-fw"></i>{{task.title}}
                                                 <span class="pull-right text-muted small badge">
                                                     {{task.dueDate | date:'dd.MM.yyyy  H:mm'}}

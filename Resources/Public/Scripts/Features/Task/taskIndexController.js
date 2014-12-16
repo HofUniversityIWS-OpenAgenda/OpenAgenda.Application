@@ -13,7 +13,7 @@ angular.module("Task", [])
             $scope.breadcrumbs = breadcrumbs;
 
             $scope.loading = true;
-            $scope.initTable = function () {
+            $scope.reloadTasks = function () {
                 $scope.taskList = [];
                 if (!$scope.showAllTasks) {
                     TaskResourceHelper.getTaskList().query(function (data) {
@@ -41,12 +41,12 @@ angular.module("Task", [])
             if ($location.url() == "/task/others")
                 $scope.showAllTasks = true;
 
-            $scope.initTable();
+            $scope.reloadTasks();
 
             $scope.$watch("showAllTasks", function (newVal) {
                 $scope.showAllTasksCheckboxDisabled = true;
                 console.log($scope.showAllTasks);
-                $scope.initTable();
+                $scope.reloadTasks();
             })
 
             function getMeetingName(task) {
