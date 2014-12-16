@@ -61,6 +61,16 @@
                             </table>
                         </div>
                         <!-- /.table-responsive -->
+                        <div ng-show="!loading && !taskList.length" class="alert alert-info" role="alert">
+                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                            <span class="sr-only">Info:</span>
+                            Es gibt hier aktuell keine Aufgaben!
+                        </div>
+                        <div ng-show="loading" class="spinner">
+                            <div class="bounce1"></div>
+                            <div class="bounce2"></div>
+                            <div class="bounce3"></div>
+                        </div>
                     </div>
                     <!-- /.panel-body -->
                 </div>

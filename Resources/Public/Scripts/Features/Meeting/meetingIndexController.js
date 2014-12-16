@@ -20,7 +20,7 @@ angular.module("Meeting", [])
         function ($scope, $rootScope, $filter, $resource, breadcrumbs, MeetingResourceHelper, CommonHelperMethods) {
             console.log("Meeting Index Controller Loaded");
             $scope.breadcrumbs = breadcrumbs;
-
+            $scope.loading = true;
             if(!$rootScope.mic)
                 $rootScope.mic = new Object();
 
@@ -29,7 +29,7 @@ angular.module("Meeting", [])
                     meeting.scheduledStartDate = CommonHelperMethods.getDateFromJSONString(meeting.scheduledStartDate);
                 });
                 console.log('success, got meeting: ', $scope.meetingList);
-
+                $scope.loading = false;
             }, function (err) {
                 alert('request failed');
             });

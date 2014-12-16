@@ -12,6 +12,7 @@ angular.module("Task", [])
             console.log("Task Index Controller Loaded");
             $scope.breadcrumbs = breadcrumbs;
 
+            $scope.loading = true;
             $scope.initTable = function () {
                 $scope.taskList = [];
                 if (!$scope.showAllTasks) {
@@ -23,13 +24,15 @@ angular.module("Task", [])
                         });
                         $scope.taskList = data;
                         $scope.showAllTasksCheckboxDisabled = false;
+                        $scope.loading= false;
 
                     }, function (err) {
                         alert('request failed');
                     });
                 }
                 else {
-                  console.log("LOAD OTHERS");
+                    console.log("LOAD OTHERS");
+                    $scope.loading= false;
                   //TODO: No rest interface for personal or others taks
                 }
 

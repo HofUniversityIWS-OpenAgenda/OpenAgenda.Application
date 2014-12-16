@@ -89,11 +89,17 @@
                                 </tr>
                                 </tbody>
                             </table>
+                            <div ng-show="loading" class="spinner">
+                                <div class="bounce1"></div>
+                                <div class="bounce2"></div>
+                                <div class="bounce3"></div>
+                            </div>
                             <div ng-hide="filteredMeetingList.length" class="alert alert-info" role="alert">
                                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                                 <span class="sr-only">Info:</span>
                                 Zwischen dem {{startDate | date:"dd.MM.yyyy"}} und dem {{endDate | date:"dd.MM.yyyy"}} finden keine Meetings statt!
                             </div>
+
                         </div>
                         <!-- /.table-responsive -->
                     </div>

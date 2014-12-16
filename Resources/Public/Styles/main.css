@@ -1,16 +1,14 @@
 
-.panel-heading a
-{
+.panel-heading a {
     float: right;
     margin-top: -17px;
 }
-#login-button-group
-{
+
+#login-button-group {
     float: right;
 }
 
-.container:before
-{
+.container:before {
     content: "";
     position: fixed;
     left: 0;
@@ -34,85 +32,87 @@
 
 }
 
-.topbar-search .input-group
-{
+.topbar-search .input-group {
     margin-bottom: -10px;
 }
 
-.sidebar-heading
-{
+.sidebar-heading {
     padding-left: 20px;
     font-size: 2em;
     font-weight: lighter;
 }
-.nav li a
-{
+
+.nav li a {
     padding-left: 30px;
 }
 
-.sidebar .nav-second-level li a
-{
+.sidebar .nav-second-level li a {
     padding-left: 53px;
 }
-.navbar
-{
-    margin-bottom:0px;
+
+.navbar {
+    margin-bottom: 0px;
 }
 
-.breadcrumb
-{
+.breadcrumb {
     margin: 0 -30px;
     border-radius: 0px;
 }
-.toolbar-entry
-{
+
+.toolbar-entry {
     padding: 0px 24px;
 }
+
 .panel-entry {
     padding: 0px 34px;
 
 }
-.panel-entry .checkbox
-{
+
+.panel-entry .checkbox {
     margin-left: -25px;
 }
-.meeting-map
-{
+
+.meeting-map {
     margin-right: 34px;
 }
-a.list-group-item
-{
-    color:#555;
+
+a.list-group-item {
+    color: #555;
 }
-div.form-group
-{
+
+div.form-group {
     margin-top: 10px;
 }
+
 .img-user {
     height: 150px;
     width: auto;
 }
+
 .top-border {
     border-color: #eee;
     border-width: 1px;
     border-top-style: solid;
 
 }
-.editable-click
-{
+
+.editable-click {
     color: #ffffff;
 }
-.editable-click:hover
-{
+
+.editable-click:hover {
     color: #ffffff;
 }
+
 /* temporary workaround for display editable-bstime in bs3 - up/down symbols not shown */
 .editable-bstime .editable-input i.icon-chevron-up:before {
     content: '\e113';
 }
+
 .editable-bstime .editable-input i.icon-chevron-down:before {
     content: '\e114';
 }
+
 .editable-bstime .editable-input i.icon-chevron-up,
 .editable-bstime .editable-input i.icon-chevron-down {
     position: relative;
@@ -124,10 +124,12 @@ div.form-group
     font-weight: normal;
     line-height: 1;
 }
+
 .btn-file {
     position: relative;
     overflow: hidden;
 }
+
 .btn-file input[type=file] {
     position: absolute;
     top: 0;
@@ -143,17 +145,21 @@ div.form-group
     cursor: inherit;
     display: block;
 }
+
 .ng-hide-add, .ng-hide-remove {
     /* ensure visibility during the transition */
     display: block !important; /* yes, important */
 }
+
 .cssFade {
     transition: 0.5s linear all;
     opacity: 1;
 }
+
 .cssFade.ng-hide {
     opacity: 0;
 }
+
 .repeat-animation.ng-enter,
 .repeat-animation.ng-leave,
 .repeat-animation.ng-move {
@@ -162,33 +168,87 @@ div.form-group
     -o-transition: all linear 1s;
     transition: all linear 1s;
 
-    position:relative;
-    left:5px;
+    position: relative;
+    left: 5px;
 }
+
 .repeat-animation.ng-enter {
     opacity: 0;
 }
+
 .repeat-animation.ng-enter.ng-enter-active {
     opacity: 1;
 }
+
 .repeat-animation.ng-leave {
     opacity: 1;
 }
+
 .repeat-animation.ng-leave.ng-leave-active {
     opacity: 0;
 }
+
 .repeat-animation.ng-move {
-    left:2px;
+    left: 2px;
     opacity: 0.5;
 }
+
 .repeat-animation.ng-move.ng-move-active {
-    left:0;
+    left: 0;
     opacity: 1;
 }
-@media(min-width:768px)
-{
-    .breadcrumb
-    {
+
+/*SpinnKit*/
+.spinner {
+    margin: 10px auto 20px;
+    width: 70px;
+    text-align: center;
+}
+
+.spinner > div {
+    width: 18px;
+    height: 18px;
+    background-color: #31708f;
+    border-radius: 100%;
+    display: inline-block;
+    -webkit-animation: bouncedelay 1.4s infinite ease-in-out;
+    animation: bouncedelay 1.4s infinite ease-in-out;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+.spinner .bounce1 {
+    -webkit-animation-delay: -0.32s;
+    animation-delay: -0.32s;
+}
+
+.spinner .bounce2 {
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s;
+}
+
+@-webkit-keyframes bouncedelay {
+    0%, 80%, 100% {
+        -webkit-transform: scale(0.0)
+    }
+    40% {
+        -webkit-transform: scale(1.0)
+    }
+}
+
+@keyframes bouncedelay {
+    0%, 80%, 100% {
+        transform: scale(0.0);
+        -webkit-transform: scale(0.0);
+    }
+    40% {
+        transform: scale(1.0);
+        -webkit-transform: scale(1.0);
+    }
+}
+
+@media (min-width: 768px) {
+    .breadcrumb {
         margin: 0 -45px;
         border-radius: 0px;
     }
