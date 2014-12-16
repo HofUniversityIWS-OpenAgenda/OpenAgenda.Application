@@ -30,26 +30,25 @@
                             <div class="form-group">
                                 <label>Suche</label>
                                 <div class="input-group">
-                                    <input ng-model="searchText "type="text" class="form-control" placeholder="Suche">
+                                    <input ng-model="searchText" type="text" class="form-control" placeholder="Suche">
                                     <span class="input-group-addon"><i class="fa fa-search"></i></span>
                                 </div>
                             </div>
-                            <div>
-                                <div class="form-group">
-                                    <label>Datum Anfang</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="startDate" is-open="opened" init-date="initDate" min-date="minDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
-                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Datum Ende</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="endDate" is-open="opened2" min-date="minDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
-                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                    </div>
+                            <div class="form-group">
+                                <label>Datum Anfang</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="startDate" is-open="opened" init-date="startDate"  datepicker-options="dateOptions" />
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label>Datum Ende</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="endDate" is-open="opened2" min-date="endDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                            <button ng-click="resetMeetingFilter()" style="margin-bottom: 15px" type="button" class="btn btn-info">Zurücksetzen</button>
                         </form>
 
                         <div class="table-responsive">
@@ -65,8 +64,9 @@
                                 </thead>
                                 <tbody>
 
-                                <tr class="odd gradeX" ng-repeat="meeting in meetingList | upComing:'scheduledStartDate':startDate:endDate | orderBy:'+scheduledStartDate +title'  | filter:searchText">
+                                <tr class="odd gradeX" ng-repeat="meeting in filteredMeetingList = (meetingList | upComing:'scheduledStartDate':startDate:endDate | orderBy:'+scheduledStartDate +title'  | filter:searchText)">
                                     <td>{{ (meeting.scheduledStartDate | date:"dd/MM/yyyy HH:mm") || 'Kein Datum festgelegt' }} Uhr</td>
+
 
                                     <td>{{meeting.title}}</td>
                                     <td>
@@ -86,6 +86,11 @@
                                 </tr>
                                 </tbody>
                             </table>
+                            <div ng-hide="filteredMeetingList.length" class="alert alert-info" role="alert">
+                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                <span class="sr-only">Info:</span>
+                                Zwischen dem {{startDate | date:"dd.MM.yyyy"}} und dem {{endDate | date:"dd.MM.yyyy"}} finden keine Meetings statt!
+                            </div>
                         </div>
                         <!-- /.table-responsive -->
                     </div>

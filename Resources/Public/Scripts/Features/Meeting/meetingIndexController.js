@@ -13,10 +13,13 @@ angular.module("Meeting", [])
             });
         };
     })
-    .controller('MeetingIndexCtrl', ['$scope', '$rootScope', '$resource', "breadcrumbs", "MeetingResourceHelper","CommonHelperMethods",
-        function ($scope, $rootScope, $http, breadcrumbs, MeetingResourceHelper, CommonHelperMethods) {
+    .controller('MeetingIndexCtrl', ['$scope', '$rootScope', '$filter','$resource', "breadcrumbs", "MeetingResourceHelper","CommonHelperMethods",
+        function ($scope, $rootScope, $filter, $resource, breadcrumbs, MeetingResourceHelper, CommonHelperMethods) {
             console.log("Meeting Index Controller Loaded");
             $scope.breadcrumbs = breadcrumbs;
+
+            if(!$rootScope.mic)
+                $rootScope.mic = new Object();
 
             $scope.meetingList = MeetingResourceHelper.getMeetingList().query(function (data) {
                 angular.forEach($scope.meetingList, function (meeting) {
@@ -40,22 +43,24 @@ angular.module("Meeting", [])
                 });
                 console.log('success, got meeting: ', $scope.meetingList);
 
-
-
             }, function (err) {
                 alert('request failed');
             });
 
             //$rootScope.changeToolBar("");
 
-            $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/d', 'dd.MM.yyyy', 'shortDate'];
-            $scope.format = $scope.formats[1];
-            console.log($scope.format)
+            /** Requirements for Datepicker
+             *
+             * Due to a bug in ui-bootstrap library, the first date is not formatted properly
+             */
 
-            /* Datepicker*/
+
+            $scope.format = 'dd.MM.yyyy';
+
             $scope.toggleMin = function () {
                 $scope.minDate = $scope.minDate ? null : new Date();
             };
+
             $scope.toggleMin();
 
             $scope.openStart = function ($event) {
@@ -75,14 +80,68 @@ angular.module("Meeting", [])
                 formatYear: 'yyyy',
                 startingDay: 1
             };
-            var now = new Date();
-            var tempDate = now.getFullYear() + "/" + (now.getMonth()+1) + "/" + now.getDate();
-            $scope.startDate = tempDate;
 
-            var then = new Date();
-            then.setDate(then.getDate());
+            //Using rootScope to save current Selection
 
-            var tempDate2 = then.getFullYear() + "/" + (then.getMonth()+1) + "/" + (then.getDate());
-            $scope.endDate = tempDate2;
+            $scope.getStartDate = function () {
+
+                if ($rootScope.mic.selectedStartDate) {
+                    return $rootScope.mic.selectedStartDate;
+                }
+                else
+                {
+                    console.log("START IS LEER");
+                    $rootScope.mic.selectedStartDate = new Date();
+                    return $rootScope.mic.selectedStartDate;
+                }
+            };
+            $scope.getEndDate = function () {
+                var then = new Date();
+                then.setDate(then.getDate() + 14);
+
+                if ($rootScope.mic.selectedEndDate)
+                    return $rootScope.mic.selectedEndDate;
+                else
+                {
+                    $rootScope.mic.selectedEndDate = then;
+                    return $rootScope.mic.selectedEndDate;
+                }
+            };
+
+            $scope.getSearchText = function () {
+                if ($rootScope.mic.searchText)
+                    return $rootScope.mic.searchText;
+                else
+                {
+                    $rootScope.mic.searchText ="";
+                    return $rootScope.mic.searchText;
+                }
+            }
+
+            $scope.resetMeetingFilter = function () {
+                $rootScope.mic.selectedEndDate = null;
+                $rootScope.mic.selectedStartDate = null;
+                $rootScope.mic.searchText ="";
+
+                $scope.startDate = $scope.getStartDate();
+                $scope.endDate = $scope.getEndDate();
+                $scope.searchText = $scope.getSearchText();
+            }
+
+            $scope.startDate = $scope.getStartDate();
+            $scope.endDate = $scope.getEndDate();
+            $scope.searchText = $scope.getSearchText();
+
+            $scope.$watch("startDate", function () {
+                $rootScope.mic.selectedStartDate = $scope.startDate;
+            });
+
+            $scope.$watch("endDate", function () {
+                $rootScope.mic.selectedEndDate = $scope.endDate;
+            });
+
+            $scope.$watch("searchText", function () {
+                $rootScope.mic.searchText = $scope.searchText;
+            });
 
         }]);
