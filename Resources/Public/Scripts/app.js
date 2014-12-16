@@ -1,5 +1,5 @@
 var Application = angular.module('OpenAgenda', ['ngRoute', 'ngAnimate','ngResource', 'angularFileUpload','ng-breadcrumbs', 'xeditable',
-    'ApplicationControllers','CommonFactories','CommonDirectives', 'TopBar','Dashboard', 'Menu','Meeting', 'Task', 'Http', 'ngSanitize',
+    'ApplicationControllers','CommonFactories','CommonDirectives', 'TopBar','Dashboard', 'Menu','Meeting', 'Task', 'Setting', 'Http', 'ngSanitize',
     'ui.calendar','ui.bootstrap']);
 
 Application.config(['$routeProvider',
@@ -58,11 +58,13 @@ Application.config(['$routeProvider',
             }).
             when('/settings/user', {
                 templateUrl: '/template/setting/userSetting.html',
-                controller: 'SettingCtrl'
+                controller: 'userSettingCtrl',
+                label:'Benachrichtigungseinstellung'
             }).
             when('/settings/user/profile', {
                 templateUrl: '/template/setting/userProfile.html',
-                controller: 'SettingCtrl'
+                controller: 'userProfileCtrl',
+                label:'Profilverwaltung'
             }).
             otherwise({
                 redirectTo: '/dashboard'
