@@ -21,7 +21,7 @@
             <div class="col-lg-12">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        Kommende Meetings
+                        <i class="fa fa-users fa-fw"></i> Kommende Meetings
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
@@ -73,18 +73,18 @@
 
                                     <td>{{meeting.title}}</td>
                                     <td>
-                                        {{meeting.invitationStatus.committed}} <img src="../../../Public/Images/invitee_unkown.png"/>&nbsp;
-                                        {{meeting.invitationStatus.canceled}} <img src="../../../Public/Images/invitee_agreed.png"/>&nbsp;
-                                        {{meeting.invitationStatus.open}} <img src="../../../Public/Images/invitee_canceled.png"/>
+                                        {{meeting.invitationStatus.committed}} <i style="color: #f0ad4e" class="fa fa-question"></i>&nbsp;
+                                        {{meeting.invitationStatus.canceled}} <i style="color: #5cb85c" class="fa fa-check"></i>&nbsp;
+                                        {{meeting.invitationStatus.open}} <i style="color: #d9534f" class="fa fa-times"></i>
                                     </td>
                                     <td meeting-status="true"> </td>
                                     <td>
                                         <a ng-show="!editMode" href="/#meeting/show/{{meeting.__identity}}">Anzeigen</a>
-                                        <a ng-show="!editMode"ng-href="/#meeting/show/{{meeting.__identity}}"><img src="../../../Public/Images/meeting_show.png"/> </a>&nbsp;
+                                        <a ng-show="!editMode"ng-href="/#meeting/show/{{meeting.__identity}}"><i class="fa fa-eye"></i></a>&nbsp;
                                         <a ng-show="editMode"href="/#meeting/show/{{meeting.__identity}}">Anzeigen/Editieren</a>
-                                        <a ng-show="editMode"ng-href="/#meeting/show/{{meeting.__identity}}"><img src="../../../Public/Images/meeting_edit.png"/></a>&nbsp;
+                                        <a ng-show="editMode"ng-href="/#meeting/show/{{meeting.__identity}}"> <i class="fa fa-pencil-square-o"></i></a>&nbsp;
                                         <a href="/#meeting/start/{{meeting.__identity}}">Durchführen</a>
-                                        <a ng-href="/#meeting/start/{{meeting.__identity}}"><img src="../../../Public/Images/meeting_exec.png"/></a>
+                                        <a ng-href="/#meeting/start/{{meeting.__identity}}"> <i class="fa fa-bolt"></i></a>
                                     </td>
                                 </tr>
                                 </tbody>

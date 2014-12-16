@@ -19,9 +19,9 @@
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <div class="panel panel-default">
+                <div class="panel panel-green">
                     <div class="panel-heading">
-                        Kommende Meetings
+                        <i class="fa fa-tasks fa-fw"></i> Aufgaben
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
@@ -54,7 +54,7 @@
                                     </td>
                                     <td>{{task.meeting}}</td>
                                     <td point-me="true" ng-click="open('',task.__identity)">
-                                       Bearbeiten <img src="../../../Public/Images/meeting_show.png"/>
+                                       <a>Bearbeiten <i class="fa fa-pencil-square-o"></i></a>
                                     </td>
                                 </tr>
                                 </tbody>
