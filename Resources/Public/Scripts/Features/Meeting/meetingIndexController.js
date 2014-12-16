@@ -21,7 +21,6 @@ angular.module("Meeting", [])
             $scope.meetingList = MeetingResourceHelper.getMeetingList().query(function (data) {
                 angular.forEach($scope.meetingList, function (meeting) {
                     meeting.scheduledStartDate = CommonHelperMethods.getDateFromJSONString(meeting.scheduledStartDate);
-                    meeting.formatStartDate = DateFormatter.format(meeting.scheduledStartDate, "Y/m/d H:i") + ' Uhr';
 
                     switch (meeting.status) {
                         case 0:

@@ -28,7 +28,6 @@
                                 Meeting starten
                             </button>
                         </div>
-                        <button type="button" class="btn btn-primary" ng-model="editMode" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false">ACHTUNG</button>
                         <div class="check-element animate-show" ng-show="meeting.status == 2">
                             <button style=" margin-right: 40px" class=" pull-right btn btn-success" ng-disabled='true' >
                                 Meeting läuft
@@ -51,6 +50,7 @@
                         </div>
 
                         <h3>Agenda</h3>
+                        <button type="button" class="btn btn-primary" ng-model="editMode" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false">Enable/Disable Protokol Edit</button>
                         <div ng-repeat="agendaItem in meeting.agendaItems | orderBy:'+sorting'">
                             <div class="agenda-punkt" style="border-top: solid 1px #eeeeee">
                                 <div class="panel-entry row">

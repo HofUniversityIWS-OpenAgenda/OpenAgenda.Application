@@ -5,7 +5,7 @@
 angular.module("Task")
     .controller('TaskEditCtrl', ['$scope', '$rootScope', '$resource', "TaskResourceHelper", "CommonHelperMethods", '$modal', '$log',
         function ($scope, $rootScope, $resource, TaskResourceHelper, CommonHelperMethods, $modal, $log) {
-            console.log("Task Edit Controller Loaded");
+            console.log("Task Edit Controller Loaded", $scope.task);
 
             $scope.open = function (size, identity) {
 
@@ -32,10 +32,11 @@ angular.module("Task")
         TaskResourceHelper.getTaskDetail(identity).get(function (task) {
             task.dueDate = CommonHelperMethods.getDateFromJSONString(task.dueDate);
             $scope.task = task;
+            console.log('modalInstanceCtrl', task);
         });
 
         $scope.ok = function () {
-            $modalInstance.close("OK");
+            $modalInstance.close("OK", $scope.task);
         };
 
         $scope.cancel = function () {

@@ -14,6 +14,18 @@ angular.module("CommonDirectives", [])
             '</span>'
         };
     })
+    .directive('meetingStatus', function() {
+
+        return {
+            template:   '<span ng-switch="meeting.status"> ' +
+            '<span ng-switch-when="0">Vorgeplant</span> ' +
+            '<span ng-switch-when="1">Geplant</span> ' +
+            '<span ng-switch-when="2">Läuft</span> ' +
+            '<span ng-switch-when="3">Abgeschlossen</span> ' +
+            '<span ng-switch-default>Unbekannt</span> ' +
+            '</span>'
+        };
+    })
     .directive("pointMe", function() {
         return {
             restrict : "AC",

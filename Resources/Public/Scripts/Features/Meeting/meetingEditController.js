@@ -50,7 +50,7 @@ angular.module("Meeting")
                 this.endDate = null;
                 this.modificationDate = new Date();
                 this.scheduledStartDate = new Date();
-                this.startDate = "'2015-01-05T12:00:00+01:00'";
+                this.startDate = null;
                 this.status = 0;
                 this.title = null;
                 this.place = null;

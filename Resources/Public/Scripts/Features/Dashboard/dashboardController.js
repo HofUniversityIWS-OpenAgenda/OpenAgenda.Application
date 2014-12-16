@@ -11,7 +11,7 @@ angular.module("Dashboard", [])
              });*/
             $scope.upcomingMeetings = [];
 
-            $scope.currentUser = "Thomas"; // From where?
+            $scope.currentUser = "Thomas"; // TODO: From where?
 
             $scope.events = [];
 
@@ -23,7 +23,7 @@ angular.module("Dashboard", [])
                 });
                 $scope.findUpcomingMeetings($scope.meetingList);
 
-                angular.copy( $scope.meetingList, $rootScope.meetingListGlobal);
+                // angular.copy( $scope.meetingList, $rootScope.meetingListGlobal);
             }, function (err) {
                 alert('request failed');
             });
@@ -79,7 +79,7 @@ angular.module("Dashboard", [])
 
             /* alert on eventClick */
             $scope.alertOnEventClick = function (date, jsEvent, view) {
-                $scope.alertMessage = (date.title + ' was clicked ');
+                $scope.alertMessage = (date.title + ' ausgewählt');
             };
             /* alert on Drop */
             $scope.alertOnDrop = function (event, delta, revertFunc, jsEvent, ui, view) {
@@ -101,15 +101,6 @@ angular.module("Dashboard", [])
                 if (canAdd === 0) {
                     sources.push(source);
                 }
-            };
-            /* add custom event*/
-            $scope.addEvent = function () {
-                $scope.events.push({
-                    title: 'Open Sesame',
-                    start: new Date(y, m, 28),
-                    end: new Date(y, m, 29),
-                    className: ['openSesame']
-                });
             };
 
             /* Change View */

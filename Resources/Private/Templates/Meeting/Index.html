@@ -66,7 +66,7 @@
                                 <tbody>
 
                                 <tr class="odd gradeX" ng-repeat="meeting in meetingList | upComing:'scheduledStartDate':startDate:endDate | orderBy:'+scheduledStartDate +title'  | filter:searchText">
-                                    <td>{{meeting.formatStartDate}}</td>
+                                    <td>{{ (meeting.scheduledStartDate | date:"dd/MM/yyyy HH:mm") || 'Kein Datum festgelegt' }} Uhr</td>
 
                                     <td>{{meeting.title}}</td>
                                     <td>
@@ -74,7 +74,7 @@
                                         {{meeting.invitationStatus.canceled}} <img src="../../../Public/Images/invitee_agreed.png"/>&nbsp;
                                         {{meeting.invitationStatus.open}} <img src="../../../Public/Images/invitee_canceled.png"/>
                                     </td>
-                                    <td>{{meeting.formatStatus}}</td>
+                                    <td meeting-status="true"> </td>
                                     <td>
                                         <a href="/#meeting/show/{{meeting.__identity}}">Anzeigen</a>
                                         <a ng-href="/#meeting/show/{{meeting.__identity}}"><img src="../../../Public/Images/meeting_show.png"/> </a>&nbsp;

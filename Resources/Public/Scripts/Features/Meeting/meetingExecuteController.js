@@ -79,6 +79,7 @@ angular.module("Meeting")
 
         };
 
+        // TODO: invitedUsers from Meeting
         $scope.invitedUsers = [
             {value: 1, text: 'tt@tt.de'},
             {value: 2, text: 'xx@tt.de'},
