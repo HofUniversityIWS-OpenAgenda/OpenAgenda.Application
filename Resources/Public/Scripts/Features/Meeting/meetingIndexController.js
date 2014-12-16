@@ -24,22 +24,6 @@ angular.module("Meeting", [])
             $scope.meetingList = MeetingResourceHelper.getMeetingList().query(function (data) {
                 angular.forEach($scope.meetingList, function (meeting) {
                     meeting.scheduledStartDate = CommonHelperMethods.getDateFromJSONString(meeting.scheduledStartDate);
-
-                    switch (meeting.status) {
-                        case 0:
-                            meeting.formatStatus = "vorgeplant";
-                            break;
-                        case 1:
-                            meeting.formatStatus = "geplant";
-                            break;
-                        case 2:
-                            meeting.formatStatus = "läuft";
-                            break;
-                        case 3:
-                            meeting.formatStatus = "abgeschlossen";
-                            break;
-
-                    }
                 });
                 console.log('success, got meeting: ', $scope.meetingList);
 
