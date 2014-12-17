@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @Flow\Entity
  * @ORM\Table(name="oa_task")
  */
-class Task extends ProtocolItem implements ModificationInterface {
+class Task extends ProtocolItem implements CreationInterface, ModificationInterface {
 
 	const STATUS_CREATED = 0;
 	const STATUS_CLOSED = 1;
@@ -122,7 +122,7 @@ class Task extends ProtocolItem implements ModificationInterface {
 	/**
 	 * @param \DateTime $creationDate
 	 */
-	public function setCreationDate($creationDate) {
+	public function setCreationDate(\DateTime $creationDate) {
 		$this->creationDate = $creationDate;
 	}
 

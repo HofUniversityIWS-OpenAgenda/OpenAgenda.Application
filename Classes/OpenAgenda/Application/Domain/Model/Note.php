@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @Flow\Entity
  * @ORM\Table(name="oa_note")
  */
-class Note extends ProtocolItem {
+class Note extends ProtocolItem implements CreationInterface {
 
 	/**
 	 * @var string
@@ -45,7 +45,7 @@ class Note extends ProtocolItem {
 	/**
 	 * @param \DateTime $creationDate
 	 */
-	public function setCreationDate($creationDate) {
+	public function setCreationDate(\DateTime $creationDate) {
 		$this->creationDate = $creationDate;
 	}
 

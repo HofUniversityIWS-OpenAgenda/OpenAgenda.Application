@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @Flow\Entity
  * @ORM\Table(name="oa_invitation", uniqueConstraints={@ORM\UniqueConstraint(columns={"meeting", "participant"})})
  */
-class Invitation implements ModificationInterface {
+class Invitation implements CreationInterface, ModificationInterface {
 
 	const STATUS_OPEN = 0;
 	const STATUS_COMMITTED = 1;
@@ -96,7 +96,7 @@ class Invitation implements ModificationInterface {
 	/**
 	 * @param \DateTime $creationDate
 	 */
-	public function setCreationDate($creationDate) {
+	public function setCreationDate(\DateTime $creationDate) {
 		$this->creationDate = $creationDate;
 	}
 

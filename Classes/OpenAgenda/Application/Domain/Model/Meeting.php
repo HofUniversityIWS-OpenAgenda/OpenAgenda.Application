@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @Flow\Entity
  * @ORM\Table(name="oa_meeting")
  */
-class Meeting implements ModificationInterface {
+class Meeting implements CreationInterface, ModificationInterface {
 
 	const STATUS_CREATED = 0;
 	const STATUS_COMMITTED = 1;
@@ -197,7 +197,7 @@ class Meeting implements ModificationInterface {
 	/**
 	 * @param \DateTime $creationDate
 	 */
-	public function setCreationDate($creationDate) {
+	public function setCreationDate(\DateTime $creationDate) {
 		$this->creationDate = $creationDate;
 	}
 

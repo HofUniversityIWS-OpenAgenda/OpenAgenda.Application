@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @Flow\Entity
  * @ORM\Table(name="oa_history")
  */
-class History {
+class History implements CreationInterface {
 
 	/**
 	 * @var \TYPO3\Party\Domain\Model\Person
@@ -86,7 +86,7 @@ class History {
 	/**
 	 * @param \DateTime $creationDate
 	 */
-	public function setCreationDate($creationDate) {
+	public function setCreationDate(\DateTime $creationDate) {
 		$this->creationDate = $creationDate;
 	}
 

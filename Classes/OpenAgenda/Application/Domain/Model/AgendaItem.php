@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @Flow\Entity
  * @ORM\Table(name="oa_agendaitem")
  */
-class AgendaItem implements ModificationInterface {
+class AgendaItem implements CreationInterface, ModificationInterface {
 
 	/**
 	 * @var \OpenAgenda\Application\Domain\Model\Meeting
@@ -119,7 +119,7 @@ class AgendaItem implements ModificationInterface {
 	/**
 	 * @param \DateTime $creationDate
 	 */
-	public function setCreationDate($creationDate) {
+	public function setCreationDate(\DateTime $creationDate) {
 		$this->creationDate = $creationDate;
 	}
 
