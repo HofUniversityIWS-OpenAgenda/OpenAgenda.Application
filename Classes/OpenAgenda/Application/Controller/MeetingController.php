@@ -113,8 +113,8 @@ class MeetingController extends AbstractController {
 			$this->redirect('new');
 		}
 
-		$newMeeting->setCreationDate(new \DateTime());
 		$newMeeting->setStatus(Meeting::STATUS_CREATED);
+		$this->entityService->applyStatusDates($newMeeting);
 
 		$this->historyService->invoke($newMeeting);
 		$this->meetingRepository->add($newMeeting);

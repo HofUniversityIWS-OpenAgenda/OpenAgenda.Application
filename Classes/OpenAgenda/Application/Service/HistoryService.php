@@ -37,18 +37,16 @@ class HistoryService {
 
 	/**
 	 * @Flow\Inject
-	 * @var \OpenAgenda\Application\Domain\Repository\HistoryRepository
+	 * @var EntityService
 	 */
-	protected $meetingRepository;
+	protected $entityService;
 
 	/**
 	 * @param object $subject
 	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
 	 */
 	public function invoke($subject) {
-		if ($subject instanceof \OpenAgenda\Application\Domain\Model\ModificationInterface) {
-			$subject->setModificationDate(new \DateTime());
-		}
+		$this->entityService->applyModificationDate($subject);
 
 		$history = new History();
 		$history->setCreationDate(new \DateTime());
