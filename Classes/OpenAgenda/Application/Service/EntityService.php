@@ -75,6 +75,18 @@ class EntityService {
 	}
 
 	/**
+	 * @param \Doctrine\Common\Collections\Collection $collection
+	 */
+	public function applySortingOrder(\Doctrine\Common\Collections\Collection $collection) {
+		$sorting = 0;
+		foreach ($collection as $subject) {
+			if ($subject instanceof \OpenAgenda\Application\Domain\Model\SortableInterface) {
+				$subject->setSorting(++$sorting);
+			}
+		}
+	}
+
+	/**
 	 * @param object $subject
 	 * @return array|\Doctrine\Common\Collections\Collection[]
 	 */

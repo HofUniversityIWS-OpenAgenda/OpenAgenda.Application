@@ -25,6 +25,7 @@ class Meeting implements CreationInterface, ModificationInterface {
 	/**
 	 * @var \Doctrine\Common\Collections\Collection<\OpenAgenda\Application\Domain\Model\AgendaItem>
 	 * @ORM\OneToMany(mappedBy="meeting",cascade="persist")
+	 * @ORM\OrderBy({"sorting" = "ASC"})
 	 * @OA\ToFlatArray(scope="show")
 	 */
 	protected $agendaItems;

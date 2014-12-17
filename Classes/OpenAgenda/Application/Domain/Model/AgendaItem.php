@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @Flow\Entity
  * @ORM\Table(name="oa_agendaitem")
  */
-class AgendaItem implements CreationInterface, ModificationInterface {
+class AgendaItem implements CreationInterface, ModificationInterface, SortableInterface {
 
 	/**
 	 * @var \OpenAgenda\Application\Domain\Model\Meeting

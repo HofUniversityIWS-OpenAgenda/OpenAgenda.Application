@@ -123,6 +123,7 @@ class MeetingController extends AbstractController {
 
 		$newMeeting->setStatus(Meeting::STATUS_CREATED);
 		$this->entityService->applyStatusDates($newMeeting);
+		$this->entityService->applySortingOrder($newMeeting->getAgendaItems());
 
 		$this->historyService->invoke($newMeeting);
 		$this->meetingRepository->add($newMeeting);
