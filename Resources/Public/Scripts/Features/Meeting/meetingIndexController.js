@@ -25,9 +25,6 @@ angular.module("Meeting", [])
                 $rootScope.mic = new Object();
 
             $scope.meetingList = MeetingResourceHelper.getMeetingList().query(function (data) {
-                angular.forEach($scope.meetingList, function (meeting) {
-                    meeting.scheduledStartDate = CommonHelperMethods.getDateFromJSONString(meeting.scheduledStartDate);
-                });
                 console.log('success, got meeting: ', $scope.meetingList);
                 $scope.loading = false;
             }, function (err) {

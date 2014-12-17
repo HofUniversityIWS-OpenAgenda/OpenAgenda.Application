@@ -14,12 +14,10 @@ angular.module("Meeting")
             $scope.meetingId = $routeParams.meetingId;
             $scope.uploaders = [];
 
-
             if (typeof $scope.meetingId != "undefined") {
                 $scope.headerTitle = "Meeting bearbeiten";
                 $scope.meeting = MeetingResourceHelper.getMeetingDetail($routeParams.meetingId).get(function (data) {
-                    data.scheduledStartDate = CommonHelperMethods.getDateFromJSONString(data.scheduledStartDate);
-                console.log('success, got data: ', data);
+                    console.log('success, got data: ', data);
 
                     for(var i = 0; i<= $scope.meeting.agendaItems.length; i++)
                     {

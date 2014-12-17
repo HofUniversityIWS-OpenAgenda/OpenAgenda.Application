@@ -7,6 +7,7 @@
 angular.module("CommonFactories", [])
     .factory('CommonHelperMethods', function() {
         return {
+            // @deprecated Not used anymore
             getDateFromJSONString: function (string) {
                 return new Date(string.substr(1, string.length - 2));
             }

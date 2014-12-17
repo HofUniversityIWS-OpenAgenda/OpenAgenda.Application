@@ -86,10 +86,9 @@ class ObjectService {
 		}
 
 		if (!empty($matches['arguments'])) {
-			$matches['arguments'] = array_map(
-				'trim',
-				explode(',', $matches['arguments'])
-			);
+			$matches['arguments'] = explode(',', $matches['arguments']);
+			$matches['arguments'] = array_map('trim', $matches['arguments']);
+			$matches['arguments'] = array_map(array($this, 'castValue'), $matches['arguments']);
 		} else {
 			$matches['arguments'] = array();
 		}
@@ -98,6 +97,26 @@ class ObjectService {
 			$matches,
 			array_flip($this->componentFilter)
 		);
+	}
+
+	/**
+	 * Casts type values explicitly.
+	 * If value is wrapped by quotes, string cast is applied.
+	 *
+	 * @param mixed $value
+	 * @return float|int|string
+	 */
+	protected function castValue($value) {
+		if (substr($value, 0, 1) === "'" && substr($value, -1) === "'"
+			|| substr($value, 0, 1) === '"' && substr($value, -1) === '"') {
+			$value = substr($value, 1, -1);
+		} elseif ((string)$value === (string)(int)$value) {
+			$value = (int)$value;
+		} elseif ((string)$value === (string)(float)$value) {
+			$value = (float)$value;
+		}
+
+		return $value;
 	}
 
 }

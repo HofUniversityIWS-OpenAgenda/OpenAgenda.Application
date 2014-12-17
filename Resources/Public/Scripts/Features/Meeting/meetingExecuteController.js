@@ -12,13 +12,6 @@ angular.module("Meeting")
         $scope.meeting = MeetingResourceHelper.getMeetingDetail($routeParams.meetingId).get(function (data) {
             console.log('Execute success, got data: ', data);
             console.log('datum', data.startDate);
-            if (data.startDate)
-            {
-                data.startDate = CommonHelperMethods.getDateFromJSONString(data.startDate);
-            }
-
-            data.scheduledStartDate = CommonHelperMethods.getDateFromJSONString(data.scheduledStartDate);
-
         }, function (err) {
             alert('request failed');
         });

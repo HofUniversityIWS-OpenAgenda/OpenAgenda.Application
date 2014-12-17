@@ -19,7 +19,6 @@ angular.module("Task", [])
                     TaskResourceHelper.getTaskList().query(function (data) {
                         console.log('success, got taskList: ', data);
                         angular.forEach(data, function (task) {
-                            task.dueDate = CommonHelperMethods.getDateFromJSONString(task.dueDate);
                             getMeetingName(task);
                         });
                         $scope.taskList = data;
