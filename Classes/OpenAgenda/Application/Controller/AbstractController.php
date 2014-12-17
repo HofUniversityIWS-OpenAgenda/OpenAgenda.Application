@@ -67,6 +67,45 @@ class AbstractController extends ActionController {
 	}
 
 	/**
+	 * @return void
+	 * @throws \Exception
+	 * @author Oliver Hader <oliver@typo3.org>
+	 */
+	protected function callActionMethod() {
+		try {
+			parent::callActionMethod();
+		} catch (\Exception $exception) {
+			// If not in a JSON format context, directly throw exception again
+			if (!$this->view instanceof \TYPO3\Flow\Mvc\View\JsonView) {
+				throw $exception;
+			}
+
+			$this->systemLogger->log($exception->getMessage(), LOG_EMERG);
+			$this->view->assign('value', array('exception' => $exception->getMessage()));
+			$this->response->appendContent($this->view->render());
+			$this->response->setStatus(503);
+		}
+	}
+
+	protected function errorAction() {
+		$content = parent::errorAction();
+
+		if (!$this->view instanceof \TYPO3\Flow\Mvc\View\JsonView) {
+			return $content;
+		}
+
+		$validationMessages = array();
+		foreach ($this->arguments->getValidationResults()->getFlattenedErrors() as $propertyPath => $errors) {
+			/** @var \TYPO3\Flow\Validation\Error $error */
+			foreach ($errors as $error) {
+				$validationMessages[$propertyPath]['errors'][] = $error->render();
+			}
+		}
+
+		$this->view->assign('value', array('validation' => $validationMessages));
+	}
+
+	/**
 	 * @return \TYPO3\Flow\Security\Account
 	 */
 	protected function getAccount() {
