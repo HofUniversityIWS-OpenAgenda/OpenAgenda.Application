@@ -126,7 +126,7 @@ angular.module('Http', [])
 			return $rootScope.online;
 		},
 		start: function() {
-			$interval(beat, 2500);
+			//$interval(beat, 2500);
 		},
 		stop: function() {
 
