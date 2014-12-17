@@ -5,8 +5,8 @@
  * Created by Thomas on 27.11.14.
  */
 angular.module("Meeting")
-    .controller('MeetingEditCtrl', ['$scope', '$http','$rootScope', '$routeParams', '$resource', "breadcrumbs", 'FileUploader', "MeetingResourceHelper", 'CommonHelperMethods',
-        function ($scope, $http, $rootScope, $routeParams, $resource, breadcrumbs, FileUploader, MeetingResourceHelper, CommonHelperMethods) {
+    .controller('MeetingEditCtrl', ['$scope', '$http','$rootScope', '$routeParams', '$resource', "breadcrumbs", 'FileUploader', "MeetingResourceHelper", 'CommonHelperMethods', 'OpenAgenda.Data.Utility',
+        function ($scope, $http, $rootScope, $routeParams, $resource, breadcrumbs, FileUploader, MeetingResourceHelper, CommonHelperMethods, oaUtility) {
             $scope.breadcrumbs = breadcrumbs;
             console.log("Create meeting Conroller loaded");
             $scope.headerTitle = "Meeting anlegen";
@@ -87,17 +87,19 @@ angular.module("Meeting")
                 console.log("SENDEN");
                 console.log($scope.meeting);
 
-                $http.post('meeting/create.json', { newMeeting: $scope.meeting }, { proxy: true }).
+                $http.post('meeting/create.json', { newMeeting: oaUtility.jsonCast($scope.meeting) }, { proxy: true }).
                     success(function(data, status, headers, config) {
                         console.log(data);
+                        console.log('New identity: ' + data.__identity);
                         // this callback will be called asynchronously
                         // when the response is available
-                        console.log("SUCCESS" + data);
+                        console.log("SUCCESS");
 
                     }).
                     error(function(data, status, headers, config) {
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
+                        console.log(data);
                         console.log("ERROR");
 
                     });
