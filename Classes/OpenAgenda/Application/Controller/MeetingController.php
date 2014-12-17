@@ -100,6 +100,7 @@ class MeetingController extends AbstractController {
 	/**
 	 * @param \OpenAgenda\Application\Domain\Model\Meeting $meeting
 	 * @return void
+	 * @author Oliver Hader <oliver@typo3.org>
 	 */
 	public function showAction(Meeting $meeting) {
 		$this->view->assign('value', $this->arrayService->flatten($meeting, 'show'));
@@ -125,8 +126,9 @@ class MeetingController extends AbstractController {
 
 		$this->historyService->invoke($newMeeting);
 		$this->meetingRepository->add($newMeeting);
+		$this->persistenceManager->persistAll();
 
-		$this->view->assign('value', TRUE);
+		$this->view->assign('value', $this->arrayService->flatten($newMeeting));
 	}
 
 	/**
