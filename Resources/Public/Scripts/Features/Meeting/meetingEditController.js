@@ -33,23 +33,18 @@ angular.module("Meeting")
                 $scope.headerTitle = "Meeting anzeigen";
             }
 
-            function AgendaItem(sorting) {
-                this.title;
-                this.description;
-                this.creationDate;
-                this.modificationDate;
-                this.sorting = sorting;
+            function AgendaItem(count) {
+                this.title = 'TOP #' + count
+                this.description = 'Description';
                 this.resources = [];
 
                 $scope.uploaders.push(new FileUploader());
             }
 
             function Meeting() {
-                this.creationDate = new Date();
                 this.endDate = null;
-                this.modificationDate = new Date();
-                this.scheduledStartDate = new Date();
                 this.startDate = null;
+                this.scheduledStartDate = new Date();
                 this.status = 0;
                 this.title = 'Meeting';
                 this.location = 'Location';
@@ -108,12 +103,5 @@ angular.module("Meeting")
             $scope.getUploader = function (idx) {
                 return  $scope.uploaders[idx];
             };
-
-            $scope.sendThis = {
-                "scheduledStartDate": moment(new Date()).format(),
-                "title": "Test"
-            };
-
-            $scope.testJSON = {"devicetype":"test user","username":"newdeveloper"};
 
         }]);
