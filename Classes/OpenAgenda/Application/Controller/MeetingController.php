@@ -24,21 +24,28 @@ class MeetingController extends AbstractController {
 	protected $historyService;
 
 	protected function initializeCreateAction() {
-		if (!$this->arguments->hasArgument('newMeeting')) {
-			return;
+		if ($this->arguments->hasArgument('newMeeting')) {
+			$this->initializePropertyMappingConfiguration('newMeeting');
 		}
-		$propertyMappingConfiguration = $this->arguments->getArgument('newMeeting')->getPropertyMappingConfiguration();
-		$propertyMappingConfiguration->setTypeConverterOption('TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter', \TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE);
-		$propertyMappingConfiguration->allowAllProperties();
 	}
 
 	protected function initializeUpdateAction() {
-		if (!$this->arguments->hasArgument('meeting')) {
-			return;
+		if ($this->arguments->hasArgument('meeting')) {
+			$this->initializePropertyMappingConfiguration('meeting');
 		}
-		$propertyMappingConfiguration = $this->arguments->getArgument('meeting')->getPropertyMappingConfiguration();
-		$propertyMappingConfiguration->setTypeConverterOption('TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter', \TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_MODIFICATION_ALLOWED, TRUE);
-		$propertyMappingConfiguration->allowAllProperties();
+	}
+
+	protected function initializePropertyMappingConfiguration($propertyName) {
+		$propertyMappingConfiguration = $this->arguments->getArgument($propertyName)->getPropertyMappingConfiguration();
+		$propertyMappingConfiguration
+			->setTypeConverterOption('TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter', \TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE)
+			->allowAllProperties();
+		$propertyMappingConfiguration->forProperty('agendaItems.*')
+			->setTypeConverterOption('TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter', \TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE)
+			->allowAllProperties();
+		$propertyMappingConfiguration->forProperty('invitations.*')
+			->setTypeConverterOption('TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter', \TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE)
+			->allowAllProperties();
 	}
 
 	/**
