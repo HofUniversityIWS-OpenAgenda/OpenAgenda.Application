@@ -34,7 +34,6 @@ angular.module("Meeting")
             }
 
             function AgendaItem(sorting) {
-                this.__identity = "38fa3590-9095-c080-da99-c15f1710cfed";
                 this.title;
                 this.description;
                 this.creationDate;
@@ -46,15 +45,14 @@ angular.module("Meeting")
             }
 
             function Meeting() {
-                this.__identity = "66d16457-2ebf-9a70-4368-dc73a0fd9edb";
                 this.creationDate = new Date();
                 this.endDate = null;
                 this.modificationDate = new Date();
                 this.scheduledStartDate = new Date();
                 this.startDate = null;
                 this.status = 0;
-                this.title = null;
-                this.place = null;
+                this.title = 'Meeting';
+                this.location = 'Location';
                 this.agendaItems = [new AgendaItem(1)];
                 this.invitations = [];
             }
@@ -87,9 +85,11 @@ angular.module("Meeting")
 
             $scope.sendMeetingData = function () {
                 console.log("SENDEN");
+                console.log($scope.meeting);
 
-                $http.post('meeting/create.json', { newMeeting: $scope.sendThis }, { proxy: true }).
+                $http.post('meeting/create.json', { newMeeting: $scope.meeting }, { proxy: true }).
                     success(function(data, status, headers, config) {
+                        console.log(data);
                         // this callback will be called asynchronously
                         // when the response is available
                         console.log("SUCCESS" + data);
