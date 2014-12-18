@@ -115,22 +115,20 @@ class TestDataCommandController extends CommandController {
 				$newAgendaItem->setDescription('Description #' . ($itemCounter + 1));
 				$newAgendaItem->setSorting($itemCounter + 1);
 
+				$newNote = new \OpenAgenda\Application\Domain\Model\Note();
+				$newNote->setAgendaItem($newAgendaItem);
+				$newNote->setCreationDate(new \DateTime());
+				$newNote->setDescription('Description for Meeting #' . ($itemCounter + 1));
+				$this->historyService->invoke($newNote);
+				$newAgendaItem->setNote($newNote);
+
 				$newAgendaItem->setMeeting($newMeeting);
 				$newMeeting->getAgendaItems()->add($newAgendaItem);
 				$this->historyService->invoke($newAgendaItem);
 			}
 
 			for ($itemCounter = 0; $itemCounter < $itemQuantity; $itemCounter++) {
-				$newNote = new \OpenAgenda\Application\Domain\Model\Note();
-				$newNote->setSorting($itemCounter + 1);
-				$newNote->setMeeting($newMeeting);
-				$newNote->setCreationDate(new \DateTime());
-				$newNote->setDescription('Description for Meeting #' . ($itemCounter + 1));
-				$this->historyService->invoke($newNote);
-				$newMeeting->getProtocolItems()->add($newNote);
-
 				$newTask = new \OpenAgenda\Application\Domain\Model\Task();
-				$newTask->setSorting($itemCounter + 1);
 				$newTask->setMeeting($newMeeting);
 				$newTask->setCreationDate(new \DateTime());
 				$newTask->setTitle('Task #' . ($itemCounter + 1));
@@ -139,7 +137,7 @@ class TestDataCommandController extends CommandController {
 				$newTask->setStatus(0);
 				$newTask->setAssignee($adminAccount->getParty());
 				$this->historyService->invoke($newTask);
-				$newMeeting->getProtocolItems()->add($newTask);
+				$newMeeting->getTasks()->add($newTask);
 			}
 
 			for ($invitationCounter = 0; $invitationCounter < $invitations; $invitationCounter++) {

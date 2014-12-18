@@ -53,6 +53,13 @@ class AgendaItem implements CreationInterface, ModificationInterface, SortableIn
 	protected $sorting;
 
 	/**
+	 * @var \OpenAgenda\Application\Domain\Model\Note
+	 * @ORM\OneToOne(mappedBy="meeting",cascade="persist")
+	 * @OA\ToFlatArray(scope="show")
+	 */
+	protected $note;
+
+	/**
 	 * @var \Doctrine\Common\Collections\Collection<\TYPO3\Flow\Resource\Resource>
 	 * @ORM\ManyToMany
 	 * @ORM\JoinTable(name="oa_agendaitem_resources")
@@ -99,6 +106,20 @@ class AgendaItem implements CreationInterface, ModificationInterface, SortableIn
 	 */
 	public function getModificationDate() {
 		return $this->modificationDate;
+	}
+
+	/**
+	 * @return Note
+	 */
+	public function getNote() {
+		return $this->note;
+	}
+
+	/**
+	 * @param Note $note
+	 */
+	public function setNote(Note $note) {
+		$this->note = $note;
 	}
 
 	/**

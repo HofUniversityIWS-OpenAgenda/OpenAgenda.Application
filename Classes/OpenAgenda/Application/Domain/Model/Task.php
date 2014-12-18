@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @Flow\Entity
  * @ORM\Table(name="oa_task")
  */
-class Task extends ProtocolItem implements CreationInterface, ModificationInterface {
+class Task implements CreationInterface, ModificationInterface {
 
 	const STATUS_CREATED = 0;
 	const STATUS_CLOSED = 1;
@@ -23,6 +23,13 @@ class Task extends ProtocolItem implements CreationInterface, ModificationInterf
 	const PRIORITY_LOW = -1;
 	const PRIORITY_NORMAL = 0;
 	const PRIORITY_HIGH = 1;
+
+	/**
+	 * @var \OpenAgenda\Application\Domain\Model\Meeting
+	 * @ORM\ManyToOne(inversedBy="tasks")
+	 * @OA\ToFlatArray(useIdentifier=true)
+	 */
+	protected $meeting;
 
 	/**
 	 * @var \TYPO3\Party\Domain\Model\Person
@@ -72,6 +79,20 @@ class Task extends ProtocolItem implements CreationInterface, ModificationInterf
 	 * @OA\ToFlatArray(callback="$self->format('c')")
 	 */
 	protected $modificationDate;
+
+	/**
+	 * @return Meeting
+	 */
+	public function getMeeting() {
+		return $this->meeting;
+	}
+
+	/**
+	 * @param Meeting $meeting
+	 */
+	public function setMeeting(Meeting $meeting) {
+		$this->meeting = $meeting;
+	}
 
 	/**
 	 * @return \TYPO3\Party\Domain\Model\Person

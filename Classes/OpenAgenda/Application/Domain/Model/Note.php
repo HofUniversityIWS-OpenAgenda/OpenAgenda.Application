@@ -14,7 +14,13 @@ use Doctrine\ORM\Mapping as ORM;
  * @Flow\Entity
  * @ORM\Table(name="oa_note")
  */
-class Note extends ProtocolItem implements CreationInterface {
+class Note implements CreationInterface {
+
+	/**
+	 * @var \OpenAgenda\Application\Domain\Model\AgendaItem
+	 * @ORM\OneToOne(mappedBy="note")
+	 */
+	protected $agendaItem;
 
 	/**
 	 * @var string
@@ -27,6 +33,20 @@ class Note extends ProtocolItem implements CreationInterface {
 	 * @OA\ToFlatArray(callback="$self->format('c')")
 	 */
 	protected $creationDate;
+
+	/**
+	 * @return AgendaItem
+	 */
+	public function getAgendaItem() {
+		return $this->agendaItem;
+	}
+
+	/**
+	 * @param AgendaItem $agendaItem
+	 */
+	public function setAgendaItem(AgendaItem $agendaItem) {
+		$this->agendaItem = $agendaItem;
+	}
 
 	/**
 	 * @return \DateTime

@@ -31,11 +31,11 @@ class Meeting implements CreationInterface, ModificationInterface {
 	protected $agendaItems;
 
 	/**
-	 * @var \Doctrine\Common\Collections\Collection<\OpenAgenda\Application\Domain\Model\ProtocolItem>
+	 * @var \Doctrine\Common\Collections\Collection<\OpenAgenda\Application\Domain\Model\Task>
 	 * @ORM\OneToMany(mappedBy="meeting",cascade="persist")
 	 * @OA\ToFlatArray(scope="show")
 	 */
-	protected $protocolItems;
+	protected $tasks;
 
 	/**
 	 * @var \Doctrine\Common\Collections\Collection<\OpenAgenda\Application\Domain\Model\Invitation>
@@ -107,8 +107,8 @@ class Meeting implements CreationInterface, ModificationInterface {
 	 */
 	public function __construct() {
 		$this->agendaItems = new \Doctrine\Common\Collections\ArrayCollection();
-		$this->protocolItems = new \Doctrine\Common\Collections\ArrayCollection();
 		$this->invitations = new \Doctrine\Common\Collections\ArrayCollection();
+		$this->tasks = new \Doctrine\Common\Collections\ArrayCollection();
 	}
 
 	/**
@@ -149,8 +149,8 @@ class Meeting implements CreationInterface, ModificationInterface {
 	/**
 	 * @return \Doctrine\Common\Collections\Collection
 	 */
-	public function getProtocolItems() {
-		return $this->protocolItems;
+	public function getTasks() {
+		return $this->tasks;
 	}
 
 	/**
@@ -224,10 +224,10 @@ class Meeting implements CreationInterface, ModificationInterface {
 	}
 
 	/**
-	 * @param \Doctrine\Common\Collections\Collection $protocolItems
+	 * @param \Doctrine\Common\Collections\Collection $tasks
 	 */
-	public function setProtocolItems($protocolItems) {
-		$this->protocolItems = $protocolItems;
+	public function setTasks(\Doctrine\Common\Collections\Collection $tasks) {
+		$this->tasks = $tasks;
 	}
 
 	/**
