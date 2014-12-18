@@ -39,7 +39,7 @@ class Meeting implements CreationInterface, ModificationInterface {
 
 	/**
 	 * @var \Doctrine\Common\Collections\Collection<\OpenAgenda\Application\Domain\Model\Invitation>
-	 * @ORM\OneToMany(mappedBy="meeting",cascade="persist")
+	 * @ORM\OneToMany(mappedBy="meeting",cascade={"all"})
 	 * @OA\ToFlatArray(scope="show")
 	 */
 	protected $invitations;
