@@ -8,6 +8,10 @@
     float: right;
 }
 
+.modal-dialog-error {
+    margin-top: -30px;
+}
+
 .container:before {
     content: "";
     position: fixed;

@@ -5,7 +5,7 @@
  */
 
 angular.module("CommonFactories", [])
-    .factory('CommonHelperMethods', function() {
+    .factory('CommonHelperMethods', function () {
         return {
             // @deprecated Not used anymore
             getDateFromJSONString: function (string) {
@@ -13,31 +13,80 @@ angular.module("CommonFactories", [])
             }
         };
     })
-    .factory('MeetingResourceHelper', ['$resource', function($resource) {
+    .factory('MeetingResourceHelper', ['$resource', function ($resource) {
         return {
-            getMeetingList: function() {
+            getMeetingList: function () {
                 return $resource('meeting/list.json', {}, {
-                    query: {method:'GET', isArray:true}
+                    query: {method: 'GET', isArray: true}
                 });
             },
-            getMeetingDetail: function(id) {
-                return $resource('meeting/:meetingId/show.json',{meetingId:id}, {
-                    get: {method:'GET'}
+            getMeetingDetail: function (id) {
+                return $resource('meeting/:meetingId/show.json', {meetingId: id}, {
+                    get: {method: 'GET'}
                 });
             }
         };
 
     }])
-    .factory('TaskResourceHelper', ['$resource', function($resource) {
+    .service('ModalDialog', ['$modal',
+        function ($modal) {
+
+            var modalDefaults = {
+                backdrop: true,
+                keyboard: true,
+                modalFade: true,
+                templateUrl: '/template/modaldialog/index.html'
+
+            };
+
+            var modalOptions = {
+                closeButtonText: 'Close',
+                actionButtonText: 'OK',
+                headerText: 'HEADER',
+                bodyText: 'BODY'
+            };
+
+
+            this.showModal = function (customModalDefaults, customModalOptions) {
+                if (!customModalDefaults) customModalDefaults = {};
+                customModalDefaults.backdrop = 'static';
+                return this.show(customModalDefaults, customModalOptions);
+            };
+
+            this.show = function (customModalDefaults, customModalOptions) {
+                var tempModalDefaults = {};
+                var tempModalOptions = {};
+
+                angular.extend(tempModalDefaults, modalDefaults, customModalDefaults);
+
+                angular.extend(tempModalOptions, modalOptions, customModalOptions);
+
+                if (!tempModalDefaults.controller) {
+                    tempModalDefaults.controller = function ($scope, $modalInstance) {
+                        $scope.modalOptions = tempModalOptions;
+                        $scope.modalOptions.ok = function (result) {
+                            $modalInstance.close(result);
+                        };
+                        $scope.modalOptions.close = function (result) {
+                            $modalInstance.dismiss('cancel');
+                        };
+                    }
+                }
+
+                return $modal.open(tempModalDefaults).result;
+            };
+
+        }])
+    .factory('TaskResourceHelper', ['$resource', function ($resource) {
         return {
-            getTaskList: function() {
+            getTaskList: function () {
                 return $resource('task/list.json', {}, {
-                    query: {method:'GET', isArray:true}
+                    query: {method: 'GET', isArray: true}
                 });
             },
-            getTaskDetail: function(id) {
-                return $resource('task/:taskId/show.json',{taskId:id}, {
-                    get: {method:'GET'}
+            getTaskDetail: function (id) {
+                return $resource('task/:taskId/show.json', {taskId: id}, {
+                    get: {method: 'GET'}
                 });
             }
         };

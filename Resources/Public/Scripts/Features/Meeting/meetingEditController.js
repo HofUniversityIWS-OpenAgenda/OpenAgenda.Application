@@ -5,8 +5,8 @@
  * Created by Thomas on 27.11.14.
  */
 angular.module("Meeting")
-    .controller('MeetingEditCtrl', ['$scope', '$http','$rootScope', '$routeParams', '$resource', "breadcrumbs", 'FileUploader', "MeetingResourceHelper", 'CommonHelperMethods', 'OpenAgenda.Data.Utility',
-        function ($scope, $http, $rootScope, $routeParams, $resource, breadcrumbs, FileUploader, MeetingResourceHelper, CommonHelperMethods, oaUtility) {
+    .controller('MeetingEditCtrl', ['$scope', '$http', '$rootScope', '$location', '$routeParams', '$resource', "breadcrumbs", 'FileUploader', "MeetingResourceHelper", 'CommonHelperMethods', 'OpenAgenda.Data.Utility', 'ModalDialog',
+        function ($scope, $http, $rootScope, $location, $routeParams, $resource, breadcrumbs, FileUploader, MeetingResourceHelper, CommonHelperMethods, oaUtility, ModalDialog) {
             $scope.breadcrumbs = breadcrumbs;
             console.log("Create meeting Conroller loaded");
             $scope.headerTitle = "Meeting anlegen";
@@ -21,8 +21,7 @@ angular.module("Meeting")
                     data.scheduledStartDate = CommonHelperMethods.getDateFromJSONString(data.scheduledStartDate);
                 console.log('success, got data: ', data);
 
-                    for(var i = 0; i<= $scope.meeting.agendaItems.length; i++)
-                    {
+                    for (var i = 0; i <= $scope.meeting.agendaItems.length; i++) {
                         if (typeof $scope.uploaders[i] === "undefined") {
                             $scope.uploaders.push(new FileUploader());
                         }
@@ -31,7 +30,7 @@ angular.module("Meeting")
                     alert('request failed');
                 });
             }
-            if ((typeof $scope.meetingId != "undefined") && !$scope.editMode ){
+            if ((typeof $scope.meetingId != "undefined") && !$scope.editMode) {
                 $scope.headerTitle = "Meeting anzeigen";
             }
 
@@ -84,34 +83,81 @@ angular.module("Meeting")
                 console.log("SENDEN");
                 console.log($scope.meeting);
 
-                $http.post('meeting/create.json', { newMeeting: oaUtility.jsonCast($scope.meeting) }, { proxy: true }).
-                    success(function(data, status, headers, config) {
-                        console.log(data);
-                        console.log('New identity: ' + data.__identity);
-                        // this callback will be called asynchronously
-                        // when the response is available
-                        console.log("SUCCESS");
 
-                    }).
-                    error(function(data, status, headers, config) {
-                        // called asynchronously if an error occurs
-                        // or server returns response with an error status.
-                        console.log(data);
-                        console.log("ERROR");
+                if ($scope.checkEntries()) {
 
-                    });
+                    $http.post('meeting/create.json', {newMeeting: oaUtility.jsonCast($scope.meeting)}, {proxy: true}).
+                        success(function (data, status, headers, config) {
+                            console.log(data);
+                            console.log('New identity: ' + data.__identity);
+                            // this callback will be called asynchronously
+                            // when the response is available
+                            console.log("SUCCESS");
+                            $location.path("/");
+
+                        }).
+                        error(function (data, status, headers, config) {
+                            // called asynchronously if an error occurs
+                            // or server returns response with an error status.
+                            console.log(data);
+                            console.log("ERROR");
+                            var modalOptions = {
+                                headerText: 'Fehler',
+                                bodyText: 'Es ist ein Fehler beim Übermitteln der Daten aufgetreten! Versuchen Sie es erneut!'
+                            };
+                            var modalDefaults = {
+                                templateUrl: '/template/modaldialog/error.html'
+                            };
+                            ModalDialog.showModal(modalDefaults, modalOptions);
+
+                        });
+                }
+                else {
+                    var modalDefaults = {
+                        templateUrl: '/template/modaldialog/error.html'
+                    };
+                    var modalOptions = {
+                        headerText: 'Fehler',
+                        bodyText: 'Es liegt ein Fehler bei den eingegebenen Daten vor! Es wurden keine Daten eingetragen!'
+                    };
+                    ModalDialog.showModal(modalDefaults, modalOptions);
+
+                }
             };
             /*All Email Addresses for auto completion*/
-            $scope.mailAdresses = ["thomas.winkler@fh-hof.de","thomas.weber@fh-hof.de"];
+            $scope.mailAdresses = ["thomas.winkler@fh-hof.de", "thomas.weber@fh-hof.de"];
 
-            $scope.updateMailAddresses = function(typed){
+            $scope.updateMailAddresses = function (typed) {
 
-               // $scope.mailAdresses = VON SERVER LADEN
+                // $scope.mailAdresses = VON SERVER LADEN
 
             }
 
+            $scope.checkEntries = function () {
+                var meetingEntries = false;
+                var agendaItems = true;
+
+                if (!$scope.meeting.title || $scope.meeting.title.length == 0)
+                    return meetingEntries;
+                if (!$scope.meeting.location || $scope.meeting.location.length == 0)
+                    return meetingEntries;
+                meetingEntries = true;
+
+                angular.forEach($scope.meeting.agendaItems, function (agendaItem) {
+                    console.log("++++++++" + agendaItem.title.length);
+
+                    if (agendaItem.title.length <= 0) {
+                        agendaItems = false;
+                        return;
+                    }
+                })
+                if (agendaItems && meetingEntries)
+                    return true;
+                else
+                    return false;
+            };
             $scope.getUploader = function (idx) {
-                return  $scope.uploaders[idx];
+                return $scope.uploaders[idx];
             };
 
         }]);

@@ -1,5 +1,5 @@
 var Application = angular.module('OpenAgenda', ['ngRoute', 'ngAnimate','ngResource', 'angularFileUpload','ng-breadcrumbs', 'xeditable', 'autocomplete',
-    'ApplicationControllers','CommonFactories','CommonDirectives', 'TopBar','Dashboard', 'Menu','Meeting', 'Task', 'OpenAgenda.Data', 'Setting', 'Http', 'ngSanitize',
+    'ApplicationControllers','CommonFactories','CommonDirectives', 'TopBar','Dashboard', 'Menu','Meeting', 'Task','OpenAgenda.Data', 'Setting', 'Http', 'ngSanitize',
     'ui.calendar','ui.bootstrap']);
 
 Application.config(['$routeProvider',
