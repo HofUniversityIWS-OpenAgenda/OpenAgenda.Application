@@ -104,7 +104,11 @@ class ArrayService {
 			}
 
 			if ($toArrayAnnotation->getUseIdentifier()) {
-				$propertyValue = $this->persistenceManager->getIdentifierByObject($propertyValue);
+				if (is_object($propertyValue)) {
+					$propertyValue = $this->persistenceManager->getIdentifierByObject($propertyValue);
+				} else {
+					$propertyValue = NULL;
+				}
 			} elseif ($toArrayAnnotation->getCallback() !== NULL) {
 				$propertyValue = $this->objectService->executeStringCallback(
 					$toArrayAnnotation->getCallback(),
