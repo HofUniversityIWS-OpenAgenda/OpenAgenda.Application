@@ -122,8 +122,8 @@
 
                                         <form name="myForm" >
                                             <div class="form-group">
-                                                <label for="invitiationMail">Mail Adresse des Teilnehmers (später autocomplete)</label>
-                                                <input type="email" name="input" class="form-control" ng-model="invitiationMailAddress" id="invitiationMail" placeholder="Mail Adresse" required>
+                                                <label>Mail Adresse des Teilnehmers (später autocomplete)</label>
+                                                <autocomplete id="invitiationMail"  name="input" attr-input-class="form-control" ng-model="invitiationMailAddress" data="mailAdresses" on-type="updateMailAddresses" required></autocomplete>
                                             </div>
                                             <div ng-show="myForm.input.$error.required" class="alert alert-info" role="alert">
                                                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
@@ -144,7 +144,7 @@
                                         <div ng-show="meeting.invitations.length > 0">
                                             <label style="margin-top: 20px">Hinzugefügte Teinehmer</label>
                                             <ul>
-                                                <li ng-repeat="invitation in meeting.invitations">In Participant steht noch nix <a point-me="true" ng-click="deleteInvitation($index)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                                <li ng-repeat="invitation in meeting.invitations">{{invitation.mail}} <a point-me="true" ng-click="deleteInvitation($index)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                                 </a></li>
                                             </ul>
                                         </div>

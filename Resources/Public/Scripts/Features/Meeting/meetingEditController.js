@@ -55,7 +55,7 @@ angular.module("Meeting")
             }
 
             function Invitation(mail) {
-                this.id = "USERID";
+                //this.id = "USERID";
                 this.mail = mail;
             }
 
@@ -101,6 +101,14 @@ angular.module("Meeting")
 
                     });
             };
+            /*All Email Addresses for auto completion*/
+            $scope.mailAdresses = ["thomas.winkler@fh-hof.de","thomas.weber@fh-hof.de"];
+
+            $scope.updateMailAddresses = function(typed){
+
+               // $scope.mailAdresses = VON SERVER LADEN
+
+            }
 
             $scope.getUploader = function (idx) {
                 return  $scope.uploaders[idx];
