@@ -15,7 +15,7 @@ angular.module("Task")
 
                 var modalInstance = $modal.open({
                     templateUrl: '/template/task/edit.html',
-                    controller: 'ModalInstanceCtrl',
+                    controller: 'TaskEditModalInstanceCtrl',
                     size: size,
                     resolve: {
                         identity: function () {
@@ -43,7 +43,7 @@ angular.module("Task")
             };
         }])
     /*This controller is used to handle the modal view to view and change a tasks state*/
-    .controller('ModalInstanceCtrl', function ($scope, $modalInstance, TaskResourceHelper, CommonHelperMethods, identity) {
+    .controller('TaskEditModalInstanceCtrl', function ($scope, $modalInstance, TaskResourceHelper, CommonHelperMethods, identity) {
         TaskResourceHelper.getTaskDetail(identity).get(function (task) {
             task.dueDate = CommonHelperMethods.getDateFromJSONString(task.dueDate);
             $scope.task = task;
