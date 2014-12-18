@@ -61,6 +61,12 @@ class AgendaItem implements CreationInterface, ModificationInterface, SortableIn
 	protected $resources;
 
 	/**
+	 * @var boolean
+	 * @OA\ToFlatArray
+	 */
+	protected $checked;
+
+	/**
 	 * @param Meeting $meeting
 	 */
 	public function setMeeting(Meeting $meeting) {
@@ -117,6 +123,13 @@ class AgendaItem implements CreationInterface, ModificationInterface, SortableIn
 	}
 
 	/**
+	 * @return boolean
+	 */
+	public function getChecked() {
+		return $this->checked;
+	}
+
+	/**
 	 * @param \DateTime $creationDate
 	 */
 	public function setCreationDate(\DateTime $creationDate) {
@@ -156,6 +169,13 @@ class AgendaItem implements CreationInterface, ModificationInterface, SortableIn
 	 */
 	public function setTitle($title) {
 		$this->title = $title;
+	}
+
+	/**
+	 * @param boolean $checked
+	 */
+	public function setChecked($checked) {
+		$this->checked = $checked;
 	}
 
 }
