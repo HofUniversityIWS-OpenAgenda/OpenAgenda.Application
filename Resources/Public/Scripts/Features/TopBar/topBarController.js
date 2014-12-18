@@ -7,11 +7,11 @@
  */
 
 angular.module("TopBar", [])
-    .controller('TobBarCtrl', ['$scope','$rootScope',
-        function ($scope, $rootScope) {
-            console.log("TopBar Controller Loaded");
+    .controller('TobBarCtrl', ['$scope','$rootScope','ModalDialog',
+        function ($scope, $rootScope, ModalDialog) {
+            console.log("Topbar Controller Loaded");
 
-            /*$http.get('/openagenda.application/dashboard/index.json').success(function(data) {
+            /*$http.get('/openagenda.apssplication/dashboard/index.json').success(function(data) {
              $scope.data = data;
              });*/
 
@@ -22,9 +22,24 @@ angular.module("TopBar", [])
 
             $scope.test = function (){
                 console.log($scope.getNotifications());
-            }
+            };
+
 
             $scope.getNotifications= function() {
                 return $rootScope.notifications;
             };
+            $rootScope.$watch('online', function(newValue, oldValue) {
+                if(!newValue && typeof newValue != 'undefined')
+                {
+                    console.log(newValue, oldValue);
+                    var modalDefaults = {
+                        templateUrl: '/template/modaldialog/warning.html'
+                    };
+                    var modalOptions = {
+                        headerText: 'Hinweis',
+                        bodyText: 'Die Verbindung zum Server ist verloren gegangen!'
+                    };
+                    ModalDialog.showModal(modalDefaults, modalOptions);
+                }
+            });
         }]);

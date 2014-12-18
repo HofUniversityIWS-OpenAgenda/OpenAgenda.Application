@@ -159,11 +159,11 @@
                                             <label style="margin-top: 20px">Hinzugefügte Teinehmer</label>
                                             <ul>
                                                 <li ng-repeat="invitation in meeting.invitations">{{invitation.mail}}
-                                                    <select style="display: inline; width: 200px;" class="form-control" ng-model="invitation.role" name=“role”>
+                                                    <!--<select style="display: inline; width: 200px;" class="form-control" ng-model="invitation.role" name=“role”>
                                                         <option ng-repeat="role in meetingsRoles" value="{{role.value}}">
                                                             {{role.text}}
                                                         </option>
-                                                    </select>
+                                                    </select>-->
                                                     <a point-me="true" ng-click="deleteInvitation($index)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
                                                 </li>
                                             </ul>
