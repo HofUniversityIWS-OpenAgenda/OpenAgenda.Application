@@ -34,6 +34,13 @@ class Invitation implements CreationInterface, ModificationInterface {
 	protected $participant;
 
 	/**
+	 * @var \TYPO3\Flow\Security\Policy\Role
+	 * @ORM\OneToOne
+	 * @OA\ToFlatArray(useIdentifier=true)
+	 */
+	protected $role;
+
+	/**
 	 * @var integer
 	 * @OA\ToFlatArray
 	 */
@@ -80,6 +87,13 @@ class Invitation implements CreationInterface, ModificationInterface {
 	}
 
 	/**
+	 * @return \TYPO3\Flow\Security\Policy\Role
+	 */
+	public function getRole() {
+		return $this->role;
+	}
+
+	/**
 	 * @return int
 	 */
 	public function getStatus() {
@@ -112,6 +126,13 @@ class Invitation implements CreationInterface, ModificationInterface {
 	 */
 	public function setParticipant($participant) {
 		$this->participant = $participant;
+	}
+
+	/**
+	 * @param \TYPO3\Flow\Security\Policy\Role $role
+	 */
+	public function setRole($role) {
+		$this->role = $role;
 	}
 
 	/**
