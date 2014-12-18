@@ -5,12 +5,19 @@
  * Created by Thomas on 27.11.14.
  */
 angular.module("Meeting")
-    .controller('MeetingEditCtrl', ['$scope', '$http', '$rootScope', '$location', '$routeParams', '$resource', "breadcrumbs", 'FileUploader', "MeetingResourceHelper", 'CommonHelperMethods', 'OpenAgenda.Data.Utility', 'ModalDialog',
-        function ($scope, $http, $rootScope, $location, $routeParams, $resource, breadcrumbs, FileUploader, MeetingResourceHelper, CommonHelperMethods, oaUtility, ModalDialog) {
+    .controller('MeetingEditCtrl', ['$scope','$filter', '$http', '$rootScope', '$location', '$routeParams', '$resource', "breadcrumbs", 'FileUploader', "MeetingResourceHelper", 'CommonHelperMethods', 'OpenAgenda.Data.Utility', 'ModalDialog',
+        function ($scope, $filter, $http, $rootScope, $location, $routeParams, $resource, breadcrumbs, FileUploader, MeetingResourceHelper, CommonHelperMethods, oaUtility, ModalDialog) {
             $scope.breadcrumbs = breadcrumbs;
             console.log("Create meeting Conroller loaded");
             $scope.headerTitle = "Meeting anlegen";
-
+            $scope.meetingsRoles = [{ "value": "OpenAgenda.Application:Listener", "text": "Zuhörer" },
+                                    { "value": "OpenAgenda.Application:Participant", "text": "Teilnehmer" },
+                                    { "value": "OpenAgenda.Application:MinuteTaker", "text": "Protokol-Führer" },
+                                    { "value": "OpenAgenda.Application:MeetingChair", "text": "Meeting-Leiter" },
+                                    { "value": "OpenAgenda.Application:MeetingManager", "text": "Meeting-Manager" },
+                                    { "value": "OpenAgenda.Application:Chairman", "text": "Vorsitzender" },
+                                    { "value": "OpenAgenda.Application:Administrator", "text": "Administrator" }
+                                    ];
             $scope.meetingId = $routeParams.meetingId;
             $scope.uploaders = [];
 
@@ -53,8 +60,9 @@ angular.module("Meeting")
                 this.invitations = [];
             }
 
-            function Invitation(mail) {
-                //this.id = "USERID";
+            function Invitation(id, mail) {
+                this.participant = id;
+                this.role = "OpenAgenda.Application:Listener";
                 this.mail = mail;
             }
 
@@ -68,7 +76,8 @@ angular.module("Meeting")
             };
 
             $scope.addNewInvitation = function (mail) {
-                $scope.meeting.invitations.push(new Invitation(mail))
+                var single_User = $filter('filter')($scope.remoteUsers, function (d) {return d.mail == mail;})[0];
+                $scope.meeting.invitations.push(new Invitation(single_User.__identify,single_User.mail))
 
             };
             $scope.deleteInvitation = function (idx) {
@@ -128,9 +137,14 @@ angular.module("Meeting")
             $scope.mailAdresses = ["thomas.winkler@fh-hof.de", "thomas.weber@fh-hof.de"];
 
             $scope.updateMailAddresses = function (typed) {
+                $scope.mailAdresses = [];
+                //REMOTEUSERS FROM SERVER
+                $scope.remoteUsers = [{"__identify":"fff","mail":"tt@tt.de", "Name":"name"},
+                    {"__identify":"ffsfsadff","mail":"ff@tff.de", "Name":"nafffme"}];
 
-                // $scope.mailAdresses = VON SERVER LADEN
-
+                angular.forEach($scope.remoteUsers, function (remoteUser) {
+                    $scope.mailAdresses.push(remoteUser.mail);
+                });
             }
 
             $scope.checkEntries = function () {

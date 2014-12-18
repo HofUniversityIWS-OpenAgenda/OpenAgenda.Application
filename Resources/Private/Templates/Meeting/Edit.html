@@ -119,7 +119,6 @@
                                         <h3 style="color: #ffffff" class="panel-title">Meeting Teinehmer festlegen</h3>
                                     </div>
                                     <div class="panel-body">
-
                                         <form name="myForm" >
                                             <div class="form-group">
                                                 <label>Mail Adresse des Teilnehmers (später autocomplete)</label>
@@ -141,11 +140,18 @@
                                         <button ng-click="addNewInvitation(invitiationMailAddress)" class="btn btn-default btn-xs">
                                             Teilnehmer Hinzufügen
                                         </button>
+
                                         <div ng-show="meeting.invitations.length > 0">
                                             <label style="margin-top: 20px">Hinzugefügte Teinehmer</label>
                                             <ul>
-                                                <li ng-repeat="invitation in meeting.invitations">{{invitation.mail}} <a point-me="true" ng-click="deleteInvitation($index)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                                </a></li>
+                                                <li ng-repeat="invitation in meeting.invitations">{{invitation.mail}}
+                                                    <select style="display: inline; width: 200px;" class="form-control" ng-model="invitation.role" name=“role”>
+                                                        <option ng-repeat="role in meetingsRoles" value="{{role.value}}">
+                                                            {{role.text}}
+                                                        </option>
+                                                    </select>
+                                                    <a point-me="true" ng-click="deleteInvitation($index)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+                                                </li>
                                             </ul>
                                         </div>
                                         <div class="clearfix panel-entry">
