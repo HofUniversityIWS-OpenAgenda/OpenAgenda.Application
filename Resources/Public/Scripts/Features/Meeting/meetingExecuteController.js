@@ -108,4 +108,39 @@ angular.module("Meeting")
             }
         };
 
-    }]);
+    }])
+    .controller('MeetingExecuteModalCtrl', ['$scope', '$rootScope', '$http', "CommonHelperMethods", '$modal', '$log',
+        function ($scope, $rootScope, $http, CommonHelperMethods, $modal, $log) {
+
+            $scope.open = function (size, identity) {
+
+                var modalInstance = $modal.open({
+                    templateUrl: '/template/meeting/executemodal.html',
+                    controller: 'MeetingExecuteModalInstanceCtrl',
+                    size: size,
+                    resolve: {
+                        identity: function () {
+                            return identity;
+                        }
+                    }
+                });
+
+                modalInstance.close = function (string, task) {
+
+                    modalInstance.dismiss();
+                };
+            };
+        }])
+    /*This controller is used to handle the modal view to view and change a tasks state*/
+    .controller('MeetingExecuteModalInstanceCtrl', function ($scope, $modalInstance, CommonHelperMethods, identity) {
+
+
+        $scope.ok = function () {
+            $modalInstance.close("OK", $scope.task);
+        };
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss('DISMISS');
+        };
+
+    });
