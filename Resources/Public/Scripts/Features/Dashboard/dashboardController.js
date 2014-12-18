@@ -19,8 +19,8 @@ angular.module("Dashboard", [])
             });
             $scope.meetingList = MeetingResourceHelper.getMeetingList().query(function () {
                 angular.forEach( $scope.meetingList, function (meeting) {
-                    meeting.scheduledStartDate = CommonHelperMethods.getDateFromJSONString(meeting.scheduledStartDate);
-                    $scope.events.push( {title: meeting.title, start: new Date(meeting.scheduledStartDate) });
+                    $scope.events.push( {title: meeting.title, start: new Date(meeting.scheduledStartDate), __identity: meeting.__identity });
+
                 });
                 $scope.findUpcomingMeetings($scope.meetingList);
 
@@ -64,8 +64,8 @@ angular.module("Dashboard", [])
         *   Due to a bug in the Library only meetings of the current view are shown in the Calendar
         * */
 
-    .controller('DashboardCalendarCtrl', ['$scope', '$compile', "uiCalendarConfig",
-        function ($scope, $compile, uiCalendarConfig) {
+    .controller('DashboardCalendarCtrl', ['$scope', '$compile', "uiCalendarConfig", '$location',
+        function ($scope, $compile, uiCalendarConfig, $location) {
             var date = new Date();
             var d = date.getDate();
             var m = date.getMonth();
@@ -73,7 +73,7 @@ angular.module("Dashboard", [])
 
             /* Alert on eventClick */
             $scope.alertOnEventClick = function (date, jsEvent, view) {
-                $scope.alertMessage = (date.title + ' ausgewählt');
+                $location.path('meeting/show/' + date.__identity).replace();
             };
             /* Alert on Drop */
             $scope.alertOnDrop = function (event, delta, revertFunc, jsEvent, ui, view) {
