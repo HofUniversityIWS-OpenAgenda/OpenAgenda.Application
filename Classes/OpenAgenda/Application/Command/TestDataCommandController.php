@@ -90,11 +90,11 @@ class TestDataCommandController extends CommandController {
 	 * @return string
 	 */
 	public function createMeetingsCommand($quantity = 5, $itemQuantity = 3, $invitations = 1) {
-		$this->taskRepository->removeAll();
-		$this->noteRepository->removeAll();
-		$this->agendaItemRepository->removeAll();
-		$this->invitationRepository->removeAll();
 		$this->meetingRepository->removeAll();
+		$this->taskRepository->removeAll();
+		$this->agendaItemRepository->removeAll();
+		$this->noteRepository->removeAll();
+		$this->invitationRepository->removeAll();
 
 		$adminAccount = $this->accountRepository->findByAccountIdentifierAndAuthenticationProviderName('admin@openagenda.org', 'DefaultProvider');
 
@@ -116,7 +116,6 @@ class TestDataCommandController extends CommandController {
 				$newAgendaItem->setSorting($itemCounter + 1);
 
 				$newNote = new \OpenAgenda\Application\Domain\Model\Note();
-				$newNote->setAgendaItem($newAgendaItem);
 				$newNote->setCreationDate(new \DateTime());
 				$newNote->setDescription('Description for Meeting #' . ($itemCounter + 1));
 				$this->historyService->invoke($newNote);

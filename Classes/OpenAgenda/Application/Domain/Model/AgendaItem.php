@@ -54,7 +54,7 @@ class AgendaItem implements CreationInterface, ModificationInterface, SortableIn
 
 	/**
 	 * @var \OpenAgenda\Application\Domain\Model\Note
-	 * @ORM\OneToOne(mappedBy="meeting",cascade="persist")
+	 * @ORM\OneToOne(cascade={"all"}, orphanRemoval=true)
 	 * @OA\ToFlatArray(scope="show")
 	 */
 	protected $note;

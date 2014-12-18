@@ -17,12 +17,6 @@ use Doctrine\ORM\Mapping as ORM;
 class Note implements CreationInterface {
 
 	/**
-	 * @var \OpenAgenda\Application\Domain\Model\AgendaItem
-	 * @ORM\OneToOne(mappedBy="note")
-	 */
-	protected $agendaItem;
-
-	/**
 	 * @var string
 	 * @OA\ToFlatArray
 	 */
@@ -33,20 +27,6 @@ class Note implements CreationInterface {
 	 * @OA\ToFlatArray(callback="$self->format('c')")
 	 */
 	protected $creationDate;
-
-	/**
-	 * @return AgendaItem
-	 */
-	public function getAgendaItem() {
-		return $this->agendaItem;
-	}
-
-	/**
-	 * @param AgendaItem $agendaItem
-	 */
-	public function setAgendaItem(AgendaItem $agendaItem) {
-		$this->agendaItem = $agendaItem;
-	}
 
 	/**
 	 * @return \DateTime
