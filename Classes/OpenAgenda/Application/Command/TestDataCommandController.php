@@ -80,6 +80,11 @@ class TestDataCommandController extends CommandController {
 	protected $historyService;
 
 	/**
+	 * @Flow\Inject
+	 * @var \TYPO3\Flow\Persistence\PersistenceManagerInterface
+	 */
+	protected $persistenceManager;
+	/**
 	 * ### meetings for testing ###
 	 *
 	 * This Command removes all existing meetings / AgendaItems and creates new meetings (default = 5) and new AgendaItems / ProtocolItems (default 3 for each) / Invitations (default 1) with dummy data to the DB.
@@ -186,24 +191,44 @@ class TestDataCommandController extends CommandController {
 
 	/**
 	 * @param string $identifier Account identifier (default: 'admin@openagenda.org')
+	 * @param string $role Role (default: 'Administrator')
+	 * @param string $firstname First name (default: 'Mark')
+	 * @param string $lastname Last name(default: 'Mabuse')
 	 */
-	public function createAdminUserCommand($identifier = 'admin@openagenda.org') {
+	public function createUserCommand($identifier = 'admin@openagenda.org', $role = 'Administrator', $firstname = 'Mark', $lastname = 'Mabuse') {
 		$account = $this->accountRepository->findByAccountIdentifierAndAuthenticationProviderName($identifier, 'DefaultProvider');
 
-		if ($account === NULL) {
-			$role = 'OpenAgenda.Application:Administrator';
-			$account = $this->accountFactory->createAccountWithPassword($identifier, 'password', array($role));
-			$this->accountRepository->add($account);
-			$this->response->appendContent('Admin User "' . $identifier . '" created' . PHP_EOL);
+		if ($account !== NULL){
+			$this->accountRepository->remove($this->accountRepository->findByAccountIdentifierAndAuthenticationProviderName($identifier, 'DefaultProvider'));
+			$this->persistenceManager->persistAll();
 		}
+
+		$roleString = 'OpenAgenda.Application:' . $role;
+		$account = $this->accountFactory->createAccountWithPassword($identifier, 'password', array($roleString));
+		$this->accountRepository->add($account);
+		$this->response->appendContent($role . ' User "' . $identifier . '" created' . PHP_EOL);
 
 		if ($account->getParty() === NULL) {
-			$person = $this->personFactory->createAnonymousPersonWithElectronicAddress($identifier);
+			$person = $this->personFactory->createPerson($identifier, $firstname, $lastname);
 			$account->setParty($person);
 			$this->accountRepository->update($account);
-			$this->response->appendContent('Admin Person "' . $identifier . '" created' . PHP_EOL);
+			$this->response->appendContent($role . ' Person "' . $identifier . '" created' . PHP_EOL);
 		}
+	}
 
+	/**
+	 * Create different Users
+	 */
+	public function createUsersCommand() {
+		$this->createUserCommand();
+		$this->createUserCommand('listener@openagenda.org', 'Listener', 'Franz', 'List');
+		$this->createUserCommand('participant1@openagenda.org', 'Participant', 'Elen', 'Kutis');
+		$this->createUserCommand('participant2@openagenda.org', 'Participant', 'Monika', 'Moneypenny');
+		$this->createUserCommand('participant3@openagenda.org', 'Participant', 'Ric', 'de Stunt');
+		$this->createUserCommand('minutetaker@openagenda.org', 'MinuteTaker', 'Manuel', 'Tacker');
+		$this->createUserCommand('meetingchair@openagenda.org', 'MeetingChair', 'Martin', 'MeeChair');
+		$this->createUserCommand('meetingmanager@openagenda.org', 'MeetingManager', 'Martin', 'Manager');
+		$this->createUserCommand('chairman@openagenda.org', 'Chairman', 'Christian', 'Chairman');
 	}
 
 	/**
