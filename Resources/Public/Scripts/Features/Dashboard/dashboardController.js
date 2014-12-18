@@ -13,8 +13,10 @@ angular.module("Dashboard", [])
             $scope.upcomingMeetings = [];
 
             $scope.events = [];
-            $scope.personalInfos = MeetingResourceHelper.getMeetingList().get();
-            $scope.currentUser = $scope.personalInfos.name;
+            $scope.personalInfos = CommonResourceHelper.getPersonalInfos().get(function () {
+                console.log( $scope.personalInfos);
+                $scope.currentUser = $scope.personalInfos.person.name.firstName;
+            });
             $scope.meetingList = MeetingResourceHelper.getMeetingList().query(function () {
                 angular.forEach( $scope.meetingList, function (meeting) {
                     meeting.scheduledStartDate = CommonHelperMethods.getDateFromJSONString(meeting.scheduledStartDate);
