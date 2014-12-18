@@ -19,7 +19,8 @@ angular.module("Dashboard", [])
             });
             $scope.meetingList = MeetingResourceHelper.getMeetingList().query(function () {
                 angular.forEach( $scope.meetingList, function (meeting) {
-                    $scope.events.push( {title: meeting.title, start: new Date(meeting.scheduledStartDate), __identity: meeting.__identity });
+
+                    $scope.events.push( {title: meeting.title, start: new Date(meeting.scheduledStartDate), __identity: meeting.__identity, type: 'Meeting' });
 
                 });
                 $scope.findUpcomingMeetings($scope.meetingList);
@@ -33,8 +34,8 @@ angular.module("Dashboard", [])
             $scope.reloadTasks = function () {
                 $scope.needToBeDoneTasks  = TaskResourceHelper.getTaskList().query(function (data) {
                     console.log('success, got task: ', data);
-                    angular.forEach( $scope.needToBeDoneTasks, function (task) {
-                        task.dueDate = CommonHelperMethods.getDateFromJSONString(task.dueDate);
+                    angular.forEach($scope.needToBeDoneTasks, function (task){
+                        $scope.events.push( {title: task.title, start: new Date(task.dueDate), __identity: task.__identity, type: 'Task'})
                     });
                 }, function (err) {
                     alert('request failed');
@@ -73,7 +74,17 @@ angular.module("Dashboard", [])
 
             /* Alert on eventClick */
             $scope.alertOnEventClick = function (date, jsEvent, view) {
-                $location.path('meeting/show/' + date.__identity).replace();
+                if (date.type == 'Meeting'){
+                    // Meeting anzeigen
+                    $location.path('meeting/show/' + date.__identity).replace();
+                } else if (date.type == 'Task'){
+                    // Task anzeigen
+                    //Task.TaskEditCtrl.open('',data.__identity);
+                    //$location.path('task/show/' + date.__identity).replace();
+                } else {
+                    // Fehler
+                }
+
             };
             /* Alert on Drop */
             $scope.alertOnDrop = function (event, delta, revertFunc, jsEvent, ui, view) {
