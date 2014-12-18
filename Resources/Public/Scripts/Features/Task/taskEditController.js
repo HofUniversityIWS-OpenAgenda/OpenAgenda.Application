@@ -45,6 +45,7 @@ angular.module("Task")
     /*This controller is used to handle the modal view to view and change a tasks state*/
     .controller('ModalInstanceCtrl', function ($scope, $modalInstance, TaskResourceHelper, CommonHelperMethods, identity) {
         TaskResourceHelper.getTaskDetail(identity).get(function (task) {
+            task.dueDate = CommonHelperMethods.getDateFromJSONString(task.dueDate);
             $scope.task = task;
         });
 

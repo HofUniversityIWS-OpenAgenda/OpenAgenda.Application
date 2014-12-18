@@ -9,7 +9,7 @@ angular.module("CommonFactories", [])
         return {
             // @deprecated Not used anymore
             getDateFromJSONString: function (string) {
-                return new Date(string.substr(1, string.length - 2));
+                return new Date(string);
             }
         };
     })

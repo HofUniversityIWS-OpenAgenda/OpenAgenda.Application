@@ -16,6 +16,7 @@ angular.module("Dashboard", [])
 
             $scope.meetingList = MeetingResourceHelper.getMeetingList().query(function () {
                 angular.forEach( $scope.meetingList, function (meeting) {
+                    meeting.scheduledStartDate = CommonHelperMethods.getDateFromJSONString(meeting.scheduledStartDate);
                     $scope.events.push( {title: meeting.title, start: new Date(meeting.scheduledStartDate) });
                 });
                 $scope.findUpcomingMeetings($scope.meetingList);
@@ -29,6 +30,9 @@ angular.module("Dashboard", [])
             $scope.reloadTasks = function () {
                 $scope.needToBeDoneTasks  = TaskResourceHelper.getTaskList().query(function (data) {
                     console.log('success, got task: ', data);
+                    angular.forEach( $scope.needToBeDoneTasks, function (task) {
+                        task.dueDate = CommonHelperMethods.getDateFromJSONString(task.dueDate);
+                    });
                 }, function (err) {
                     alert('request failed');
                 });
