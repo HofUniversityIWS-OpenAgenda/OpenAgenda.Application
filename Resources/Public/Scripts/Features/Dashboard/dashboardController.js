@@ -4,16 +4,17 @@
  * @author Thomas Winkler <thomas.winkler@hof-university.de>
  */
 angular.module("Dashboard", [])
-    .controller('DashboardCtrl', ['$scope', '$rootScope', '$resource', "breadcrumbs", "MeetingResourceHelper",'TaskResourceHelper', 'CommonHelperMethods',
-        function ($scope, $rootScope, $http, breadcrumbs, MeetingResourceHelper, TaskResourceHelper, CommonHelperMethods) {
+    .controller('DashboardCtrl', ['$scope', '$rootScope', '$resource', "breadcrumbs", "MeetingResourceHelper",'TaskResourceHelper', 'CommonHelperMethods','CommonResourceHelper',
+        function ($scope, $rootScope, $http, breadcrumbs, MeetingResourceHelper, TaskResourceHelper, CommonHelperMethods, CommonResourceHelper) {
             console.log("Dashboard Controller Loaded");
 
             //Init
             $scope.breadcrumbs = breadcrumbs;
             $scope.upcomingMeetings = [];
-            $scope.currentUser = "Thomas"; // TODO: From where?
-            $scope.events = [];
 
+            $scope.events = [];
+            $scope.personalInfos = MeetingResourceHelper.getMeetingList().get();
+            $scope.currentUser = $scope.personalInfos.name;
             $scope.meetingList = MeetingResourceHelper.getMeetingList().query(function () {
                 angular.forEach( $scope.meetingList, function (meeting) {
                     meeting.scheduledStartDate = CommonHelperMethods.getDateFromJSONString(meeting.scheduledStartDate);

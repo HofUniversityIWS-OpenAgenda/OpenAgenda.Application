@@ -13,6 +13,16 @@ angular.module("CommonFactories", [])
             }
         };
     })
+    .factory('CommonResourceHelper', ['$resource', function ($resource) {
+        return {
+            getPersonalInfos: function () {
+                return $resource('dashboard/index.json', {}, {
+                    get: {method: 'GET'}
+                });
+            }
+        };
+
+    }])
     .factory('MeetingResourceHelper', ['$resource', function ($resource) {
         return {
             getMeetingList: function () {
@@ -27,6 +37,20 @@ angular.module("CommonFactories", [])
             }
         };
 
+    }])
+    .factory('TaskResourceHelper', ['$resource', function ($resource) {
+        return {
+            getTaskList: function () {
+                return $resource('task/list.json', {}, {
+                    query: {method: 'GET', isArray: true}
+                });
+            },
+            getTaskDetail: function (id) {
+                return $resource('task/:taskId/show.json', {taskId: id}, {
+                    get: {method: 'GET'}
+                });
+            }
+        };
     }])
     .service('ModalDialog', ['$modal',
         function ($modal) {
@@ -76,20 +100,5 @@ angular.module("CommonFactories", [])
                 return $modal.open(tempModalDefaults).result;
             };
 
-        }])
-    .factory('TaskResourceHelper', ['$resource', function ($resource) {
-        return {
-            getTaskList: function () {
-                return $resource('task/list.json', {}, {
-                    query: {method: 'GET', isArray: true}
-                });
-            },
-            getTaskDetail: function (id) {
-                return $resource('task/:taskId/show.json', {taskId: id}, {
-                    get: {method: 'GET'}
-                });
-            }
-        };
-
-    }]);
+        }]);
 
