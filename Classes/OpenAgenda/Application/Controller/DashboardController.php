@@ -39,12 +39,16 @@ class DashboardController extends AbstractController {
 	 */
 	public function indexAction() {
 		$account = $this->securityContext->getAccount();
+
 		/** @var \TYPO3\Party\Domain\Model\Person $person */
 		$person = $account->getParty();
 
 		$value = array(
 			'person' => array(
-				'name' => $this->arrayService->flatten($person->getName()),
+				'name' => array(
+					'firstName' => $person->getName()->getFirstName(),
+					'lastName' => $person->getName()->getLastName(),
+				),
 				'mail' => $person->getPrimaryElectronicAddress()->getIdentifier(),
 			),
 			'meetings' => $this->arrayService->flatten($this->meetingRepository->findAllowed(), 'list'),
