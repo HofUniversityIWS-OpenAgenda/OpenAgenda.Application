@@ -47,10 +47,10 @@
                             <div class="panel-entry">
                                 <span ng-switch on="editMode">
                                     <a ng-switch-when="true" href="#" editable-bsdate="meeting.scheduledStartDate" e-datepicker-popup="dd-MMMM-yyyy">
-                                        {{ (meeting.scheduledStartDate | date:"dd/MM/yyyy") || 'Kein Datum festgelegt' }}
+                                        Datum: {{ (meeting.scheduledStartDate | date:"dd/MM/yyyy") || 'nicht festgelegt' }}
                                     </a>
                                     <a ng-switch-default>
-                                        {{ (meeting.scheduledStartDate | date:"dd/MM/yyyy") || 'Kein Datum festgelegt' }}
+                                        Datum: {{ (meeting.scheduledStartDate | date:"dd/MM/yyyy") || 'nicht festgelegt' }}
                                     </a>
                                 </span>
                                 <div  class="pull-right">
@@ -59,16 +59,16 @@
                                 <br/>
                                 <span ng-switch on="editMode">
                                     <a ng-switch-when="true" href="#" editable-bstime="meeting.scheduledStartDate" e-show-meridian="false" e-minute-step="10">
-                                        {{ (meeting.scheduledStartDate | date:"HH:mm") + ' Uhr'|| 'empty' }}
+                                        Uhrzeit: {{ (meeting.scheduledStartDate | date:"HH:mm") || 'nicht festgelegt' }}
                                     </a>
-                                    <a ng-switch-default >
-                                        {{ (meeting.scheduledStartDate | date:"HH:mm") + ' Uhr'|| 'empty' }}
+                                    <a ng-switch-default>
+                                        Uhrzeit: {{ (meeting.scheduledStartDate | date:"HH:mm") || 'nicht festgelegt' }}
                                     </a>
                                 </span>
                                 <br/>
                                 <span ng-switch on="editMode">
                                     <a ng-switch-when="true" href="#" editable-text="meeting.location">{{ meeting.location || 'Kein Ort festgelegt' }}</a>
-                                    <a ng-switch-default>{{ meeting.location || 'Kein Ort festgelegt' }}</a>
+                                    <a ng-switch-default>Ort: {{ meeting.location || 'nicht festgelegt' }}</a>
                                 </span>
                                 <div class="pull-right">
                                     <a href="/#meeting/start/{{meeting.__identity}}">

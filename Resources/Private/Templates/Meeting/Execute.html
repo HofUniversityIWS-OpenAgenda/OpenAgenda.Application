@@ -113,12 +113,12 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <a href="#" editable-bsdate="task.scheduledDateTime" e-datepicker-popup="dd-MMMM-yyyy">
-                                        {{ (task.scheduledDateTime | date:"dd/MM/yyyy") || 'Datum festlegen' }}
+                                        {{ (task.scheduledDateTime | date:"dd.MM.yyyy") || 'Datum festlegen' }}
                                     </a><br/>
                                 </div>
                                 <div>
                                     <a href="#" editable-bstime="task.scheduledDateTime" e-show-meridian="false" e-minute-step="10">
-                                        {{ (task.scheduledDateTime | date:"HH:mm") || 'Uhrzeit festlegen' }}
+                                        {{ (task.scheduledDateTime | date:"HH:mm") + ' Uhr'|| 'Uhrzeit festlegen' }}
                                     </a><br/>
                                 </div>
                                 <div>
