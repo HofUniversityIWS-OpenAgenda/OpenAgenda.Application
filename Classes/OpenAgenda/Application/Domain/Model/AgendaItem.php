@@ -69,6 +69,7 @@ class AgendaItem implements CreationInterface, ModificationInterface, SortableIn
 
 	/**
 	 * @var boolean
+	 * @ORM\Column(options={"default":"0"})
 	 * @OA\ToFlatArray
 	 */
 	protected $checked;

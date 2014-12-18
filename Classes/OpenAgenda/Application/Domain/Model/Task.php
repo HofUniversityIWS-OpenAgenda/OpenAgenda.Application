@@ -64,6 +64,7 @@ class Task implements CreationInterface, ModificationInterface {
 
 	/**
 	 * @var integer
+	 * @ORM\Column(options={"default":"0"})
 	 * @OA\ToFlatArray
 	 */
 	protected $priority;
