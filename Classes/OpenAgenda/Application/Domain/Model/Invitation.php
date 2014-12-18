@@ -44,7 +44,7 @@ class Invitation implements CreationInterface, ModificationInterface {
 	 * @var integer
 	 * @OA\ToFlatArray
 	 */
-	protected $status;
+	protected $status = 0;
 
 	/**
 	 * @var \DateTime

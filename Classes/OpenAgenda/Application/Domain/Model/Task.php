@@ -67,7 +67,7 @@ class Task implements CreationInterface, ModificationInterface {
 	 * @ORM\Column(options={"default":"0"})
 	 * @OA\ToFlatArray
 	 */
-	protected $priority;
+	protected $priority = 0;
 
 	/**
 	 * @var \DateTime
