@@ -19,7 +19,7 @@ angular.module("Dashboard", [])
             });
             $scope.meetingList = MeetingResourceHelper.getMeetingList().query(function () {
                 angular.forEach( $scope.meetingList, function (meeting) {
-
+                    meeting.scheduledStartDate = CommonHelperMethods.getDateFromJSONString(meeting.scheduledStartDate);
                     $scope.events.push( {title: meeting.title, start: new Date(meeting.scheduledStartDate), __identity: meeting.__identity, type: 'Meeting' });
 
                 });
