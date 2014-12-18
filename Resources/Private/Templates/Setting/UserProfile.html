@@ -11,7 +11,6 @@
 <f:section name="Content">
     <f:render partial="Common/Breadcrumb"></f:render>
     <div class="page-content">
-
         <div class="col-lg-12">
             <h1 class="page-header">Profileinstellungen</h1>
         </div>
@@ -27,7 +26,6 @@
                             <div class="form-group">
                                 <label for="exampleInputFile">Benutzerbild</label>
                                 <input type="file" accept="image/png, image/jpeg" id="exampleInputFile">
-
                                 <p class="help-block">Bitte nur PNG oder JPEG Dateien auswählen!</p>
                             </div>
                         </div>
@@ -39,24 +37,42 @@
                         <div class="col-lg-6 col-md-6 col-xs-12">
                             <form role="form">
                                 <div class="form-group">
-                                    <label for="xx">Benutzername</label>
-                                    <input type="email" class="form-control" id="xx" placeholder="Benutzername">
-                                </div>
-                                <div class="form-group">
-                                    <label for="xx1">Kennwort</label>
-                                    <input type="password" class="form-control" id="xx1" placeholder="Kennwort">
+                                    <label for="firstName">Vorname</label>
+                                    <input type="text" class="form-control" id="firstName" placeholder="Vorname eingeben">
                                 </div>
                             </form>
                         </div>
                         <div class="col-lg-6 col-md-6 col-xs-12">
                             <form role="form">
                                 <div class="form-group">
-                                    <label for="xx2">E-Mail Adresse</label>
-                                    <input type="text" class="form-control" id="xx2" placeholder="Enter email">
+                                    <label for="lastName">Nachname</label>
+                                    <input type="text" class="form-control" id="lastName" placeholder="Nachname eingeben">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-xs-12">
+                            <form role="form">
+                                <div class="form-group">
+                                    <label for="password1">Passwort</label>
+                                    <input type="password" class="form-control" id="password1" placeholder="Passwort eingeben">
                                 </div>
                                 <div class="form-group">
-                                    <label for="xx3">Passwort wiederholen</label>
-                                    <input type="text" class="form-control" id="xx3" placeholder="Passwort wiederholen">
+                                    <label for="password2">Passwort wiederholen</label>
+                                    <input type="password" class="form-control" id="password2" placeholder="Passwort wiederholen">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-xs-12">
+                            <form role="form">
+                                <div class="form-group">
+                                    <label for="email">E-Mail Adresse</label>
+                                    <input type="email" class="form-control" id="email" placeholder="E-Mail-Adresse">
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Telefonnummer</label>
+                                    <input type="phone" class="form-control" id="phone" placeholder="Telefonnummer eingeben">
                                 </div>
                             </form>
                         </div>
@@ -81,11 +97,9 @@
                             <div class="checkbox">
                                 <label>
                                     <input type="checkbox" ng-model="checked"> LDAP Login verwenden
-
                                 </label>
                             </div>
                         </div>
-
                     </div>
                     <div class="row" ng-show="checked">
                         <div class="col-lg-12 col-md-12 col-xs-12">
@@ -102,7 +116,6 @@
                                 </div>
                             </form>
                         </div>
-
                     </div>
                     <div class="row" ng-show="checked">
                         <div class="col-xs-12">
