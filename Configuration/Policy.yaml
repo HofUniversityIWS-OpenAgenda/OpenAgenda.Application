@@ -1,7 +1,8 @@
 roles:
   Listener: []
   Participant: [Listener]
-  MeetingChair: [Participant]
+  MinuteTaker: [Participant]
+  MeetingChair: [MinuteTaker]
   MeetingManager: [MeetingChair]
   Chairman: [MeetingManager]
   Administrator: []
