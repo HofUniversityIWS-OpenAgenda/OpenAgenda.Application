@@ -22,7 +22,7 @@ angular.module("Meeting")
             $scope.uploaders = [];
 
             $scope.remoteUsers = [];
-            $http.get('dashboard/persons.json').success(function(persons) { $scope.remoteUsers = persons; });
+            $http.get('person/index.json').success(function(persons) { $scope.remoteUsers = persons; });
 
             if (typeof $scope.meetingId != "undefined") {
                 $scope.headerTitle = "Meeting bearbeiten";
