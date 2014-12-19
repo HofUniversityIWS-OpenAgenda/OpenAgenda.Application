@@ -11,7 +11,7 @@
             <dt>Meeting</dt>
             <dd>{{meetingName}}</dd>
             <dt>Zuständig</dt>
-            <dd>{{task.assignee}}</dd>
+            <dd>{{task.assignee.name.firstName}} {{task.assignee.name.lastName}}</dd>
             <dt>Abgabedatum</dt>
             <dd>{{task.dueDate | date:"dd/MM/yyyy HH:m"}} Uhr</dd>
             <dt>Status</dt>

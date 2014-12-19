@@ -56,7 +56,7 @@
 
                                     </td>
                                     <td>{{task.meeting}}</td>
-                                    <td>{{task.assignee}} (BRAUCH NOCH NAMEN)</td>
+                                    <td>{{task.assignee.name.firstName}} {{task.assignee.name.lastName}}</td>
                                     <td point-me="true" ng-click="open('',task.__identity, task.meeting)">
                                        <a>Bearbeiten <i class="fa fa-pencil-square-o"></i></a>
                                     </td>
