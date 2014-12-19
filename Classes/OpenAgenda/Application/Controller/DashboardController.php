@@ -44,13 +44,7 @@ class DashboardController extends AbstractController {
 		$person = $account->getParty();
 
 		$value = array(
-			'person' => array(
-				'name' => array(
-					'firstName' => $person->getName()->getFirstName(),
-					'lastName' => $person->getName()->getLastName(),
-				),
-				'mail' => $person->getPrimaryElectronicAddress()->getIdentifier(),
-			),
+			'person' => $this->arrayService->prepare($person),
 			'meetings' => $this->arrayService->flatten($this->meetingRepository->findAllowed(), 'list'),
 			'tasks' => $this->arrayService->flatten($this->taskRepository->findAllowed(), 'list'),
 		);

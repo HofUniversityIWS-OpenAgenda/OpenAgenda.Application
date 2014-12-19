@@ -42,7 +42,7 @@ class Message {
 	/**
 	 * @var \TYPO3\Party\Domain\Model\Person
 	 * @ORM\ManyToOne
-	 * @OA\ToFlatArray
+	 * @OA\ToFlatArray(callback="OpenAgenda\Application\Service\ArrayService->prepare($self)")
 	 */
 	protected $recipient;
 

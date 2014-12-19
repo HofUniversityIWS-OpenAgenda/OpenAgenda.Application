@@ -165,4 +165,33 @@ class ArrayService {
 		return (is_array($source) || $source instanceof \Iterator || $source instanceof \ArrayAccess);
 	}
 
+	/**
+	 * @param mixed $subject
+	 * @return mixed
+	 */
+	public function prepare($subject) {
+		$result = $subject;
+
+		if ($subject instanceof \TYPO3\Party\Domain\Model\Person) {
+			$result = $this->preparePerson($subject);
+		}
+
+		return $result;
+	}
+
+	/**
+	 * @param \TYPO3\Party\Domain\Model\Person $person
+	 * @return array
+	 */
+	protected function preparePerson(\TYPO3\Party\Domain\Model\Person $person) {
+		return array(
+			'__identity' => $this->persistenceManager->getIdentifierByObject($person),
+			'name' => array(
+				'firstName' => $person->getName()->getFirstName(),
+				'lastName' => $person->getName()->getLastName(),
+			),
+			'mail' => $person->getPrimaryElectronicAddress()->getIdentifier(),
+		);
+	}
+
 }
