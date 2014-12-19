@@ -49,7 +49,7 @@ angular.module("Meeting")
 
         };
 
-        /*$scope.getProtocolItem = function(sorting){
+        $scope.getProtocolItem = function(sorting){
             var found = false;
             for (var i = 0; $scope.meeting.protocolItems.length; i++)
             {
@@ -73,7 +73,7 @@ angular.module("Meeting")
                 return newProtocolItem;
             }
         };
-*/
+
 
         $scope.imgTask = {
 
@@ -139,7 +139,6 @@ angular.module("Meeting")
                         $scope.meeting.invitations[index].status = 4;
                     else
                         $scope.meeting.invitations[index].status = 0;
-
                 }
             };
 
