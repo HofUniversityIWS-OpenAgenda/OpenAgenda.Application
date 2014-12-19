@@ -62,8 +62,8 @@ angular.module("Meeting")
                 this.invitations = [];
             }
 
-            function Invitation(person) {
-                this.participant = person;
+            function Invitation(personIdentity) {
+                this.participant = personIdentity;
             }
 
             if (typeof $scope.meeting === "undefined") {
@@ -77,7 +77,7 @@ angular.module("Meeting")
 
             $scope.addNewInvitation = function (mail) {
                 var single_User = $filter('filter')($scope.remoteUsers, function (person) {return person.mail === mail; })[0];
-                $scope.meeting.invitations.push(new Invitation(single_User))
+                $scope.meeting.invitations.push(new Invitation(single_User.__identity))
 
             };
             $scope.deleteInvitation = function (idx) {
