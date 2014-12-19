@@ -199,8 +199,8 @@
                                                 <tbody>
 
                                                 <tr class="odd gradeX" ng-repeat="invitation in meeting.invitations">
-                                                    <td>{{ invitation.name }} {{invitation.participant}} </td>
-                                                    <td>{{invitation.email}}</td>
+                                                    <td>{{invitation.participant.name.lastName}}, {{invitation.participant.name.firstName}}</td>
+                                                    <td>{{invitation.participant.mail}}</td>
                                                     <td>{{invitation.status}}</td>
                                                 </tr>
                                                 </tbody>
