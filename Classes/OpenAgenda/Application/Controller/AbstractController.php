@@ -80,8 +80,9 @@ class AbstractController extends ActionController {
 				throw $exception;
 			}
 
-			$this->systemLogger->log($exception->getMessage(), LOG_EMERG);
-			$this->view->assign('value', array('exception' => $exception->getMessage()));
+			$message = $exception->getMessage() . ' in ' . $exception->getFile() . ':' . $exception->getLine();
+			$this->systemLogger->log($message, LOG_EMERG);
+			$this->view->assign('value', array('exception' => $message));
 			$this->response->appendContent($this->view->render());
 			$this->response->setStatus(503);
 		}
