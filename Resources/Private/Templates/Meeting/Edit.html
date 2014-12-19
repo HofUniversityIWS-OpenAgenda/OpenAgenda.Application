@@ -159,7 +159,7 @@
                                         <div ng-show="meeting.invitations.length > 0">
                                             <label style="margin-top: 20px">Hinzugefügte Teinehmer</label>
                                             <ul>
-                                                <li ng-repeat="invitation in meeting.invitations">{{invitation.mail}}
+                                                <li ng-repeat="invitation in meeting.invitations">{{invitation.participant.mail}}
                                                     <!--<select style="display: inline; width: 200px;" class="form-control" ng-model="invitation.role" name=“role”>
                                                         <option ng-repeat="role in meetingsRoles" value="{{role.value}}">
                                                             {{role.text}}
