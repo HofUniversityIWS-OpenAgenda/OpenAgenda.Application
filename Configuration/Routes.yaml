@@ -37,6 +37,16 @@
     task:
       objectType: 'OpenAgenda\Application\Domain\Model\Task'
 -
+  name: 'Person: JSON'
+  uriPattern: 'person/{person.__identity}/{@action}.json'
+  defaults:
+    '@package':    'OpenAgenda.Application'
+    '@controller': 'Person'
+    '@format':     'json'
+  routeParts:
+    person:
+      objectType: 'TYPO3\Party\Domain\Model\Person'
+-
   name: 'Template: HTML'
   uriPattern: 'template/{controller}/{action}.{format}'
   defaults:
