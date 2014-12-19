@@ -221,14 +221,12 @@ class TestDataCommandController extends CommandController {
 	 */
 	public function createUsersCommand() {
 		$this->createUserCommand();
-		$this->createUserCommand('listener@openagenda.org', 'Listener', 'Franz', 'List');
 		$this->createUserCommand('participant1@openagenda.org', 'Participant', 'Elen', 'Kutis');
 		$this->createUserCommand('participant2@openagenda.org', 'Participant', 'Monika', 'Moneypenny');
 		$this->createUserCommand('participant3@openagenda.org', 'Participant', 'Ric', 'de Stunt');
-		$this->createUserCommand('minutetaker@openagenda.org', 'MinuteTaker', 'Manuel', 'Tacker');
-		$this->createUserCommand('meetingchair@openagenda.org', 'MeetingChair', 'Martin', 'MeeChair');
+		$this->createUserCommand('participant4@openagenda.org', 'Participant', 'Rosa', 'Lee');
+		$this->createUserCommand('participant5@openagenda.org', 'Participant', 'Werner', 'Wernersens');
 		$this->createUserCommand('meetingmanager@openagenda.org', 'MeetingManager', 'Martin', 'Manager');
-		$this->createUserCommand('chairman@openagenda.org', 'Chairman', 'Christian', 'Chairman');
 	}
 
 	/**
