@@ -52,6 +52,13 @@ class Meeting implements CreationInterface, ModificationInterface {
 	protected $invitationStatus;
 
 	/**
+	 * @var \TYPO3\Party\Domain\Model\Person
+	 * @ORM\ManyToOne
+	 * @OA\ToFlatArray
+	 */
+	protected $minuteTaker;
+
+	/**
 	 * @var string
 	 * @OA\ToFlatArray
 	 */
@@ -161,6 +168,13 @@ class Meeting implements CreationInterface, ModificationInterface {
 	}
 
 	/**
+	 * @return \TYPO3\Party\Domain\Model\Person
+	 */
+	public function getMinuteTaker() {
+		return $this->minuteTaker;
+	}
+
+	/**
 	 * @return \DateTime
 	 */
 	public function getStartDate() {
@@ -235,6 +249,13 @@ class Meeting implements CreationInterface, ModificationInterface {
 	 */
 	public function setInvitations($invitations) {
 		$this->invitations = $invitations;
+	}
+
+	/**
+	 * @param \TYPO3\Party\Domain\Model\Person
+	 */
+	public function setAssignee(\TYPO3\Party\Domain\Model\Person $minuteTaker) {
+		$this->minuteTaker = $minuteTaker;
 	}
 
 	/**
