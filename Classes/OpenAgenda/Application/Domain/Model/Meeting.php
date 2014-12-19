@@ -55,7 +55,7 @@ class Meeting implements CreationInterface, ModificationInterface {
 	 * @var \TYPO3\Party\Domain\Model\Person
 	 * @ORM\ManyToOne
 	 * @ORM\Column(nullable=true)
-	 * @OA\ToFlatArray
+	 * @OA\ToFlatArray(callback="OpenAgenda\Application\Service\ArrayService->prepare($self)")
 	 */
 	protected $minuteTaker;
 
