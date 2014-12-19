@@ -34,9 +34,9 @@ class AccountCommandController extends CommandController {
 	protected $policyService;
 
 	/**
-	 * ### title ###
+	 * ### Administration Action to add roles ###
 	 *
-	 * Roles: Administrator, Listener, Participant, MinuteTaker, MeetingChair, MeetingManager, Chairman
+	 * Roles: Administrator, Participant, MinuteTaker, MeetingManager
 	 *
 	 * @param string $identifier email of account
 	 * @param string $role name of role
@@ -44,9 +44,26 @@ class AccountCommandController extends CommandController {
 	public function setRoleCommand($identifier, $role) {
 		$account = $this->accountRepository->findByAccountIdentifierAndAuthenticationProviderName($identifier, 'DefaultProvider');
 		$roleValidString = 'OpenAgenda.Application:' . $role;
-		$account->setRoles(array($roleValidString));
-		// @todo  determine error here
+		$role = $this->policyService->getRole($roleValidString);
+		$account->addRole($role);
 		$this->accountRepository->update($account);
 		$this->response->appendContent('Set role ' . $role . ' for account ' . $identifier . PHP_EOL);
+	}
+
+	/**
+	 * ### Administrator Action to remove role ###
+	 *
+	 * Roles: Administrator, Participant, MinuteTaker, MeetingManager
+	 *
+	 * @param string $identifier email of account
+	 * @param string $role name of role
+	 */
+	public function removeRoleCommand($identifier, $role) {
+		$account = $this->accountRepository->findByAccountIdentifierAndAuthenticationProviderName($identifier, 'DefaultProvider');
+		$roleValidString = 'OpenAgenda.Application:' . $role;
+		$role = $this->policyService->getRole($roleValidString);
+		$account->removeRole($role);
+		$this->accountRepository->update($account);
+		$this->response->appendContent('Removed role ' . $role . ' for account ' . $identifier . PHP_EOL);
 	}
 }
