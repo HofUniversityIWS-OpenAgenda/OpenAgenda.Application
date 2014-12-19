@@ -28,6 +28,12 @@ class AccountCommandController extends CommandController {
 	protected $accountRepository;
 
 	/**
+	 * @Flow\Inject
+	 * @var \TYPO3\Flow\Security\Policy\PolicyService
+	 */
+	protected $policyService;
+
+	/**
 	 * ### title ###
 	 *
 	 * Roles: Administrator, Listener, Participant, MinuteTaker, MeetingChair, MeetingManager, Chairman
