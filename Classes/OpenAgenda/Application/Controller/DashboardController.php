@@ -53,4 +53,23 @@ class DashboardController extends AbstractController {
 		$this->view->assign('value', $value);
 	}
 
+	/**
+	 * Determines all active persons (e.g. for invitation).
+	 *
+	 * @return void
+	 */
+	public function personsAction() {
+		$persons = array();
+
+		/** @var \TYPO3\Flow\Security\Account $account */
+		foreach ($this->accountRepository->findAll() as $account) {
+			if ($account->getExpirationDate() !== NULL && (int)$account->getExpirationDate()->format('U') === 0) {
+				continue;
+			}
+			$persons[] = $this->arrayService->prepare($account->getParty());
+		}
+
+		$this->view->assign('value', $persons);
+	}
+
 }

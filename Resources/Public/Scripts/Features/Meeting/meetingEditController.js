@@ -21,6 +21,8 @@ angular.module("Meeting")
             $scope.meetingId = $routeParams.meetingId;
             $scope.uploaders = [];
 
+            $scope.remoteUsers = [];
+            $http.get('dashboard/persons.json').success(function(persons) { $scope.remoteUsers = persons; });
 
             if (typeof $scope.meetingId != "undefined") {
                 $scope.headerTitle = "Meeting bearbeiten";
@@ -60,10 +62,8 @@ angular.module("Meeting")
                 this.invitations = [];
             }
 
-            function Invitation(id, mail) {
-                this.participant = id;
-                this.role = "OpenAgenda.Application:Listener";
-                this.mail = mail;
+            function Invitation(person) {
+                this.participant = person;
             }
 
             if (typeof $scope.meeting === "undefined") {
@@ -76,8 +76,8 @@ angular.module("Meeting")
             };
 
             $scope.addNewInvitation = function (mail) {
-                var single_User = $filter('filter')($scope.remoteUsers, function (d) {return d.mail == mail;})[0];
-                $scope.meeting.invitations.push(new Invitation(single_User.__identify,single_User.mail))
+                var single_User = $filter('filter')($scope.remoteUsers, function (person) {return person.mail === mail; })[0];
+                $scope.meeting.invitations.push(new Invitation(single_User))
 
             };
             $scope.deleteInvitation = function (idx) {
@@ -147,11 +147,9 @@ angular.module("Meeting")
 
             $scope.updateMailAddresses = function (typed) {
                 $scope.mailAdresses = [];
-                //REMOTEUSERS FROM SERVER
-                $scope.remoteUsers = [{"__identify":"fff","mail":"tt@tt.de", "Name":"name"},
-                    {"__identify":"ffsfsadff","mail":"ff@tff.de", "Name":"nafffme"}];
 
-                angular.forEach($scope.remoteUsers, function (remoteUser) {
+                // @todo Filtering stuff
+                angular.forEach($scope.remoteUsers, function(remoteUser) {
                     $scope.mailAdresses.push(remoteUser.mail);
                 });
             }
