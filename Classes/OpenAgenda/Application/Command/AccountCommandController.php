@@ -22,12 +22,6 @@ class AccountCommandController extends CommandController {
 	protected $historyService;
 
 	/**
-	 * @var \TYPO3\Flow\Security\AccountFactory
-	 * @Flow\Inject
-	 */
-	protected $accountFactory;
-
-	/**
 	 * @var \TYPO3\Flow\Security\AccountRepository
 	 * @Flow\Inject
 	 */
@@ -36,16 +30,17 @@ class AccountCommandController extends CommandController {
 	/**
 	 * ### title ###
 	 *
-	 * Roles: Administrator, Listener, Participant, MeetingChair, MeetingManager, Chairman
+	 * Roles: Administrator, Listener, Participant, MinuteTaker, MeetingChair, MeetingManager, Chairman
 	 *
-	 * @param string $email The of account
-	 * @param string $role The name of role
+	 * @param string $identifier email of account
+	 * @param string $role name of role
 	 */
-	public function setRoleCommand($email, $role) {
+	public function setRoleCommand($identifier, $role) {
+		$account = $this->accountRepository->findByAccountIdentifierAndAuthenticationProviderName($identifier, 'DefaultProvider');
 		$roleValidString = 'OpenAgenda.Application:' . $role;
-
-		// @todo set Role here
-
-		$this->response->appendContent('Set role ' . $role . ' for account ' . $email . PHP_EOL);
+		$account->setRoles(array($roleValidString));
+		// @todo  determine error here
+		$this->accountRepository->update($account);
+		$this->response->appendContent('Set role ' . $role . ' for account ' . $identifier . PHP_EOL);
 	}
 }
