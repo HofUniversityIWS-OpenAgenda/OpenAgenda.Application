@@ -49,7 +49,7 @@ angular.module("Meeting")
 
         };
 
-        $scope.getProtocolItem = function(sorting){
+        /*$scope.getProtocolItem = function(sorting){
             var found = false;
             for (var i = 0; $scope.meeting.protocolItems.length; i++)
             {
@@ -73,7 +73,7 @@ angular.module("Meeting")
                 return newProtocolItem;
             }
         };
-
+*/
 
         $scope.imgTask = {
 
@@ -107,36 +107,61 @@ angular.module("Meeting")
                 $scope.meeting.status = 3;
             }
         };
-
     }])
+
+    /**This Controller handles the meeting start scenario
+     * @author Thomas Winkler <thomas.winkler@hof-university.de>
+     */
     .controller('MeetingExecuteModalCtrl', ['$scope', '$rootScope', '$http', "CommonHelperMethods", '$modal', '$log',
         function ($scope, $rootScope, $http, CommonHelperMethods, $modal, $log) {
 
-            $scope.open = function (size, identity) {
-
+            $scope.open = function (size) {
                 var modalInstance = $modal.open({
                     templateUrl: '/template/meeting/executemodal.html',
                     controller: 'MeetingExecuteModalInstanceCtrl',
                     size: size,
                     resolve: {
-                        identity: function () {
-                            return identity;
+                        meeting: function () {
+                            return $scope.meeting;
                         }
                     }
                 });
 
-                modalInstance.close = function (string, task) {
-
+                modalInstance.close = function () {
+                    $scope.$parent.startMeetng();
                     modalInstance.dismiss();
                 };
             };
+
+            $scope.tooglePresent = function (index) {
+                if($scope.meeting.invitations[index].role != "OpenAgenda.Application:MinuteTaker") {
+                    if ($scope.meeting.invitations[index].status != 4)
+                        $scope.meeting.invitations[index].status = 4;
+                    else
+                        $scope.meeting.invitations[index].status = 0;
+
+                }
+            };
+
+            $scope.toogleMinuteTaker = function (index) {
+                if($scope.meeting.invitations[index].role == "OpenAgenda.Application:MinuteTaker") {
+                    $scope.meeting.invitations[index].role = "OpenAgenda.Application:Participant";
+                    $scope.meeting.invitations[index].status = 0;
+                }
+                else {
+                    $scope.meeting.invitations[index].role = "OpenAgenda.Application:MinuteTaker";
+                    $scope.meeting.invitations[index].status = 4;
+                }
+            };
         }])
-    /*This controller is used to handle the modal view to view and change a tasks state*/
-    .controller('MeetingExecuteModalInstanceCtrl', function ($scope, $modalInstance, CommonHelperMethods, identity) {
+    /**This controller is used to handle the modal view to view and change a tasks state
+     * @author Thomas Winkler <thomas.winkler@hof-university.de>
+     */
+    .controller('MeetingExecuteModalInstanceCtrl', function ($scope, $modalInstance, CommonHelperMethods, meeting) {
 
-
+        $scope.meeting = meeting;
         $scope.ok = function () {
-            $modalInstance.close("OK", $scope.task);
+            $modalInstance.close("OK");
         };
 
         $scope.cancel = function () {

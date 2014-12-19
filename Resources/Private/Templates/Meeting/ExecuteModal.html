@@ -1,17 +1,38 @@
 <div ng-controller="MeetingExecuteModalCtrl" >
 
             <div class="modal-header">
-                <h3 class="modal-title">dsf</h3>
+                <h3 class="modal-title">Meetingvorbereitung</h3>
             </div>
             <div class="modal-body">
-
-             gfgfh
+            <p>Um mit dem Meeting zu beginnen, Wählen Sie die anwesenden Teilnehmer aus, in dem Sie auf den entsprechenden Eintrag klicken. <br />
+            Den Schriftführer können sie mit einem Doppelklick auswählen.</p>
+             <table class="table">
+                 <thead>
+                     <tr>
+                         <th>Name</th>
+                         <th>Anwesend</th>
+                         <th>Schriftführer</th>
+                     </tr>
+                 </thead>
+                 <tbody ng-repeat="invitation in meeting.invitations">
+                     <tr class="noselect" ng-class="{success: invitation.status == 4 , info: invitation.role == 'OpenAgenda.Application:MinuteTaker'}" timed-click="tooglePresent($index)" ng-dblclick="toogleMinuteTaker($index)">
+                         <td>{{invitation.firstName}} {{invitation.lastName}} DA MUSS VOR UND NACHNAME STEHEN</td>
+                         <td>
+                             <i ng-if="invitation.status == 4" style="color: #5cb85c" class="fa fa-check"></i>
+                             <i ng-if="(invitation.status != 4) && invitation.role != 'OpenAgenda.Application:MinuteTaker'" style="color: #d9534f" class="fa fa-times"></i>
+                         </td>
+                         <td>
+                             <i ng-if="invitation.role == 'OpenAgenda.Application:MinuteTaker'"style="color: #5bc0de" class="fa fa-pencil"></i>
+                         </td>
+                     </tr>
+                 </tbody>
+            </table>
 
             </div>
 
             <div class="modal-footer">
-                <button class="btn btn-warning" ng-click="cancel()">Abbrechen</button>
-                <button class="btn btn-primary" ng-click="ok()">OK</button>
+                <button class="btn btn-danger" ng-click="cancel()">Abbrechen</button>
+                <button class="btn btn-primary" ng-click="ok()">Starten</button>
             </div>
 
 </div>
