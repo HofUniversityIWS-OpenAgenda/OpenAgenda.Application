@@ -9,7 +9,11 @@ angular.module('OpenAgenda.Data', [])
 			data = moment(data).format();
 		} else if (angular.isObject(data) || angular.isArray(data)) {
 			angular.forEach(data, function(value, key) {
-				data[key] = assertTypeFormat(value);
+				if (angular.isString(key) && key.substr(0, 1) === '$') {
+					delete data[key];
+				} else {
+					data[key] = assertTypeFormat(value);
+				}
 			});
 		}
 
