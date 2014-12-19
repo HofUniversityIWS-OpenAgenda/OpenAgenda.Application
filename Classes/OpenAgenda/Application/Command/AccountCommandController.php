@@ -36,7 +36,7 @@ class AccountCommandController extends CommandController {
 	/**
 	 * ### Administration Action to add roles ###
 	 *
-	 * Roles: Administrator, Participant, MinuteTaker, MeetingManager
+	 * Roles: Administrator, Participant, MeetingManager
 	 *
 	 * @param string $identifier email of account
 	 * @param string $role name of role
@@ -53,7 +53,7 @@ class AccountCommandController extends CommandController {
 	/**
 	 * ### Administrator Action to remove role ###
 	 *
-	 * Roles: Administrator, Participant, MinuteTaker, MeetingManager
+	 * Roles: Administrator, Participant, MeetingManager
 	 *
 	 * @param string $identifier email of account
 	 * @param string $role name of role

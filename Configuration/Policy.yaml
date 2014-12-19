@@ -1,5 +1,4 @@
 roles:
   Participant: []
-  MinuteTaker: [Participant]
   MeetingManager: [Participant]
   Administrator: []
