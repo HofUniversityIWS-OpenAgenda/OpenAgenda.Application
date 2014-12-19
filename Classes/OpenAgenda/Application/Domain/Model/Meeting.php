@@ -52,6 +52,13 @@ class Meeting implements CreationInterface, ModificationInterface {
 	protected $invitationStatus;
 
 	/**
+	 * @var array
+	 * @Flow\Transient
+	 * @OA\ToFlatArray(callback="OpenAgenda\Application\Service\Security\PermissionService->determineMeetingPermissions($self)")
+	 */
+	protected $permissions;
+
+	/**
 	 * @var \TYPO3\Party\Domain\Model\Person
 	 * @ORM\ManyToOne
 	 * @ORM\Column(nullable=true)
