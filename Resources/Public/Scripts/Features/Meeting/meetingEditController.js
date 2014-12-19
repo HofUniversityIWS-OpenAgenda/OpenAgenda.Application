@@ -102,7 +102,16 @@ angular.module("Meeting")
                             // this callback will be called asynchronously
                             // when the response is available
                             console.log("SUCCESS");
-                            $location.path("/");
+                            var modalOptions = {
+                                headerText: 'Erfolg',
+                                bodyText: 'Das Meeting wurde erfolgreich erstellt!'
+                            };
+                            var modalDefaults = {
+                                templateUrl: '/template/modaldialog/success.html'
+                            };
+                            ModalDialog.showModal(modalDefaults, modalOptions);
+                            $location.path("/meeting");
+
 
                         }).
                         error(function (data, status, headers, config) {
