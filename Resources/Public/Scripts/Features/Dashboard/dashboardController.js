@@ -4,8 +4,8 @@
  * @author Thomas Winkler <thomas.winkler@hof-university.de>
  */
 angular.module("Dashboard", [])
-    .controller('DashboardCtrl', ['$scope', '$rootScope', '$resource', "breadcrumbs", "MeetingResourceHelper",'TaskResourceHelper', 'CommonHelperMethods','CommonResourceHelper',
-        function ($scope, $rootScope, $http, breadcrumbs, MeetingResourceHelper, TaskResourceHelper, CommonHelperMethods, CommonResourceHelper) {
+    .controller('DashboardCtrl', ['$scope', '$rootScope', '$resource', "breadcrumbs", "MeetingResourceHelper",'TaskResourceHelper', 'CommonHelperMethods','CommonResourceHelper', 'ModalDialog',
+        function ($scope, $rootScope, $http, breadcrumbs, MeetingResourceHelper, TaskResourceHelper, CommonHelperMethods, CommonResourceHelper, ModalDialog) {
             console.log("Dashboard Controller Loaded");
 
             //Init
@@ -59,6 +59,14 @@ angular.module("Dashboard", [])
                 return $rootScope.notifications;
             };
             //$rootScope.changeToolBar("<div>IF NEEDED TOOLBAR</div>");
+            $scope.help = function () {
+                console.log("oiertdfb9pihub redfbpbhu");
+                var modalDefaults = {
+                    templateUrl: '/template/modaldialog/generichelp.html'
+                };
+
+                ModalDialog.showModal(modalDefaults, {});
+            };
 
         }])
         /*  Controller especially for the Calendar in the Dashboard
