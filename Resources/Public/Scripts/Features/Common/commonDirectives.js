@@ -11,6 +11,67 @@
  */
 
 angular.module("CommonDirectives", [])
+    /**
+     * Retrieves JSON person data from by given entity identifier.
+     *
+     * ```html
+     *        <div oa-person-resolver="someScopeVariable.identity as person">
+     *          {{person.name.firstName}} {{person.name.lastName}}
+     *        </div>
+     * ```
+     * @author Oliver Hader <oliver@typo3.org>
+     */
+    .directive('oaPersonResolver', function($parse, $http) {
+        function resolveScope(scope, attr) {
+            var resolvedScope = null;
+
+            if (attr.oaScope) {
+                resolvedScope = $parse(attr.oaScope)(scope);
+            }
+            if (!resolvedScope) {
+                resolvedScope = scope;
+            }
+
+            return resolvedScope;
+        }
+
+        function parseComponents(expression) {
+            var matches = expression.match(/^(.+) as (.+)$/i);
+            if (matches !== null) {
+                return {
+                    source: matches[1],
+                    target: matches[2]
+                };
+            }
+            if (console) {
+                console.error('oaPersonResolver expression "' + expression +'" did not match expected format "<source> as <target>');
+                return null;
+            }
+        }
+
+        return {
+            link: function(scope, element, attr) {
+                scope.test = 'Test';
+                var $scope = resolveScope(scope, attr);
+                var components = parseComponents(attr.oaPersonResolver);
+                if (components === null) {
+                    return;
+                }
+                $http.get('person/' + $parse(components.source)($scope) + '/show.json')
+                    .success(function(person) {
+                        $scope[components.target] = person;
+                    });
+            }
+        };
+
+        var as = attr.as || 'person';
+        var identity = attr.identity || null;
+
+        $scope[as] = {};
+        if (identity === null) return;
+
+        $http.get('person/' + identity + '/show.json').success(function(person) { $scope[as] = person; });
+    })
     .directive('taskStatus', function () {
 
         return {

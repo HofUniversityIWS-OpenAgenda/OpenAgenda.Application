@@ -34,7 +34,7 @@ class Task implements CreationInterface, ModificationInterface {
 	/**
 	 * @var \TYPO3\Party\Domain\Model\Person
 	 * @ORM\ManyToOne
-	 * @OA\ToFlatArray(callback="OpenAgenda\Application\Service\ArrayService->prepare($self)")
+	 * @OA\ToFlatArray(useIdentifier=true)
 	 */
 	protected $assignee;
 

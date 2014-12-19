@@ -11,18 +11,21 @@ angular.module("Task")
         function ($scope, $rootScope, $http, TaskResourceHelper, CommonHelperMethods, $modal, $log) {
             console.log("Task Edit Controller Loaded");
 
-            $scope.open = function (size, identity, meetingName) {
+            $scope.open = function (size, task, meetingName, assignee) {
 
                 var modalInstance = $modal.open({
                     templateUrl: '/template/task/edit.html',
                     controller: 'TaskEditModalInstanceCtrl',
                     size: size,
                     resolve: {
-                        identity: function () {
-                            return identity;
+                        task: function() {
+                            return task;
                         },
-                        meetingName: function () {
+                        meetingName: function() {
                             return meetingName;
+                        },
+                        assignee: function() {
+                            return assignee;
                         }
                     }
                 });
@@ -46,11 +49,13 @@ angular.module("Task")
             };
         }])
     /*This controller is used to handle the modal view to view and change a tasks state*/
-    .controller('TaskEditModalInstanceCtrl', function ($scope, $modalInstance, TaskResourceHelper, CommonHelperMethods, identity, meetingName) {
-        TaskResourceHelper.getTaskDetail(identity).get(function (task) {
+    .controller('TaskEditModalInstanceCtrl', function ($scope, $modalInstance, TaskResourceHelper, CommonHelperMethods, task, meetingName, assignee) {
+        $scope.assignee = assignee;
+        $scope.meetingName = meetingName;
+
+        TaskResourceHelper.getTaskDetail(task.__identity).get(function (task) {
             task.dueDate = CommonHelperMethods.getDateFromJSONString(task.dueDate);
             $scope.task = task;
-            $scope.meetingName = meetingName;
         });
 
         $scope.ok = function () {
