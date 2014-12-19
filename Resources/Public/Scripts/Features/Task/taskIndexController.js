@@ -48,9 +48,8 @@ angular.module("Task", [])
                 console.log($scope.showAllTasks);
                 $scope.reloadTasks();
             })
-
+            //temporary set meeting name as meeting
             function getMeetingName(task) {
-
                 MeetingResourceHelper.getMeetingDetail(task.meeting).get(function (data) {
                     task.meeting = data.title
                 });

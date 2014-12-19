@@ -41,6 +41,7 @@
                                     <th>Aufgabe</th>
                                     <th>Status</th>
                                     <th>Meeting</th>
+                                    <th>Zuständig</th>
                                     <th>Aktionen</th>
                                 </tr>
                                 </thead>
@@ -53,7 +54,8 @@
 
                                     </td>
                                     <td>{{task.meeting}}</td>
-                                    <td point-me="true" ng-click="open('',task.__identity)">
+                                    <td>{{task.assignee}} (BRAUCH NOCH NAMEN)</td>
+                                    <td point-me="true" ng-click="open('',task.__identity, task.meeting)">
                                        <a>Bearbeiten <i class="fa fa-pencil-square-o"></i></a>
                                     </td>
                                 </tr>

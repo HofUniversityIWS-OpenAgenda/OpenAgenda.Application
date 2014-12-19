@@ -9,9 +9,9 @@ angular.module("Task")
     /*TaskEditController is used to edit and save tasks*/
     .controller('TaskEditCtrl', ['$scope', '$rootScope', '$http', "TaskResourceHelper", "CommonHelperMethods", '$modal', '$log',
         function ($scope, $rootScope, $http, TaskResourceHelper, CommonHelperMethods, $modal, $log) {
-            console.log("Task Edit Controller Loaded", $scope.task);
+            console.log("Task Edit Controller Loaded");
 
-            $scope.open = function (size, identity) {
+            $scope.open = function (size, identity, meetingName) {
 
                 var modalInstance = $modal.open({
                     templateUrl: '/template/task/edit.html',
@@ -20,6 +20,9 @@ angular.module("Task")
                     resolve: {
                         identity: function () {
                             return identity;
+                        },
+                        meetingName: function () {
+                            return meetingName;
                         }
                     }
                 });
@@ -43,10 +46,11 @@ angular.module("Task")
             };
         }])
     /*This controller is used to handle the modal view to view and change a tasks state*/
-    .controller('TaskEditModalInstanceCtrl', function ($scope, $modalInstance, TaskResourceHelper, CommonHelperMethods, identity) {
+    .controller('TaskEditModalInstanceCtrl', function ($scope, $modalInstance, TaskResourceHelper, CommonHelperMethods, identity, meetingName) {
         TaskResourceHelper.getTaskDetail(identity).get(function (task) {
             task.dueDate = CommonHelperMethods.getDateFromJSONString(task.dueDate);
             $scope.task = task;
+            $scope.meetingName = meetingName;
         });
 
         $scope.ok = function () {
