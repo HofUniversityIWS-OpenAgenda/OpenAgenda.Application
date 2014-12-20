@@ -68,6 +68,11 @@ OpenAgenda:
           'OpenAgenda.Application:MeetingManager':
             allow: '*'
             types: ['modify']
+      OpenAgenda\Application\Domain\Model\Person:
+        updateProfile:
+          default:
+            allow: ['name.firstName','name.lastName','primaryElectronicAddress.identifier','phoneNumber']
+            types: ['modify']
     Messaging:
       deliver: 'immediately'
       sender:

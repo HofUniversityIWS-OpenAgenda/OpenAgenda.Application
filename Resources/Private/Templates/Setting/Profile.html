@@ -27,7 +27,7 @@
                         <div class="col-xs-6">
                             <div class="form-group">
                                 <label for="exampleInputFile">Benutzerbild</label>
-                                <input type="file" accept="image/png, image/jpeg" id="exampleInputFile">
+                                <input type="file" accept="image/png, image/jpeg" id="exampleInputFile" disabled="disabled">
                                 <p class="help-block">Bitte nur PNG oder JPEG Dateien auswählen!</p>
                             </div>
                         </div>
@@ -40,7 +40,7 @@
                             <form role="form">
                                 <div class="form-group">
                                     <label for="firstName">Vorname</label>
-                                    <input type="text" class="form-control" id="firstName" placeholder="Vorname eingeben">
+                                    <input type="text" class="form-control" id="firstName" placeholder="Vorname eingeben" ng-model="profile.name.firstName">
                                 </div>
                             </form>
                         </div>
@@ -48,7 +48,7 @@
                             <form role="form">
                                 <div class="form-group">
                                     <label for="lastName">Nachname</label>
-                                    <input type="text" class="form-control" id="lastName" placeholder="Nachname eingeben">
+                                    <input type="text" class="form-control" id="lastName" placeholder="Nachname eingeben" ng-model="profile.name.lastName">
                                 </div>
                             </form>
                         </div>
@@ -58,11 +58,11 @@
                             <form role="form">
                                 <div class="form-group">
                                     <label for="password1">Passwort</label>
-                                    <input type="password" class="form-control" id="password1" placeholder="Passwort eingeben">
+                                    <input type="password" class="form-control" id="password1" placeholder="Passwort eingeben" ng-model="password">
                                 </div>
                                 <div class="form-group">
                                     <label for="password2">Passwort wiederholen</label>
-                                    <input type="password" class="form-control" id="password2" placeholder="Passwort wiederholen">
+                                    <input type="password" class="form-control" id="password2" placeholder="Passwort wiederholen" ng-model="passwordRepeat">
                                 </div>
                             </form>
                         </div>
@@ -70,18 +70,18 @@
                             <form role="form">
                                 <div class="form-group">
                                     <label for="email">E-Mail Adresse</label>
-                                    <input type="email" class="form-control" id="email" placeholder="E-Mail-Adresse">
+                                    <input type="email" class="form-control" id="email" placeholder="E-Mail-Adresse" ng-model="profile.primaryElectronicAddress.identifier">
                                 </div>
                                 <div class="form-group">
                                     <label for="phone">Telefonnummer</label>
-                                    <input type="phone" class="form-control" id="phone" placeholder="Telefonnummer eingeben">
+                                    <input type="phone" class="form-control" id="phone" placeholder="Telefonnummer eingeben" ng-model="profile.phoneNumber">
                                 </div>
                             </form>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-xs-12">
-                            <button type="submit" class="btn btn-danger pull-right">Speichern</button>
+                            <button ng-click="persist()" type="button" class="btn btn-danger pull-right">Speichern</button>
                         </div>
                     </div>
                 </div>
