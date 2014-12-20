@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @Flow\Entity
  * @ORM\Table(name="oa_message")
+ * @OA\ToFlatArray(transientName="$recipient",callback="OpenAgenda\Application\Service\ArrayService->prepare($recipient)")
  */
 class Message {
 

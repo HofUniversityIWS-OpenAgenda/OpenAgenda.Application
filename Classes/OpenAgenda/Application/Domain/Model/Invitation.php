@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @Flow\Entity
  * @ORM\Table(name="oa_invitation", uniqueConstraints={@ORM\UniqueConstraint(columns={"meeting", "participant"})})
+ * @OA\ToFlatArray(scope="show",transientName="$participant",callback="OpenAgenda\Application\Service\ArrayService->prepare($participant)")
  */
 class Invitation implements CreationInterface, ModificationInterface {
 
@@ -41,13 +42,11 @@ class Invitation implements CreationInterface, ModificationInterface {
 
 	/**
 	 * @var \DateTime
-	 * @OA\ToFlatArray(callback="$self->format('c')")
 	 */
 	protected $creationDate;
 
 	/**
 	 * @var \DateTime
-	 * @OA\ToFlatArray(callback="$self->format('c')")
 	 */
 	protected $modificationDate;
 

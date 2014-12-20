@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @Flow\Entity
  * @ORM\Table(name="oa_history")
+ * @OA\ToFlatArray(transientName="$issuer",callback="OpenAgenda\Application\Service\ArrayService->prepare($issuer)")
  */
 class History implements CreationInterface {
 

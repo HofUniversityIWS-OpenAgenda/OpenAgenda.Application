@@ -13,6 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @Flow\Entity
  * @ORM\Table(name="oa_task")
+ * @OA\ToFlatArray(transientName="$assignee",callback="OpenAgenda\Application\Service\ArrayService->prepare($assignee)")
+ * @OA\ToFlatArray(transientName="$meeting",callback="OpenAgenda\Application\Service\ArrayService->prepare($meeting)")
  */
 class Task implements CreationInterface, ModificationInterface {
 
@@ -71,13 +73,11 @@ class Task implements CreationInterface, ModificationInterface {
 
 	/**
 	 * @var \DateTime
-	 * @OA\ToFlatArray(callback="$self->format('c')")
 	 */
 	protected $creationDate;
 
 	/**
 	 * @var \DateTime
-	 * @OA\ToFlatArray(callback="$self->format('c')")
 	 */
 	protected $modificationDate;
 

@@ -13,8 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @Flow\Entity
  * @ORM\Table(name="oa_meeting")
- * @OA\ToFlatArray(transientName="$permissions",callback="OpenAgenda\Application\Service\Security\PermissionService->determineMeetingPermissions($self)")
- * @OA\ToFlatArray(transientName="$invitationStatus",callback="$self->determineInvitationStatus()")
+ * @OA\ToFlatArray(scope="!prepare",transientName="$permissions",callback="OpenAgenda\Application\Service\Security\PermissionService->determineMeetingPermissions($self)")
+ * @OA\ToFlatArray(scope="!prepare",transientName="$invitationStatus",callback="$self->determineInvitationStatus()")
+ * @OA\ToFlatArray(scope="show",transientName="$minuteTaker",callback="OpenAgenda\Application\Service\ArrayService->prepare($minuteTaker)")
  */
 class Meeting implements CreationInterface, ModificationInterface {
 
@@ -50,7 +51,7 @@ class Meeting implements CreationInterface, ModificationInterface {
 	 * @var \TYPO3\Party\Domain\Model\Person
 	 * @ORM\ManyToOne
 	 * @ORM\Column(nullable=true)
-	 * @OA\ToFlatArray(useIdentifier=true)
+	 * @OA\ToFlatArray(scope="show",useIdentifier=true)
 	 */
 	protected $minuteTaker;
 
@@ -63,7 +64,7 @@ class Meeting implements CreationInterface, ModificationInterface {
 	/**
 	 * @var string
 	 * @ORM\Column(nullable=true)
-	 * @OA\ToFlatArray
+	 * @OA\ToFlatArray(scope="!prepare")
 	 */
 	protected $location;
 
@@ -95,13 +96,11 @@ class Meeting implements CreationInterface, ModificationInterface {
 
 	/**
 	 * @var \DateTime
-	 * @OA\ToFlatArray(callback="$self->format('c')")
 	 */
 	protected $creationDate;
 
 	/**
 	 * @var \DateTime
-	 * @OA\ToFlatArray(callback="$self->format('c')")
 	 */
 	protected $modificationDate;
 

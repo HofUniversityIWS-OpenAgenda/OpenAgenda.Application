@@ -210,10 +210,10 @@ class ArrayService {
 	 * @return mixed
 	 */
 	public function prepare($subject) {
-		$result = $subject;
-
 		if ($subject instanceof \TYPO3\Party\Domain\Model\Person) {
 			$result = $this->preparePerson($subject);
+		} else {
+			$result = $this->flatten($subject, 'prepare');
 		}
 
 		return $result;
