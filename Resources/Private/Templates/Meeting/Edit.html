@@ -160,7 +160,7 @@
                                             <label style="margin-top: 20px">Hinzugefügte Teinehmer</label>
                                             <ul>
                                                 <li ng-repeat="invitation in meeting.invitations" oa-person-resolver="invitation.participant as person">
-                                                    {{person.name.firstName}} {{person.name.lastName}} <{{person.mail}}>
+                                                    {{person.name.firstName}} {{person.name.lastName}} <{{person.$mail}}>
                                                     <!--<select style="display: inline; width: 200px;" class="form-control" ng-model="invitation.role" name=“role”>
                                                         <option ng-repeat="role in meetingsRoles" value="{{role.value}}">
                                                             {{role.text}}
@@ -200,7 +200,7 @@
                                                 <tbody>
                                                     <tr class="odd gradeX" ng-repeat="invitation in meeting.invitations" oa-person-resolver="invitation.participant as person">
                                                         <td>{{person.name.lastName}}, {{person.name.firstName}}</td>
-                                                        <td>{{person.mail}}</td>
+                                                        <td>{{person.$mail}}</td>
                                                         <td>{{invitation.status}}</td>
                                                     </tr>
                                                 </tbody>

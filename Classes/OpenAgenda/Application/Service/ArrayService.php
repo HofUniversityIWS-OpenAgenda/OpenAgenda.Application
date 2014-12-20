@@ -227,10 +227,15 @@ class ArrayService {
 		$preparation = array(
 			'__identity' => $this->persistenceManager->getIdentifierByObject($person),
 			'name' => array(
+				'__identity' => $this->persistenceManager->getIdentifierByObject($person->getName()),
 				'firstName' => $person->getName()->getFirstName(),
 				'lastName' => $person->getName()->getLastName(),
 			),
-			'mail' => $person->getPrimaryElectronicAddress()->getIdentifier(),
+			'primaryElectronicAddress' => array(
+				'__identity' => $this->persistenceManager->getIdentifierByObject($person->getPrimaryElectronicAddress()),
+				'identifier' => $person->getPrimaryElectronicAddress()->getIdentifier(),
+			),
+			'$mail' => $person->getPrimaryElectronicAddress()->getIdentifier(),
 		);
 
 		if ($person instanceof \OpenAgenda\Application\Domain\Model\Person) {

@@ -108,7 +108,7 @@
                                     <div ng-show="meeting.invitations.length > 0">
                                         <label style="margin-top: 20px">Hinzugefügte Teinehmer</label>
                                         <ul>
-                                            <li ng-repeat="invitation in meeting.invitations">{{invitation.mail}} <a point-me="true" ng-click="deleteInvitation($index)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                            <li ng-repeat="invitation in meeting.invitations">{{invitation.$mail}} <a point-me="true" ng-click="deleteInvitation($index)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                             </a></li>
                                         </ul>
                                     </div>
