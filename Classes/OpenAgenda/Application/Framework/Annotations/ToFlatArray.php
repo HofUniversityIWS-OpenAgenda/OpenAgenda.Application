@@ -37,7 +37,12 @@ final class ToFlatArray {
 	/**
 	 * @var array
 	 */
-	protected $scopeNames;
+	protected $scopeNames = array();
+
+	/**
+	 * @var array
+	 */
+	protected $denyScopeNames = array();
 
 	/**
 	 * @param array $values
@@ -54,13 +59,25 @@ final class ToFlatArray {
 		}
 
 		if (isset($values['scope'])) {
+			$scopeNames = NULL;
+
 			if (is_array($values['scope'])) {
-				$this->scopeNames = $values['scope'];
+				$scopeNames = $values['scope'];
 			} elseif (is_string($values['scope'])) {
-				$this->scopeNames = array_map(
+				$scopeNames = array_map(
 					'trim',
 					explode(',', $values['scope'])
 				);
+			}
+
+			if ($scopeNames !== NULL) {
+				foreach ($scopeNames as $scopeName) {
+					if ($scopeName{0} === '!') {
+						$this->denyScopeNames[] = substr($scopeName, 1);
+					} else {
+						$this->scopeNames[] = $scopeName;
+					}
+				}
 			}
 		}
 	}
@@ -88,6 +105,13 @@ final class ToFlatArray {
 	 */
 	public function getScopeNames() {
 		return $this->scopeNames;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getDenyScopeNames() {
+		return $this->denyScopeNames;
 	}
 
 }

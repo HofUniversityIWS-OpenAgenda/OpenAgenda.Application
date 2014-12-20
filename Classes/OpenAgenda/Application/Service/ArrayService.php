@@ -100,8 +100,7 @@ class ArrayService {
 			);
 
 			// Skip property if requested scope name is not defined for the current entity property
-			$propertyScopeNames = $toArrayAnnotation->getScopeNames();
-			if ($propertyScopeNames !== NULL && $scopeName !== NULL && !in_array($scopeName, $propertyScopeNames)) {
+			if (!$this->validateScopeName($toArrayAnnotation, $scopeName)) {
 				continue;
 			}
 
@@ -148,6 +147,11 @@ class ArrayService {
 		/** @var \OpenAgenda\Application\Framework\Annotations\ToFlatArray $toArrayAnnotation */
 		foreach ($classAnnotations as $toArrayAnnotation) {
 			if ($toArrayAnnotation->getTransientName() === NULL || $toArrayAnnotation->getCallback() === NULL) {
+				continue;
+			}
+
+			// Skip property if requested scope name is not defined for the current entity property
+			if (!$this->validateScopeName($toArrayAnnotation, $scopeName)) {
 				continue;
 			}
 
@@ -244,6 +248,27 @@ class ArrayService {
 		}
 
 		return $className;
+	}
+
+	/**
+	 * @param \OpenAgenda\Application\Framework\Annotations\ToFlatArray $annotation
+	 * @param string|NULL $scopeName
+	 * @return bool
+	 */
+	protected function validateScopeName(\OpenAgenda\Application\Framework\Annotations\ToFlatArray $annotation, $scopeName) {
+		// Skip property if requested scope name is not defined for the current entity property
+		$scopeNames = $annotation->getScopeNames();
+		$denyScopeNames = $annotation->getDenyScopeNames();
+
+		if (!empty($scopeNames) && $scopeName !== NULL && !in_array($scopeName, $scopeNames)) {
+			return FALSE;
+		}
+
+		if (!empty($denyScopeNames) && $scopeName !== NULL && in_array($scopeName, $denyScopeNames)) {
+			return FALSE;
+		}
+
+		return TRUE;
 	}
 
 }
