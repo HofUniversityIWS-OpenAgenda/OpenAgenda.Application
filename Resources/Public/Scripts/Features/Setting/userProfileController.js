@@ -15,6 +15,10 @@ angular.module("Setting", [])
             $scope.profile = profile;
         });
 
+        $scope.canModifyPassword = function() {
+            return $scope.profile.$currentProvider === 'DefaultProvider';
+        };
+
         $scope.persist = function() {
             $http.post('setting/updateProfile.json', { person: oaUtility.jsonCast($scope.profile) })
                 .success(function() {

@@ -57,24 +57,34 @@
                         <div class="col-lg-6 col-md-6 col-xs-12">
                             <form role="form">
                                 <div class="form-group">
-                                    <label for="password1">Passwort</label>
-                                    <input type="password" class="form-control" id="password1" placeholder="Passwort eingeben" ng-model="password">
-                                </div>
-                                <div class="form-group">
-                                    <label for="password2">Passwort wiederholen</label>
-                                    <input type="password" class="form-control" id="password2" placeholder="Passwort wiederholen" ng-model="passwordRepeat">
+                                    <label for="email">E-Mail Adresse</label>
+                                    <input type="email" class="form-control" id="email" placeholder="E-Mail-Adresse" ng-model="profile.primaryElectronicAddress.identifier">
                                 </div>
                             </form>
                         </div>
                         <div class="col-lg-6 col-md-6 col-xs-12">
                             <form role="form">
                                 <div class="form-group">
-                                    <label for="email">E-Mail Adresse</label>
-                                    <input type="email" class="form-control" id="email" placeholder="E-Mail-Adresse" ng-model="profile.primaryElectronicAddress.identifier">
-                                </div>
-                                <div class="form-group">
                                     <label for="phone">Telefonnummer</label>
                                     <input type="phone" class="form-control" id="phone" placeholder="Telefonnummer eingeben" ng-model="profile.phoneNumber">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row" ng-if="canModifyPassword()">
+                        <div class="col-lg-6 col-md-6 col-xs-12">
+                            <form role="form">
+                                <div class="form-group">
+                                    <label for="password1">Passwort</label>
+                                    <input type="password" class="form-control" id="password1" placeholder="Passwort eingeben" ng-model="password">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-xs-12">
+                            <form role="form">
+                                <div class="form-group">
+                                    <label for="password2">Passwort wiederholen</label>
+                                    <input type="password" class="form-control" id="password2" placeholder="Passwort wiederholen" ng-model="passwordRepeat">
                                 </div>
                             </form>
                         </div>
@@ -87,46 +97,48 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><i class="fa fa-bell fa-fw"></i>LDAP Login</h3>
-                </div>
-                <!-- /.panel-heading -->
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" ng-model="checked"> LDAP Login verwenden
-                                </label>
+        <f:comment>
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><i class="fa fa-bell fa-fw"></i>LDAP Login</h3>
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" ng-model="checked"> LDAP Login verwenden
+                                    </label>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row" ng-show="checked">
-                        <div class="col-lg-12 col-md-12 col-xs-12">
-                            <form role="form">
-                                <div class="form-group">
-                                    <label for="LDAPUserName">Benutzername</label>
-                                    <input type="text" class="form-control" id="LDAPUserName"
-                                           placeholder="Benutzername">
-                                </div>
-                                <div class="form-group">
-                                    <label for="LDAPPassword">Kennwort</label>
-                                    <input type="password" class="form-control" id="LDAPPassword"
-                                           placeholder="Kennwort">
-                                </div>
-                            </form>
+                        <div class="row" ng-show="checked">
+                            <div class="col-lg-12 col-md-12 col-xs-12">
+                                <form role="form">
+                                    <div class="form-group">
+                                        <label for="LDAPUserName">Benutzername</label>
+                                        <input type="text" class="form-control" id="LDAPUserName"
+                                               placeholder="Benutzername">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="LDAPPassword">Kennwort</label>
+                                        <input type="password" class="form-control" id="LDAPPassword"
+                                               placeholder="Kennwort">
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row" ng-show="checked">
-                        <div class="col-xs-12">
-                            <button type="submit" class="btn btn-danger pull-right">Speichern</button>
+                        <div class="row" ng-show="checked">
+                            <div class="col-xs-12">
+                                <button type="submit" class="btn btn-danger pull-right">Speichern</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </f:comment>
     </div>
 </f:section>
 <!-- Page Content ------------------------------------------- -->

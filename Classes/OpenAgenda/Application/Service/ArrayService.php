@@ -41,6 +41,12 @@ class ArrayService {
 	protected $objectService;
 
 	/**
+	 * @Flow\Inject
+	 * @var \TYPO3\Flow\Security\Context
+	 */
+	protected $securityContext;
+
+	/**
 	 * @param mixed $source
 	 * @param string $scopeName
 	 * @return array
@@ -237,6 +243,10 @@ class ArrayService {
 			),
 			'$mail' => $person->getPrimaryElectronicAddress()->getIdentifier(),
 		);
+
+		if ($this->securityContext->getParty() === $person) {
+			$preparation['$currentProvider'] = $this->securityContext->getAccount()->getAuthenticationProviderName();
+		}
 
 		if ($person instanceof \OpenAgenda\Application\Domain\Model\Person) {
 			$preparation['phoneNumber'] = $person->getPhoneNumber();
