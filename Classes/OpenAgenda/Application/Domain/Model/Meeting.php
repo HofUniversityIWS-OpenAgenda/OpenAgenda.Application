@@ -262,7 +262,7 @@ class Meeting implements CreationInterface, ModificationInterface {
 	/**
 	 * @param \TYPO3\Party\Domain\Model\Person
 	 */
-	public function setAssignee(\TYPO3\Party\Domain\Model\Person $minuteTaker) {
+	public function setMinuteTaker(\TYPO3\Party\Domain\Model\Person $minuteTaker = NULL) {
 		$this->minuteTaker = $minuteTaker;
 	}
 
