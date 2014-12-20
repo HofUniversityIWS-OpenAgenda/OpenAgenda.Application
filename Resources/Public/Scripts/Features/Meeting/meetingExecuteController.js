@@ -22,8 +22,6 @@ angular.module("Meeting")
             $scope.invitedUsers = [];
             // TODO: invitedUsers from Meeting
             for (var i = 0; i < $scope.meeting.invitations.length; i++) {
-                console.log('bla2', i,$scope.meeting.invitations[i].$participant,
-                 $scope.meeting.invitations[i].$participant.name.firstName , $scope.meeting.invitations[i].$participant.mail);
 
                 $scope.invitedUsers.push({value: $scope.meeting.invitations[i].$participant.__identity,
                     text: $scope.meeting.invitations[i].$participant.name.firstName +' '+
@@ -31,16 +29,6 @@ angular.module("Meeting")
                             $scope.meeting.invitations[i].$participant.mail + '>'
                 });
 
-                $scope.invitedUsers.push({value: $scope.meeting.invitations[i].$participant.__identity +'2',
-                    text: $scope.meeting.invitations[i].$participant.name.firstName +' '+
-                    $scope.meeting.invitations[i].$participant.name.lastName +' <'+
-                    $scope.meeting.invitations[i].$participant.mail + '>2'
-                });
-                $scope.invitedUsers.push({value: $scope.meeting.invitations[i].$participant.__identity +'3',
-                    text: $scope.meeting.invitations[i].$participant.name.firstName +' '+
-                    $scope.meeting.invitations[i].$participant.name.lastName +' <'+
-                    $scope.meeting.invitations[i].$participant.mail + '>3'
-                });
             };
 
             //$scope.invitedUsers = $scope.meeting.invitations;
