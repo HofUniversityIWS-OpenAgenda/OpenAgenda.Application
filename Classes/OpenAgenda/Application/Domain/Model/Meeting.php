@@ -13,6 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @Flow\Entity
  * @ORM\Table(name="oa_meeting")
+ * @OA\ToFlatArray(transientName="$permissions",callback="OpenAgenda\Application\Service\Security\PermissionService->determineMeetingPermissions($self)")
+ * @OA\ToFlatArray(transientName="$invitationStatus",callback="$self->determineInvitationStatus()")
  */
 class Meeting implements CreationInterface, ModificationInterface {
 
@@ -43,20 +45,6 @@ class Meeting implements CreationInterface, ModificationInterface {
 	 * @OA\ToFlatArray(scope="show")
 	 */
 	protected $invitations;
-
-	/**
-	 * @var array
-	 * @Flow\Transient
-	 * @OA\ToFlatArray(callback="$self->determineInvitationStatus()")
-	 */
-	protected $invitationStatus;
-
-	/**
-	 * @var array
-	 * @Flow\Transient
-	 * @OA\ToFlatArray(callback="OpenAgenda\Application\Service\Security\PermissionService->determineMeetingPermissions($self)")
-	 */
-	protected $permissions;
 
 	/**
 	 * @var \TYPO3\Party\Domain\Model\Person
