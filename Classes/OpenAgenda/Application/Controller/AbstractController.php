@@ -34,6 +34,12 @@ class AbstractController extends ActionController {
 
 	/**
 	 * @Flow\Inject
+	 * @var \OpenAgenda\Application\Service\Security\PropertyMappingService
+	 */
+	protected $propertyMappingService;
+
+	/**
+	 * @Flow\Inject
 	 * @var \OpenAgenda\Application\Service\Communication\MessagingService
 	 */
 	protected $messagingService;
@@ -62,8 +68,8 @@ class AbstractController extends ActionController {
 	/**
 	 * @return void
 	 */
-	protected  function initializeAction() {
-
+	protected function initializeAction() {
+		$this->propertyMappingService->configure($this->arguments, $this->request->getControllerActionName());
 	}
 
 	/**

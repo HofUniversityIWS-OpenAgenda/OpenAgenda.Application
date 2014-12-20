@@ -55,6 +55,19 @@ OpenAgenda:
               validators:
                 UniqueEntity:
                   identityProperties: ['accountIdentifier']
+    PropertyMapping:
+      OpenAgenda\Application\Domain\Model\Task:
+        create:
+          'OpenAgenda.Application:MeetingManager':
+            allow: '*'
+            types: ['create']
+        update:
+          default:
+            allow: ['status']
+            types: ['modify']
+          'OpenAgenda.Application:MeetingManager':
+            allow: '*'
+            types: ['modify']
     Messaging:
       deliver: 'immediately'
       sender:
