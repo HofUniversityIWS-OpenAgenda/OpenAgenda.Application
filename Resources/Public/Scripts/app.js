@@ -57,12 +57,12 @@ Application.config(['$routeProvider',
                 controller: 'CalendarDetailCtrl'
             }).
             when('/settings/user', {
-                templateUrl: '/template/setting/userSetting.html',
+                templateUrl: '/template/setting/Setting.html',
                 controller: 'userSettingCtrl',
                 label:'Benachrichtigungseinstellung'
             }).
             when('/settings/user/profile', {
-                templateUrl: '/template/setting/userProfile.html',
+                templateUrl: '/template/setting/Profile.html',
                 controller: 'userProfileCtrl',
                 label:'Profilverwaltung'
             }).
