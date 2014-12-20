@@ -19,6 +19,32 @@ angular.module("Meeting")
 
             data.scheduledStartDate = CommonHelperMethods.getDateFromJSONString(data.scheduledStartDate);
 
+            $scope.invitedUsers = [];
+            // TODO: invitedUsers from Meeting
+            for (var i = 0; i < $scope.meeting.invitations.length; i++) {
+                console.log('bla2', i,$scope.meeting.invitations[i].$participant,
+                 $scope.meeting.invitations[i].$participant.name.firstName , $scope.meeting.invitations[i].$participant.mail);
+
+                $scope.invitedUsers.push({value: $scope.meeting.invitations[i].$participant.__identity,
+                    text: $scope.meeting.invitations[i].$participant.name.firstName +' '+
+                            $scope.meeting.invitations[i].$participant.name.lastName +' <'+
+                            $scope.meeting.invitations[i].$participant.mail + '>'
+                });
+
+                $scope.invitedUsers.push({value: $scope.meeting.invitations[i].$participant.__identity +'2',
+                    text: $scope.meeting.invitations[i].$participant.name.firstName +' '+
+                    $scope.meeting.invitations[i].$participant.name.lastName +' <'+
+                    $scope.meeting.invitations[i].$participant.mail + '>2'
+                });
+                $scope.invitedUsers.push({value: $scope.meeting.invitations[i].$participant.__identity +'3',
+                    text: $scope.meeting.invitations[i].$participant.name.firstName +' '+
+                    $scope.meeting.invitations[i].$participant.name.lastName +' <'+
+                    $scope.meeting.invitations[i].$participant.mail + '>3'
+                });
+            };
+
+            //$scope.invitedUsers = $scope.meeting.invitations;
+
         }, function (err) {
             alert('request failed');
         });
@@ -51,7 +77,7 @@ angular.module("Meeting")
 
         $scope.getProtocolItem = function(sorting){
             var found = false;
-            for (var i = 0; $scope.meeting.protocolItems.length; i++)
+            for (var i = 0; i < $scope.meeting.protocolItems.length; i++)
             {
                 if ($scope.meeting.protocolItems[i].sorting == sorting)
                 {
@@ -75,21 +101,10 @@ angular.module("Meeting")
         };
 
 
-        $scope.imgTask = {
-
-        };
-
-        // TODO: invitedUsers from Meeting
-        $scope.invitedUsers = [
-            {value: 1, text: 'tt@tt.de'},
-            {value: 2, text: 'xx@tt.de'},
-            {value: 3, text: 'txxt@tt.de'},
-            {value: 4, text: 'tfggt@tt.de'}
-        ];
-
         $scope.showStatus = function() {
-            var selected = $filter('filter')($scope.invitedUsers, {value: $scope.imgTask.user});
-            return ($scope.imgTask.user && selected.length) ? selected[0].text : 'Verantwortlichen wählen';
+            var selected = $filter('filter')($scope.invitedUsers, {value: $scope.task.user});
+            console.log('selected', $scope.task.user && selected.length, ($scope.task.user && selected.length != undefined) ? selected[0].value : 'undef');
+            return ($scope.task.user && selected.length) ? selected[0].text : 'Verantwortlichen wählen';
         };
 
         $scope.startMeetng = function(){
@@ -97,6 +112,7 @@ angular.module("Meeting")
             {
                 $scope.meeting.startDate = new Date();
                 $scope.meeting.status = 2;
+                console.log('meetingStart');
             }
 
         };
