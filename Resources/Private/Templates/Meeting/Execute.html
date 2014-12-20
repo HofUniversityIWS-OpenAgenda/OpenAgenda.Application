@@ -84,11 +84,11 @@
                                         <h4>Protokoll</h4>
                                         <div class="Protokoll">
                                             <span ng-switch on="editMode">
-                                                <a ng-switch-when="true" href="#" editable-textarea="getProtocolItem(agendaItem.sorting).description" e-rows="7" e-cols="40">
-                                                    <pre>{{ getProtocolItem(agendaItem.sorting).description || 'Noch kein Protokolleintrag' }}</pre>
+                                                <a ng-switch-when="true" href="#" editable-textarea="agendaItem.note.description" e-rows="7" e-cols="40">
+                                                    <pre>{{ agendaItem.note.description || 'Noch kein Protokolleintrag' }}</pre>
                                                 </a>
                                                 <div ng-switch-default>
-                                                    <pre>{{ getProtocolItem(agendaItem.sorting).description || 'Noch kein Protokolleintrag' }}</pre>
+                                                    <pre>{{ agendaItem.note.description || 'Noch kein Protokolleintrag' }}</pre>
                                                 </div>
                                             </span>
 
