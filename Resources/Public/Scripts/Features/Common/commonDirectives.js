@@ -20,6 +20,7 @@ angular.module("CommonDirectives", [])
      *        </div>
      * ```
      * @author Oliver Hader <oliver@typo3.org>
+     * @note Scoping in AngularJS' modal windows is tricky and won't work out of the box!
      */
     .directive('oaPersonResolver', function($parse, $http) {
         function resolveScope(scope, attr) {
@@ -51,7 +52,6 @@ angular.module("CommonDirectives", [])
 
         return {
             link: function(scope, element, attr) {
-                scope.test = 'Test';
                 var $scope = resolveScope(scope, attr);
                 var components = parseComponents(attr.oaPersonResolver);
                 if (components === null) {
@@ -63,14 +63,6 @@ angular.module("CommonDirectives", [])
                     });
             }
         };
-
-        var as = attr.as || 'person';
-        var identity = attr.identity || null;
-
-        $scope[as] = {};
-        if (identity === null) return;
-
-        $http.get('person/' + identity + '/show.json').success(function(person) { $scope[as] = person; });
     })
     .directive('taskStatus', function () {
 
