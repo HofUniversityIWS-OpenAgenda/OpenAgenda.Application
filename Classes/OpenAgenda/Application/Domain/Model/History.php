@@ -18,7 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
 class History implements CreationInterface {
 
 	/**
-	 * @var \TYPO3\Party\Domain\Model\Person
+	 * @var \OpenAgenda\Application\Domain\Model\Person
 	 * @ORM\ManyToOne
 	 * @OA\ToFlatArray(useIdentifier=true)
 	 */
@@ -71,7 +71,7 @@ class History implements CreationInterface {
 	}
 
 	/**
-	 * @return \TYPO3\Party\Domain\Model\Person
+	 * @return \OpenAgenda\Application\Domain\Model\Person
 	 */
 	public function getIssuer() {
 		return $this->issuer;
@@ -106,9 +106,9 @@ class History implements CreationInterface {
 	}
 
 	/**
-	 * @param \TYPO3\Party\Domain\Model\Person $issuer
+	 * @param \OpenAgenda\Application\Domain\Model\Person $issuer
 	 */
-	public function setIssuer(\TYPO3\Party\Domain\Model\Person $issuer) {
+	public function setIssuer(\OpenAgenda\Application\Domain\Model\Person $issuer) {
 		$this->issuer = $issuer;
 	}
 

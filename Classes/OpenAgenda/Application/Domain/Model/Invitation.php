@@ -28,7 +28,7 @@ class Invitation implements CreationInterface, ModificationInterface {
 	protected $meeting;
 
 	/**
-	 * @var \TYPO3\Party\Domain\Model\Person
+	 * @var \OpenAgenda\Application\Domain\Model\Person
 	 * @ORM\ManyToOne
 	 * @OA\ToFlatArray(useIdentifier=true)
 	 */
@@ -72,7 +72,7 @@ class Invitation implements CreationInterface, ModificationInterface {
 	}
 
 	/**
-	 * @return \TYPO3\Party\Domain\Model\Person
+	 * @return \OpenAgenda\Application\Domain\Model\Person
 	 */
 	public function getParticipant() {
 		return $this->participant;
@@ -107,9 +107,9 @@ class Invitation implements CreationInterface, ModificationInterface {
 	}
 
 	/**
-	 * @param \TYPO3\Party\Domain\Model\Person $participant
+	 * @param \OpenAgenda\Application\Domain\Model\Person $participant
 	 */
-	public function setParticipant($participant) {
+	public function setParticipant(\OpenAgenda\Application\Domain\Model\Person $participant) {
 		$this->participant = $participant;
 	}
 

@@ -48,7 +48,7 @@ class Meeting implements CreationInterface, ModificationInterface {
 	protected $invitations;
 
 	/**
-	 * @var \TYPO3\Party\Domain\Model\Person
+	 * @var \OpenAgenda\Application\Domain\Model\Person
 	 * @ORM\ManyToOne
 	 * @ORM\Column(nullable=true)
 	 * @OA\ToFlatArray(scope="show",useIdentifier=true)
@@ -163,7 +163,7 @@ class Meeting implements CreationInterface, ModificationInterface {
 	}
 
 	/**
-	 * @return \TYPO3\Party\Domain\Model\Person
+	 * @return \OpenAgenda\Application\Domain\Model\Person
 	 */
 	public function getMinuteTaker() {
 		return $this->minuteTaker;
@@ -247,9 +247,9 @@ class Meeting implements CreationInterface, ModificationInterface {
 	}
 
 	/**
-	 * @param \TYPO3\Party\Domain\Model\Person
+	 * @param \OpenAgenda\Application\Domain\Model\Person $minuteTaker
 	 */
-	public function setMinuteTaker(\TYPO3\Party\Domain\Model\Person $minuteTaker = NULL) {
+	public function setMinuteTaker(\OpenAgenda\Application\Domain\Model\Person $minuteTaker = NULL) {
 		$this->minuteTaker = $minuteTaker;
 	}
 

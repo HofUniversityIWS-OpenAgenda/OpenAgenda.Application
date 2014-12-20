@@ -34,7 +34,7 @@ class Task implements CreationInterface, ModificationInterface {
 	protected $meeting;
 
 	/**
-	 * @var \TYPO3\Party\Domain\Model\Person
+	 * @var \OpenAgenda\Application\Domain\Model\Person
 	 * @ORM\ManyToOne
 	 * @OA\ToFlatArray(useIdentifier=true)
 	 */
@@ -96,7 +96,7 @@ class Task implements CreationInterface, ModificationInterface {
 	}
 
 	/**
-	 * @return \TYPO3\Party\Domain\Model\Person
+	 * @return \OpenAgenda\Application\Domain\Model\Person
 	 */
 	public function getAssignee() {
 		return $this->assignee;
@@ -152,9 +152,9 @@ class Task implements CreationInterface, ModificationInterface {
 	}
 
 	/**
-	 * @param \TYPO3\Party\Domain\Model\Person
+	 * @param \OpenAgenda\Application\Domain\Model\Person
 	 */
-	public function setAssignee(\TYPO3\Party\Domain\Model\Person $assignee) {
+	public function setAssignee(\OpenAgenda\Application\Domain\Model\Person $assignee) {
 		$this->assignee = $assignee;
 	}
 

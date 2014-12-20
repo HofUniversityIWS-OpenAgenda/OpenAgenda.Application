@@ -7,7 +7,7 @@ namespace OpenAgenda\Application\Service\Communication;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Party\Domain\Model\Person;
+use \OpenAgenda\Application\Domain\Model\Person;
 use TYPO3\Flow\Security\Account;
 use OpenAgenda\Application\Domain\Model\Message;
 

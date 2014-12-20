@@ -14,7 +14,7 @@ use TYPO3\Flow\Persistence\Repository;
  */
 class ElectronicAddressRepository extends \TYPO3\Party\Domain\Repository\PartyRepository {
 
-	const ENTITY_CLASSNAME = 'TYPO3\Party\Domain\Model\ElectronicAddress';
+	const ENTITY_CLASSNAME = 'TYPO3\\Party\\Domain\\Model\\ElectronicAddress';
 
 	/**
 	 * @param array $mailAddresses

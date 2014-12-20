@@ -34,7 +34,7 @@ class DashboardController extends AbstractController {
 	public function indexAction() {
 		$account = $this->securityContext->getAccount();
 
-		/** @var \TYPO3\Party\Domain\Model\Person $person */
+		/** @var \OpenAgenda\Application\Domain\Model\Person $person */
 		$person = $account->getParty();
 
 		$value = array(

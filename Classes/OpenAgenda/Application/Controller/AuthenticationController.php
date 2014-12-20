@@ -36,12 +36,6 @@ class AuthenticationController extends \TYPO3\Flow\Security\Authentication\Contr
 	protected $personFactory;
 
 	/**
-	 * @Flow\Inject
-	 * @var \TYPO3\Party\Domain\Repository\PartyRepository
-	 */
-	protected $partyRepository;
-
-	/**
 	 * @var array
 	 * @Flow\Inject(setting="Authentication")
 	 */

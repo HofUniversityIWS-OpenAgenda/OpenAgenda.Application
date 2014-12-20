@@ -26,7 +26,7 @@ class PersonController extends AbstractController {
 	public function indexAction() {
 		$persons = array();
 
-		/** @var \TYPO3\Party\Domain\Model\Person $person */
+		/** @var \OpenAgenda\Application\Domain\Model\Person $person */
 		foreach ($this->personRepository->findAll() as $person) {
 			if (!$this->hasValidAccount($person)) {
 				continue;
@@ -38,18 +38,18 @@ class PersonController extends AbstractController {
 	}
 
 	/**
-	 * @param \TYPO3\Party\Domain\Model\Person $person
+	 * @param \OpenAgenda\Application\Domain\Model\Person $person
 	 * @return void
 	 */
-	public function showAction(\TYPO3\Party\Domain\Model\Person $person) {
+	public function showAction(\OpenAgenda\Application\Domain\Model\Person $person) {
 		$this->view->assign('value', $this->arrayService->prepare($person));
 	}
 
 	/**
-	 * @param \TYPO3\Party\Domain\Model\Person $person
+	 * @param \OpenAgenda\Application\Domain\Model\Person $person
 	 * @return bool
 	 */
-	protected function hasValidAccount(\TYPO3\Party\Domain\Model\Person $person) {
+	protected function hasValidAccount(\OpenAgenda\Application\Domain\Model\Person $person) {
 		/** @var \TYPO3\Flow\Security\Account $account */
 		foreach ($person->getAccounts() as $account) {
 			if ($account->getExpirationDate() === NULL || (int)$account->getExpirationDate()->format('U') !== 0) {

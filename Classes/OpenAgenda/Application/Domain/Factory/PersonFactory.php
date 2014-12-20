@@ -7,7 +7,7 @@ namespace OpenAgenda\Application\Domain\Factory;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Party\Domain\Model\Person;
+use OpenAgenda\Application\Domain\Model\Person;
 use TYPO3\Party\Domain\Model\PersonName;
 use TYPO3\Party\Domain\Model\ElectronicAddress;
 
@@ -41,7 +41,7 @@ class PersonFactory {
 		$electronicAddress->setIdentifier($email);
 		$electronicAddress->setType(ElectronicAddress::TYPE_EMAIL);
 
-		$name = new \TYPO3\Party\Domain\Model\PersonName();
+		$name = new PersonName();
 		// @todo Enrich with real data once registration form requires that
 		$name->setFirstName('Anonymous');
 		$name->setLastName('User');
@@ -67,7 +67,7 @@ class PersonFactory {
 		$electronicAddress->setIdentifier($email);
 		$electronicAddress->setType(ElectronicAddress::TYPE_EMAIL);
 
-		$name = new \TYPO3\Party\Domain\Model\PersonName();
+		$name = new PersonName();
 		$name->setFirstName($firstName);
 		$name->setLastName($lastName);
 

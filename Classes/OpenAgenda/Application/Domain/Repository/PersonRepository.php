@@ -14,11 +14,11 @@ use TYPO3\Flow\Persistence\Repository;
  */
 class PersonRepository extends \TYPO3\Party\Domain\Repository\PartyRepository {
 
-	const ENTITY_CLASSNAME = 'TYPO3\Party\Domain\Model\Person';
+	const ENTITY_CLASSNAME = 'OpenAgenda\\Application\\Domain\\Model\\Person';
 
 	/**
 	 * @param array|\TYPO3\Party\Domain\Model\ElectronicAddress[] $electronicAddresses
-	 * @return \TYPO3\Flow\Persistence\QueryResultInterface|\TYPO3\Party\Domain\Model\Person[]
+	 * @return \TYPO3\Flow\Persistence\QueryResultInterface|\OpenAgenda\Application\Domain\Model\Person[]
 	 */
 	public function findByElectronicAddresses(array $electronicAddresses) {
 		$constraints = array();

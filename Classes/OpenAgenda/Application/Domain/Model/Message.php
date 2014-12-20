@@ -41,7 +41,7 @@ class Message {
 	protected $attachments;
 
 	/**
-	 * @var \TYPO3\Party\Domain\Model\Person
+	 * @var \OpenAgenda\Application\Domain\Model\Person
 	 * @ORM\ManyToOne
 	 * @OA\ToFlatArray(useIdentifier=true)
 	 */
@@ -101,7 +101,7 @@ class Message {
 	}
 
 	/**
-	 * @return \TYPO3\Party\Domain\Model\Person
+	 * @return \OpenAgenda\Application\Domain\Model\Person
 	 */
 	public function getRecipient() {
 		return $this->recipient;
@@ -150,9 +150,9 @@ class Message {
 	}
 
 	/**
-	 * @param \TYPO3\Party\Domain\Model\Person $recipient
+	 * @param \OpenAgenda\Application\Domain\Model\Person $recipient
 	 */
-	public function setRecipient(\TYPO3\Party\Domain\Model\Person $recipient) {
+	public function setRecipient(\OpenAgenda\Application\Domain\Model\Person $recipient) {
 		$this->recipient = $recipient;
 	}
 
