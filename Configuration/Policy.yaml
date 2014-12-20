@@ -1,4 +1,4 @@
 roles:
   Participant: []
-  MeetingManager: [Participant]
-  Administrator: [MeetingManager]
+  MeetingManager: ['Participant']
+  Administrator: ['MeetingManager']

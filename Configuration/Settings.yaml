@@ -13,7 +13,7 @@ TYPO3:
 OpenAgenda:
   Application:
     Authentication:
-      defaultRole: 'OpenAgenda.Application:Listener'
+      defaultRole: 'OpenAgenda.Application:Participant'
       directory:
         mailIdentifier: 'mail'
       postLoginUri: '/'
