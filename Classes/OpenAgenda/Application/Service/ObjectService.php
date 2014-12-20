@@ -68,7 +68,7 @@ class ObjectService {
 		foreach ($variables as $key => $value) {
 			if ($value === '$self') {
 				$value = $subject;
-			} elseif ($value{0} === '$') {
+			} elseif (is_string($value) && substr($value, 0, 1) === '$') {
 				$variableName = substr($value, 1);
 				$value = ObjectAccess::getProperty($subject, $variableName);
 			}
