@@ -181,7 +181,7 @@ class TestDataCommandController extends CommandController {
 			$newTask->setCreationDate(new \DateTime());
 			$newTask->setModificationDate(new \DateTime());
 			$newTask->setStatus(0);
-			$newTask->setAssignee($adminAccount);
+			$newTask->setAssignee($adminAccount->getParty());
 			$this->taskRepository->add($newTask);
 			$this->historyService->invoke($newTask);
 		}
