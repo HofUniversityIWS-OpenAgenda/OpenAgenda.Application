@@ -60,7 +60,7 @@ class ArrayService {
 	 */
 	public function flattenObject($source, $scopeName = NULL) {
 		$target = array();
-		$className = get_class($source);
+		$className = $this->resolveClassName($source);
 
 		$classAnnotation = $this->reflectionService->getClassAnnotation($className, static::ANNOTATION_Entity);
 		if ($classAnnotation !== NULL) {
@@ -75,7 +75,7 @@ class ArrayService {
 
 	protected function processPropertyAnnotations($source, $scopeName = NULL) {
 		$target = array();
-		$className = get_class($source);
+		$className = $this->resolveClassName($source);
 
 		$propertyNames = $this->reflectionService->getPropertyNamesByAnnotation(
 			$className,
@@ -138,7 +138,7 @@ class ArrayService {
 
 	protected function processClassAnnotations($source, $scopeName = NULL) {
 		$target = array();
-		$className = get_class($source);
+		$className = $this->resolveClassName($source);
 
 		$classAnnotations = $this->reflectionService->getClassAnnotations(
 			$className,
@@ -228,6 +228,22 @@ class ArrayService {
 			),
 			'mail' => $person->getPrimaryElectronicAddress()->getIdentifier(),
 		);
+	}
+
+	/**
+	 * @param object $source
+	 * @return string
+	 */
+	protected function resolveClassName($source) {
+		$className = get_class($source);
+		$reflectionClass = new \ReflectionClass($className);
+
+		while ($reflectionClass->implementsInterface('Doctrine\ORM\\Proxy\\Proxy')) {
+			$reflectionClass = $reflectionClass->getParentClass();
+			$className = $reflectionClass->getName();
+		}
+
+		return $className;
 	}
 
 }
