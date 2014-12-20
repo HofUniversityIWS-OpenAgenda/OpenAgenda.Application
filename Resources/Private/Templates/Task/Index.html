@@ -48,16 +48,16 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr class="odd gradeX" ng-repeat="task in taskList | orderBy:'+dueDate +title +meeting'" oa-person-resolver="task.assignee as person">
+                                <tr class="odd gradeX" ng-repeat="task in taskList | orderBy:'+dueDate +title +meeting'">
                                     <td>{{task.dueDate | date:"dd.MM.yyyy HH:mm"}} Uhr</td>
 
                                     <td>{{task.title}}</td>
                                     <td task-status="true">
 
                                     </td>
-                                    <td>{{task.meeting}}</td>
-                                    <td>{{person.name.firstName}} {{person.name.lastName}}</td>
-                                    <td point-me="true" ng-click="open('',task, task.meeting, person)">
+                                    <td>{{task.$meeting.title}}</td>
+                                    <td>{{task.$assignee.name.firstName}} {{task.$assignee.name.lastName}}</td>
+                                    <td point-me="true" ng-click="open('',task)">
                                        <a>Bearbeiten <i class="fa fa-pencil-square-o"></i></a>
                                     </td>
                                 </tr>

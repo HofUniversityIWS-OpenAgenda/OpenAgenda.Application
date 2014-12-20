@@ -9,9 +9,9 @@
             <dt>Beschreibung</dt>
             <dd>{{task.description}}</dd>
             <dt>Meeting</dt>
-            <dd>{{meetingName}}</dd>
+            <dd>{{task.$meeting.title}}</dd>
             <dt>Zuständig</dt>
-            <dd>{{assignee.name.firstName}} {{assignee.name.lastName}}</dd>
+            <dd>{{task.$assignee.name.firstName}} {{task.$assignee.name.lastName}}</dd>
             <dt>Abgabedatum</dt>
             <dd>{{task.dueDate | date:"dd/MM/yyyy HH:m"}} Uhr</dd>
             <dt>Status</dt>

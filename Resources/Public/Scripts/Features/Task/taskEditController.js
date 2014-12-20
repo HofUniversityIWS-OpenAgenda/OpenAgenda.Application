@@ -20,12 +20,6 @@ angular.module("Task")
                     resolve: {
                         task: function() {
                             return task;
-                        },
-                        meetingName: function() {
-                            return meetingName;
-                        },
-                        assignee: function() {
-                            return assignee;
                         }
                     }
                 });
@@ -49,10 +43,7 @@ angular.module("Task")
             };
         }])
     /*This controller is used to handle the modal view to view and change a tasks state*/
-    .controller('TaskEditModalInstanceCtrl', function ($scope, $modalInstance, TaskResourceHelper, CommonHelperMethods, task, meetingName, assignee) {
-        $scope.assignee = assignee;
-        $scope.meetingName = meetingName;
-
+    .controller('TaskEditModalInstanceCtrl', function ($scope, $modalInstance, TaskResourceHelper, CommonHelperMethods, task) {
         TaskResourceHelper.getTaskDetail(task.__identity).get(function (task) {
             task.dueDate = CommonHelperMethods.getDateFromJSONString(task.dueDate);
             $scope.task = task;

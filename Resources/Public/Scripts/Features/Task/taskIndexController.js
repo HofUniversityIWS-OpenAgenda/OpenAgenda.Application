@@ -20,7 +20,6 @@ angular.module("Task", [])
                         console.log('success, got taskList: ', data);
                         angular.forEach(data, function (task) {
                             task.dueDate = CommonHelperMethods.getDateFromJSONString(task.dueDate);
-                            getMeetingName(task);
                         });
                         $scope.taskList = data;
                         $scope.showAllTasksCheckboxDisabled = false;
@@ -41,14 +40,13 @@ angular.module("Task", [])
             if ($location.url() == "/task/others")
                 $scope.showAllTasks = true;
 
-            $scope.reloadTasks();
-
             $scope.$watch("showAllTasks", function (newVal) {
                 $scope.showAllTasksCheckboxDisabled = true;
                 console.log($scope.showAllTasks);
                 $scope.reloadTasks();
             })
             //temporary set meeting name as meeting
+            // @deprecated Not used anymore, use task.$meeting.title instead
             function getMeetingName(task) {
                 MeetingResourceHelper.getMeetingDetail(task.meeting).get(function (data) {
                     task.meeting = data.title
