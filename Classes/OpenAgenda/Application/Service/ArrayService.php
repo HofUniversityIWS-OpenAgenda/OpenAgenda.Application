@@ -210,7 +210,7 @@ class ArrayService {
 	 * @return mixed
 	 */
 	public function prepare($subject) {
-		if ($subject instanceof \OpenAgenda\Application\Domain\Model\Person) {
+		if ($subject instanceof \TYPO3\Party\Domain\Model\Person) {
 			$result = $this->preparePerson($subject);
 		} else {
 			$result = $this->flatten($subject, 'prepare');
@@ -220,19 +220,24 @@ class ArrayService {
 	}
 
 	/**
-	 * @param \OpenAgenda\Application\Domain\Model\Person $person
+	 * @param \TYPO3\Party\Domain\Model\Person $person
 	 * @return array
 	 */
-	protected function preparePerson(\OpenAgenda\Application\Domain\Model\Person $person) {
-		return array(
+	protected function preparePerson(\TYPO3\Party\Domain\Model\Person $person) {
+		$preparation = array(
 			'__identity' => $this->persistenceManager->getIdentifierByObject($person),
 			'name' => array(
 				'firstName' => $person->getName()->getFirstName(),
 				'lastName' => $person->getName()->getLastName(),
 			),
 			'mail' => $person->getPrimaryElectronicAddress()->getIdentifier(),
-			'phoneNumber' => $person->getPhoneNumber(),
 		);
+
+		if ($person instanceof \OpenAgenda\Application\Domain\Model\Person) {
+			$preparation['phoneNumber'] = $person->getPhoneNumber();
+		}
+
+		return $preparation;
 	}
 
 	/**
