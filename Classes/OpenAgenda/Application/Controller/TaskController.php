@@ -70,6 +70,7 @@ class TaskController extends AbstractController {
 	public function updateAction(Task $task) {
 		$this->historyService->invoke($task);
 		$this->taskRepository->update($task);
+		$this->view->assign('value', $this->arrayService->flatten($task, 'show'));
 	}
 
 	/**
