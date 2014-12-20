@@ -13,7 +13,7 @@ use TYPO3\Flow\Reflection\ObjectAccess;
  * Class ToFlatArray
  *
  * @Annotation
- * @Target("PROPERTY")
+ * @Target({"PROPERTY","CLASS"})
  * @package OpenAgenda\Application\Service\TypeConversion
  * @author Oliver Hader <oliver@typo3.org>
  */
@@ -30,6 +30,11 @@ final class ToFlatArray {
 	protected $useIdentifier = FALSE;
 
 	/**
+	 * @var string
+	 */
+	protected $transientName;
+
+	/**
 	 * @var array
 	 */
 	protected $scopeNames;
@@ -42,6 +47,10 @@ final class ToFlatArray {
 			$this->useIdentifier = TRUE;
 		} elseif (!empty($values['callback'])) {
 			$this->callback = $values['callback'];
+		}
+
+		if (isset($values['transientName'])) {
+			$this->transientName = $values['transientName'];
 		}
 
 		if (isset($values['scope'])) {
@@ -68,6 +77,10 @@ final class ToFlatArray {
 	 */
 	public function getUseIdentifier() {
 		return $this->useIdentifier;
+	}
+
+	public function getTransientName() {
+		return $this->transientName;
 	}
 
 	/**

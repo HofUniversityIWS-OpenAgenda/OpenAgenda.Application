@@ -67,6 +67,16 @@ class ArrayService {
 			$target['__identity'] = $this->persistenceManager->getIdentifierByObject($source);
 		}
 
+		$target = array_merge($target, $this->processClassAnnotations($source, $scopeName));
+		$target = array_merge($target, $this->processPropertyAnnotations($source, $scopeName));
+
+		return $target;
+	}
+
+	protected function processPropertyAnnotations($source, $scopeName = NULL) {
+		$target = array();
+		$className = get_class($source);
+
 		$propertyNames = $this->reflectionService->getPropertyNamesByAnnotation(
 			$className,
 			static::ANNOTATION_ToArray
@@ -121,6 +131,32 @@ class ArrayService {
 			}
 
 			$target[$propertyName] = $propertyValue;
+		}
+
+		return $target;
+	}
+
+	protected function processClassAnnotations($source, $scopeName = NULL) {
+		$target = array();
+		$className = get_class($source);
+
+		$classAnnotations = $this->reflectionService->getClassAnnotations(
+			$className,
+			static::ANNOTATION_ToArray
+		);
+
+		/** @var \OpenAgenda\Application\Framework\Annotations\ToFlatArray $toArrayAnnotation */
+		foreach ($classAnnotations as $toArrayAnnotation) {
+			if ($toArrayAnnotation->getTransientName() === NULL || $toArrayAnnotation->getCallback() === NULL) {
+				continue;
+			}
+
+			$transientName = $toArrayAnnotation->getTransientName();
+			$transientValue = $this->objectService->executeStringCallback(
+				$toArrayAnnotation->getCallback(),
+				$source
+			);
+			$target[$transientName] = $transientValue;
 		}
 
 		return $target;
