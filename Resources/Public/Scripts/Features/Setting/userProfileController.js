@@ -10,9 +10,11 @@ angular.module("Setting", [])
         // @todo Password change is missing
         $scope.password = null;
         $scope.passwordRepeat = null;
+        $scope.canModifyPassword = false;
 
         $http.get('setting/getProfile.json').success(function(profile) {
             $scope.profile = profile;
+            $scope.canModifyPassword = ($scope.profile.$currentProvider === 'DefaultProvider');
         });
 
         $scope.canModifyPassword = function() {
@@ -24,7 +26,7 @@ angular.module("Setting", [])
                 .success(function() {
                     var modalOptions = {
                         headerText: 'Erfolg',
-                        bodyText: 'Das Meeting wurde erfolgreich erstellt!'
+                        bodyText: 'Ihr Profil wurde aktualisiert...'
                     };
                     var modalDefaults = {
                         templateUrl: '/template/modaldialog/success.html'
