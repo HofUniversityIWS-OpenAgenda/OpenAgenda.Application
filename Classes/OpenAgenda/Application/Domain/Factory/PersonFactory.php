@@ -91,6 +91,7 @@ class PersonFactory {
 		if ($person instanceof Person) {
 			if ($person->getPreference() === NULL) {
 				$preference = new \OpenAgenda\Application\Domain\Model\Preference();
+				$preference->setModificationDate(new \DateTime());
 				$person->setPreference($preference);
 				$this->personRepository->update($person);
 			}
