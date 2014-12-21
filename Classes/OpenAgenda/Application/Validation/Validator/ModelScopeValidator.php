@@ -128,7 +128,7 @@ class ModelScopeValidator extends \TYPO3\Flow\Validation\Validator\AbstractValid
 				);
 			}
 
-			$propertyValue = \TYPO3\Flow\Reflection\ObjectAccess::getProperty($value, $propertyName);
+			$propertyValue = \TYPO3\Flow\Reflection\ObjectAccess::getPropertyPath($value, $propertyName);
 			$propertyResult = $this->getConjunctionValidator($propertySettings['validators'], $value)->validate($propertyValue);
 
 			$this->result->forProperty($propertyName)->merge($propertyResult);
