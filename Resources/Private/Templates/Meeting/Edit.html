@@ -85,8 +85,12 @@
                                     <div class=" col-sm-12 col-md-12 col-lg-6 ">
 
                                         <span ng-switch on="editMode">
-                                            <div ng-switch-when="true"><label><b><a href="#" editable-text="apt.title">{{apt.sorting}}. {{ apt.title|| 'Kein Agendapunkt-Titel festgelegt' }}</a></b></label></div>
-                                            <div ng-switch-default><label><b><a>{{apt.sorting}}. {{ apt.title|| 'Kein Agendapunkt-Titel festgelegt' }}</a></b></label></div>
+                                            <div ng-switch-when="true">
+                                                <label><b><a href="#" editable-text="apt.title">{{apt.sorting}}. {{ apt.title|| 'Kein Agendapunkt-Titel festgelegt' }}</a></b></label> <a point-me="true" ng-click="removeAgendaItem($index)"><span class=" pull-right glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+                                            </div>
+                                            <div ng-switch-default>
+                                                <label><b><a>{{apt.sorting}}. {{ apt.title|| 'Kein Agendapunkt-Titel festgelegt' }}</a></b></label>
+                                            </div>
 
                                         </span>
 
@@ -188,7 +192,7 @@
                                     </div>
                                     <div class="panel-body">
                                         <div class="table-responsive">
-                                            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                            <table class="table table-striped table-bordered table-hover" id="dataTables-person">
                                                 <thead>
                                                 <tr>
                                                     <th>Name, Vorname</th>
@@ -229,7 +233,7 @@
                                     </div>
                                     <div class="panel-body">
                                         <div class="table-responsive">
-                                            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                            <table class="table table-striped table-bordered table-hover" id="dataTables-task">
                                                 <thead>
                                                 <tr>
                                                     <th>Fälligkeit</th>

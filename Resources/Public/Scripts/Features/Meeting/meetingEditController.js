@@ -76,6 +76,15 @@ angular.module("Meeting")
             $scope.addNewAgendaItem = function () {
                 $scope.meeting.agendaItems.push(new AgendaItem($scope.meeting.agendaItems.length + 1));
             };
+            $scope.removeAgendaItem = function (idx) {
+                $scope.meeting.agendaItems.splice( idx, 1 );
+                $scope.uploaders.splice( idx, 1 );
+
+                for(var i = $scope.meeting.agendaItems.length-1; i>=idx; i--)
+                {
+                    $scope.meeting.agendaItems[i].sorting -= 1;
+                }
+            }
 
             $scope.addNewInvitation = function (mail) {
                 var single_User = $filter('filter')($scope.remoteUsers, function (person) {return person.$mail === mail; })[0];
