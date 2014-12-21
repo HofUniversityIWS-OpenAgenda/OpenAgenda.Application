@@ -10,20 +10,34 @@ use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Persistence\Repository;
 
 /**
+ * Class AbstractRepository
  * @Flow\Scope("singleton")
+ * @package OpenAgenda\Application\Domain\Repository
+ * @author Oliver Hader <oliver@typo3.org>
  */
 class AbstractRepository extends Repository {
 
 	/**
-	 * @var
+	 * @Flow\Inject
+	 * @var \TYPO3\Flow\Security\Context
 	 */
-	protected $filterConstraintService;
+	protected $securityContext;
 
 	/**
-	* @return object The matching object if found, otherwise NULL
-	*/
-	public function findByFilterConstraint() {
-		//return $this->persistenceManager->getObjectByIdentifier($identifier, $this->entityClassName);
+	 * Gets person entity of currently logged in account.
+	 *
+	 * @return \OpenAgenda\Application\Domain\Model\Person
+	 */
+	protected function getPerson() {
+		return $this->securityContext->getParty();
+	}
+
+	/**
+	 * @param object $subject
+	 * @return NULL|string
+	 */
+	protected function identify($subject) {
+		return $this->persistenceManager->getIdentifierByObject($subject);
 	}
 
 }

@@ -7,25 +7,28 @@ namespace OpenAgenda\Application\Domain\Repository;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
+use OpenAgenda\Application\Domain\Model\Person;
 
 /**
+ * Class MeetingRepository
  * @Flow\Scope("singleton")
+ * @package OpenAgenda\Application\Domain\Repository
+ * @author Oliver Hader <oliver@typo3.org>
  */
 class MeetingRepository extends AbstractRepository {
 
 	/**
+	 * @param Person $person
 	 * @return \TYPO3\Flow\Persistence\QueryResultInterface|\OpenAgenda\Application\Domain\Model\Meeting[]
-	 * @todo SECURITY: Only allowed entities shall be queried
 	 */
-	public function findAllowed() {
-		return $this->findAll();
-	}
+	public function findAllowed(Person $person = NULL) {
+		if ($person === NULL) {
+			$person = $this->getPerson();
+		}
 
-	/**
-	 * @return object The matching object if found, otherwise NULL
-	 */
-	public function findByFilterConstraint() {
-		//return $this->persistenceManager->getObjectByIdentifier($identifier, $this->entityClassName);
+		$query = $this->createQuery();
+		$query->matching($query->equals('invitations.participant', $person));
+		return $query->execute();
 	}
 
 }

@@ -7,13 +7,28 @@ namespace OpenAgenda\Application\Domain\Repository;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Persistence\Repository;
+use OpenAgenda\Application\Domain\Model\Person;
 
 /**
+ * Class InvitationRepository
  * @Flow\Scope("singleton")
+ * @package OpenAgenda\Application\Domain\Repository
+ * @author Oliver Hader <oliver@typo3.org>
  */
-class InvitationRepository extends Repository {
+class InvitationRepository extends AbstractRepository {
 
-	// add customized methods here
+	/**
+	 * @param Person $person
+	 * @return \TYPO3\Flow\Persistence\QueryResultInterface|\OpenAgenda\Application\Domain\Model\Invitation[]
+	 */
+	public function findByPerson(Person $person = NULL) {
+		if ($person === NULL) {
+			$person = $this->getPerson();
+		}
+
+		$query = $this->createQuery();
+		$query->matching($query->equals('participant', $person));
+		return $query->execute();
+	}
 
 }
