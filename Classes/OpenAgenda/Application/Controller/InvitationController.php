@@ -7,10 +7,9 @@ namespace OpenAgenda\Application\Controller;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Mvc\Controller\ActionController;
 use OpenAgenda\Application\Domain\Model\Invitation;
 
-class InvitationController extends ActionController {
+class InvitationController extends AbstractController {
 
 	/**
 	 * @Flow\Inject
@@ -21,8 +20,8 @@ class InvitationController extends ActionController {
 	/**
 	 * @return void
 	 */
-	public function indexAction() {
-		$this->view->assign('invitations', $this->invitationRepository->findAll());
+	public function listAction() {
+		$this->view->assign('value', $this->arrayService->flatten($this->invitationRepository->findByPerson()));
 	}
 
 	/**

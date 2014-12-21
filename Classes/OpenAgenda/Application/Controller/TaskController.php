@@ -28,7 +28,21 @@ class TaskController extends AbstractController {
 	 * @return void
 	 */
 	public function listAction() {
-		$this->view->assign('value', $this->arrayService->flatten($this->taskRepository->findAllowed(), 'list'));
+		$this->view->assign('value', $this->arrayService->flatten($this->taskRepository->findAll(), 'list'));
+	}
+
+	/**
+	 * @return void
+	 */
+	public function listMineAction() {
+		$this->view->assign('value', $this->arrayService->flatten($this->taskRepository->findByPerson(), 'list'));
+	}
+
+	/**
+	 * @return void
+	 */
+	public function listOthersAction() {
+		$this->view->assign('value', $this->arrayService->flatten($this->taskRepository->findAllowed(NULL, TRUE), 'list'));
 	}
 
 	/**
