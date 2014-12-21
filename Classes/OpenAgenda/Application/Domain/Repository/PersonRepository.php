@@ -7,7 +7,6 @@ namespace OpenAgenda\Application\Domain\Repository;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Persistence\Repository;
 
 /**
  * Class PersonRepository

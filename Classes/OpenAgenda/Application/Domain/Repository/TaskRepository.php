@@ -81,7 +81,7 @@ class TaskRepository extends AbstractRepository {
 	protected function getAllowedConstraint(\TYPO3\Flow\Persistence\QueryInterface $query, Person $person) {
 		$meetings = array();
 		foreach ($this->meetingRepository->findAllowed($person) as $meeting) {
-			$meetings[] = $this->persistenceManager->getIdentifierByObject($meeting);
+			$meetings[] = $this->identify($meeting);
 		}
 		return $query->in('meeting', $meetings);
 	}
