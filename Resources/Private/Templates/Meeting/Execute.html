@@ -44,8 +44,8 @@
                         <h3 style="display: inline">Termin</h3>
 
                         <div class="panel-entry">
-                            <span ng-show="meeting.scheduledStartDate">{{meeting.scheduledStartDate | date:'dd.MM.yyyy'}}<br/> </span>
-                            <span ng-show="meeting.scheduledStartDate">{{meeting.scheduledStartDate | date:'H:mm'}} Uhr </span>
+                            <span ng-show="meeting.scheduledStartDate">Datum: {{meeting.scheduledStartDate | date:'dd.MM.yyyy'}}<br/> </span>
+                            <span ng-show="meeting.scheduledStartDate">Uhrzeit: {{meeting.scheduledStartDate | date:'H:mm'}} </span>
                             <span ng-show="meeting.location">Ort: {{meeting.location}}</span>
                             <span ng-show="meeting.startDate && meeting.status >= 2"><br/>begonnen am {{meeting.startDate | date:'dd.MM.yyyy'}} um {{meeting.startDate | date:'H:mm'}} Uhr </span>
                             <span ng-show="meeting.endDate && meeting.status >= 3"><br/>geendet am {{meeting.startDate | date:'dd.MM.yyyy'}} um {{meeting.startDate | date:'H:mm'}} Uhr </span>
@@ -104,38 +104,41 @@
                                 <button class="pull-right btn btn-default"><span
                                         class="glyphicon glyphicon-minus"
                                         aria-hidden="true"></span></button>
-                                <div>
-                                    <a href="#" editable-text="task.title">{{ task.title || 'Aufgabentitel festlegen' }}</a>
-                                </div>
+                                <div class="task-item" ng-repeat="taskItem in meeting.tasks">
+                                    <div>
+                                        <a href="#" editable-text="taskItem.title">{{ taskItem.title || 'Aufgabentitel festlegen' }}</a>
+                                    </div>
 
-                                <div style="padding: 0px" class="col-sm-5">
-                                    <a href="#" editable-select="task.user" buttons='no' e-ng-options="s.value as s.text for s in invitedUsers">
-                                        {{ showStatus() }}
-                                    </a>
-                                </div>
-                                <div class="col-sm-4">
-                                    <a href="#" editable-bsdate="task.scheduledDateTime" e-datepicker-popup="dd-MMMM-yyyy">
-                                        {{ (task.scheduledDateTime | date:"dd.MM.yyyy") || 'Datum festlegen' }}
-                                    </a><br/>
-                                </div>
-                                <div>
-                                    <a href="#" editable-bstime="task.scheduledDateTime" e-show-meridian="false" e-minute-step="10">
-                                        {{ (task.scheduledDateTime | date:"HH:mm") + ' Uhr'|| 'Uhrzeit festlegen' }}
-                                    </a><br/>
-                                </div>
-                                <div>
-                                    <a href="#" editable-textarea="task.description" e-rows="7" e-cols="40">
-                                        <pre>{{ task.description || 'Aufgabenbeschreibung festlegen' }}</pre>
-                                    </a>
+                                    <div style="padding: 0px" class="col-sm-5">
+                                        <a href="#" editable-select="taskItem.assignee" buttons='no' e-ng-options="s.value as s.text for s in invitedUsers">
+                                            {{ showStatus($index).$mail }}
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <a href="#" editable-bsdate="taskItem.dueDate" e-datepicker-popup="dd-MMMM-yyyy">
+                                            {{ (taskItem.dueDate | date:"dd.MM.yyyy") || 'Datum festlegen' }}
+                                        </a><br/>
+                                    </div>
+                                    <div>
+                                        <a href="#" editable-bstime="taskItem.dueDate" e-show-meridian="false" e-minute-step="10">
+                                            {{ (taskItem.dueDate | date:"HH:mm") + ' Uhr'|| 'Uhrzeit festlegen' }}
+                                        </a><br/>
+                                    </div>
+                                    <div>
+                                        <a href="#" editable-textarea="taskItem.description" e-rows="7" e-cols="40">
+                                            <pre>{{ taskItem.description || 'Aufgabenbeschreibung festlegen' }}</pre>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
+
                             <button style="margin-top: 15px;" class="btn btn-primary btn-xs" ng-click="addTask()">
                                 Aufgabe hinzufügen
                             </button>
                         </div>
                     </div>
                     <div class=" clearfix panel-entry">
-                        <button style="margin-bottom: 20px; margin-right: 15px" class=" pull-right btn btn-danger" ng-show="meeting.status == 2" ng-click="endMeetng()">
+                        <button style="margin-bottom: 20px; margin-right: 15px" class=" pull-right btn btn-danger" ng-show="meeting.status == 2" ng-click="endMeeting()">
                             Meeting abschließen
                         </button>
                     </div>

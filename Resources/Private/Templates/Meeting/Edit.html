@@ -68,7 +68,7 @@
                                 <div ng-hide="loading" class="pull-right">Meetingrolle:[[meeting.role]]</div>
                                 <br/>
                                 <span ng-switch on="editMode">
-                                    <a ng-switch-when="true" href="#" editable-text="meeting.location">{{ meeting.location || 'Kein Ort festgelegt' }}</a>
+                                    <a ng-switch-when="true" href="#" editable-text="meeting.location">Ort: {{ meeting.location || 'nicht festgelegt' }}</a>
                                     <a ng-switch-default>Ort: {{ meeting.location || 'nicht festgelegt' }}</a>
                                 </span><br />
                                 <div ng-show="meeting.__identity && meeting.$permissions.execute" class="pull-right">

@@ -26,10 +26,20 @@ angular.module("Meeting")
                 $scope.invitedUsers.push({value: $scope.meeting.invitations[i].$participant.__identity,
                     text: $scope.meeting.invitations[i].$participant.name.firstName +' '+
                             $scope.meeting.invitations[i].$participant.name.lastName +' <'+
-                            $scope.meeting.invitations[i].$participant.mail + '>'
+                            $scope.meeting.invitations[i].$participant.$mail + '>'
                 });
 
             };
+
+           /* for (var i = 0; i < $scope.meeting.tasks.length; i++) {
+
+                $scope.invitedUsers.push({value: $scope.meeting.invitations[i].$participant.__identity,
+                    text: $scope.meeting.invitations[i].$participant.name.firstName +' '+
+                    $scope.meeting.invitations[i].$participant.name.lastName +' <'+
+                    $scope.meeting.invitations[i].$participant.$mail + '>'
+                });
+
+            };*/
 
             //$scope.invitedUsers = $scope.meeting.invitations;
 
@@ -37,31 +47,47 @@ angular.module("Meeting")
             alert('request failed');
         });
 
-        $scope.task = {
-
-        };
+         $scope.meeting.tasks = {};
+        //$scope.task = {};
 
         // Neue Aufgabe
-        //$scope.task;
 
         $scope.addTask = function(){
+            $scope.meeting.tasks.push(new TaskItem($scope.meeting.tasks.length));
+
             // sendTask
-            this.description = $scope.task.description;
+            /*this.description = $scope.task.description;
             this.creationDate = new Date();
             this.scheduledDateTime = $scope.task.scheduledDateTime;
-            this.user = $scope.task.user;
+            var user = $filter('filter')($scope.invitedUsers, {value: $scope.task.user});
+            this.user = user[0].value;
             this.title = $scope.task.title;
+
+            $scope.task.description = $scope.task.description;
+            $scope.task.creationDate = new Date();
+            $scope.task.dueDate = $scope.task.dueDate;
+            var user = $filter('filter')($scope.invitedUsers, {value: $scope.task.user});
+            $scope.task.user = user[0].value;
+            $scope.task.title = $scope.task.title;
+
 
             //an server senden
 
             // task leeren;
             this.description = null;
             this.creationDate = null;
-            this.scheduledDateTime = null;
+            this.dueDate = null;
             this.user = null;
             this.title = null;
 
+            $scope.task = {};
+
+            $scope.tasks.push($scope.task);
+
+            //$scope.createNewTask = true;
+            */
         };
+
 
         $scope.getProtocolItem = function(sorting){
             var found = false;
@@ -88,14 +114,30 @@ angular.module("Meeting")
             }
         };
 
+        function TaskItem(count){
+            this.meetingId = $scope.meeting.__identity;
+            this.TaskNr = count;
+        }
 
-        $scope.showStatus = function() {
-            var selected = $filter('filter')($scope.invitedUsers, {value: $scope.task.user});
-            console.log('selected', $scope.task.user && selected.length, ($scope.task.user && selected.length != undefined) ? selected[0].value : 'undef');
-            return ($scope.task.user && selected.length) ? selected[0].text : 'Verantwortlichen wählen';
+        $scope.showStatus = function(index) {
+            var x = {$mail:"Verantwortlichen wählen"};
+
+            //If task has already a assignee
+            //Should task.$assignee be deleted, if a new assignee is choosen?
+            //ATM task.assignee is the ID of the new assignee
+            if($scope.meeting.tasks[index].assignee) {
+                var selected = $filter('filter')($scope.meeting.invitations, {participant: $scope.meeting.tasks[index].assignee});
+                if (selected.length)
+                    return selected[0].$participant;
+                else
+                    return x;
+            }
+            else
+                return x;
         };
 
-        $scope.startMeetng = function(){
+
+        $scope.startMeeting = function(){
             if ($scope.meeting.status < 2)
             {
                 $scope.meeting.startDate = new Date();
@@ -104,7 +146,7 @@ angular.module("Meeting")
             }
 
         };
-        $scope.endMeetng = function(){
+        $scope.endMeeting = function(){
             if ($scope.meeting.status < 3)
             {
                 $scope.meeting.endDate = new Date();
@@ -132,7 +174,7 @@ angular.module("Meeting")
                 });
 
                 modalInstance.close = function () {
-                    $scope.$parent.startMeetng();
+                    $scope.$parent.startMeeting();
                     modalInstance.dismiss();
                 };
             };
