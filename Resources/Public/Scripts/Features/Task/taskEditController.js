@@ -11,7 +11,7 @@ angular.module("Task")
         function ($scope, $rootScope, $http, TaskResourceHelper, CommonHelperMethods, oaUtility, $modal, $log) {
             console.log("Task Edit Controller Loaded");
 
-            $scope.open = function (size, task, meetingName, assignee) {
+            $scope.open = function (size, task) {
 
                 var modalInstance = $modal.open({
                     templateUrl: '/template/task/edit.html',

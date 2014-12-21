@@ -77,9 +77,10 @@ angular.module("Dashboard", [])
                     // Meeting anzeigen
                     $location.path('meeting/show/' + date.__identity).replace();
                 } else if (date.type == 'Task'){
-                    // Task anzeigen
-                    //Task.TaskEditCtrl.open('',data.__identity);
-                    //$location.path('task/show/' + date.__identity).replace();
+                    angular.forEach($scope.needToBeDoneTasks, function(task){
+                        if(task.__identity == date.__identity)
+                            $scope.$parent.open("", task);
+                    });
                 } else {
                     // Fehler
                 }
