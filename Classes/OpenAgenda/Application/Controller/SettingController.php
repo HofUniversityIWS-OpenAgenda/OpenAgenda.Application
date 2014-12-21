@@ -8,6 +8,7 @@ namespace OpenAgenda\Application\Controller;
 
 use TYPO3\Flow\Annotations as Flow;
 use OpenAgenda\Application\Domain\Model\Person;
+use OpenAgenda\Application\Domain\Model\Preference;
 use OpenAgenda\Application\Framework\Model\Password;
 
 /**
@@ -60,12 +61,24 @@ class SettingController extends AbstractController {
 		$this->view->assign('value', $this->arrayService->prepare($person));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function getSettingAction() {
-
+		/** @var Person $person */
+		$person = $this->securityContext->getParty();
+		$this->view->assign('value', $this->arrayService->flatten($person->getPreference()));
 	}
 
-	public function updateSettingAction() {
-
+	/**
+	 * @param Preference $preference
+	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
+	 */
+	public function updateSettingAction(Preference $preference) {
+		/** @var Person $person */
+		$person = $this->securityContext->getParty();
+		$person->setPreference($preference);
+		$this->personRepository->update($person);
 	}
 
 }

@@ -110,6 +110,11 @@ OpenAgenda:
           default:
             allow: ['name.firstName','name.lastName','primaryElectronicAddress.identifier','phoneNumber']
             types: ['modify']
+      OpenAgenda\Application\Domain\Model\Preference:
+        updateProfile:
+          default:
+            allow: ['notificationOnAgendaChange','notificationOnScheduleChange','notificationOnDescriptionChange']
+            types: ['modify']
       OpenAgenda\Application\Framework\Model\Password:
         updateProfile:
           default:
