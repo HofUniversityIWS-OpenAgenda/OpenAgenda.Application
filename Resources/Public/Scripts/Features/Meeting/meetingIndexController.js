@@ -16,8 +16,8 @@ angular.module("Meeting", [])
             });
         };
     })
-    .controller('MeetingIndexCtrl', ['$scope', '$rootScope', '$filter','$resource', "breadcrumbs", "MeetingResourceHelper","CommonHelperMethods",
-        function ($scope, $rootScope, $filter, $resource, breadcrumbs, MeetingResourceHelper, CommonHelperMethods) {
+    .controller('MeetingIndexCtrl', ['$scope', '$rootScope','$location', '$filter', '$http', '$resource', "breadcrumbs", "MeetingResourceHelper","CommonHelperMethods", "ModalDialog",
+        function ($scope, $rootScope, $location, $filter, $http, $resource, breadcrumbs, MeetingResourceHelper, CommonHelperMethods, ModalDialog) {
             console.log("Meeting Index Controller Loaded");
             $scope.breadcrumbs = breadcrumbs;
             $scope.loading = true;
@@ -129,5 +129,60 @@ angular.module("Meeting", [])
             $scope.$watch("searchText", function () {
                 $rootScope.mic.searchText = $scope.searchText;
             });
+
+            $scope.deleteMeeting = function (id) {
+                $http.post("/meeting/delete.json", {"__identity": id}).
+                    success(function (data, status, headers, config) {
+                        var modalOptions = {
+                            headerText: 'Erfolg',
+                            bodyText: 'Das Meeting wurde erfolgreich gelöscht!'
+                        };
+                        var modalDefaults = {
+                            templateUrl: '/template/modaldialog/success.html'
+                        };
+                        ModalDialog.showModal(modalDefaults, modalOptions);
+                        $location.path("/meeting");
+                    }).
+                    error(function (data, status, headers, config) {
+
+                        var modalOptions = {
+                            headerText: 'Fehler',
+                            bodyText: 'Beim Löschen des Meetings ist ein Fehler aufgetreten! Versuchen Sie es später erneut!'
+                        };
+                        var modalDefaults = {
+                            templateUrl: '/template/modaldialog/error.html'
+                        };
+                        ModalDialog.showModal(modalDefaults, modalOptions);
+
+                    });
+            };
+
+            $scope.cancelMeeting = function (id) {
+                $http.post("/meeting/delete.json", {"__identity": id}).
+                    success(function (data, status, headers, config) {
+                        var modalOptions = {
+                            headerText: 'Erfolg',
+                            bodyText: 'Das Meeting wurde erfolgreich abgesagt!'
+                        };
+                        var modalDefaults = {
+                            templateUrl: '/template/modaldialog/success.html'
+                        };
+                        ModalDialog.showModal(modalDefaults, modalOptions);
+                        $location.path("/meeting");
+                    }).
+                    error(function (data, status, headers, config) {
+
+                        var modalOptions = {
+                            headerText: 'Fehler',
+                            bodyText: 'Beim Ändern des Meeting-Status ist ein Fehler aufgetreten! Versuchen Sie es später erneut!'
+                        };
+                        var modalDefaults = {
+                            templateUrl: '/template/modaldialog/error.html'
+                        };
+                        ModalDialog.showModal(modalDefaults, modalOptions);
+
+                    });
+            };
+
 
         }]);
