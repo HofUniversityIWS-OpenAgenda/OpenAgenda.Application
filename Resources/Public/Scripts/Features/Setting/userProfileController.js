@@ -17,12 +17,14 @@ angular.module("Setting", [])
             $scope.canModifyPassword = ($scope.profile.$currentProvider === 'DefaultProvider');
         });
 
-        $scope.canModifyPassword = function() {
-            return $scope.profile.$currentProvider === 'DefaultProvider';
-        };
-
         $scope.persist = function() {
-            $http.post('setting/updateProfile.json', { person: oaUtility.jsonCast($scope.profile) })
+            var data = {
+                person: oaUtility.jsonCast($scope.profile),
+                password: $scope.canModifyPassword
+                    ? { password: $scope.password, passwordRepeat: $scope.passwordRepeat }
+                    : null
+            };
+            $http.post('setting/updateProfile.json',  data)
                 .success(function() {
                     var modalOptions = {
                         headerText: 'Erfolg',

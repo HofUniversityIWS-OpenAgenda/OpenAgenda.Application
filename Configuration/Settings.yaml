@@ -55,6 +55,43 @@ OpenAgenda:
               validators:
                 UniqueEntity:
                   identityProperties: ['accountIdentifier']
+        OpenAgenda\Application\Domain\Model\Person:
+          updateProfile:
+            properties:
+              primaryElectronicAddress.identifier:
+                validators:
+                  NotEmpty: []
+                  EmailAddress: []
+              name.firstName:
+                validators:
+                  NotEmpty: []
+                  StringLength:
+                    minimum: 2
+              name.lastName:
+                validators:
+                  NotEmpty: []
+                  StringLength:
+                    minimum: 2
+              phoneNumber:
+                validators:
+                  NotEmpty: []
+                  StringLength:
+                    minimum: 2
+        OpenAgenda\Application\Framework\Model\Password:
+          updateProfile:
+            properties:
+              password:
+                validators:
+                  NotEmpty: []
+                  StringLength:
+                    minimum: 8
+              passwordRepeat:
+                validators:
+                  NotEmpty: []
+                  StringLength:
+                    minimum: 8
+                  OpenAgenda\Application\Validation\Validator\SameValidator:
+                    propertyValue: '$password'
     PropertyMapping:
       OpenAgenda\Application\Domain\Model\Task:
         create:
@@ -73,6 +110,10 @@ OpenAgenda:
           default:
             allow: ['name.firstName','name.lastName','primaryElectronicAddress.identifier','phoneNumber']
             types: ['modify']
+      OpenAgenda\Application\Framework\Model\Password:
+        updateProfile:
+          default:
+            allow: ['password', 'passwordRepeat']
     Messaging:
       deliver: 'immediately'
       sender:
