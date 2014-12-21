@@ -11,7 +11,6 @@ use TYPO3\Flow\Mvc\Controller\ActionController;
 
 /**
  * Class TemplateController
- *
  * @package OpenAgenda\Application\Controller
  * @author Oliver Hader <oliver@typo3.org>
  */
@@ -37,7 +36,6 @@ class TemplateController extends ActionController {
 		);
 
 		$this->view->setOption('templatePathAndFilenamePattern', $templatePathAndFilenamePattern);
-
 	}
 
 }

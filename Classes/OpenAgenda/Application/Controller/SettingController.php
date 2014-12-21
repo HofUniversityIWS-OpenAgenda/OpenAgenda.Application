@@ -10,6 +10,11 @@ use TYPO3\Flow\Annotations as Flow;
 use OpenAgenda\Application\Domain\Model\Person;
 use OpenAgenda\Application\Framework\Model\Password;
 
+/**
+ * Class SettingController
+ * @package OpenAgenda\Application\Controller
+ * @author Oliver Hader <oliver@typo3.org>
+ */
 class SettingController extends AbstractController {
 
 	/**

@@ -11,6 +11,12 @@ use \OpenAgenda\Application\Domain\Model\Person;
 use TYPO3\Flow\Security\Account;
 use OpenAgenda\Application\Domain\Model\Message;
 
+/**
+ * Class MessagingService
+ * @Flow\Scope("singleton")
+ * @package OpenAgenda\Application\Service\Communication
+ * @author Oliver Hader <oliver@typo3.org>
+ */
 class MessagingService {
 
 	/**
@@ -18,6 +24,7 @@ class MessagingService {
 	 * @var \OpenAgenda\Application\Domain\Repository\MessageRepository
 	 */
 	protected $messageRepository;
+
 	/**
 	* @var
 	*/

@@ -14,6 +14,7 @@ use OpenAgenda\Application\Domain\Model\History;
  *
  * @Flow\Scope("singleton")
  * @package OpenAgenda\Application\Service
+ * @author Oliver Hader <oliver@typo3.org>
  */
 class HistoryService {
 

@@ -10,7 +10,10 @@ use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Cli\CommandController;
 
 /**
+ * Class SystemCommandController
  * @Flow\Scope("singleton")
+ * @package OpenAgenda\Application\Command
+ * @author Oliver Hader <oliver@typo3.org>
  */
 class SystemCommandController extends CommandController {
 
