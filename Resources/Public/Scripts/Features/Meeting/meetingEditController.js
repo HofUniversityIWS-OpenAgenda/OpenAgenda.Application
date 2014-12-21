@@ -76,7 +76,7 @@ angular.module("Meeting")
             };
 
             $scope.addNewInvitation = function (mail) {
-                var single_User = $filter('filter')($scope.remoteUsers, function (person) {return person.mail === mail; })[0];
+                var single_User = $filter('filter')($scope.remoteUsers, function (person) {return person.$mail === mail; })[0];
                 $scope.meeting.invitations.push(new Invitation(single_User.__identity))
 
             };
@@ -150,7 +150,7 @@ angular.module("Meeting")
 
                 // @todo Filtering stuff
                 angular.forEach($scope.remoteUsers, function(remoteUser) {
-                    $scope.mailAdresses.push(remoteUser.mail);
+                    $scope.mailAdresses.push(remoteUser.$mail);
                 });
             }
 
