@@ -42,7 +42,7 @@
 
                             <h3>Termin
                                 <div ng-show="meeting.__identity" class="pull-right">
-                                    <div style="margin-right: 30px">Meeting Status</div>
+                                    <div style="margin-right: 32px">Meeting Status</div>
                                 </div>
                             </h3>
                             <div class="panel-entry">
@@ -54,9 +54,8 @@
                                         Datum: {{ (meeting.scheduledStartDate | date:"dd/MM/yyyy") || 'nicht festgelegt' }}
                                     </a>
                                 </span>
-                                <div ng-show="meeting.__identity" class="pull-right">
-                                    <div meeting-status="true"></div>
-                                </div>
+                                <div class="pull-right" ng-show="meeting.__identity" meeting-status="true"></div>
+
                                 <br/>
                                 <span ng-switch on="editMode">
                                     <a ng-switch-when="true" href="#" editable-bstime="meeting.scheduledStartDate" e-show-meridian="false" e-minute-step="10">
@@ -66,11 +65,12 @@
                                         Uhrzeit: {{ (meeting.scheduledStartDate | date:"HH:mm") || 'nicht festgelegt' }}
                                     </a>
                                 </span>
+                                <div ng-hide="loading" class="pull-right">Meetingrolle:[[meeting.role]]</div>
                                 <br/>
                                 <span ng-switch on="editMode">
                                     <a ng-switch-when="true" href="#" editable-text="meeting.location">{{ meeting.location || 'Kein Ort festgelegt' }}</a>
                                     <a ng-switch-default>Ort: {{ meeting.location || 'nicht festgelegt' }}</a>
-                                </span>
+                                </span><br />
                                 <div ng-show="meeting.__identity && meeting.$permissions.execute" class="pull-right">
                                     <a href="/#meeting/start/{{meeting.__identity}}">
                                         Meeting durchführen
