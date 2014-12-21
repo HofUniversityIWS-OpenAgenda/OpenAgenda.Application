@@ -9,6 +9,9 @@ TYPO3:
         providers:
           DefaultProvider:
             provider: 'PersistedUsernamePasswordProvider'
+    i18n:
+      defaultLocale: 'de'
+
 
 OpenAgenda:
   Application:
