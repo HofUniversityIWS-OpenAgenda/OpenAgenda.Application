@@ -81,4 +81,20 @@ class PersonFactory {
 		return $person;
 	}
 
+	/**
+	 * Updates person entity and take care of migration path.
+	 *
+	 * @param \TYPO3\Party\Domain\Model\Person $person
+	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
+	 */
+	public function updatePerson(\TYPO3\Party\Domain\Model\Person $person) {
+		if ($person instanceof Person) {
+			if ($person->getPreference() === NULL) {
+				$preference = new \OpenAgenda\Application\Domain\Model\Preference();
+				$person->setPreference($preference);
+				$this->personRepository->update($person);
+			}
+		}
+	}
+
 }

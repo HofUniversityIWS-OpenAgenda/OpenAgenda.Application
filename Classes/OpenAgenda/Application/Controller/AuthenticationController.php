@@ -142,6 +142,8 @@ class AuthenticationController extends \TYPO3\Flow\Security\Authentication\Contr
 	 * @throws \TYPO3\Flow\Mvc\Exception\StopActionException
 	 */
 	protected function onAuthenticationSuccess(\TYPO3\Flow\Mvc\ActionRequest $originalRequest = NULL) {
+		$this->updateAccountEnvironment();
+
 		if ($originalRequest !== NULL) {
 			$this->redirectToRequest($originalRequest);
 		}
@@ -162,6 +164,16 @@ class AuthenticationController extends \TYPO3\Flow\Security\Authentication\Contr
 			$roleIdentifier = $this->authenticationSettings['defaultRole'];
 		}
 		return $roleIdentifier;
+	}
+
+	/**
+	 * Updates account environment (account, person, ...)
+	 *
+	 * @return void
+	 */
+	protected function updateAccountEnvironment() {
+		$person = $this->securityContext->getParty();
+		$this->personFactory->updatePerson($person);
 	}
 
 }
