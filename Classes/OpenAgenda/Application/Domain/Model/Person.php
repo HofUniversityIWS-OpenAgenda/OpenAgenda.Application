@@ -22,6 +22,12 @@ class Person extends \TYPO3\Party\Domain\Model\Person {
 	protected $phoneNumber;
 
 	/**
+	 * @var Preference
+	 * @ORM\OneToOne(cascade={"all"}, orphanRemoval=true)
+	 */
+	protected $preference;
+
+	/**
 	 * @return string
 	 */
 	public function getPhoneNumber() {
@@ -33,6 +39,20 @@ class Person extends \TYPO3\Party\Domain\Model\Person {
 	 */
 	public function setPhoneNumber($phoneNumber) {
 		$this->phoneNumber = $phoneNumber;
+	}
+
+	/**
+	 * @return Preference
+	 */
+	public function getPreference() {
+		return $this->preference;
+	}
+
+	/**
+	 * @param Preference $preference
+	 */
+	public function setPreference(Preference $preference) {
+		$this->preference = $preference;
 	}
 
 }
