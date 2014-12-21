@@ -8,6 +8,7 @@ angular.module("Meeting")
     .controller('MeetingEditCtrl', ['$scope','$filter', '$http', '$rootScope', '$location', '$routeParams', '$resource', "breadcrumbs", 'FileUploader', "MeetingResourceHelper", 'CommonHelperMethods', 'OpenAgenda.Data.Utility', 'ModalDialog',
         function ($scope, $filter, $http, $rootScope, $location, $routeParams, $resource, breadcrumbs, FileUploader, MeetingResourceHelper, CommonHelperMethods, oaUtility, ModalDialog) {
             $scope.breadcrumbs = breadcrumbs;
+            $scope.loading = true;
             console.log("Meeting Edit Controller loaded");
 
             $scope.meetingsRoles = [{ "value": "OpenAgenda.Application:Listener", "text": "Zuhörer" },
@@ -27,6 +28,7 @@ angular.module("Meeting")
 
             if (typeof $scope.meetingId === "undefined")
                 $scope.editMode = true;
+
             if (typeof $scope.meetingId != "undefined") {
                 $scope.meeting = MeetingResourceHelper.getMeetingDetail($routeParams.meetingId).get(function (data) {
                     data.scheduledStartDate = CommonHelperMethods.getDateFromJSONString(data.scheduledStartDate);
@@ -35,6 +37,8 @@ angular.module("Meeting")
                             $scope.uploaders.push(new FileUploader());
                         }
                     }
+                    console.log("Got Meeting: ", $scope.meeting)
+                    $scope.loading = false;
                 }, function (err) {
                     alert('request failed');
                 });
