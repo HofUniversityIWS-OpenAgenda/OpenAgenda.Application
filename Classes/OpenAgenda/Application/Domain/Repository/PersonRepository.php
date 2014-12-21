@@ -10,7 +10,10 @@ use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Persistence\Repository;
 
 /**
+ * Class PersonRepository
  * @Flow\Scope("singleton")
+ * @package OpenAgenda\Application\Domain\Repository
+ * @author Oliver Hader <oliver@typo3.org>
  */
 class PersonRepository extends \TYPO3\Party\Domain\Repository\PartyRepository {
 
