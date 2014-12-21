@@ -59,15 +59,6 @@ angular.module("Dashboard", [])
                 return $rootScope.notifications;
             };
             //$rootScope.changeToolBar("<div>IF NEEDED TOOLBAR</div>");
-            $scope.help = function () {
-                console.log("oiertdfb9pihub redfbpbhu");
-                var modalDefaults = {
-                    templateUrl: '/template/modaldialog/generichelp.html'
-                };
-
-                ModalDialog.showModal(modalDefaults, {});
-            };
-
         }])
         /*  Controller especially for the Calendar in the Dashboard
         *   Due to a bug in the Library only meetings of the current view are shown in the Calendar
