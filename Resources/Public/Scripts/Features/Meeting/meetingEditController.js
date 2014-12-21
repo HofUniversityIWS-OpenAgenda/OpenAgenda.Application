@@ -39,6 +39,7 @@ angular.module("Meeting")
                     }
                     console.log("Got Meeting: ", $scope.meeting)
                     $scope.loading = false;
+                    //$scope.editMode = $scope.meeting.$permissions.edit; TODO: Edit or not permission
                 }, function (err) {
                     alert('request failed');
                 });

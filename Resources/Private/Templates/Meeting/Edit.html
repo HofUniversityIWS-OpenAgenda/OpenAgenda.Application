@@ -41,12 +41,10 @@
                             </div>-->
 
                             <h3>Termin
-                                <div  class="pull-right">
-                                    <div class="panel-entry">Meeting Status</div>
+                                <div ng-show="meeting.__identity" class="pull-right">
+                                    <div style="margin-right: 30px">Meeting Status</div>
                                 </div>
                             </h3>
-
-
                             <div class="panel-entry">
                                 <span ng-switch on="editMode">
                                     <a ng-switch-when="true" href="#" editable-bsdate="meeting.scheduledStartDate" e-datepicker-popup="dd-MMMM-yyyy">
@@ -56,7 +54,7 @@
                                         Datum: {{ (meeting.scheduledStartDate | date:"dd/MM/yyyy") || 'nicht festgelegt' }}
                                     </a>
                                 </span>
-                                <div  class="pull-right">
+                                <div ng-show="meeting.__identity" class="pull-right">
                                     <div meeting-status="true"></div>
                                 </div>
                                 <br/>
@@ -73,7 +71,7 @@
                                     <a ng-switch-when="true" href="#" editable-text="meeting.location">{{ meeting.location || 'Kein Ort festgelegt' }}</a>
                                     <a ng-switch-default>Ort: {{ meeting.location || 'nicht festgelegt' }}</a>
                                 </span>
-                                <div class="pull-right">
+                                <div ng-show="meeting.__identity && meeting.$permissions.execute" class="pull-right">
                                     <a href="/#meeting/start/{{meeting.__identity}}">
                                         Meeting durchführen
                                         <i class="fa fa-arrow-circle-right"></i>
@@ -174,7 +172,7 @@
                                         </div>
                                         <div class="clearfix panel-entry">
                                             <button ng-click="sendMeetingData()" style="margin-bottom: 20px; margin-right: 15px" class=" pull-right btn btn-danger">
-                                                Meeting anlegen
+                                                Meeting speichern
                                             </button>
                                         </div>
                                     </div>
