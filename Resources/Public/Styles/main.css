@@ -12,6 +12,10 @@
     margin-top: -30px;
 }
 
+.openagenda-validation-errors{
+	color: red;
+}
+
 .container:before {
     content: "";
     position: fixed;
