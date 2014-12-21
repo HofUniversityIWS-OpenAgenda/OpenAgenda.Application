@@ -4,7 +4,7 @@
 		<body>
 			<trans-unit id="1221560718.newAccount.username">
 				<source>Please specify a valid email address.</source>
-				<target>Bitte geben Sie eine gültige E-Mail-Adresse an</target>
+				<target>Bitte geben Sie eine gültige E-Mail-Adresse an.</target>
 			</trans-unit>
 			<trans-unit id="1355785874.newAccount.username">
 				<source>This email address is already being used.</source>
@@ -13,7 +13,7 @@
 
 			<trans-unit id="1221560718.newAccount.firstName">
 				<source>Enter a first name.</source>
-				<target>Geben Sie Ihren Vornamen an</target>
+				<target>Geben Sie Ihren Vornamen an.</target>
 			</trans-unit>
 			<trans-unit id="1238108068.newAccount.firstName">
 				<source>The first name must contain at least {0,number} characters.</source>
@@ -21,7 +21,7 @@
 			</trans-unit>
 			<trans-unit id="1221560718.newAccount.lastName">
 				<source>Enter a last name.</source>
-				<target>Geben Sie Ihren Nachnamen an</target>
+				<target>Geben Sie Ihren Nachnamen an.</target>
 			</trans-unit>
 			<trans-unit id="1238108068.newAccount.lastName">
 				<source>The last name must contain at least {0,number} characters.</source>
@@ -30,7 +30,7 @@
 
 			<trans-unit id="1221560718.newAccount.password">
 				<source>Enter a password.</source>
-				<target>Geben Sie ein Passwort an</target>
+				<target>Geben Sie ein Passwort an.</target>
 			</trans-unit>
 			<trans-unit id="1238108068.newAccount.password">
 				<source>The password must contain at least {0,number} characters.</source>
