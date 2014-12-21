@@ -19,17 +19,6 @@ angular.module("Meeting")
 
             data.scheduledStartDate = CommonHelperMethods.getDateFromJSONString(data.scheduledStartDate);
 
-            $scope.invitedUsers = [];
-            // TODO: invitedUsers from Meeting
-            for (var i = 0; i < $scope.meeting.invitations.length; i++) {
-
-                $scope.invitedUsers.push({value: $scope.meeting.invitations[i].$participant.__identity,
-                    text: $scope.meeting.invitations[i].$participant.name.firstName +' '+
-                            $scope.meeting.invitations[i].$participant.name.lastName +' <'+
-                            $scope.meeting.invitations[i].$participant.$mail + '>'
-                });
-
-            };
 
            /* for (var i = 0; i < $scope.meeting.tasks.length; i++) {
 
@@ -134,6 +123,9 @@ angular.module("Meeting")
             }
             else
                 return x;
+        };
+        $scope.removeTasks = function (idx) {
+          $scope.meeting.tasks.splice( idx, 1 );
         };
 
 

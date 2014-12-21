@@ -101,16 +101,13 @@
                         <h3 style="border-top: solid 1px #eeeeee">Aufgaben</h3>
                         <div class="panel-entry">
                             <div class="task">
-                                <button class="pull-right btn btn-default"><span
-                                        class="glyphicon glyphicon-minus"
-                                        aria-hidden="true"></span></button>
                                 <div class="task-item" ng-repeat="taskItem in meeting.tasks">
                                     <div>
                                         <a href="#" editable-text="taskItem.title">{{ taskItem.title || 'Aufgabentitel festlegen' }}</a>
+                                        <a point-me="true" ng-click="removeTasks($index)"><span class=" pull-right glyphicon glyphicon-remove" aria-hidden="true"></span></a>
                                     </div>
-
                                     <div style="padding: 0px" class="col-sm-5">
-                                        <a href="#" editable-select="taskItem.assignee" buttons='no' e-ng-options="s.value as s.text for s in invitedUsers">
+                                        <a href="#" editable-select="taskItem.assignee" buttons='no' e-ng-options="invitation.$participant.__identity as invitation.$participant.$mail for invitation in meeting.invitations">
                                             {{ showStatus($index).$mail }}
                                         </a>
                                     </div>
