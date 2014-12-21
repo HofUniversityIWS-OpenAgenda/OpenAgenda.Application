@@ -109,7 +109,7 @@ angular.module("Meeting")
         }
 
         $scope.showStatus = function(index) {
-            var x = {$mail:"Verantwortlichen wählen"};
+            var x = "Verantwortlichen wählen";
 
             //If task has already a assignee
             //Should task.$assignee be deleted, if a new assignee is choosen?
@@ -117,7 +117,7 @@ angular.module("Meeting")
             if($scope.meeting.tasks[index].assignee) {
                 var selected = $filter('filter')($scope.meeting.invitations, {participant: $scope.meeting.tasks[index].assignee});
                 if (selected.length)
-                    return selected[0].$participant;
+                    return selected[0].$participant.$mail;
                 else
                     return x;
             }
