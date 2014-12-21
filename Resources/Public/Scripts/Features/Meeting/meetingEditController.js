@@ -8,8 +8,8 @@ angular.module("Meeting")
     .controller('MeetingEditCtrl', ['$scope','$filter', '$http', '$rootScope', '$location', '$routeParams', '$resource', "breadcrumbs", 'FileUploader', "MeetingResourceHelper", 'CommonHelperMethods', 'OpenAgenda.Data.Utility', 'ModalDialog',
         function ($scope, $filter, $http, $rootScope, $location, $routeParams, $resource, breadcrumbs, FileUploader, MeetingResourceHelper, CommonHelperMethods, oaUtility, ModalDialog) {
             $scope.breadcrumbs = breadcrumbs;
-            console.log("Create meeting Conroller loaded");
-            $scope.headerTitle = "Meeting anlegen";
+            console.log("Meeting Edit Controller loaded");
+
             $scope.meetingsRoles = [{ "value": "OpenAgenda.Application:Listener", "text": "Zuhörer" },
                                     { "value": "OpenAgenda.Application:Participant", "text": "Teilnehmer" },
                                     { "value": "OpenAgenda.Application:MinuteTaker", "text": "Protokol-Führer" },
@@ -18,18 +18,18 @@ angular.module("Meeting")
                                     { "value": "OpenAgenda.Application:Chairman", "text": "Vorsitzender" },
                                     { "value": "OpenAgenda.Application:Administrator", "text": "Administrator" }
                                     ];
+
             $scope.meetingId = $routeParams.meetingId;
             $scope.uploaders = [];
 
             $scope.remoteUsers = [];
             $http.get('person/index.json').success(function(persons) { $scope.remoteUsers = persons; });
 
+            if (typeof $scope.meetingId === "undefined")
+                $scope.editMode = true;
             if (typeof $scope.meetingId != "undefined") {
-                $scope.headerTitle = "Meeting bearbeiten";
                 $scope.meeting = MeetingResourceHelper.getMeetingDetail($routeParams.meetingId).get(function (data) {
                     data.scheduledStartDate = CommonHelperMethods.getDateFromJSONString(data.scheduledStartDate);
-                console.log('success, got data: ', data);
-
                     for (var i = 0; i <= $scope.meeting.agendaItems.length; i++) {
                         if (typeof $scope.uploaders[i] === "undefined") {
                             $scope.uploaders.push(new FileUploader());
@@ -39,15 +39,13 @@ angular.module("Meeting")
                     alert('request failed');
                 });
             }
-            if ((typeof $scope.meetingId != "undefined") && !$scope.editMode) {
-                $scope.headerTitle = "Meeting anzeigen";
-            }
+
 
             function AgendaItem(count) {
-                this.title = 'TOP #' + count
-                this.description = 'Description';
+                this.title = null;
+                this.description = null;
                 this.resources = [];
-
+                this.sorting = count;
                 $scope.uploaders.push(new FileUploader());
             }
 
@@ -56,8 +54,8 @@ angular.module("Meeting")
                 this.startDate = null;
                 this.scheduledStartDate = new Date();
                 this.status = 0;
-                this.title = 'Meeting';
-                this.location = 'Location';
+                this.title = null;
+                this.location = null;
                 this.agendaItems = [new AgendaItem(1)];
                 this.invitations = [];
             }
@@ -68,7 +66,6 @@ angular.module("Meeting")
 
             if (typeof $scope.meeting === "undefined") {
                 $scope.meeting = new Meeting();
-                console.log("Meeting ist undefinded");
             }
 
             $scope.addNewAgendaItem = function () {
@@ -85,19 +82,21 @@ angular.module("Meeting")
             };
 
             $scope.$watchCollection('meeting', function (newValue, oldValue) {
-                console.log(newValue);
+                //console.log(newValue);
             });
 
             $scope.sendMeetingData = function () {
-                console.log("SENDEN");
-                console.log($scope.meeting);
-
-
                 if ($scope.checkEntries()) {
 
-                    $http.post('meeting/create.json', {newMeeting: oaUtility.jsonCast($scope.meeting)}, {proxy: true}).
+                    if(typeof $scope.meetingId != "undefined")
+                        var sendUrl = "meeting/update.json";
+                    else
+                        var sendUrl = "meeting/create.json";
+
+                    console.log("SEND MEETING DATA");
+                    console.log($scope.meeting);
+                    $http.post(sendUrl, {newMeeting: oaUtility.jsonCast($scope.meeting)}, {proxy: true}).
                         success(function (data, status, headers, config) {
-                            console.log(data);
                             console.log('New identity: ' + data.__identity);
                             // this callback will be called asynchronously
                             // when the response is available
@@ -117,7 +116,6 @@ angular.module("Meeting")
                         error(function (data, status, headers, config) {
                             // called asynchronously if an error occurs
                             // or server returns response with an error status.
-                            console.log(data);
                             console.log("ERROR");
                             var modalOptions = {
                                 headerText: 'Fehler',
@@ -143,7 +141,7 @@ angular.module("Meeting")
                 }
             };
             /*All Email Addresses for auto completion*/
-            $scope.mailAdresses = ["thomas.winkler@fh-hof.de", "thomas.weber@fh-hof.de"];
+            $scope.mailAdresses = [];
 
             $scope.updateMailAddresses = function (typed) {
                 $scope.mailAdresses = [];
@@ -165,8 +163,6 @@ angular.module("Meeting")
                 meetingEntries = true;
 
                 angular.forEach($scope.meeting.agendaItems, function (agendaItem) {
-                    console.log("++++++++" + agendaItem.title.length);
-
                     if (agendaItem.title.length <= 0) {
                         agendaItems = false;
                         return;

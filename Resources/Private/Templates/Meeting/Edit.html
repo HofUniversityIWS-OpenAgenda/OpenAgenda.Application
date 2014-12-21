@@ -17,10 +17,12 @@
             <div class="row">
                 <div class="col-lg-12">
                     <button type="button" class="btn pull-right btn-default btn-circle btn-lg btn-help "><div><i class="fa fa-question"></i></div></button>
-                    <h1 class="page-header">{{headerTitle}}</h1>
-
-                    <!-- >  Button nach User-Berechtigungen entfernen </!--> 
+                    <h1 ng-if="!meetingId" class="page-header">Meeting anlegen</h1>
+                    <h1 ng-if="meetingId && editMode" class="page-header">Meeting bearbeiten</h1>
+                    <h1 ng-if="meetingId && !editMode" class="page-header">Meeting anzeigen</h1>
+                    <!-- >  Button nach User-Berechtigungen entfernen
                     <button type="button" class="btn btn-primary" ng-model="editMode" btn-checkbox="false" btn-checkbox-true="true" btn-checkbox-false="false">Enable Edit</button>
+                    --> 
 
                 </div>
             </div>
