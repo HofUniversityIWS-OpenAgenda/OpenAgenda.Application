@@ -9,6 +9,7 @@ angular.module("Meeting")
             console.log($routeParams.meetingId);
             $scope.breadcrumbs = breadcrumbs;
             $scope.meeting = [];
+            var getnewMeeting;
             function reloadMeetingData() {
                 MeetingResourceHelper.getMeetingDetail($routeParams.meetingId).get(function (data) {
                     if (data.startDate) {
@@ -17,7 +18,7 @@ angular.module("Meeting")
                     data.scheduledStartDate = CommonHelperMethods.getDateFromJSONString(data.scheduledStartDate);
                     $scope.meeting = data;
                     if(!$scope.meeting.$permissions.minutes) {
-                        var getnewMeeting = $interval(function () {
+                        getnewMeeting = $interval(function () {
                             reloadMeetingData();
                         }, 10000);
                     }
@@ -188,6 +189,11 @@ angular.module("Meeting")
                     });
                 sendMeetingData(oaUtility.jsonCast($scope.meeting), 'Beim Beenden des Meetings ist ein Fehler aufgetreten!')
             };
+            
+            $scope.$on('$destroy', function () {
+                if(getnewMeeting)
+                    $interval.cancel(getnewMeeting);
+            });
         }
     ])
 
