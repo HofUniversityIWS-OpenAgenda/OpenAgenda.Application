@@ -23,7 +23,6 @@ angular.module("Meeting")
                         }, 10000);
                     }
                 }, function (err) {
-                    alert('request failed');
                 });
 
             };
