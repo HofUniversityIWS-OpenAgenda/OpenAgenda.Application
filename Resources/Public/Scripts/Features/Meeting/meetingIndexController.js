@@ -183,6 +183,30 @@ angular.module("Meeting", [])
 
                     });
             };
+            $scope.sendInvitations = function(id) {
+                $http.get("/meeting/" + id + "/invite.json").
+                    success(function (data, status, headers, config) {
+                        var modalOptions = {
+                            headerText: 'Erfolg',
+                            bodyText: 'Die Einladungen wurden erfolgreich verschickt!'
+                        };
+                        var modalDefaults = {
+                            templateUrl: '/template/modaldialog/success.html'
+                        };
+                        ModalDialog.showModal(modalDefaults, modalOptions);
+                        $location.path("/meeting");
+                    }).
+                    error(function (data, status, headers, config) {
 
+                        var modalOptions = {
+                            headerText: 'Fehler',
+                            bodyText: 'Beim Verschicken der Einladungen ist ein Fehler aufgetreten! Versuchen Sie es später erneut!'
+                        };
+                        var modalDefaults = {
+                            templateUrl: '/template/modaldialog/error.html'
+                        };
+                        ModalDialog.showModal(modalDefaults, modalOptions);
 
+                    });
+            };
         }]);
