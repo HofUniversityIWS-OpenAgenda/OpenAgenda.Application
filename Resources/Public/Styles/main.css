@@ -129,7 +129,12 @@ div.form-group {
 .editable-click:hover {
     color: #ffffff;
 }
-
+/*xEditable customization*/
+.editable-empty, .editable-empty:hover, .editable-empty:focus, span.editable-empty, span.editable-empty:hover, sapn.editable-empty:focus {
+    font-style: italic;
+    color: #D14;
+    text-decoration: none
+}
 /* temporary workaround for display editable-bstime in bs3 - up/down symbols not shown */
 .editable-bstime .editable-input i.icon-chevron-up:before {
     content: '\e113';

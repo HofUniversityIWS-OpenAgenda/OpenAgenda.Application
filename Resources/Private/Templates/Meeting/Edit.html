@@ -27,13 +27,13 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-12">
+
+            <div class="col-lg-12">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-
                             <span ng-switch on="editMode">
-                                <h3 ng-switch-when="true" style="color: #ffffff" class="panel-title"><span point-me="true" href="#" editable-text="meeting.title">{{ meeting.title || 'Noch kein Titel festgelegt' }}</span></h3>
-                                <h3 ng-switch-default     style="color: #ffffff" class="panel-title"><span>{{ meeting.title || 'Noch kein Titel festgelegt' }}</span></h3>
+                                <h3 ng-switch-when="true" class="panel-title"><span point-me="true" href="#" editable-text="meeting.title">{{ meeting.title || 'Noch kein Titel festgelegt' }}</span></h3>
+                                <h3 ng-switch-default  class="panel-title"><span>{{ meeting.title || 'Noch kein Titel festgelegt' }}</span></h3>
                             </span>
                         </div>
                         <div class="panel-body">
