@@ -84,6 +84,13 @@ class Message {
 	protected $dateTime;
 
 	/**
+	 * Initializes this object.
+	 */
+	public function __construct() {
+		$this->attachments = new \Doctrine\Common\Collections\ArrayCollection();
+	}
+
+	/**
 	 * @return \DateTime
 	 */
 	public function getDateTime() {
@@ -91,7 +98,7 @@ class Message {
 	}
 
 	/**
-	 * @return \Doctrine\Common\Collections\Collection
+	 * @return \Doctrine\Common\Collections\Collection|\TYPO3\Flow\Resource\Resource[]
 	 */
 	public function getAttachments() {
 		return $this->attachments;
