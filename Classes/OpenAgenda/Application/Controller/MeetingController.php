@@ -36,8 +36,8 @@ class MeetingController extends AbstractController {
 	protected $taskRepository;
 
 	protected function initializeCreateAction() {
-		if ($this->arguments->hasArgument('newMeeting')) {
-			$this->initializePropertyMappingConfiguration('newMeeting');
+		if ($this->arguments->hasArgument('meeting')) {
+			$this->initializePropertyMappingConfiguration('meeting');
 		}
 	}
 
@@ -158,23 +158,23 @@ class MeetingController extends AbstractController {
 	}
 
 	/**
-	 * @param \OpenAgenda\Application\Domain\Model\Meeting $newMeeting
+	 * @param \OpenAgenda\Application\Domain\Model\Meeting $meeting
 	 * @return void
 	 */
-	public function createAction(Meeting $newMeeting = NULL) {
-		if ($newMeeting === NULL) {
+	public function createAction(Meeting $meeting = NULL) {
+		if ($meeting === NULL) {
 			$this->redirect('new');
 		}
 
-		$newMeeting->setStatus(Meeting::STATUS_CREATED);
-		$this->entityService->applyStatusDates($newMeeting);
-		$this->entityService->applySortingOrder($newMeeting->getAgendaItems());
+		$meeting->setStatus(Meeting::STATUS_CREATED);
+		$this->entityService->applyStatusDates($meeting);
+		$this->entityService->applySortingOrder($meeting->getAgendaItems());
 
-		$this->historyService->invoke($newMeeting);
-		$this->meetingRepository->add($newMeeting);
+		$this->historyService->invoke($meeting);
+		$this->meetingRepository->add($meeting);
 		$this->persistenceManager->persistAll();
 
-		$this->view->assign('value', $this->arrayService->flatten($newMeeting));
+		$this->view->assign('value', $this->arrayService->flatten($meeting));
 	}
 
 	/**
