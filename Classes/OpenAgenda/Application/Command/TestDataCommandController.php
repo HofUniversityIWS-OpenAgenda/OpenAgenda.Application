@@ -241,4 +241,32 @@ class TestDataCommandController extends CommandController {
 		}
 	}
 
+	/**
+	 * @param string $identifier
+	 */
+	public function deleteMeetingCommand($identifier = '7c76e975-0390-5f84-f161-2146f0fb7b1f') {
+		$meeting = $this->meetingRepository->findByIdentifier($identifier);
+
+		$agendaItems = $this->agendaItemRepository->findByMeeting($meeting);
+		$invitations = $this->invitationRepository->findByMeeting($meeting);
+		$tasks = $this->taskRepository->findByMeeting($meeting);
+
+		foreach ($agendaItems as $removeObjects) {
+			$this->agendaItemRepository->remove($removeObjects);
+		}
+
+		foreach ($invitations as $removeObjects) {
+			$this->invitationRepository->remove($removeObjects);
+		}
+
+		foreach ($tasks as $removeObjects) {
+			$this->taskRepository->remove($removeObjects);
+		}
+
+		$this->persistenceManager->persistAll();
+
+		$this->historyService->invoke($meeting);
+		$this->meetingRepository->remove($meeting);
+	}
+
 }
