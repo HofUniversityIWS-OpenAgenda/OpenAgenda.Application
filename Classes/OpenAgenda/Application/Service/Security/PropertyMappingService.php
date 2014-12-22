@@ -108,7 +108,7 @@ class PropertyMappingService {
 		$matchingRoles = array_intersect($roles, $this->securityContext->getRoles());
 
 		if (count($matchingRoles)) {
-			$matchingRole = $matchingRoles[0];
+			$matchingRole = array_shift($matchingRoles);
 			$settings = $this->propertyMappingSettings[$dataType][$actionName][$matchingRole];
 		} elseif (isset($this->propertyMappingSettings[$dataType][$actionName]['default'])) {
 			$settings = $this->propertyMappingSettings[$dataType][$actionName]['default'];
