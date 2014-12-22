@@ -114,7 +114,7 @@ angular.module("Meeting")
                     task: $scope.meeting.tasks[idx].__identity,
                     meeting: $scope.meeting.__identity
                 });
-                $http.post('task/delete.json', {
+                $http.post('task/' + $scope.meeting.tasks[idx].__identity + '/delete.json', {
                     task: $scope.meeting.tasks[idx].__identity,
                     meeting: $scope.meeting.__identity
                 }, {proxy: true}).

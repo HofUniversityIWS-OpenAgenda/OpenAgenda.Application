@@ -95,7 +95,6 @@ class TaskController extends AbstractController {
 	 * @return void
 	 */
 	public function deleteAction(Meeting $meeting, Task $task) {
-		$meeting->getTasks()->remove($task);
 		$this->taskRepository->remove($task);
 		$this->persistenceManager->persistAll();
 	}
