@@ -57,11 +57,18 @@
                             <div class="agenda-punkt" style="border-top: solid 1px #eeeeee">
                                 <div class="panel-entry row">
                                     <div class=" col-sm-12 col-md-12 col-lg-6 ">
-                                        <div class="checkbox">
-                                            <label><input type="checkbox" ng-model="checked" ng-disabled='meeting.status != 2 && !meeting.$permissions.execute'/>
-                                                <b>{{agendaItem.title}}</b>
-                                            </label>
-                                        </div>
+                                        <span ng-switch on="meeting.$permissions.execute">
+                                            <div class="checkbox" ng-switch-when="true">
+                                                <label><input type="checkbox" ng-model="checked" ng-disabled='meeting.status != 2'/>
+                                                    <b>{{agendaItem.title}}</b>
+                                                </label>
+                                            </div>
+                                            <div class="checkbox" ng-switch-default>
+                                                <label><input type="checkbox" ng-model="checked" ng-disabled='true'/>
+                                                    <b>{{agendaItem.title}}</b>
+                                                </label>
+                                            </div>
+                                        </span>
                                         <div>
                                             <div class="check-element animate-hide" ng-hide="checked">{{agendaItem.description}}</div>
                                         </div>
