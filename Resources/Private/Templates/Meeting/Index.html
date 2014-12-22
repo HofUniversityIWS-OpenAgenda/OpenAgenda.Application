@@ -28,8 +28,8 @@
                     <!-- /.panel-heading -->
                     <div class="panel-body">
 
-                        <!-- >  Button nach User-Berechtigungen entfernen</!--> 
-                        <button type="button" class="btn btn-primary" ng-model="editMode" btn-checkbox="false" btn-checkbox-true="true" btn-checkbox-false="false">Enable Edit</button>
+                        <!--  Button nach User-Berechtigungen entfernen
+                        <button type="button" class="btn btn-primary" ng-model="editMode" btn-checkbox="false" btn-checkbox-true="true" btn-checkbox-false="false">Enable Edit</button>--> 
 
                         <form role="form">
                             <div class="form-group">
@@ -81,8 +81,8 @@
                                     </td>
                                     <td meeting-status="true"> </td>
                                     <td> <!--Edit Mode in Permissions are missing -->
-                                        <a ng-show="!editMode" ng-href="/#meeting/show/{{meeting.__identity}}">Anzeigen <i class="fa fa-eye"></i>
-                                        <a ng-show="editMode" ng-href="/#meeting/show/{{meeting.__identity}}">Anzeigen/Editieren <i class="fa fa-pencil-square-o"></i></a>&nbsp;&nbsp;
+                                        <a ng-show="!meeting.$permissions.edit" ng-href="/#meeting/show/{{meeting.__identity}}">Anzeigen <i class="fa fa-eye"></i>
+                                        <a ng-show="meeting.$permissions.edit" ng-href="/#meeting/show/{{meeting.__identity}}">Anzeigen/Editieren <i class="fa fa-pencil-square-o"></i></a>&nbsp;&nbsp;
                                         <a ng-show="meeting.$permissions.execute" ng-href="/#meeting/start/{{meeting.__identity}}">Durchführen <i class="fa fa-bolt"></i></a>&nbsp;&nbsp;
                                         <a point-me="true" ng-show="meeting.$permissions.cancel" ng-click="cancelMeeting(meeting.__identity)">Abbrechen <i class="fa fa-ban"></i></a>&nbsp;&nbsp;
                                         <a point-me="true" ng-show="meeting.$permissions.delete" ng-click="deleteMeeting(meeting.__identity)">Löschen <i class="fa fa-times-circle"></i></a>
