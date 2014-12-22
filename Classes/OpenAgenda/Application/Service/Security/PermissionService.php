@@ -77,6 +77,8 @@ class PermissionService {
 	 */
 	public function determineMeetingPermissions(\OpenAgenda\Application\Domain\Model\Meeting $meeting) {
 		return array(
+			'create' => $this->hasManagingRole(),
+			'edit' => $this->hasManagingRole(),
 			'delete' => $this->hasManagingRole(),
 			'cancel' => $this->hasManagingRole(),
 			'execute' => $this->hasManagingRole(),
