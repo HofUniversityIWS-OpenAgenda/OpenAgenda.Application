@@ -270,7 +270,18 @@ div.form-group {
     margin-top: -12px;
     margin-left: -4px;
 }
-
+/*Autocomplete customization*/
+.autocomplete ul{
+    -webkit-border-bottom-right-radius: 2px;
+    -webkit-border-bottom-left-radius: 2px;
+    -moz-border-radius-bottomright: 2px;
+    -moz-border-radius-bottomleft: 2px;
+    border-bottom-right-radius: 2px;
+    border-bottom-left-radius: 2px;
+    border-left: 1px solid #888;
+    border-right: 1px solid #888;
+    border-bottom: 1px solid #888;
+}
 
 /*SpinnKit*/
 .spinner {

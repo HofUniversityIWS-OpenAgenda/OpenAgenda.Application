@@ -164,13 +164,9 @@ angular.module("Meeting")
 
                 }
             };
-            /*All Email Addresses for auto completion*/
-            $scope.movies = ["Lord of the Rings",
-                "Drive",
-                "Science of Sleep",
-                "Back to the Future",
-                "Oldboy"];
-
+            /*All Email Addresses for auto completion
+            * IN next Version search for specific users
+            * */
             $scope.updateMailAddresses = function (typed) {
 
             };
@@ -190,7 +186,7 @@ angular.module("Meeting")
                         agendaItems = false;
                         return;
                     }
-                })
+                });
                 if (agendaItems && meetingEntries)
                     return true;
                 else

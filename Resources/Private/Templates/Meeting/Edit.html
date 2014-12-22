@@ -143,8 +143,8 @@
                                     <div class="panel-body">
                                         <form name="myForm" >
                                             <div class="form-group">
-                                                <label>Mail Adresse des Teilnehmers (später autocomplete)</label>
-                                                <autocomplete id="invitiationMail"  name="input" attr-input-class="form-control" click-activation="true" ng-model="invitiationMailAddress" data="mailAddresses"  on-type="updateMailAddresses" required></autocomplete>
+                                                <label>Mail Adresse des Teilnehmers</label>
+                                                <autocomplete id="invitiationMail" attr-placeholder="Mail-Adresse eingeben" name="input" attr-input-class="form-control" click-activation="true" ng-model="invitiationMailAddress" data="mailAddresses"  on-type="updateMailAddresses" required></autocomplete>
                                             </div>
                                             <div ng-show="myForm.input.$error.required" class="alert alert-info" role="alert">
                                                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
