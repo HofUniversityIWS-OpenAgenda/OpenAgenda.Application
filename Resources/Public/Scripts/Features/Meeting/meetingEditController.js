@@ -26,8 +26,11 @@ angular.module("Meeting")
             $scope.remoteUsers = [];
             $http.get('person/index.json').success(function(persons) { $scope.remoteUsers = persons; });
 
-            if (typeof $scope.meetingId === "undefined")
+            if (typeof $scope.meetingId === "undefined") {
                 $scope.editMode = true;
+                $scope.loading = false;
+                
+            }
 
             if (typeof $scope.meetingId != "undefined") {
                 $scope.meeting = MeetingResourceHelper.getMeetingDetail($routeParams.meetingId).get(function (data) {
