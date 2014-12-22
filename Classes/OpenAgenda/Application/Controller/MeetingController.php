@@ -47,13 +47,8 @@ class MeetingController extends AbstractController {
 	 */
 	protected $documentService;
 
-	protected function initializeCreateAction() {
-		if ($this->arguments->hasArgument('meeting')) {
-			$this->initializePropertyMappingConfiguration('meeting');
-		}
-	}
-
-	protected function initializeUpdateAction() {
+	protected function initializeAction() {
+		parent::initializeAction();
 		if ($this->arguments->hasArgument('meeting')) {
 			$this->initializePropertyMappingConfiguration('meeting');
 		}
@@ -130,6 +125,7 @@ class MeetingController extends AbstractController {
 	 */
 	public function startAction(Meeting $meeting) {
 		$meeting->setStatus(Meeting::STATUS_STARTED);
+		$meeting->setStartDate(new \DateTime());
 		$this->meetingRepository->update($meeting);
 		$this->historyService->invoke($meeting);
 		$this->persistenceManager->persistAll();
@@ -141,6 +137,7 @@ class MeetingController extends AbstractController {
 	 */
 	public function closeAction(Meeting $meeting) {
 		$meeting->setStatus(Meeting::STATUS_CLOSED);
+		$meeting->setEndDate(new \DateTime());
 		$this->meetingRepository->update($meeting);
 		$this->historyService->invoke($meeting);
 
