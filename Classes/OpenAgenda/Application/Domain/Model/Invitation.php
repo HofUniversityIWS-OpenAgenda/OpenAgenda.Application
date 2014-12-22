@@ -51,6 +51,12 @@ class Invitation implements CreationInterface, ModificationInterface {
 	protected $modificationDate;
 
 	/**
+	 * @var bool
+	 * @OA\ToFlatArray
+	 */
+	protected $available = FALSE;
+
+	/**
 	 * @return Meeting
 	 */
 	public function getMeeting() {
@@ -120,5 +126,18 @@ class Invitation implements CreationInterface, ModificationInterface {
 		$this->status = $status;
 	}
 
+	/**
+	 * @return bool
+	 */
+	public function getAvailable() {
+		return $this->available;
+	}
+
+	/**
+	 * @param bool $available
+	 */
+	public function setAvailable($available) {
+		$this->available = (bool)$available;
+	}
 
 }
