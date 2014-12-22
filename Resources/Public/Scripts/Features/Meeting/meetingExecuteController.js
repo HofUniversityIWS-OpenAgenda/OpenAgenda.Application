@@ -149,7 +149,6 @@ angular.module("Meeting")
                         if ($scope.meeting.status < 2) {
                             $scope.meeting.startDate = new Date();
                             $scope.meeting.status = 2;
-                            console.log('meetingStart', $scope.meeting);
                         }
                     }).error(function (data, status, headers, config) {
                         var modalOptions = {
