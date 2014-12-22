@@ -82,6 +82,7 @@ class InvitationController extends AbstractController {
 		$invitation->setStatus(Invitation::STATUS_COMMITTED);
 		$this->invitationRepository->update($invitation);
 		$this->historyService->invoke($invitation);
+		$this->persistenceManager->persistAll();
 		$this->redirect('index', 'Standard');
 	}
 
@@ -93,6 +94,7 @@ class InvitationController extends AbstractController {
 		$invitation->setStatus(Invitation::STATUS_COMMITTED);
 		$this->invitationRepository->update($invitation);
 		$this->historyService->invoke($invitation);
+		$this->persistenceManager->persistAll();
 		$this->redirect('index', 'Standard');
 	}
 
