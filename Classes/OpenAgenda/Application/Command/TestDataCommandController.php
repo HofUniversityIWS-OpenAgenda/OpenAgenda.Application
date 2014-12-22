@@ -112,6 +112,7 @@ class TestDataCommandController extends CommandController {
 			$newMeeting->setScheduledStartDate(new \DateTime('2015-01-05 12:00'));
 			$newMeeting->setStatus(Meeting::STATUS_CREATED);
 			$newMeeting->setTitle('Meeting '.($counter+1));
+			$newMeeting->setCreator($adminAccount->getParty());
 			$this->historyService->invoke($newMeeting);
 
 			for ($itemCounter = 0; $itemCounter < $itemQuantity; $itemCounter++) {

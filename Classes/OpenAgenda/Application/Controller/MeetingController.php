@@ -187,8 +187,11 @@ class MeetingController extends AbstractController {
 		if ($meeting === NULL) {
 			$this->redirect('new');
 		}
-
+		
+		$person = $this->securityContext->getParty();
+		$meeting->setCreator($person);
 		$meeting->setStatus(Meeting::STATUS_CREATED);
+
 		$this->entityService->applyStatusDates($meeting);
 		$this->entityService->applySortingOrder($meeting->getAgendaItems());
 

@@ -60,6 +60,12 @@ class Meeting implements CreationInterface, ModificationInterface {
 	protected $minuteTaker;
 
 	/**
+	 * @var \OpenAgenda\Application\Domain\Model\Person
+	 * @ORM\ManyToOne
+	 */
+	protected $creator;
+
+	/**
 	 * @var string
 	 * @OA\ToFlatArray
 	 */
@@ -174,6 +180,13 @@ class Meeting implements CreationInterface, ModificationInterface {
 	}
 
 	/**
+	 * @return \OpenAgenda\Application\Domain\Model\Person
+	 */
+	public function getCreator() {
+		return $this->creator;
+	}
+
+	/**
 	 * @return \DateTime
 	 */
 	public function getStartDate() {
@@ -267,6 +280,13 @@ class Meeting implements CreationInterface, ModificationInterface {
 	 */
 	public function setMinuteTaker(\OpenAgenda\Application\Domain\Model\Person $minuteTaker = NULL) {
 		$this->minuteTaker = $minuteTaker;
+	}
+
+	/**
+	 * @param \OpenAgenda\Application\Domain\Model\Person $creator
+	 */
+	public function setCreator(\OpenAgenda\Application\Domain\Model\Person $creator = NULL) {
+		$this->creator= $creator;
 	}
 
 	/**
