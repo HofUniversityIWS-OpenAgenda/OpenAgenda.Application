@@ -128,7 +128,9 @@ class MeetingController extends AbstractController {
 		$meeting->setStartDate(new \DateTime());
 		$this->meetingRepository->update($meeting);
 		$this->historyService->invoke($meeting);
+
 		$this->persistenceManager->persistAll();
+		$this->view->assign('value', TRUE);
 	}
 
 	/**
@@ -153,6 +155,7 @@ class MeetingController extends AbstractController {
 		}
 
 		$this->persistenceManager->persistAll();
+		$this->view->assign('value', TRUE);
 	}
 
 	/**
@@ -164,6 +167,8 @@ class MeetingController extends AbstractController {
 		$this->meetingRepository->update($meeting);
 		$this->historyService->invoke($meeting);
 		$this->persistenceManager->persistAll();
+
+		$this->view->assign('value', TRUE);
 	}
 
 	/**
@@ -233,6 +238,7 @@ class MeetingController extends AbstractController {
 	 * @return void
 	 */
 	public function updateAction(Meeting $meeting) {
+		// @todo This is ugly, somehow!
 		foreach ($meeting->getAgendaItems() as $agendaItem) {
 			if ($agendaItem->getNote() === NULL) {
 				$note = new \OpenAgenda\Application\Domain\Model\Note();
@@ -242,6 +248,7 @@ class MeetingController extends AbstractController {
 				$this->entityService->applyStatusDates($note);
 			}
 			$this->entityService->applyStatusDates($agendaItem);
+			$this->entityService->applyStatusDates($agendaItem->getNote());
 		}
 
 		foreach ($meeting->getInvitations() as $invitation) {

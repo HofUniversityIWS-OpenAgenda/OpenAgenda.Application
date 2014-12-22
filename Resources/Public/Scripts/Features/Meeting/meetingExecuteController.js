@@ -142,6 +142,11 @@ angular.module("Meeting")
                 });
 
                 var meeting = oaUtility.jsonCast($scope.meeting);
+                angular.forEach(meeting.agendaItems, function(agendaItem) {
+                    if (typeof agendaItem.note !== 'undefined') {
+                        delete agendaItem.note;
+                    }
+                });
 
                 // sendMeetingData(x, 'Beim Starten des Meetings ist ein Fehler aufgetreten!');
                 $http.post('meeting/start.json', { meeting: meeting }, { proxy: true }).
