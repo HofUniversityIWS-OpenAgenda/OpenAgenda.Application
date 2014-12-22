@@ -9,6 +9,8 @@ angular.module("Meeting")
         function ($scope, $filter, $http, $rootScope, $location, $routeParams, $resource, breadcrumbs, FileUploader, MeetingResourceHelper, CommonHelperMethods, oaUtility, ModalDialog) {
             $scope.breadcrumbs = breadcrumbs;
             $scope.loading = true;
+
+            $scope.mailAddresses = [];
             console.log("Meeting Edit Controller loaded");
 
             $scope.meetingsRoles = [{ "value": "OpenAgenda.Application:Listener", "text": "Zuhörer" },
@@ -24,7 +26,12 @@ angular.module("Meeting")
             $scope.uploaders = [];
 
             $scope.remoteUsers = [];
-            $http.get('person/index.json').success(function(persons) { $scope.remoteUsers = persons; });
+            $http.get('person/index.json').success(function(persons) {
+                $scope.remoteUsers = persons;
+                angular.forEach($scope.remoteUsers, function(remoteUser) {
+                $scope.mailAddresses.push(remoteUser.$mail);
+                });
+            });
 
             if (typeof $scope.meetingId === "undefined") {
                 $scope.editMode = true;
@@ -158,16 +165,15 @@ angular.module("Meeting")
                 }
             };
             /*All Email Addresses for auto completion*/
-            $scope.mailAdresses = [];
+            $scope.movies = ["Lord of the Rings",
+                "Drive",
+                "Science of Sleep",
+                "Back to the Future",
+                "Oldboy"];
 
             $scope.updateMailAddresses = function (typed) {
-                $scope.mailAdresses = [];
 
-                // @todo Filtering stuff
-                angular.forEach($scope.remoteUsers, function(remoteUser) {
-                    $scope.mailAdresses.push(remoteUser.$mail);
-                });
-            }
+            };
 
             $scope.checkEntries = function () {
                 var meetingEntries = false;
