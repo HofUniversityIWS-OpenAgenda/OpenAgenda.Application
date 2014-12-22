@@ -91,7 +91,7 @@ class InvitationController extends AbstractController {
 	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
 	 */
 	public function declineAction(Invitation $invitation) {
-		$invitation->setStatus(Invitation::STATUS_COMMITTED);
+		$invitation->setStatus(Invitation::STATUS_CANCELED);
 		$this->invitationRepository->update($invitation);
 		$this->historyService->invoke($invitation);
 		$this->persistenceManager->persistAll();
