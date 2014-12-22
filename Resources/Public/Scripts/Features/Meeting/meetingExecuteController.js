@@ -134,7 +134,7 @@ angular.module("Meeting")
             {
                 $scope.meeting.startDate = new Date();
                 $scope.meeting.status = 2;
-                console.log('meetingStart');
+                console.log('meetingStart', $scope.meeting);
             }
 
         };

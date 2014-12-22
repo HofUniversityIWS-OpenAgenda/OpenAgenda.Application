@@ -25,7 +25,7 @@
                         <h3 class="panel-title">{{meeting.title}}</h3>
                     </div>
                     <div class="panel-body">
-                        <div class="check-element animate-hide" ng-show="meeting.status < 2 && editMode">
+                        <div class="check-element animate-hide" ng-show="meeting.status < 2 && meeting.$permissions.execute">
                             <button ng-controller="MeetingExecuteModalCtrl" style=" margin-right: 40px" class=" pull-right btn btn-success" ng-click="open('lg')"><!--ng-click="startMeetng(); -->
                                 Meeting starten
                             </button>
@@ -52,15 +52,13 @@
                         </div>
 
                         <h3>Agenda</h3>
-                        <!-- >  Button nach User-Berechtigungen entfernen </!-->
-                        <button type="button" class="btn btn-primary" ng-model="editMode" btn-checkbox="false" btn-checkbox-true="true" btn-checkbox-false="false">Enable Edit</button>
-
+                        
                         <div ng-repeat="agendaItem in meeting.agendaItems | orderBy:'+sorting'">
                             <div class="agenda-punkt" style="border-top: solid 1px #eeeeee">
                                 <div class="panel-entry row">
                                     <div class=" col-sm-12 col-md-12 col-lg-6 ">
                                         <div class="checkbox">
-                                            <label><input type="checkbox" ng-model="checked" ng-disabled='meeting.status != 2 || !editMode'/>
+                                            <label><input type="checkbox" ng-model="checked" ng-disabled='meeting.status != 2 && !meeting.$permissions.execute'/>
                                                 <b>{{agendaItem.title}}</b>
                                             </label>
                                         </div>
@@ -79,11 +77,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="check-element animate-hide" ng-hide="meeting.status != 2 || checked">
+                                <div class="check-element animate-hide" ng-show="agendaItem.note.description || meeting.$permissions.minutes">
                                     <div class="panel-entry">
                                         <h4>Protokoll</h4>
                                         <div class="Protokoll">
-                                            <span ng-switch on="editMode">
+                                            <span ng-switch on="meeting.$permissions.minutes">
                                                 <a ng-switch-when="true" href="#" editable-textarea="agendaItem.note.description" e-rows="7" e-cols="40">
                                                     <pre>{{ agendaItem.note.description || 'Noch kein Protokolleintrag' }}</pre>
                                                 </a>
@@ -98,9 +96,9 @@
                             </div>
                         </div>
 
-                        <h3 style="border-top: solid 1px #eeeeee">Aufgaben</h3>
+                        <h3 style="border-top: solid 1px #eeeeee" >Aufgaben</h3>
                         <div class="panel-entry">
-                            <div class="task">
+                            <div class="task" ng-show="meeting.$permissions.minutes">
                                 <div class="task-item" ng-repeat="taskItem in meeting.tasks">
                                     <div>
                                         <a href="#" editable-text="taskItem.title">{{ taskItem.title || 'Aufgabentitel festlegen' }}</a>
@@ -135,7 +133,7 @@
                         </div>
                     </div>
                     <div class=" clearfix panel-entry">
-                        <button style="margin-bottom: 20px; margin-right: 15px" class=" pull-right btn btn-danger" ng-show="meeting.status == 2" ng-click="endMeeting()">
+                        <button style="margin-bottom: 20px; margin-right: 15px" class=" pull-right btn btn-danger" ng-show="meeting.status == 2 && meeting.$permissions.execute" ng-click="endMeeting()">
                             Meeting abschließen
                         </button>
                     </div>
