@@ -49,10 +49,21 @@ angular.module("Meeting")
                     }
                     console.log("Got Meeting: ", $scope.meeting)
                     $scope.loading = false;
-                    $scope.editMode = $scope.meeting.$permissions.edit;
+                    if ($scope.meeting.status == 3) {
+                        $scope.editMode = false;
+
+                    } else {
+                        $scope.editMode = $scope.meeting.$permissions.edit;
+
+                    }
+
                 }, function (err) {
                     alert('request failed');
                 });
+
+            } else if ($scope.status == 3) {
+                $scope.editMode = false;
+
             }
 
 
