@@ -12,10 +12,6 @@
     margin-top: -30px;
 }
 
-.openagenda-validation-errors, .openagenda-authentication-error{
-	color: red;
-}
-
 .container:before {
     content: "";
     position: fixed;
@@ -37,7 +33,6 @@
     -moz-filter: blur(10px);
     -o-filter: blur(10px);
     -ms-filter: blur(10px);
-
 }
 /* Fix for Firefox*/
 @-moz-document url-prefix() {
@@ -58,10 +53,24 @@
         background-size: cover;
     }
 }
-.topbar-search .input-group {
-    margin-bottom: -10px;
+
+.openagenda-validation-errors, .openagenda-authentication-error{
+    color: red;
 }
 
+/*Layout TopBar*/
+.topbar-search .input-group {
+    margin-bottom: -10px;
+    width: 290px;
+}
+
+/*Layout Breadcrumb*/
+.breadcrumb {
+    margin: 0 -30px;
+    border-radius: 0px;
+}
+
+/*Layout Menu*/
 .sidebar-heading {
     padding-left: 20px;
     font-size: 2em;
@@ -80,18 +89,13 @@
     margin-bottom: 0px;
 }
 
-.breadcrumb {
-    margin: 0 -30px;
-    border-radius: 0px;
-}
-
 .toolbar-entry {
     padding: 0px 24px;
 }
 
+/*Layout Content*/
 .panel-entry {
     padding: 0px 34px;
-
 }
 
 .panel-entry .checkbox {
@@ -122,18 +126,19 @@ div.form-group {
 
 }
 
+/*xEditable customization*/
+.editable-empty, .editable-empty:hover, .editable-empty:focus, span.editable-empty, span.editable-empty:hover, span.editable-empty:focus {
+    font-style: italic;
+    color: #D14;
+    text-decoration: none
+}
+
 .editable-click {
     color: #ffffff;
 }
 
 .editable-click:hover {
     color: #ffffff;
-}
-/*xEditable customization*/
-.editable-empty, .editable-empty:hover, .editable-empty:focus, span.editable-empty, span.editable-empty:hover, sapn.editable-empty:focus {
-    font-style: italic;
-    color: #D14;
-    text-decoration: none
 }
 /* temporary workaround for display editable-bstime in bs3 - up/down symbols not shown */
 .editable-bstime .editable-input i.icon-chevron-up:before {
@@ -155,7 +160,7 @@ div.form-group {
     font-weight: normal;
     line-height: 1;
 }
-
+/*Show plus btn instead of default*/
 .btn-file {
     position: relative;
     overflow: hidden;
@@ -177,8 +182,8 @@ div.form-group {
     display: block;
 }
 
+/*Animations*/
 .ng-hide-add, .ng-hide-remove {
-    /* ensure visibility during the transition */
     display: block !important; /* yes, important */
 }
 
@@ -229,6 +234,7 @@ div.form-group {
     opacity: 1;
 }
 
+/*If text should not be selectable*/
 .noselect {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -237,6 +243,8 @@ div.form-group {
     -ms-user-select: none;
     user-select: none;
 }
+
+/*Round help btn*/
 .btn-circle {
     width: 30px;
     height: 30px;
@@ -270,6 +278,7 @@ div.form-group {
     margin-top: -12px;
     margin-left: -4px;
 }
+
 /*Autocomplete customization*/
 .autocomplete ul{
     -webkit-border-bottom-right-radius: 2px;
@@ -332,6 +341,7 @@ div.form-group {
     }
 }
 
+/*Responsive layout costomization*/
 @media (min-width: 768px) {
     .breadcrumb {
         margin: 0 -45px;

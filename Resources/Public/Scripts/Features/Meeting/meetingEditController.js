@@ -5,7 +5,7 @@
  * Created by Thomas on 27.11.14.
  */
 angular.module("Meeting")
-    .controller('MeetingEditCtrl', ['$scope','$filter', '$http', '$rootScope', '$location', '$routeParams', '$resource', "breadcrumbs", 'FileUploader', "MeetingResourceHelper", 'CommonHelperMethods', 'OpenAgenda.Data.Utility', 'ModalDialog',
+    .controller('MeetingEditCtrl', ['$scope', '$filter', '$http', '$rootScope', '$location', '$routeParams', '$resource', "breadcrumbs", 'FileUploader', "MeetingResourceHelper", 'CommonHelperMethods', 'OpenAgenda.Data.Utility', 'ModalDialog',
         function ($scope, $filter, $http, $rootScope, $location, $routeParams, $resource, breadcrumbs, FileUploader, MeetingResourceHelper, CommonHelperMethods, oaUtility, ModalDialog) {
             $scope.breadcrumbs = breadcrumbs;
             $scope.loading = true;
@@ -13,30 +13,21 @@ angular.module("Meeting")
             $scope.mailAddresses = [];
             console.log("Meeting Edit Controller loaded");
 
-            $scope.meetingsRoles = [{ "value": "OpenAgenda.Application:Listener", "text": "Zuhörer" },
-                                    { "value": "OpenAgenda.Application:Participant", "text": "Teilnehmer" },
-                                    { "value": "OpenAgenda.Application:MinuteTaker", "text": "Protokol-Führer" },
-                                    { "value": "OpenAgenda.Application:MeetingChair", "text": "Meeting-Leiter" },
-                                    { "value": "OpenAgenda.Application:MeetingManager", "text": "Meeting-Manager" },
-                                    { "value": "OpenAgenda.Application:Chairman", "text": "Vorsitzender" },
-                                    { "value": "OpenAgenda.Application:Administrator", "text": "Administrator" }
-                                    ];
-
             $scope.meetingId = $routeParams.meetingId;
             $scope.uploaders = [];
 
             $scope.remoteUsers = [];
-            $http.get('person/index.json').success(function(persons) {
+            $http.get('person/index.json').success(function (persons) {
                 $scope.remoteUsers = persons;
-                angular.forEach($scope.remoteUsers, function(remoteUser) {
-                $scope.mailAddresses.push(remoteUser.$mail);
+                angular.forEach($scope.remoteUsers, function (remoteUser) {
+                    $scope.mailAddresses.push(remoteUser.$mail);
                 });
             });
 
             if (typeof $scope.meetingId === "undefined") {
                 $scope.editMode = true;
                 $scope.loading = false;
-                
+
             }
 
             if (typeof $scope.meetingId != "undefined") {
@@ -54,7 +45,6 @@ angular.module("Meeting")
 
                     } else {
                         $scope.editMode = $scope.meeting.$permissions.edit;
-
                     }
 
                 }, function (err) {
@@ -63,7 +53,6 @@ angular.module("Meeting")
 
             } else if ($scope.status == 3) {
                 $scope.editMode = false;
-
             }
 
 
@@ -97,21 +86,24 @@ angular.module("Meeting")
             $scope.addNewAgendaItem = function () {
                 $scope.meeting.agendaItems.push(new AgendaItem($scope.meeting.agendaItems.length + 1));
             };
-            $scope.removeAgendaItem = function (idx) {
-                $scope.meeting.agendaItems.splice( idx, 1 );
-                $scope.uploaders.splice( idx, 1 );
 
-                for(var i = $scope.meeting.agendaItems.length-1; i>=idx; i--)
-                {
+            $scope.removeAgendaItem = function (idx) {
+                $scope.meeting.agendaItems.splice(idx, 1);
+                $scope.uploaders.splice(idx, 1);
+
+                for (var i = $scope.meeting.agendaItems.length - 1; i >= idx; i--) {
                     $scope.meeting.agendaItems[i].sorting -= 1;
                 }
             }
 
             $scope.addNewInvitation = function (mail) {
-                var single_User = $filter('filter')($scope.remoteUsers, function (person) {return person.$mail === mail; })[0];
+                var single_User = $filter('filter')($scope.remoteUsers, function (person) {
+                    return person.$mail === mail;
+                })[0];
                 $scope.meeting.invitations.push(new Invitation(single_User.__identity))
 
             };
+
             $scope.deleteInvitation = function (idx) {
                 $scope.meeting.invitations.splice(idx, 1);
             };
@@ -123,7 +115,7 @@ angular.module("Meeting")
             $scope.sendMeetingData = function () {
                 if ($scope.checkEntries()) {
 
-                    if(typeof $scope.meetingId != "undefined")
+                    if (typeof $scope.meetingId != "undefined")
                         var sendUrl = "meeting/update.json";
                     else
                         var sendUrl = "meeting/create.json";
@@ -176,8 +168,8 @@ angular.module("Meeting")
                 }
             };
             /*All Email Addresses for auto completion
-            * IN next Version search for specific users
-            * */
+             * IN next Version search for specific users
+             * */
             $scope.updateMailAddresses = function (typed) {
 
             };
@@ -207,10 +199,10 @@ angular.module("Meeting")
                 return $scope.uploaders[idx];
             };
             $scope.reloadTasks = function () {
-               MeetingResourceHelper.getMeetingDetail($routeParams.meetingId).get(function (data) {
-                   $scope.meeting.tasks = data.tasks;
-                   console.log("Got Tasks: ", $scope.meeting)
-               })
+                MeetingResourceHelper.getMeetingDetail($routeParams.meetingId).get(function (data) {
+                    $scope.meeting.tasks = data.tasks;
+                    console.log("Got Tasks: ", $scope.meeting)
+                })
             };
 
         }]);
