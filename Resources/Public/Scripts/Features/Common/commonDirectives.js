@@ -91,9 +91,9 @@ angular.module("CommonDirectives", [])
 
         return {
             template: '<span ng-switch="invitation.status"> ' +
-            '<span ng-switch-when="0">Abgesagt</span> ' +
+            '<span ng-switch-when="0">Ausstehend</span> ' +
             '<span ng-switch-when="1">Zugesagt</span> ' +
-            '<span ng-switch-when="2">Ausstehend</span> ' +
+            '<span ng-switch-when="2">Abgesagt</span> ' +
             '</span>'
         };
     })
