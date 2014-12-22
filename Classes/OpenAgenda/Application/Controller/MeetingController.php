@@ -19,6 +19,24 @@ class MeetingController extends AbstractController {
 
 	/**
 	 * @Flow\Inject
+	 * @var \OpenAgenda\Application\Domain\Repository\AgendaItemRepository
+	 */
+	protected $agendaItemRepository;
+
+	/**
+	 * @Flow\Inject
+	 * @var \OpenAgenda\Application\Domain\Repository\InvitationRepository
+	 */
+	protected $invitationRepository;
+
+	/**
+	 * @Flow\Inject
+	 * @var \OpenAgenda\Application\Domain\Repository\TaskRepository
+	 */
+	protected $taskRepository;
+
+	/**
+	 * @Flow\Inject
 	 * @var \OpenAgenda\Application\Service\HistoryService
 	 */
 	protected $historyService;
@@ -170,6 +188,23 @@ class MeetingController extends AbstractController {
 	 * @return void
 	 */
 	public function deleteAction(Meeting $meeting) {
+		$agendaItems = $this->agendaItemRepository->findByMeeting($meeting);
+		$invitations = $this->invitationRepository->findByMeeting($meeting);
+		$tasks = $this->taskRepository->findByMeeting($meeting);
+
+		foreach ($agendaItems as $removeObjects) {
+			$this->agendaItemRepository->remove($removeObjects);
+		}
+
+		foreach ($invitations as $removeObjects) {
+			$this->invitationRepository->remove($removeObjects);
+		}
+
+		foreach ($tasks as $removeObjects) {
+			$this->taskRepository->remove($removeObjects);
+		}
+		$this->persistenceManager->persistAll();
+
 		$this->historyService->invoke($meeting);
 		$this->meetingRepository->remove($meeting);
 		$this->view->assign('value', TRUE);
