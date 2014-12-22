@@ -18,6 +18,8 @@ use TYPO3\Flow\Package\Package as BasePackage;
  */
 class Package extends BasePackage {
 
+	const PackageName = 'OpenAgenda.Application';
+
 	/**
 	 * @param \TYPO3\Flow\Core\Bootstrap $bootstrap
 	 */
