@@ -53,7 +53,9 @@ class DashboardController extends AbstractController {
 		foreach ($this->invitationRepository->findOpen() as $invitation) {
 			$openInvitations[] = array(
 				'__identity' => $this->persistenceManager->getIdentifierByObject($invitation),
+				'creationDate' => $invitation->getCreationDate()->format('c'),
 				'meeting' => array(
+					'__identity' => $this->persistenceManager->getIdentifierByObject($invitation->getMeeting()),
 					'title' => $invitation->getMeeting()->getTitle(),
 				)
 			);
