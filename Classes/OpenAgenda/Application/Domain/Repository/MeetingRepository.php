@@ -32,4 +32,23 @@ class MeetingRepository extends AbstractRepository {
 		return $query->execute();
 	}
 
+	/**
+	 * @param Person $person
+	 * @return \TYPO3\Flow\Persistence\QueryResultInterface|\OpenAgenda\Application\Domain\Model\Meeting[]
+	 */
+	public function findAllowedWithOpenInvitations(Person $person = NULL) {
+		if ($person === NULL) {
+			$person = $this->getPerson();
+		}
+
+		$query = $this->createQuery();
+		$query->matching(
+			$query->logicalAnd(
+				$query->equals('invitations.participant', $person),
+				$query->equals('invitations.status', 0)
+			)
+		);
+		return $query->execute();
+	}
+
 }
