@@ -139,17 +139,14 @@ angular.module("Meeting")
                 angular.forEach($scope.meeting.invitations, function (invitation) {
                     delete invitation.role;
                 });
-                var x = oaUtility.jsonCast($scope.meeting);
-                x.status = 2;
 
-                sendMeetingData(x, 'Beim Starten des Meetings ist ein Fehler aufgetreten!');
-                $http.post('meeting/update.json', {meeting: x}, {proxy: true}).
+                var meeting = oaUtility.jsonCast($scope.meeting);
+
+                // sendMeetingData(x, 'Beim Starten des Meetings ist ein Fehler aufgetreten!');
+                $http.post('meeting/start.json', { meeting: meeting }, { proxy: true }).
                     success(function (data, status, headers, config) {
                         console.log("SUCCESS");
-                        if ($scope.meeting.status < 2) {
-                            $scope.meeting.startDate = new Date();
-                            $scope.meeting.status = 2;
-                        }
+                        reloadMeetingData();
                     }).error(function (data, status, headers, config) {
                         var modalOptions = {
                             headerText: 'Fehler',
@@ -178,14 +175,9 @@ angular.module("Meeting")
                     }
                 }
                 console.log(tasksCorrect);
-                if (tasksCorrect && $scope.meeting.status < 3) {
-                    $scope.meeting.endDate = new Date();
-                    $scope.meeting.status = 3;
-
-                }
 
                 if (tasksCorrect){
-                    $http.post('meeting/update.json', {meeting: oaUtility.jsonCast($scope.meeting)}, {proxy: true}).
+                    $http.post('meeting/close.json', {meeting: oaUtility.jsonCast($scope.meeting)}, {proxy: true}).
                         success(function (data, status, headers, config) {
                             console.log("SUCCESS");
                             var modalOptions = {
