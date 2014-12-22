@@ -244,6 +244,9 @@ class Meeting implements CreationInterface, ModificationInterface {
 	 */
 	public function setInvitations($invitations) {
 		$this->invitations = $invitations;
+		foreach ($this->invitations as $invitation) {
+			$invitation->setMeeting($this);
+		}
 	}
 
 	/**
