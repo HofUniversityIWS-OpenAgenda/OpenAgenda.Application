@@ -61,14 +61,16 @@ class TaskController extends AbstractController {
 
 	/**
 	 * @param \OpenAgenda\Application\Domain\Model\Meeting $meeting
-	 * @param \OpenAgenda\Application\Domain\Model\Task $newTask
+	 * @param \OpenAgenda\Application\Domain\Model\Task $task
 	 * @return void
 	 */
-	public function createAction(Meeting $meeting, Task $newTask) {
-		$newTask->setCreationDate(new \DateTime());
-		$this->historyService->invoke($newTask);
-
-		$meeting->getProtocolItems()->add($newTask);
+	public function createAction(Meeting $meeting, Task $task) {
+		$meeting->getTasks()->add($task);
+		$this->entityService->applyStatusDates($task);
+		$this->historyService->invoke($task);
+		$this->historyService->invoke($meeting);
+		$this->taskRepository->add($task);
+		$this->view->assign('value', $this->arrayService->flatten($task, 'show'));
 	}
 
 	/**
@@ -76,8 +78,8 @@ class TaskController extends AbstractController {
 	 * @return void
 	 */
 	public function updateAction(Task $task) {
-		$this->historyService->invoke($task);
 		$this->taskRepository->update($task);
+		$this->historyService->invoke($task);
 		$this->view->assign('value', $this->arrayService->flatten($task, 'show'));
 	}
 
@@ -87,10 +89,9 @@ class TaskController extends AbstractController {
 	 * @return void
 	 */
 	public function deleteAction(Meeting $meeting, Task $task) {
-		$this->historyService->invoke($task);
-		$this->historyService->invoke($meeting);
-
-		$meeting->getProtocolItems()->removeElement($task);
+		$meeting->getTasks()->remove($task);
+		$this->taskRepository->remove($task);
+		$this->persistenceManager->persistAll();
 	}
 
 	/**
@@ -99,4 +100,5 @@ class TaskController extends AbstractController {
 	 */
 	public function exportAction(Task $task) {
 	}
+
 }
