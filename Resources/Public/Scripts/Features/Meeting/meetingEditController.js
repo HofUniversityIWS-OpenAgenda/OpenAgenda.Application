@@ -17,6 +17,30 @@ angular.module("Meeting")
             $scope.uploaders = [];
 
             $scope.remoteUsers = [];
+
+            function AgendaItem(count) {
+                this.title = null;
+                this.description = null;
+                this.resources = [];
+                this.sorting = count;
+                $scope.uploaders.push(new FileUploader());
+            }
+
+            function Meeting() {
+                this.endDate = null;
+                this.startDate = null;
+                this.scheduledStartDate = new Date();
+                this.status = 0;
+                this.title = null;
+                this.location = null;
+                this.agendaItems = [new AgendaItem(1)];
+                this.invitations = [];
+            }
+
+            function Invitation(personIdentity) {
+                this.participant = personIdentity;
+            }
+
             $http.get('person/index.json').success(function (persons) {
                 $scope.remoteUsers = persons;
                 angular.forEach($scope.remoteUsers, function (remoteUser) {
@@ -27,7 +51,6 @@ angular.module("Meeting")
             if (typeof $scope.meetingId === "undefined") {
                 $scope.editMode = true;
                 $scope.loading = false;
-
             }
 
             if (typeof $scope.meetingId != "undefined") {
@@ -55,30 +78,6 @@ angular.module("Meeting")
                 $scope.editMode = false;
             }
 
-
-            function AgendaItem(count) {
-                this.title = null;
-                this.description = null;
-                this.resources = [];
-                this.sorting = count;
-                $scope.uploaders.push(new FileUploader());
-            }
-
-            function Meeting() {
-                this.endDate = null;
-                this.startDate = null;
-                this.scheduledStartDate = new Date();
-                this.status = 0;
-                this.title = null;
-                this.location = null;
-                this.agendaItems = [new AgendaItem(1)];
-                this.invitations = [];
-            }
-
-            function Invitation(personIdentity) {
-                this.participant = personIdentity;
-            }
-
             if (typeof $scope.meeting === "undefined") {
                 $scope.meeting = new Meeting();
             }
@@ -94,13 +93,20 @@ angular.module("Meeting")
                 for (var i = $scope.meeting.agendaItems.length - 1; i >= idx; i--) {
                     $scope.meeting.agendaItems[i].sorting -= 1;
                 }
-            }
-
+            };
+            
             $scope.addNewInvitation = function (mail) {
                 var single_User = $filter('filter')($scope.remoteUsers, function (person) {
                     return person.$mail === mail;
                 })[0];
-                $scope.meeting.invitations.push(new Invitation(single_User.__identity))
+
+                $scope.contains = false;
+                angular.forEach($scope.meeting.invitations, function (invitation) {
+                    if(invitation.participant == single_User.__identity)
+                        $scope.contains = true;
+                });
+                if(!$scope.contains)
+                    $scope.meeting.invitations.push(new Invitation(single_User.__identity))
 
             };
 
@@ -120,13 +126,8 @@ angular.module("Meeting")
                     else
                         var sendUrl = "meeting/create.json";
 
-                    console.log("SEND MEETING DATA");
-                    console.log($scope.meeting);
                     $http.post(sendUrl, {meeting: oaUtility.jsonCast($scope.meeting)}, {proxy: true}).
                         success(function (data, status, headers, config) {
-                            console.log('New identity: ' + data.__identity);
-                            // this callback will be called asynchronously
-                            // when the response is available
                             console.log("SUCCESS");
                             var modalOptions = {
                                 headerText: 'Erfolg',
@@ -137,12 +138,8 @@ angular.module("Meeting")
                             };
                             ModalDialog.showModal(modalDefaults, modalOptions);
                             $location.path("/meeting");
-
-
                         }).
                         error(function (data, status, headers, config) {
-                            // called asynchronously if an error occurs
-                            // or server returns response with an error status.
                             console.log("ERROR");
                             var modalOptions = {
                                 headerText: 'Fehler',
@@ -152,7 +149,6 @@ angular.module("Meeting")
                                 templateUrl: '/template/modaldialog/error.html'
                             };
                             ModalDialog.showModal(modalDefaults, modalOptions);
-
                         });
                 }
                 else {
@@ -195,9 +191,11 @@ angular.module("Meeting")
                 else
                     return false;
             };
+
             $scope.getUploader = function (idx) {
                 return $scope.uploaders[idx];
             };
+
             $scope.reloadTasks = function () {
                 MeetingResourceHelper.getMeetingDetail($routeParams.meetingId).get(function (data) {
                     $scope.meeting.tasks = data.tasks;
