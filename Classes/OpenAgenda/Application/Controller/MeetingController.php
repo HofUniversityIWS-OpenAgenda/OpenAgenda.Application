@@ -35,12 +35,6 @@ class MeetingController extends AbstractController {
 	 */
 	protected $taskRepository;
 
-	/**
-	 * @Flow\Inject
-	 * @var \OpenAgenda\Application\Service\HistoryService
-	 */
-	protected $historyService;
-
 	protected function initializeCreateAction() {
 		if ($this->arguments->hasArgument('newMeeting')) {
 			$this->initializePropertyMappingConfiguration('newMeeting');

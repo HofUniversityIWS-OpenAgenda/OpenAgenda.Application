@@ -14,12 +14,6 @@ class NoteController extends AbstractController {
 
 	/**
 	 * @Flow\Inject
-	 * @var \OpenAgenda\Application\Service\HistoryService
-	 */
-	protected $historyService;
-
-	/**
-	 * @Flow\Inject
 	 * @var \OpenAgenda\Application\Domain\Repository\NoteRepository
 	 */
 	protected $noteRepository;

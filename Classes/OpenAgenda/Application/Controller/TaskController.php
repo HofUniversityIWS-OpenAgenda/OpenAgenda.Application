@@ -19,12 +19,6 @@ class TaskController extends AbstractController {
 	protected $taskRepository;
 
 	/**
-	 * @Flow\Inject
-	 * @var \OpenAgenda\Application\Service\HistoryService
-	 */
-	protected $historyService;
-
-	/**
 	 * @return void
 	 */
 	public function listAction() {

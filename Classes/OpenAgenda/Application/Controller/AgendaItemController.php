@@ -10,19 +10,13 @@ use OpenAgenda\Application\Domain\Model\AgendaItem;
 use OpenAgenda\Application\Domain\Model\Meeting;
 use TYPO3\Flow\Annotations as Flow;
 
-class AgendaItemController extends \TYPO3\Flow\Mvc\Controller\ActionController {
+class AgendaItemController extends AbstractController {
 
 	/**
 	 * @Flow\Inject
 	 * @var \OpenAgenda\Application\Domain\Repository\AgendaItemRepository
 	 */
 	protected $agendaItemRepository;
-
-	/**
-	 * @Flow\Inject
-	 * @var \OpenAgenda\Application\Service\HistoryService
-	 */
-	protected $historyService;
 
 	/**
 	 * @param \OpenAgenda\Application\Domain\Model\AgendaItem $newAgendaItem
