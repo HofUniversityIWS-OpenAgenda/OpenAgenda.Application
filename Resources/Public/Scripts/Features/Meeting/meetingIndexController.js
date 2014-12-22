@@ -24,15 +24,18 @@ angular.module("Meeting", [])
             if(!$rootScope.mic)
                 $rootScope.mic = new Object();
 
-            $scope.meetingList = MeetingResourceHelper.getMeetingList().query(function (data) {
-                angular.forEach($scope.meetingList, function (meeting) {
-                    meeting.scheduledStartDate = CommonHelperMethods.getDateFromJSONString(meeting.scheduledStartDate);
+            function reloadMeetings () {
+                $scope.meetingList = MeetingResourceHelper.getMeetingList().query(function (data) {
+                    angular.forEach($scope.meetingList, function (meeting) {
+                        meeting.scheduledStartDate = CommonHelperMethods.getDateFromJSONString(meeting.scheduledStartDate);
+                    });
+                    console.log('success, got meeting: ', $scope.meetingList);
+                    $scope.loading = false;
+                }, function (err) {
+                    alert('request failed');
                 });
-                console.log('success, got meeting: ', $scope.meetingList);
-                $scope.loading = false;
-            }, function (err) {
-                alert('request failed');
-            });
+            };
+            reloadMeetings();
 
             //$rootScope.changeToolBar("");
 
@@ -141,7 +144,7 @@ angular.module("Meeting", [])
                             templateUrl: '/template/modaldialog/success.html'
                         };
                         ModalDialog.showModal(modalDefaults, modalOptions);
-                        $location.path("/meeting");
+                        reloadMeetings();
                     }).
                     error(function (data, status, headers, config) {
 
@@ -153,12 +156,11 @@ angular.module("Meeting", [])
                             templateUrl: '/template/modaldialog/error.html'
                         };
                         ModalDialog.showModal(modalDefaults, modalOptions);
-
                     });
             };
 
             $scope.cancelMeeting = function (id) {
-                $http.post("/meeting/delete.json", {"__identity": id}).
+                $http.post("/meeting/cancel.json", {"__identity": id}).
                     success(function (data, status, headers, config) {
                         var modalOptions = {
                             headerText: 'Erfolg',
@@ -168,7 +170,7 @@ angular.module("Meeting", [])
                             templateUrl: '/template/modaldialog/success.html'
                         };
                         ModalDialog.showModal(modalDefaults, modalOptions);
-                        $location.path("/meeting");
+                        reloadMeetings();
                     }).
                     error(function (data, status, headers, config) {
 

@@ -84,7 +84,7 @@
                                         <a ng-show="!meeting.$permissions.edit" ng-href="/#meeting/show/{{meeting.__identity}}">Anzeigen <i class="fa fa-eye"></i></a>
                                         <a ng-show="meeting.$permissions.edit" ng-href="/#meeting/show/{{meeting.__identity}}">Anzeigen/Editieren <i class="fa fa-pencil-square-o"></i></a>&nbsp;&nbsp;
                                         <a ng-show="meeting.$permissions.execute" ng-href="/#meeting/start/{{meeting.__identity}}">Durchführen <i class="fa fa-bolt"></i></a>&nbsp;&nbsp;
-                                        <a point-me="true" ng-show="meeting.$permissions.cancel" ng-click="cancelMeeting(meeting.__identity)">Abbrechen <i class="fa fa-ban"></i></a>&nbsp;&nbsp;
+                                        <a point-me="true" ng-show="meeting.$permissions.cancel" ng-click="cancelMeeting(meeting.__identity)">Absagen <i class="fa fa-ban"></i></a>&nbsp;&nbsp;
                                         <a point-me="true" ng-show="meeting.$permissions.delete" ng-click="deleteMeeting(meeting.__identity)">Löschen <i class="fa fa-times-circle"></i></a><br />
                                         <a point-me="true" ng-show="meeting.$permissions.execute" ng-click="sendInvitations(meeting.__identity)">Einladungen senden <i class="fa fa-paper-plane"></i></a>
                                     </td>
