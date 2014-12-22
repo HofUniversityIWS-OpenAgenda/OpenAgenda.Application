@@ -43,6 +43,8 @@ class HistoryService {
 	protected $entityService;
 
 	/**
+	 * @author Oliver Hader <oliver@typo3.org>
+	 * @author Andreas Steiger <andreas.steiger@hof-university.de>
 	 * @param object $subject
 	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
 	 */

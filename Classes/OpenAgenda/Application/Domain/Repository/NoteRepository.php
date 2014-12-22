@@ -14,7 +14,7 @@ use TYPO3\Flow\Persistence\Repository;
  * Class NoteRepository
  *
  * @package OpenAgenda\Application\Domain\Repository
- * @author Andreas Steiger <<andreas.steiger@hof-university.de>
+ * @author Andreas Steiger <andreas.steiger@hof-university.de>
  * @Flow\Scope("singleton")
  */
 class NoteRepository extends Repository {
