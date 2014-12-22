@@ -52,19 +52,21 @@ class MessagingService {
 	 * @param Account $account
 	 * @param string $messageName
 	 * @param array $variables
+	 * @param array|\TYPO3\Flow\Resource\Resource[] $attachments
 	 */
-	public function prepareForAccount(Account $account, $messageName, array $variables = array()) {
+	public function prepareForAccount(Account $account, $messageName, array $variables = array(), $attachments = array()) {
 		$variables['account'] = $account;
-		$this->prepareForPerson($account->getParty(), $messageName, $variables);
+		$this->prepareForPerson($account->getParty(), $messageName, $variables, $resources);
 	}
 
 	/**
 	 * @param Person $person
 	 * @param string $messageName
 	 * @param array $variables
+	 * @param array|\TYPO3\Flow\Resource\Resource[] $attachments
 	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
 	 */
-	public function prepareForPerson(Person $person, $messageName, array $variables = array()) {
+	public function prepareForPerson(Person $person, $messageName, array $variables = array(), $attachments = array()) {
 		$variables['person'] = $person;
 
 		$view = $this->createView($messageName, $variables);
@@ -78,6 +80,11 @@ class MessagingService {
 		$message->setSubject($subject);
 		$message->setRichTextBody($htmlBody);
 		$message->setPlainTextBody($textBody);
+
+		if (!empty($attachments)) {
+			$attachmentCollection = new \Doctrine\Common\Collections\ArrayCollection($attachments);
+			$message->setAttachments($attachmentCollection);
+		}
 
 		$this->messageRepository->add($message);
 		$this->persistenceManager->persistAll();
@@ -151,6 +158,19 @@ class MessagingService {
 		);
 
 		$mailMessage = new \TYPO3\SwiftMailer\Message();
+
+		if ($message->getAttachments()->count()) {
+			foreach ($message->getAttachments() as $attachment) {
+				$mailMessage->attach(
+					\Swift_Attachment::newInstance(
+						file_get_contents($attachment->getUri()),
+						$attachment->getFilename() . '.' . $attachment->getFileExtension(),
+						$attachment->getMediaType()
+					)
+				);
+			}
+		}
+
 		return $mailMessage
 			->setSender($sender)
 			->setFrom($sender)

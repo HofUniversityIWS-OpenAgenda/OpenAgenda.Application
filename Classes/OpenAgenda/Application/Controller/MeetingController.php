@@ -41,6 +41,12 @@ class MeetingController extends AbstractController {
 	 */
 	protected $taskRepository;
 
+	/**
+	 * @Flow\Inject
+	 * @var \OpenAgenda\Application\Service\Export\DocumentService
+	 */
+	protected $documentService;
+
 	protected function initializeCreateAction() {
 		if ($this->arguments->hasArgument('meeting')) {
 			$this->initializePropertyMappingConfiguration('meeting');
@@ -103,11 +109,14 @@ class MeetingController extends AbstractController {
 		$this->meetingRepository->update($meeting);
 		$this->historyService->invoke($meeting);
 
+		$agendaDocumentResource = $this->documentService->exportAgenda($meeting);
+
 		foreach ($meeting->getInvitations() as $invitation) {
 			$this->messagingService->prepareForPerson(
 				$invitation->getParticipant(),
 				'Meeting/Invite',
-				array('invitation' => $invitation)
+				array('invitation' => $invitation),
+				array($agendaDocumentResource)
 			);
 		}
 
@@ -134,6 +143,18 @@ class MeetingController extends AbstractController {
 		$meeting->setStatus(Meeting::STATUS_CLOSED);
 		$this->meetingRepository->update($meeting);
 		$this->historyService->invoke($meeting);
+
+		$protocolDocumentResource = $this->documentService->exportProtocol($meeting);
+
+		foreach ($meeting->getInvitations() as $invitation) {
+			$this->messagingService->prepareForPerson(
+				$invitation->getParticipant(),
+				'Meeting/Protocol',
+				array('meeting' => $meeting),
+				array($protocolDocumentResource)
+			);
+		}
+
 		$this->persistenceManager->persistAll();
 	}
 
