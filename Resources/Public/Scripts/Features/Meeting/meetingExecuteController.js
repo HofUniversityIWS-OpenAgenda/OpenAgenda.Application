@@ -19,7 +19,8 @@ angular.module("Meeting")
                     $scope.meeting = data;
                     if(!$scope.meeting.$permissions.minutes && !getnewMeeting) {
                         getnewMeeting = $interval(function () {
-                            reloadMeetingData();
+                            if($scope.meeting.status == 2)
+                                reloadMeetingData();
                         }, 10000);
                     }
                 }, function (err) {
