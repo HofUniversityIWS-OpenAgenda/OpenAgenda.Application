@@ -104,6 +104,8 @@ class MeetingController extends AbstractController {
 				array('invitation' => $invitation)
 			);
 		}
+
+		$this->persistenceManager->persistAll();
 	}
 
 	/**
@@ -114,6 +116,7 @@ class MeetingController extends AbstractController {
 		$meeting->setStatus(Meeting::STATUS_STARTED);
 		$this->meetingRepository->update($meeting);
 		$this->historyService->invoke($meeting);
+		$this->persistenceManager->persistAll();
 	}
 
 	/**
@@ -124,6 +127,7 @@ class MeetingController extends AbstractController {
 		$meeting->setStatus(Meeting::STATUS_CLOSED);
 		$this->meetingRepository->update($meeting);
 		$this->historyService->invoke($meeting);
+		$this->persistenceManager->persistAll();
 	}
 
 	/**
@@ -134,6 +138,7 @@ class MeetingController extends AbstractController {
 		$meeting->setStatus(Meeting::STATUS_CANCELED);
 		$this->meetingRepository->update($meeting);
 		$this->historyService->invoke($meeting);
+		$this->persistenceManager->persistAll();
 	}
 
 	/**
