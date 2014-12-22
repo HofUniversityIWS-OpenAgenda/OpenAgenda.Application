@@ -27,7 +27,14 @@ class DocumentService {
 	 * @param Meeting $meeting
 	 */
 	public function exportAgenda(Meeting $meeting) {
+		$template = $this->substituteSettings($this->documentSettings['agenda']['templateFile']);
+		$source = $this->substituteSettings($this->documentSettings['agenda']['documentFile']);
 
+		$pdfView = new \OliverHader\PdfRendering\View\PdfView();
+		$pdfView->setTemplatePathAndFilename($template);
+		$pdfView->assign('source', $source);
+		$pdfView->assign('subject', $meeting);
+		$pdfView->save(FLOW_PATH_DATA . 'Agenda.pdf');
 	}
 
 	/**
@@ -41,7 +48,7 @@ class DocumentService {
 		$pdfView->setTemplatePathAndFilename($template);
 		$pdfView->assign('source', $source);
 		$pdfView->assign('subject', $meeting);
-		$pdfView->save(FLOW_PATH_DATA . 'Test.pdf');
+		$pdfView->save(FLOW_PATH_DATA . 'Protocol.pdf');
 	}
 
 	/**

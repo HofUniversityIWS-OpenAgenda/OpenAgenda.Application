@@ -1,0 +1,53 @@
+{namespace pdf=OliverHader\PdfRendering\ViewHelpers}
+<pdf:document fileName="{source}" defaultFont="Helvetica" defaultFontSize="10">
+	<pdf:page pageNumber="1">
+		<pdf:element.text x="250" y="780" width="580">
+			<pdf:style.font fontSize="24">
+				<pdf:style.bold>{subject.title}</pdf:style.bold>
+			</pdf:style.font>
+		</pdf:element.text>
+
+		<pdf:element.text x="190" y="685">
+			am {subject.scheduledStartDate -> f:format.date(format:'d.m.Y')}
+			um {subject.scheduledStartDate -> f:format.date(format:'H:i')} Uhr
+			in {subject.location}
+		</pdf:element.text>
+
+		<pdf:element.text x="190" y="663">
+			{subject.creator.name.firstName} {subject.creator.name.lastName}
+		</pdf:element.text>
+
+		<pdf:element.text x="190" y="640">
+			{subject.minuteTaker.name.firstName} {subject.minuteTaker.name.lastName}
+		</pdf:element.text>
+
+		<pdf:element.text x="190" y="615">
+			<f:for each="{subject.invitations}" as="invitation">
+				{invitation.participant.name.firstName} {invitation.participant.name.lastName} {invitation.participant.mail.identifier} <br/>
+			</f:for>
+		</pdf:element.text>
+
+		<pdf:element.text x="70" y="460" width="760">
+			<pdf:style.font fontSize="15">
+				<pdf:style.bold>Tagesordnungspunkte</pdf:style.bold> <br/>
+			</pdf:style.font>
+
+			<f:for each="{subject.agendaItems}" as="agendaItem">
+				<pdf:style.bold>{agendaItem.title}</pdf:style.bold> <br/>
+				<pdf:style.bold>Diskussion</pdf:style.bold> <br/>
+				{agendaItem.note.description} <br/> <br/>
+			</f:for>
+
+			<pdf:style.font fontSize="15">
+				<pdf:style.bold>Aufgaben</pdf:style.bold> <br/>
+			</pdf:style.font>
+
+			<f:for each="{subject.tasks}" as="task">
+				<pdf:style.bold>{task.title}</pdf:style.bold> <br/>
+				für {task.assignee.name.firstName} {task.assignee.name.lastName} <br/>
+				zu erledigen bis {task.dueDate -> f:format.date(format:'d.m.Y')} <br/>
+				{task.description} <br/> <br/>
+			</f:for>
+		</pdf:element.text>
+	</pdf:page>
+</pdf:document>
