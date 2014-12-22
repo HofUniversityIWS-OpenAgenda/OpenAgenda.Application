@@ -13,6 +13,7 @@ use TYPO3\Party\Domain\Model\ElectronicAddress;
 
 /**
  * Class PersonFactory
+ *
  * @Flow\Scope("singleton")
  * @package OpenAgenda\Application\Service\Export
  * @author Oliver Hader <oliver@typo3.org>

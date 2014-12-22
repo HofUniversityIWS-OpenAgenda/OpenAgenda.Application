@@ -15,9 +15,10 @@ use OpenAgenda\Application\Domain\Model\Task;
 
 /**
  * Class AgendaItemRepository
- * @Flow\Scope("singleton")
+ *
  * @package OpenAgenda\Application\Domain\Repository
  * @author Andreas Steiger <<andreas.steiger@hof-university.de>
+ * @Flow\Scope("singleton")
  */
 class AgendaItemRepository extends AbstractRepository {
 

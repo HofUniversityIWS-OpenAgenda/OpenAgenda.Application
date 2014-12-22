@@ -10,6 +10,7 @@ use TYPO3\Flow\Annotations as Flow;
 
 /**
  * Class AuthenticationController
+ *
  * @package OpenAgenda\Application\Controller
  * @author Oliver Hader <oliver@typo3.org>
  */

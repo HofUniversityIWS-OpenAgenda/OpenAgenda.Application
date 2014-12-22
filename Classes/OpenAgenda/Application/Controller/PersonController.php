@@ -10,6 +10,12 @@ use OpenAgenda\Application\Domain\Model\AgendaItem;
 use OpenAgenda\Application\Domain\Model\Meeting;
 use TYPO3\Flow\Annotations as Flow;
 
+/**
+ * Class PersonController
+ *
+ * @package OpenAgenda\Application\Controller
+ * @author Oliver Hader <oliver@typo3.org>
+ */
 class PersonController extends AbstractController {
 
 	/**

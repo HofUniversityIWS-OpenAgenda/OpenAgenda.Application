@@ -10,6 +10,12 @@ use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Mvc\Controller\ActionController;
 use OpenAgenda\Application\Domain\Model\Message;
 
+/**
+ * Class MessageController
+ *
+ * @package OpenAgenda\Application\Controller
+ * @author Andreas Steiger <andreas.steiger@hof-university.de>
+ */
 class MessageController extends ActionController {
 
 	/**

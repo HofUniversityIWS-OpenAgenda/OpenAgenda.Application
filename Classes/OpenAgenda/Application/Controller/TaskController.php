@@ -10,6 +10,12 @@ use TYPO3\Flow\Annotations as Flow;
 use OpenAgenda\Application\Domain\Model\Meeting;
 use OpenAgenda\Application\Domain\Model\Task;
 
+/**
+ * Class TaskController
+ *
+ * @package OpenAgenda\Application\Controller
+ * @author Andreas Steiger <andreas.steiger@hof-university.de>
+ */
 class TaskController extends AbstractController {
 
 	/**

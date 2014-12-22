@@ -13,6 +13,7 @@ use OpenAgenda\Application\Domain\Model\Invitation;
 
 /**
  * Class InvitationRepository
+ *
  * @Flow\Scope("singleton")
  * @package OpenAgenda\Application\Domain\Repository
  * @author Oliver Hader <oliver@typo3.org>

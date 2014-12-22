@@ -8,6 +8,12 @@ namespace OpenAgenda\Application\Controller;
 
 use TYPO3\Flow\Annotations as Flow;
 
+/**
+ * Class DashboardController
+ *
+ * @package OpenAgenda\Application\Controller
+ * @author Andreas Steiger <andreas.steiger@hof-university.de>
+ */
 class DashboardController extends AbstractController {
 
 	/**

@@ -10,6 +10,7 @@ use TYPO3\Flow\Annotations as Flow;
 
 /**
  * Class PersonRepository
+ *
  * @Flow\Scope("singleton")
  * @package OpenAgenda\Application\Domain\Repository
  * @author Oliver Hader <oliver@typo3.org>

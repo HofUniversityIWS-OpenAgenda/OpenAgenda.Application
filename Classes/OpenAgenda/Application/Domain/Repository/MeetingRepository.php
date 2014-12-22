@@ -11,6 +11,7 @@ use OpenAgenda\Application\Domain\Model\Person;
 
 /**
  * Class MeetingRepository
+ *
  * @Flow\Scope("singleton")
  * @package OpenAgenda\Application\Domain\Repository
  * @author Oliver Hader <oliver@typo3.org>

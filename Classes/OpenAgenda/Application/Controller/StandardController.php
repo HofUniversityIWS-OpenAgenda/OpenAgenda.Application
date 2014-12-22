@@ -12,6 +12,7 @@ use OpenAgenda\Application\Domain\Model\Account;
 
 /**
  * Class StandardController
+ *
  * @package OpenAgenda\Application\Controller
  * @author Oliver Hader <oliver@typo3.org>
  */

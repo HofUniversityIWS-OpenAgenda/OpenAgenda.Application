@@ -10,7 +10,9 @@ use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Cli\CommandController;
 
 /**
- * CommandController for admin actions with accounts
+ * Class AccountCommandController for admin actions with accounts
+ *
+ * @package OpenAgenda\Application\Command
  * @author Andreas Steiger <andreas.steiger@hof-university.de>
  */
 class AccountCommandController extends CommandController {

@@ -9,6 +9,12 @@ namespace OpenAgenda\Application\Controller;
 use TYPO3\Flow\Annotations as Flow;
 use OpenAgenda\Application\Domain\Model\Invitation;
 
+/**
+ * Class InvitationController
+ *
+ * @package OpenAgenda\Application\Controller
+ * @author Andreas Steiger <andreas.steiger@hof-university.de>
+ */
 class InvitationController extends AbstractController {
 
 	/**

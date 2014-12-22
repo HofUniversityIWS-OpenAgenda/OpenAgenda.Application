@@ -8,6 +8,12 @@ namespace OpenAgenda\Application\Controller;
 
 use TYPO3\Flow\Annotations as Flow;
 
+/**
+ * Class CalendarController
+ *
+ * @package OpenAgenda\Application\Controller
+ * @author Oliver Hader <oliver@typo3.org>
+ */
 class CalendarController extends AbstractController {
 
 	/**

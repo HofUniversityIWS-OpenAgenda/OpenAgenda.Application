@@ -13,6 +13,7 @@ use OpenAgenda\Application\Framework\Model\Password;
 
 /**
  * Class SettingController
+ *
  * @package OpenAgenda\Application\Controller
  * @author Oliver Hader <oliver@typo3.org>
  */

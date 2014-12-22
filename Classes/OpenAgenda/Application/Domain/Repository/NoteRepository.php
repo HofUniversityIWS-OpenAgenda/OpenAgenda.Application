@@ -11,6 +11,10 @@ use OpenAgenda\Application\Domain\Model\Meeting;
 use TYPO3\Flow\Persistence\Repository;
 
 /**
+ * Class NoteRepository
+ *
+ * @package OpenAgenda\Application\Domain\Repository
+ * @author Andreas Steiger <<andreas.steiger@hof-university.de>
  * @Flow\Scope("singleton")
  */
 class NoteRepository extends Repository {
@@ -20,7 +24,9 @@ class NoteRepository extends Repository {
 	* @return object The matching object if found, otherwise NULL
 	*/
 	public function findByMeeting(Meeting $meeting) {
-		//return $this->persistenceManager->getObjectByIdentifier($identifier, $this->entityClassName);
+		$query = $this->createQuery();
+		$query->matching($query->equals('meeting', $meeting));
+		return $query->execute();
 	}
 
 }

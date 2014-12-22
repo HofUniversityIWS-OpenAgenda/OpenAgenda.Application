@@ -11,6 +11,7 @@ use TYPO3\Flow\Mvc\Controller\ActionController;
 
 /**
  * Class AbstractController
+ *
  * @package OpenAgenda\Application\Controller
  * @author Oliver Hader <oliver@typo3.org>
  */

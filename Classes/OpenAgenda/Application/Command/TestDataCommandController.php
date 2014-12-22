@@ -14,6 +14,9 @@ use \OpenAgenda\Application\Domain\Model\Task;
 use \OpenAgenda\Application\Domain\Model\Invitation;
 
 /**
+ * Class TestDataCommand
+ *
+ * @package OpenAgenda\Application\Command
  * @author Andreas Steiger <andreas.steiger@hof-university.de>
  */
 class TestDataCommandController extends CommandController {
@@ -53,7 +56,6 @@ class TestDataCommandController extends CommandController {
 	 * @Flow\Inject
 	 */
 	protected $accountFactory;
-
 
 	/**
 	 * @var \OpenAgenda\Application\Domain\Factory\PersonFactory
@@ -167,6 +169,21 @@ class TestDataCommandController extends CommandController {
 	}
 
 	/**
+	 * ### remove one meeting  ###
+	 *
+	 * @param string $identifier
+	 */
+	public function deleteMeetingCommand($identifier = '7c76e975-0390-5f84-f161-2146f0fb7b1f') {
+		$meeting = $this->meetingRepository->findByIdentifier($identifier);
+
+		$this->historyService->invoke($meeting);
+		$this->meetingRepository->remove($meeting);
+		$this->persistenceManager->persistAll();
+	}
+
+	/**
+	 * ### tasks for testing ###
+	 *
 	 * @param int $quantity Quantity of tasks to be created
 	 */
 	public function createTasksCommand($quantity = 5) {
@@ -190,6 +207,8 @@ class TestDataCommandController extends CommandController {
 	}
 
 	/**
+	 * ### one system user (default: admin account) ###
+	 *
 	 * @param string $identifier Account identifier (default: 'admin@openagenda.org')
 	 * @param string $role Role (default: 'Administrator')
 	 * @param string $firstname First name (default: 'Mark')
@@ -217,7 +236,7 @@ class TestDataCommandController extends CommandController {
 	}
 
 	/**
-	 * Create different Users
+	 * ### system users with different roles for testing ###
 	 */
 	public function createUsersCommand() {
 		$this->createUserCommand();
@@ -230,6 +249,8 @@ class TestDataCommandController extends CommandController {
 	}
 
 	/**
+	 * ### history flush ###
+	 *
 	 * @param boolean $sureToDeleteFlag Are you sure you want to delete the complete History?
 	 */
 	public function clearHistoryCommand($sureToDeleteFlag = false){
@@ -240,33 +261,4 @@ class TestDataCommandController extends CommandController {
 			$this->response->appendContent('History was not cleared. Please set the flag.' . PHP_EOL);
 		}
 	}
-
-	/**
-	 * @param string $identifier
-	 */
-	public function deleteMeetingCommand($identifier = '7c76e975-0390-5f84-f161-2146f0fb7b1f') {
-		$meeting = $this->meetingRepository->findByIdentifier($identifier);
-
-		$agendaItems = $this->agendaItemRepository->findByMeeting($meeting);
-		$invitations = $this->invitationRepository->findByMeeting($meeting);
-		$tasks = $this->taskRepository->findByMeeting($meeting);
-
-		foreach ($agendaItems as $removeObjects) {
-			$this->agendaItemRepository->remove($removeObjects);
-		}
-
-		foreach ($invitations as $removeObjects) {
-			$this->invitationRepository->remove($removeObjects);
-		}
-
-		foreach ($tasks as $removeObjects) {
-			$this->taskRepository->remove($removeObjects);
-		}
-
-		$this->persistenceManager->persistAll();
-
-		$this->historyService->invoke($meeting);
-		$this->meetingRepository->remove($meeting);
-	}
-
 }

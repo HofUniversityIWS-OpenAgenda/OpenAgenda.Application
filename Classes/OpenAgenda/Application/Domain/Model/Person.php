@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Model Person
  *
  * @package OpenAgenda\Application\Domain\Model
- * @author Andreas Steiger <andreas.steiger@hof-university.de>
+ * @author Oliver Hader <oliver@typo3.org>
  * @Flow\Entity
  * @ORM\Table(name="oa_person")
  */

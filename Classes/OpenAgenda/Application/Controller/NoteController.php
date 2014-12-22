@@ -9,6 +9,12 @@ namespace OpenAgenda\Application\Controller;
 use TYPO3\Flow\Annotations as Flow;
 use OpenAgenda\Application\Domain\Model\Note;
 
+/**
+ * Class NoteController
+ *
+ * @package OpenAgenda\Application\Controller
+ * @author Oliver Hader <oliver@typo3.org>
+ */
 class NoteController extends AbstractController {
 
 	/**
