@@ -44,5 +44,23 @@ class InvitationRepository extends AbstractRepository {
 		return $query->execute();
 	}
 
+	/**
+	 * @param Person $person
+	 * @return \TYPO3\Flow\Persistence\QueryResultInterface|\OpenAgenda\Application\Domain\Model\Invitation[]
+	 */
+	public function findOpen(Person $person = NULL) {
+		if ($person === NULL) {
+			$person = $this->getPerson();
+		}
+
+		$query = $this->createQuery();
+		$query->matching(
+			$query->logicalAnd(
+				$query->equals('participant', $person),
+				$query->equals('status', 0)
+			)
+		);
+		return $query->execute();
+	}
 
 }

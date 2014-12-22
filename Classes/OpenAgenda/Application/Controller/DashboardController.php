@@ -35,6 +35,12 @@ class DashboardController extends AbstractController {
 	protected $messageRepository;
 
 	/**
+	 * @Flow\Inject
+	 * @var \OpenAgenda\Application\Domain\Repository\InvitationRepository
+	 */
+	protected $invitationRepository;
+
+	/**
 	 * @return void
 	 */
 	public function indexAction() {
@@ -43,12 +49,22 @@ class DashboardController extends AbstractController {
 		/** @var \OpenAgenda\Application\Domain\Model\Person $person */
 		$person = $account->getParty();
 
+		$openInvitations = array();
+		foreach ($this->invitationRepository->findOpen() as $invitation) {
+			$openInvitations[] = array(
+				'__identity' => $this->persistenceManager->getIdentifierByObject($invitation),
+				'meeting' => array(
+					'title' => $invitation->getMeeting()->getTitle(),
+				)
+			);
+		}
+
 		$value = array(
 			'person' => $this->arrayService->prepare($person),
 			'meetings' => $this->arrayService->flatten($this->meetingRepository->findAllowed(), 'list'),
-			'meetingsWithOpenInvitations' => $this->arrayService->flatten($this->meetingRepository->findAllowedWithOpenInvitations(), 'meetingsWithOpenInvitations'),
 			'permissions' => $this->permissionService->determineGlobalPermissions(),
 			'tasks' => $this->arrayService->flatten($this->taskRepository->findAllowed(), 'list'),
+			'openInvitations' => $openInvitations,
 		);
 
 		$this->view->assign('value', $value);
