@@ -11,6 +11,10 @@ use TYPO3\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * Model History
+ *
+ * @package OpenAgenda\Application\Domain\Model
+ * @author Andreas Steiger <andreas.steiger@hof-university.de>
  * @Flow\Entity
  * @ORM\Table(name="oa_history")
  * @OA\ToFlatArray(transientName="$issuer",callback="OpenAgenda\Application\Service\ArrayService->prepare($issuer)")

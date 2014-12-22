@@ -10,6 +10,10 @@ use TYPO3\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * Model Person
+ *
+ * @package OpenAgenda\Application\Domain\Model
+ * @author Andreas Steiger <andreas.steiger@hof-university.de>
  * @Flow\Entity
  * @ORM\Table(name="oa_person")
  */

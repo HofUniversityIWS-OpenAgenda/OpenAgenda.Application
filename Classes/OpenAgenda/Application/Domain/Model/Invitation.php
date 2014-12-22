@@ -11,6 +11,10 @@ use TYPO3\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * Model Invitation
+ *
+ * @package OpenAgenda\Application\Domain\Model
+ * @author Andreas Steiger <andreas.steiger@hof-university.de>
  * @Flow\Entity
  * @ORM\Table(name="oa_invitation", uniqueConstraints={@ORM\UniqueConstraint(columns={"meeting", "participant"})})
  * @OA\ToFlatArray(scope="show",transientName="$participant",callback="OpenAgenda\Application\Service\ArrayService->prepare($participant)")

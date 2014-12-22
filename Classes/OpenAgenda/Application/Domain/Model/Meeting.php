@@ -11,6 +11,10 @@ use TYPO3\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * Model Meeting
+ *
+ * @package OpenAgenda\Application\Domain\Model
+ * @author Andreas Steiger <andreas.steiger@hof-university.de>
  * @Flow\Entity
  * @ORM\Table(name="oa_meeting")
  * @OA\ToFlatArray(scope="!prepare",transientName="$permissions",callback="OpenAgenda\Application\Service\Security\PermissionService->determineMeetingPermissions($self)")
