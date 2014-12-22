@@ -48,14 +48,16 @@ class DocumentServiceTest extends \TYPO3\Flow\Tests\FunctionalTestCase {
 	 * @test
 	 */
 	public function agendaIsExported() {
-		$this->fixture->exportAgenda($this->getMeeting());
+		$result = $this->fixture->exportAgenda($this->getMeeting());
+		$this->assertInstanceOf('TYPO3\\Flow\\Resource\\Resource', $result);
 	}
 
 	/**
 	 * @test
 	 */
 	public function protocolIsExported() {
-		$this->fixture->exportProtocol($this->getMeeting());
+		$result = $this->fixture->exportProtocol($this->getMeeting());
+		$this->assertInstanceOf('TYPO3\\Flow\\Resource\\Resource', $result);
 	}
 
 	/**
