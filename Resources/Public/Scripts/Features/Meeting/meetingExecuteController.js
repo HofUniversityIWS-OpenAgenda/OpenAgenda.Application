@@ -3,207 +3,195 @@
  */
 
 angular.module("Meeting")
-    .controller('MeetingExecuteCtrl', ['$scope', '$rootScope', '$http', '$filter','$routeParams', '$resource', "breadcrumbs", "MeetingResourceHelper", "OpenAgenda.Data.Utility", "CommonHelperMethods", "ModalDialog",
-    function ($scope, $rootScope,$http, $filter, $routeParams, $resource, breadcrumbs, MeetingResourceHelper, oaUtility, CommonHelperMethods, ModalDialog) {
-        $scope.meetingId = $routeParams.meetingId;
-        console.log($routeParams.meetingId);
-        $scope.breadcrumbs = breadcrumbs;
+    .controller('MeetingExecuteCtrl', ['$scope', '$rootScope', '$http', '$filter', '$routeParams', '$resource', "breadcrumbs", "MeetingResourceHelper", "OpenAgenda.Data.Utility", "CommonHelperMethods", "ModalDialog",
+        function ($scope, $rootScope, $http, $filter, $routeParams, $resource, breadcrumbs, MeetingResourceHelper, oaUtility, CommonHelperMethods, ModalDialog) {
+            $scope.meetingId = $routeParams.meetingId;
+            console.log($routeParams.meetingId);
+            $scope.breadcrumbs = breadcrumbs;
 
-        $scope.meeting = MeetingResourceHelper.getMeetingDetail($routeParams.meetingId).get(function (data) {
-            console.log('Execute success, got data: ', data);
-            console.log('datum', data.startDate);
-            if (data.startDate)
-            {
-                data.startDate = CommonHelperMethods.getDateFromJSONString(data.startDate);
-            }
-
-            data.scheduledStartDate = CommonHelperMethods.getDateFromJSONString(data.scheduledStartDate);
-
-
-           /* for (var i = 0; i < $scope.meeting.tasks.length; i++) {
-
-                $scope.invitedUsers.push({value: $scope.meeting.invitations[i].$participant.__identity,
-                    text: $scope.meeting.invitations[i].$participant.name.firstName +' '+
-                    $scope.meeting.invitations[i].$participant.name.lastName +' <'+
-                    $scope.meeting.invitations[i].$participant.$mail + '>'
-                });
-
-            };*/
-
-            //$scope.invitedUsers = $scope.meeting.invitations;
-
-        }, function (err) {
-            alert('request failed');
-        });
-
-         $scope.meeting.tasks = {};
-        //$scope.task = {};
-
-        // Neue Aufgabe
-
-        $scope.addTask = function(){
-            $scope.meeting.tasks.push(new TaskItem($scope.meeting.tasks.length));
-
-            // sendTask
-            /*this.description = $scope.task.description;
-            this.creationDate = new Date();
-            this.scheduledDateTime = $scope.task.scheduledDateTime;
-            var user = $filter('filter')($scope.invitedUsers, {value: $scope.task.user});
-            this.user = user[0].value;
-            this.title = $scope.task.title;
-
-            $scope.task.description = $scope.task.description;
-            $scope.task.creationDate = new Date();
-            $scope.task.dueDate = $scope.task.dueDate;
-            var user = $filter('filter')($scope.invitedUsers, {value: $scope.task.user});
-            $scope.task.user = user[0].value;
-            $scope.task.title = $scope.task.title;
-
-
-            //an server senden
-
-            // task leeren;
-            this.description = null;
-            this.creationDate = null;
-            this.dueDate = null;
-            this.user = null;
-            this.title = null;
-
-            $scope.task = {};
-
-            $scope.tasks.push($scope.task);
-
-            //$scope.createNewTask = true;
-            */
-        };
-        $scope.sendProtocollItem = function(id) {
-            $http.post('meeting/update.json', {meeting: oaUtility.jsonCast($scope.meeting)}, {proxy: true}).
-                success(function (data, status, headers, config) {
-                    console.log("SUCCESS");
-
-                }).error(function (data, status, headers, config){
-                    var modalOptions = {
-                        headerText: 'Fehler',
-                        bodyText: 'Beim Starten des Meetings ist ein Fehler aufgetreten!'
-                    };
-                    var modalDefaults = {
-                        templateUrl: '/template/modaldialog/error.html'
-                    };
-                    ModalDialog.showModal(modalDefaults, modalOptions);
-                });
-        };
-        $scope.sendTaskItem = function(idx) {
-            var x = oaUtility.jsonCast($scope.meeting);
-            console.log("X", x);
-            if($scope.meeting.tasks[idx].title && $scope.meeting.tasks[idx].dueDate && $scope.meeting.tasks[idx].assignee && $scope.meeting.tasks[idx].description)
-            $http.post('meeting/update.json', {meeting: x}, {proxy: true}).
-                success(function (data, status, headers, config) {
-                    console.log("SUCCESS");
-
-                }).error(function (data, status, headers, config){
-                    var modalOptions = {
-                        headerText: 'Fehler',
-                        bodyText: 'Beim Starten des Meetings ist ein Fehler aufgetreten!'
-                    };
-                    var modalDefaults = {
-                        templateUrl: '/template/modaldialog/error.html'
-                    };
-                    ModalDialog.showModal(modalDefaults, modalOptions);
-                });
-        };
-
-
-        $scope.getProtocolItem = function(sorting){
-            var found = false;
-            for (var i = 0; i < $scope.meeting.protocolItems.length; i++)
-            {
-                if ($scope.meeting.protocolItems[i].sorting == sorting)
-                {
-                    found = true;
-                    return $scope.meeting.protocolItems[i];
+            $scope.meeting = MeetingResourceHelper.getMeetingDetail($routeParams.meetingId).get(function (data) {
+                console.log('Execute success, got data: ', data);
+                console.log('datum', data.startDate);
+                if (data.startDate) {
+                    data.startDate = CommonHelperMethods.getDateFromJSONString(data.startDate);
                 }
+
+                data.scheduledStartDate = CommonHelperMethods.getDateFromJSONString(data.scheduledStartDate);
+
+
+                /* for (var i = 0; i < $scope.meeting.tasks.length; i++) {
+
+                 $scope.invitedUsers.push({value: $scope.meeting.invitations[i].$participant.__identity,
+                 text: $scope.meeting.invitations[i].$participant.name.firstName +' '+
+                 $scope.meeting.invitations[i].$participant.name.lastName +' <'+
+                 $scope.meeting.invitations[i].$participant.$mail + '>'
+                 });
+
+                 };*/
+
+                //$scope.invitedUsers = $scope.meeting.invitations;
+
+            }, function (err) {
+                alert('request failed');
+            });
+
+            $scope.meeting.tasks = {};
+            //$scope.task = {};
+
+            // Neue Aufgabe
+
+            $scope.addTask = function () {
+                $scope.meeting.tasks.push(new TaskItem($scope.meeting.tasks.length));
+
+                // sendTask
+                /*this.description = $scope.task.description;
+                 this.creationDate = new Date();
+                 this.scheduledDateTime = $scope.task.scheduledDateTime;
+                 var user = $filter('filter')($scope.invitedUsers, {value: $scope.task.user});
+                 this.user = user[0].value;
+                 this.title = $scope.task.title;
+
+                 $scope.task.description = $scope.task.description;
+                 $scope.task.creationDate = new Date();
+                 $scope.task.dueDate = $scope.task.dueDate;
+                 var user = $filter('filter')($scope.invitedUsers, {value: $scope.task.user});
+                 $scope.task.user = user[0].value;
+                 $scope.task.title = $scope.task.title;
+
+
+                 //an server senden
+
+                 // task leeren;
+                 this.description = null;
+                 this.creationDate = null;
+                 this.dueDate = null;
+                 this.user = null;
+                 this.title = null;
+
+                 $scope.task = {};
+
+                 $scope.tasks.push($scope.task);
+
+                 //$scope.createNewTask = true;
+                 */
+            };
+            $scope.sendProtocollItem = function (id) {
+               sendMeetingData(oaUtility.jsonCast($scope.meeting));
+            };
+            $scope.sendTaskItem = function (idx) {
+                var x = oaUtility.jsonCast($scope.meeting);
+                console.log("X", x);
+                if ($scope.meeting.tasks[idx].title && $scope.meeting.tasks[idx].dueDate && $scope.meeting.tasks[idx].assignee && $scope.meeting.tasks[idx].description)
+                    sendMeetingData(x);
+
+            };
+
+            function sendMeetingData(meeting) {
+                $http.post('meeting/update.json', {meeting: meeting}, {proxy: true}).
+                    success(function (data, status, headers, config) {
+                        console.log("SUCCESS");
+
+                    }).error(function (data, status, headers, config) {
+                        var modalOptions = {
+                            headerText: 'Fehler',
+                            bodyText: 'Beim Übertragen der Daten ist ein Fehler aufgetreten!'
+                        };
+                        var modalDefaults = {
+                            templateUrl: '/template/modaldialog/error.html'
+                        };
+                        ModalDialog.showModal(modalDefaults, modalOptions);
+                    });
             }
-            if(!found)
-            {
-                //add new Item
-                var newProtocolItem = function ProtocollItem(sorting) {
-                    this.__identity;
-                    this.description=null;
-                    this.creationDate = new Date();
-                    this.modificationDate;
-                    this.sorting = sorting;
+
+            $scope.getProtocolItem = function (sorting) {
+                var found = false;
+                for (var i = 0; i < $scope.meeting.protocolItems.length; i++) {
+                    if ($scope.meeting.protocolItems[i].sorting == sorting) {
+                        found = true;
+                        return $scope.meeting.protocolItems[i];
+                    }
                 }
-                $scope.meeting.protocolItems.push(newProtocolItem);
-                return newProtocolItem;
+                if (!found) {
+                    //add new Item
+                    var newProtocolItem = function ProtocollItem(sorting) {
+                        this.__identity;
+                        this.description = null;
+                        this.creationDate = new Date();
+                        this.modificationDate;
+                        this.sorting = sorting;
+                    }
+                    $scope.meeting.protocolItems.push(newProtocolItem);
+                    return newProtocolItem;
+                }
+            };
+
+            function TaskItem(count) {
+                this.status = 0;
             }
-        };
 
-        function TaskItem(count){
-            this.status = 0;
-        }
+            $scope.showStatus = function (index) {
+                var x = "Verantwortlichen wählen";
 
-        $scope.showStatus = function(index) {
-            var x = "Verantwortlichen wählen";
-
-            //If task has already a assignee
-            //Should task.$assignee be deleted, if a new assignee is choosen?
-            //ATM task.assignee is the ID of the new assignee
-            if($scope.meeting.tasks[index].assignee) {
-                var selected = $filter('filter')($scope.meeting.invitations, {participant: $scope.meeting.tasks[index].assignee});
-                if (selected.length)
-                    return selected[0].$participant.$mail;
+                //If task has already a assignee
+                //Should task.$assignee be deleted, if a new assignee is choosen?
+                //ATM task.assignee is the ID of the new assignee
+                if ($scope.meeting.tasks[index].assignee) {
+                    var selected = $filter('filter')($scope.meeting.invitations, {participant: $scope.meeting.tasks[index].assignee});
+                    if (selected.length)
+                        return selected[0].$participant.$mail;
+                    else
+                        return x;
+                }
                 else
                     return x;
-            }
-            else
-                return x;
-        };
-        $scope.removeTasks = function (idx) {
-          $scope.meeting.tasks.splice( idx, 1 );
-        };
+            };
+            $scope.removeTasks = function (idx) {
+                $scope.meeting.tasks.splice(idx, 1);
+
+            };
 
 
-        $scope.startMeeting = function(){
+            $scope.startMeeting = function () {
 
-            angular.forEach($scope.meeting.invitations, function(invitation) {
-                delete invitation.role;
-            });
-            var x = oaUtility.jsonCast($scope.meeting);
-            x.status = 2;
-
-            $http.post('meeting/update.json', {meeting: x}, {proxy: true}).
-                success(function (data, status, headers, config) {
-                    console.log("SUCCESS");
-                    if ($scope.meeting.status < 2)
-                    {
-                        $scope.meeting.startDate = new Date();
-                        $scope.meeting.status = 2;
-                        console.log('meetingStart', $scope.meeting);
-                    }
-                }).error(function (data, status, headers, config){
-                    var modalOptions = {
-                        headerText: 'Fehler',
-                        bodyText: 'Beim Starten des Meetings ist ein Fehler aufgetreten!'
-                    };
-                    var modalDefaults = {
-                        templateUrl: '/template/modaldialog/error.html'
-                    };
-                    ModalDialog.showModal(modalDefaults, modalOptions);
+                angular.forEach($scope.meeting.invitations, function (invitation) {
+                    delete invitation.role;
                 });
-        };
-        $scope.endMeeting = function(){
-            if ($scope.meeting.status < 3)
-            {
-                $scope.meeting.endDate = new Date();
-                $scope.meeting.status = 3;
-            }
-        };
-    }])
+                var x = oaUtility.jsonCast($scope.meeting);
+                x.status = 2;
 
-    /**This Controller handles the meeting start scenario
-     * @author Thomas Winkler <thomas.winkler@hof-university.de>
-     */
-    .controller('MeetingExecuteModalCtrl', ['$scope', '$rootScope', '$http', "CommonHelperMethods", '$modal', '$log',
+                $http.post('meeting/update.json', {meeting: x}, {proxy: true}).
+                    success(function (data, status, headers, config) {
+                        console.log("SUCCESS");
+                        if ($scope.meeting.status < 2) {
+                            $scope.meeting.startDate = new Date();
+                            $scope.meeting.status = 2;
+                            console.log('meetingStart', $scope.meeting);
+                        }
+                    }).error(function (data, status, headers, config) {
+                        var modalOptions = {
+                            headerText: 'Fehler',
+                            bodyText: 'Beim Starten des Meetings ist ein Fehler aufgetreten!'
+                        };
+                        var modalDefaults = {
+                            templateUrl: '/template/modaldialog/error.html'
+                        };
+                        ModalDialog.showModal(modalDefaults, modalOptions);
+                    });
+            };
+            $scope.endMeeting = function () {
+                if ($scope.meeting.status < 3) {
+                    $scope.meeting.endDate = new Date();
+                    $scope.meeting.status = 3;
+                }
+            };
+        }
+    ])
+
+/**This Controller handles the meeting start scenario
+ * @author Thomas Winkler <thomas.winkler@hof-university.de>
+ */
+    .
+    controller('MeetingExecuteModalCtrl', ['$scope', '$rootScope', '$http', "CommonHelperMethods", '$modal', '$log',
         function ($scope, $rootScope, $http, CommonHelperMethods, $modal, $log) {
 
             $scope.open = function (size) {
@@ -219,7 +207,7 @@ angular.module("Meeting")
                 });
 
                 modalInstance.close = function () {
-                    if($scope.meeting.minuteTaker) {
+                    if ($scope.meeting.minuteTaker) {
                         $scope.$parent.startMeeting();
                         modalInstance.dismiss();
                     }
@@ -227,32 +215,32 @@ angular.module("Meeting")
             };
 
             $scope.tooglePresent = function (index) {
-                if($scope.meeting.invitations[index].role != "OpenAgenda.Application:MinuteTaker") {
+                if ($scope.meeting.invitations[index].role != "OpenAgenda.Application:MinuteTaker") {
                     if ($scope.meeting.invitations[index].available != true) {
                         $scope.meeting.invitations[index].available = true;
                     }
-                else
-                    $scope.meeting.invitations[index].available = false;
+                    else
+                        $scope.meeting.invitations[index].available = false;
                 }
             };
 
             $scope.toogleMinuteTaker = function (index) {
-                if($scope.meeting.invitations[index].role == "OpenAgenda.Application:MinuteTaker") {
+                if ($scope.meeting.invitations[index].role == "OpenAgenda.Application:MinuteTaker") {
                     $scope.meeting.invitations[index].role = "OpenAgenda.Application:Participant";
                     $scope.meeting.invitations[index].available = true;
                     $scope.meeting.minuteTaker = null;
                 }
-                else if(!$scope.meeting.minuteTaker){
+                else if (!$scope.meeting.minuteTaker) {
                     $scope.meeting.invitations[index].role = "OpenAgenda.Application:MinuteTaker";
                     $scope.meeting.invitations[index].available = true;
                     $scope.meeting.minuteTaker = $scope.meeting.invitations[index].$participant.__identity;
                 }
             };
         }])
-    /**This controller is used to handle the modal view to view and change a tasks state
-     * @author Thomas Winkler <thomas.winkler@hof-university.de>
-     */
-    .controller('MeetingExecuteModalInstanceCtrl', function ($scope, $modalInstance, CommonHelperMethods,meeting) {
+/**This controller is used to handle the modal view to view and change a tasks state
+ * @author Thomas Winkler <thomas.winkler@hof-university.de>
+ */
+    .controller('MeetingExecuteModalInstanceCtrl', function ($scope, $modalInstance, CommonHelperMethods, meeting) {
 
         $scope.meeting = meeting;
         $scope.ok = function () {
