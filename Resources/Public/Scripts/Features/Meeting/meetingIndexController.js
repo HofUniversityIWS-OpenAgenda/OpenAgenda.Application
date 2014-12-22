@@ -131,7 +131,7 @@ angular.module("Meeting", [])
             });
 
             $scope.deleteMeeting = function (id) {
-                $http.post("/meeting/delete.json", {"__identity": id}).
+                $http.get('/meeting/' + id + '/delete.json').
                     success(function (data, status, headers, config) {
                         var modalOptions = {
                             headerText: 'Erfolg',

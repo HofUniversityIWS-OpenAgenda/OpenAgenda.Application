@@ -27,7 +27,7 @@ class Meeting implements CreationInterface, ModificationInterface {
 
 	/**
 	 * @var \Doctrine\Common\Collections\Collection<\OpenAgenda\Application\Domain\Model\AgendaItem>
-	 * @ORM\OneToMany(mappedBy="meeting",cascade="persist")
+	 * @ORM\OneToMany(mappedBy="meeting",cascade={"all"})
 	 * @ORM\OrderBy({"sorting" = "ASC"})
 	 * @OA\ToFlatArray(scope="show")
 	 */
@@ -35,7 +35,7 @@ class Meeting implements CreationInterface, ModificationInterface {
 
 	/**
 	 * @var \Doctrine\Common\Collections\Collection<\OpenAgenda\Application\Domain\Model\Task>
-	 * @ORM\OneToMany(mappedBy="meeting",cascade="persist")
+	 * @ORM\OneToMany(mappedBy="meeting",cascade={"all"})
 	 * @OA\ToFlatArray(scope="show")
 	 */
 	protected $tasks;

@@ -200,26 +200,17 @@ class MeetingController extends AbstractController {
 	 * @return void
 	 */
 	public function deleteAction(Meeting $meeting) {
-		$agendaItems = $this->agendaItemRepository->findByMeeting($meeting);
-		$invitations = $this->invitationRepository->findByMeeting($meeting);
-		$tasks = $this->taskRepository->findByMeeting($meeting);
+		$result = FALSE;
 
-		foreach ($agendaItems as $removeObjects) {
-			$this->agendaItemRepository->remove($removeObjects);
+		// Allow deletion only if meeting is created
+		// and not invitations etc. have been sent, yet
+		if ($meeting->getStatus() === Meeting::STATUS_CREATED) {
+			$this->meetingRepository->remove($meeting);
+			$this->persistenceManager->persistAll();
+			$result = TRUE;
 		}
 
-		foreach ($invitations as $removeObjects) {
-			$this->invitationRepository->remove($removeObjects);
-		}
-
-		foreach ($tasks as $removeObjects) {
-			$this->taskRepository->remove($removeObjects);
-		}
-		$this->persistenceManager->persistAll();
-
-		$this->historyService->invoke($meeting);
-		$this->meetingRepository->remove($meeting);
-		$this->view->assign('value', TRUE);
+		$this->view->assign('value', $result);
 	}
 
 	/**
