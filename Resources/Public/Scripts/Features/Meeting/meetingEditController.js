@@ -190,5 +190,11 @@ angular.module("Meeting")
             $scope.getUploader = function (idx) {
                 return $scope.uploaders[idx];
             };
+            $scope.reloadTasks = function () {
+               MeetingResourceHelper.getMeetingDetail($routeParams.meetingId).get(function (data) {
+                   $scope.meeting.tasks = data.tasks;
+                   console.log("Got Tasks: ", $scope.meeting)
+               })
+            };
 
         }]);

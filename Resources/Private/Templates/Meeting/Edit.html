@@ -231,7 +231,7 @@
                                     <div class="panel-heading">
                                         <h3 style="color: #ffffff" class="panel-title">Meeting Aufgaben</h3>
                                     </div>
-                                    <div class="panel-body">
+                                    <div ng-controller="TaskEditCtrl" class="panel-body">
                                         <div class="table-responsive">
                                             <table class="table table-striped table-bordered table-hover" id="dataTables-task">
                                                 <thead>
@@ -240,7 +240,7 @@
                                                     <th>Aufgabe</th>
                                                     <th>Status</th>
                                                     <th>Zuständig</th><!--zugesagt/abgesagt/ausstehend!-->
-
+                                                    <th>Aktionen</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -249,6 +249,9 @@
                                                     <td>{{task.title}}</td>
                                                     <td task-status="true"></td>
                                                     <td>{{task.$assignee.name.firstName}} {{task.$assignee.name.lastName}} &lt;{{task.$assignee.$mail}}&gt;</td>
+                                                    <td point-me="true" ng-click="open('',task)">
+                                                        <a>Bearbeiten <i class="fa fa-pencil-square-o"></i></a>
+                                                    </td>
                                                 </tr>
                                                 </tbody>
                                             </table>
@@ -257,10 +260,10 @@
                                                 <div class="bounce2"></div>
                                                 <div class="bounce3"></div>
                                             </div>
-                                            <div ng-hide="meeting.invitations.length > 0" class="alert alert-info" role="alert">
+                                            <div ng-hide="meeting.tasks.length > 0" class="alert alert-info" role="alert">
                                                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                                                 <span class="sr-only">Info:</span>
-                                                Keine Teilnehmer eingeladen!
+                                                Keine Tasks festgelegt!
                                             </div>
 
                                         </div>
