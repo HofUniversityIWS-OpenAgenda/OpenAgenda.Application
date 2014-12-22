@@ -65,7 +65,7 @@
                                         Uhrzeit: {{ (meeting.scheduledStartDate | date:"HH:mm") || 'nicht festgelegt' }}
                                     </a>
                                 </span>
-                                <div ng-hide="loading" class="pull-right">Meetingrolle:[[meeting.role]]</div>
+                                <!--<div ng-hide="loading" class="pull-right">Meetingrolle:[[meeting.role]]</div>-->
                                 <br/>
                                 <span ng-switch on="editMode">
                                     <a ng-switch-when="true" href="#" editable-text="meeting.location">Ort: {{ meeting.location || 'nicht festgelegt' }}</a>
