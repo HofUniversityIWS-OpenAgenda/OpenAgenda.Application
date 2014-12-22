@@ -49,7 +49,7 @@ angular.module("Meeting")
                     }
                     console.log("Got Meeting: ", $scope.meeting)
                     $scope.loading = false;
-                    if ($scope.meeting.status == 3) {
+                    if ($scope.meeting.status >= 1) {
                         $scope.editMode = false;
 
                     } else {
