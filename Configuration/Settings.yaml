@@ -127,3 +127,11 @@ OpenAgenda:
       sender:
         mail: 'openagenda@hof-university.de'
         name: 'OpenAgenda'
+    Export:
+      Document:
+        agenda:
+          templateFile: '%PACKAGE_RESOURCES%/Private/Document/Agenda.html'
+          documentFile: '%PACKAGE_RESOURCES%/Private/Document/Template.pdf'
+        protocol:
+          templateFile: '%PACKAGE_RESOURCES%/Private/Document/Protocol.html'
+          documentFile: '%PACKAGE_RESOURCES%/Private/Document/Template.pdf'

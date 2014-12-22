@@ -7,22 +7,54 @@ namespace OpenAgenda\Application\Service\Export;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-
+use OpenAgenda\Application\Domain\Model\Meeting;
 
 class DocumentService {
 
 	/**
-	 * @return void
+	 * @Flow\Inject
+	 * @var \TYPO3\Flow\Package\PackageManagerInterface
 	 */
-	public function exportAgenda() {
+	protected $packageManager;
+
+	/**
+	 * @var array
+	 * @Flow\Inject(setting="Export.Document")
+	 */
+	protected $documentSettings;
+
+	/**
+	 * @param Meeting $meeting
+	 */
+	public function exportAgenda(Meeting $meeting) {
 
 	}
 
 	/**
-	 * @return void
+	 * @param Meeting $meeting
 	 */
-	public function exportProtocol() {
+	public function exportProtocol(Meeting $meeting) {
+		$template = $this->substituteSettings($this->documentSettings['protocol']['templateFile']);
+		$source = $this->substituteSettings($this->documentSettings['protocol']['documentFile']);
 
+		$pdfView = new \OliverHader\PdfRendering\View\PdfView();
+		$pdfView->setTemplatePathAndFilename($template);
+		$pdfView->assign('source', $source);
+		$pdfView->assign('subject', $meeting);
+		$pdfView->save(FLOW_PATH_DATA . 'Test.pdf');
+	}
+
+	/**
+	 * @param string $value
+	 * @return string
+	 * @throws \TYPO3\Flow\Package\Exception\UnknownPackageException
+	 */
+	protected function substituteSettings($value) {
+		return str_replace(
+			'%PACKAGE_RESOURCES%',
+			$this->packageManager->getPackage(\OpenAgenda\Application\Package::PackageName)->getResourcesPath(),
+			$value
+		);
 	}
 
 }
