@@ -82,7 +82,7 @@
                                         <h4>Protokoll</h4>
                                         <div class="Protokoll">
                                             <span ng-switch on="meeting.$permissions.minutes">
-                                                <a ng-switch-when="true" href="#" editable-textarea="agendaItem.note.description" e-rows="7" e-cols="40">
+                                                <a ng-switch-when="true" href="#" editable-textarea="agendaItem.note.description" onaftersave="sendProtocollItem()" e-rows="7" e-cols="40">
                                                     <pre>{{ agendaItem.note.description || 'Noch kein Protokolleintrag' }}</pre>
                                                 </a>
                                                 <div ng-switch-default>
@@ -101,26 +101,26 @@
                             <div class="task" ng-show="meeting.$permissions.minutes">
                                 <div class="task-item" ng-repeat="taskItem in meeting.tasks">
                                     <div>
-                                        <a href="#" editable-text="taskItem.title">{{ taskItem.title || 'Aufgabentitel festlegen' }}</a>
+                                        <a href="#" onaftersave="sendTaskItem($index)" editable-text="taskItem.title">{{ taskItem.title || 'Aufgabentitel festlegen' }}</a>
                                         <a point-me="true" ng-click="removeTasks($index)"><span class=" pull-right glyphicon glyphicon-remove" aria-hidden="true"></span></a>
                                     </div>
                                     <div style="padding: 0px" class="col-sm-5">
-                                        <a href="#" editable-select="taskItem.assignee" buttons='no' e-ng-options="invitation.$participant.__identity as invitation.$participant.$mail for invitation in meeting.invitations">
+                                        <a href="#" onaftersave="sendTaskItem($index)" editable-select="taskItem.assignee" buttons='no' e-ng-options="invitation.$participant.__identity as invitation.$participant.$mail for invitation in meeting.invitations">
                                             {{ showStatus($index) }}
                                         </a>
                                     </div>
                                     <div class="col-sm-4">
-                                        <a href="#" editable-bsdate="taskItem.dueDate" e-datepicker-popup="dd-MMMM-yyyy">
+                                        <a href="#" onaftersave="sendTaskItem($index)" editable-bsdate="taskItem.dueDate" e-datepicker-popup="dd-MMMM-yyyy">
                                             {{ (taskItem.dueDate | date:"dd.MM.yyyy") || 'Datum festlegen' }}
                                         </a><br/>
                                     </div>
                                     <div>
-                                        <a href="#" editable-bstime="taskItem.dueDate" e-show-meridian="false" e-minute-step="10">
+                                        <a href="#" onaftersave="sendTaskItem($index)" editable-bstime="taskItem.dueDate" e-show-meridian="false" e-minute-step="10">
                                             {{ (taskItem.dueDate | date:"HH:mm") + ' Uhr'|| 'Uhrzeit festlegen' }}
                                         </a><br/>
                                     </div>
                                     <div>
-                                        <a href="#" editable-textarea="taskItem.description" e-rows="7" e-cols="40">
+                                        <a href="#" onaftersave="sendTaskItem($index)" editable-textarea="taskItem.description" e-rows="7" e-cols="40">
                                             <pre>{{ taskItem.description || 'Aufgabenbeschreibung festlegen' }}</pre>
                                         </a>
                                     </div>

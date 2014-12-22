@@ -76,6 +76,41 @@ angular.module("Meeting")
             //$scope.createNewTask = true;
             */
         };
+        $scope.sendProtocollItem = function(id) {
+            $http.post('meeting/update.json', {meeting: oaUtility.jsonCast($scope.meeting)}, {proxy: true}).
+                success(function (data, status, headers, config) {
+                    console.log("SUCCESS");
+
+                }).error(function (data, status, headers, config){
+                    var modalOptions = {
+                        headerText: 'Fehler',
+                        bodyText: 'Beim Starten des Meetings ist ein Fehler aufgetreten!'
+                    };
+                    var modalDefaults = {
+                        templateUrl: '/template/modaldialog/error.html'
+                    };
+                    ModalDialog.showModal(modalDefaults, modalOptions);
+                });
+        };
+        $scope.sendTaskItem = function(idx) {
+            var x = oaUtility.jsonCast($scope.meeting);
+            console.log("X", x);
+            if($scope.meeting.tasks[idx].title && $scope.meeting.tasks[idx].dueDate && $scope.meeting.tasks[idx].assignee && $scope.meeting.tasks[idx].description)
+            $http.post('meeting/update.json', {meeting: x}, {proxy: true}).
+                success(function (data, status, headers, config) {
+                    console.log("SUCCESS");
+
+                }).error(function (data, status, headers, config){
+                    var modalOptions = {
+                        headerText: 'Fehler',
+                        bodyText: 'Beim Starten des Meetings ist ein Fehler aufgetreten!'
+                    };
+                    var modalDefaults = {
+                        templateUrl: '/template/modaldialog/error.html'
+                    };
+                    ModalDialog.showModal(modalDefaults, modalOptions);
+                });
+        };
 
 
         $scope.getProtocolItem = function(sorting){
@@ -104,8 +139,7 @@ angular.module("Meeting")
         };
 
         function TaskItem(count){
-            this.meetingId = $scope.meeting.__identity;
-            this.TaskNr = count;
+            this.status = 0;
         }
 
         $scope.showStatus = function(index) {
@@ -135,12 +169,7 @@ angular.module("Meeting")
                 delete invitation.role;
             });
             var x = oaUtility.jsonCast($scope.meeting);
-            var y = [{
-                    __identity: x.__identity,
-                    status: x.status,
-                    minuteTaker: x.minuteTaker,
-                    inivitations: x.invitations
-                    }];
+            x.status = 2;
 
             $http.post('meeting/update.json', {meeting: x}, {proxy: true}).
                 success(function (data, status, headers, config) {
