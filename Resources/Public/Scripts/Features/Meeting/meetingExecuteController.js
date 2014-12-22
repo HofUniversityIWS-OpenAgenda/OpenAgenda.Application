@@ -3,37 +3,32 @@
  */
 
 angular.module("Meeting")
-    .controller('MeetingExecuteCtrl', ['$scope', '$rootScope','$location', '$http', '$filter', '$routeParams', '$resource', "breadcrumbs", "MeetingResourceHelper", "OpenAgenda.Data.Utility", "CommonHelperMethods", "ModalDialog",
-        function ($scope, $rootScope, $location, $http, $filter, $routeParams, $resource, breadcrumbs, MeetingResourceHelper, oaUtility, CommonHelperMethods, ModalDialog) {
+    .controller('MeetingExecuteCtrl', ['$scope', '$rootScope', '$interval', '$location', '$http', '$filter', '$routeParams', '$resource', "breadcrumbs", "MeetingResourceHelper", "OpenAgenda.Data.Utility", "CommonHelperMethods", "ModalDialog",
+        function ($scope, $rootScope, $interval, $location, $http, $filter, $routeParams, $resource, breadcrumbs, MeetingResourceHelper, oaUtility, CommonHelperMethods, ModalDialog) {
             $scope.meetingId = $routeParams.meetingId;
             console.log($routeParams.meetingId);
             $scope.breadcrumbs = breadcrumbs;
+            $scope.meeting = [];
+            function reloadMeetingData() {
+                MeetingResourceHelper.getMeetingDetail($routeParams.meetingId).get(function (data) {
+                    if (data.startDate) {
+                        data.startDate = CommonHelperMethods.getDateFromJSONString(data.startDate);
+                    }
+                    data.scheduledStartDate = CommonHelperMethods.getDateFromJSONString(data.scheduledStartDate);
+                    $scope.meeting = data;
+                    if(!$scope.meeting.$permissions.minutes) {
+                        var getnewMeeting = $interval(function () {
+                            reloadMeetingData();
+                        }, 10000);
+                    }
+                }, function (err) {
+                    alert('request failed');
+                });
 
-            $scope.meeting = MeetingResourceHelper.getMeetingDetail($routeParams.meetingId).get(function (data) {
-                console.log('Execute success, got data: ', data);
-                console.log('datum', data.startDate);
-                if (data.startDate) {
-                    data.startDate = CommonHelperMethods.getDateFromJSONString(data.startDate);
-                }
+            };
 
-                data.scheduledStartDate = CommonHelperMethods.getDateFromJSONString(data.scheduledStartDate);
+            reloadMeetingData();
 
-
-                /* for (var i = 0; i < $scope.meeting.tasks.length; i++) {
-
-                 $scope.invitedUsers.push({value: $scope.meeting.invitations[i].$participant.__identity,
-                 text: $scope.meeting.invitations[i].$participant.name.firstName +' '+
-                 $scope.meeting.invitations[i].$participant.name.lastName +' <'+
-                 $scope.meeting.invitations[i].$participant.$mail + '>'
-                 });
-
-                 };*/
-
-                //$scope.invitedUsers = $scope.meeting.invitations;
-
-            }, function (err) {
-                alert('request failed');
-            });
 
             $scope.meeting.tasks = {};
             //$scope.task = {};
@@ -42,41 +37,10 @@ angular.module("Meeting")
 
             $scope.addTask = function () {
                 $scope.meeting.tasks.push(new TaskItem($scope.meeting.tasks.length));
-
-                // sendTask
-                /*this.description = $scope.task.description;
-                 this.creationDate = new Date();
-                 this.scheduledDateTime = $scope.task.scheduledDateTime;
-                 var user = $filter('filter')($scope.invitedUsers, {value: $scope.task.user});
-                 this.user = user[0].value;
-                 this.title = $scope.task.title;
-
-                 $scope.task.description = $scope.task.description;
-                 $scope.task.creationDate = new Date();
-                 $scope.task.dueDate = $scope.task.dueDate;
-                 var user = $filter('filter')($scope.invitedUsers, {value: $scope.task.user});
-                 $scope.task.user = user[0].value;
-                 $scope.task.title = $scope.task.title;
-
-
-                 //an server senden
-
-                 // task leeren;
-                 this.description = null;
-                 this.creationDate = null;
-                 this.dueDate = null;
-                 this.user = null;
-                 this.title = null;
-
-                 $scope.task = {};
-
-                 $scope.tasks.push($scope.task);
-
-                 //$scope.createNewTask = true;
-                 */
             };
+
             $scope.sendProtocollItem = function (id) {
-               sendMeetingData(oaUtility.jsonCast($scope.meeting), 'Beim Übertragen der Daten ist ein Fehler aufgetreten!');
+                sendMeetingData(oaUtility.jsonCast($scope.meeting), 'Beim Übertragen der Daten ist ein Fehler aufgetreten!');
             };
             $scope.sendTaskItem = function (idx) {
                 var x = oaUtility.jsonCast($scope.meeting);
@@ -147,7 +111,10 @@ angular.module("Meeting")
             };
             $scope.removeTasks = function (idx) {
                 $scope.meeting.tasks.splice(idx, 1);
-                $http.post('task/delete.json', {task: $scope.meeting.tasks[idx].__identity, meeting: $scope.meeting.__identity}, {proxy: true}).
+                $http.post('task/delete.json', {
+                    task: $scope.meeting.tasks[idx].__identity,
+                    meeting: $scope.meeting.__identity
+                }, {proxy: true}).
                     success(function (data, status, headers, config) {
                         console.log("SUCCESS");
                         if ($scope.meeting.status < 2) {
@@ -176,7 +143,7 @@ angular.module("Meeting")
                 var x = oaUtility.jsonCast($scope.meeting);
                 x.status = 2;
 
-                sendMeetingData(x,'Beim Starten des Meetings ist ein Fehler aufgetreten!');
+                sendMeetingData(x, 'Beim Starten des Meetings ist ein Fehler aufgetreten!');
                 $http.post('meeting/update.json', {meeting: x}, {proxy: true}).
                     success(function (data, status, headers, config) {
                         console.log("SUCCESS");
@@ -223,7 +190,7 @@ angular.module("Meeting")
                         };
                         ModalDialog.showModal(modalDefaults, modalOptions);
                     });
-                sendMeetingData(oaUtility.jsonCast($scope.meeting),  'Beim Beenden des Meetings ist ein Fehler aufgetreten!')
+                sendMeetingData(oaUtility.jsonCast($scope.meeting), 'Beim Beenden des Meetings ist ein Fehler aufgetreten!')
             };
         }
     ])
