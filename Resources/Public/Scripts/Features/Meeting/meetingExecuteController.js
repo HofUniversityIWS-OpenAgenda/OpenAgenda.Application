@@ -164,47 +164,70 @@ angular.module("Meeting")
 
             };
             $scope.endMeeting = function () {
-                if ($scope.meeting.status < 3) {
+                var tasksCorrect = false;
+
+                for (var i = 0; i < $scope.meeting.tasks; i++ ) {
+                    if ($scope.meeting.tasks[i].title && $scope.meeting.tasks[i].dueDate && $scope.meeting.tasks[i].assignee && $scope.meeting.tasks[i].description) {
+                        tasksCorrect = true;
+
+                    } else {
+                        tasksCorrect = false;
+                        break;
+                    }
+                }
+
+                if (tasksCorrect && $scope.meeting.status < 3) {
                     $scope.meeting.endDate = new Date();
                     $scope.meeting.status = 3;
+
                 }
-                $http.post('meeting/update.json', {meeting: oaUtility.jsonCast($scope.meeting)}, {proxy: true}).
-                    success(function (data, status, headers, config) {
-                        console.log("SUCCESS");
-                        var modalOptions = {
-                            headerText: 'Erfolg',
-                            bodyText: 'Das Meetings wurde erfolgreich beendet!'
-                        };
-                        var modalDefaults = {
-                            templateUrl: '/template/modaldialog/success.html'
-                        };
-                        $location.path("/");
-                        ModalDialog.showModal(modalDefaults, modalOptions);
-                    }).error(function (data, status, headers, config) {
-                        var modalOptions = {
-                            headerText: 'Fehler',
-                            bodyText: 'Beim Starten des Meetings ist ein Fehler aufgetreten!'
-                        };
-                        var modalDefaults = {
-                            templateUrl: '/template/modaldialog/error.html'
-                        };
-                        ModalDialog.showModal(modalDefaults, modalOptions);
-                    });
-                sendMeetingData(oaUtility.jsonCast($scope.meeting), 'Beim Beenden des Meetings ist ein Fehler aufgetreten!')
+
+                if (tasksCorrect){
+                    $http.post('meeting/update.json', {meeting: oaUtility.jsonCast($scope.meeting)}, {proxy: true}).
+                        success(function (data, status, headers, config) {
+                            console.log("SUCCESS");
+                            var modalOptions = {
+                                headerText: 'Erfolg',
+                                bodyText: 'Das Meetings wurde erfolgreich beendet!'
+                            };
+                            var modalDefaults = {
+                                templateUrl: '/template/modaldialog/success.html'
+                            };
+                            $location.path("/");
+                            ModalDialog.showModal(modalDefaults, modalOptions);
+                        }).error(function (data, status, headers, config) {
+                            var modalOptions = {
+                                headerText: 'Fehler',
+                                bodyText: 'Beim Beenden des Meetings ist ein Fehler aufgetreten!'
+                            };
+                            var modalDefaults = {
+                                templateUrl: '/template/modaldialog/error.html'
+                            };
+                            ModalDialog.showModal(modalDefaults, modalOptions);
+                        });
+                } else{
+                    var modalOptions = {
+                        headerText: 'Fehler',
+                        bodyText: 'Beim Beenden des Meetings ist ein Fehler aufgetreten! Nicht alle Aufgaben sind korrekt gefüllt! Überprüfen Sie bitte Ihre Aufgaben!'
+                    };
+                    var modalDefaults = {
+                        templateUrl: '/template/modaldialog/error.html'
+                    };
+                    ModalDialog.showModal(modalDefaults, modalOptions);
+                }
+
             };
-            
+
             $scope.$on('$destroy', function () {
                 if(getnewMeeting)
                     $interval.cancel(getnewMeeting);
             });
-        }
-    ])
+    }])
 
 /**This Controller handles the meeting start scenario
  * @author Thomas Winkler <thomas.winkler@hof-university.de>
  */
-    .
-    controller('MeetingExecuteModalCtrl', ['$scope', '$rootScope', '$http', "CommonHelperMethods", '$modal', '$log',
+    .controller('MeetingExecuteModalCtrl', ['$scope', '$rootScope', '$http', "CommonHelperMethods", '$modal', '$log',
         function ($scope, $rootScope, $http, CommonHelperMethods, $modal, $log) {
 
             $scope.open = function (size) {
