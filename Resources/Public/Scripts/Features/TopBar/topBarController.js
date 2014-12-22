@@ -17,7 +17,7 @@ angular.module("TopBar", [])
 
             //TODO: No rest interface to get all personal notifications
 
-            $rootScope.notifications = [1,2,3,4];
+            $rootScope.notifications = [];
             //getNotifications from Server
 
             $scope.test = function (){

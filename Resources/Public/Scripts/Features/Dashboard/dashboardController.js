@@ -14,7 +14,8 @@ angular.module("Dashboard", [])
 
             $scope.events = [];
             $scope.personalInfos = CommonResourceHelper.getPersonalInfos().get(function () {
-                console.log( $scope.personalInfos);
+                console.log("PER", $scope.personalInfos);
+                $rootScope.notifications = $scope.personalInfos.meetingsWithOpenInvitations;
                 $scope.currentUser = $scope.personalInfos.person.name.firstName;
             });
             $scope.meetingList = MeetingResourceHelper.getMeetingList().query(function () {
