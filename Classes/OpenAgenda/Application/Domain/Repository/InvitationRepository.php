@@ -8,6 +8,8 @@ namespace OpenAgenda\Application\Domain\Repository;
 
 use TYPO3\Flow\Annotations as Flow;
 use OpenAgenda\Application\Domain\Model\Person;
+use OpenAgenda\Application\Domain\Model\Meeting;
+use OpenAgenda\Application\Domain\Model\Invitation;
 
 /**
  * Class InvitationRepository
@@ -30,5 +32,16 @@ class InvitationRepository extends AbstractRepository {
 		$query->matching($query->equals('participant', $person));
 		return $query->execute();
 	}
+
+	/**
+	 * @param Meeting $meeting
+	 * @return \TYPO3\Flow\Persistence\QueryResultInterface|Invitation[]
+	 */
+	public function findByMeeting(Meeting $meeting) {
+		$query = $this->createQuery();
+		$query->matching($query->equals('meeting', $meeting));
+		return $query->execute();
+	}
+
 
 }
