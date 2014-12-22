@@ -61,6 +61,12 @@ class AbstractController extends ActionController {
 	protected $entityService;
 
 	/**
+	 * @Flow\Inject
+	 * @var \OpenAgenda\Application\Service\HistoryService
+	 */
+	protected $historyService;
+
+	/**
 	 * @param \TYPO3\Flow\Mvc\View\ViewInterface $view The view to be initialized
 	 * @return void
 	 * @api

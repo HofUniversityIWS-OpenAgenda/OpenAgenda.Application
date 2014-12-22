@@ -95,6 +95,24 @@ class MeetingController extends AbstractController {
 	}
 
 	/**
+	 * @param Meeting $meeting
+	 * @author Oliver Hader <oliver@typo3.org>
+	 */
+	public function commitAction(Meeting $meeting) {
+		$meeting->setStatus(Meeting::STATUS_COMMITTED);
+		$this->meetingRepository->update($meeting);
+		$this->historyService->invoke($meeting);
+
+		foreach ($meeting->getInvitations() as $invitation) {
+			$this->messagingService->prepareForPerson(
+				$invitation->getParticipant(),
+				'Meeting/Invite',
+				array('invitation' => $invitation)
+			);
+		}
+	}
+
+	/**
 	 * @param \OpenAgenda\Application\Domain\Model\Meeting $meeting
 	 * @return void
 	 */

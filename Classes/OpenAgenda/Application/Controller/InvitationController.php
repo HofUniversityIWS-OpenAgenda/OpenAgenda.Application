@@ -76,4 +76,26 @@ class InvitationController extends AbstractController {
 		$this->redirect('index');
 	}
 
+	/**
+	 * @param Invitation $invitation
+	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
+	 */
+	public function acceptAction(Invitation $invitation) {
+		$invitation->setStatus(Invitation::STATUS_COMMITTED);
+		$this->invitationRepository->update($invitation);
+		$this->historyService->invoke($invitation);
+		$this->redirect('index', 'Standard');
+	}
+
+	/**
+	 * @param Invitation $invitation
+	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
+	 */
+	public function declineAction(Invitation $invitation) {
+		$invitation->setStatus(Invitation::STATUS_COMMITTED);
+		$this->invitationRepository->update($invitation);
+		$this->historyService->invoke($invitation);
+		$this->redirect('index', 'Standard');
+	}
+
 }
