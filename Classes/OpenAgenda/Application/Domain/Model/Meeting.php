@@ -206,6 +206,10 @@ class Meeting implements CreationInterface, ModificationInterface {
 	 */
 	public function setAgendaItems($agendaItems) {
 		$this->agendaItems = $agendaItems;
+		/** @var AgendaItem $agendaItem */
+		foreach ($this->agendaItems as $agendaItem) {
+			$agendaItem->setMeeting($this);
+		}
 	}
 
 	/**
@@ -241,6 +245,10 @@ class Meeting implements CreationInterface, ModificationInterface {
 	 */
 	public function setTasks(\Doctrine\Common\Collections\Collection $tasks) {
 		$this->tasks = $tasks;
+		/** @var Task $task */
+		foreach ($this->tasks as $task) {
+			$task->setMeeting($this);
+		}
 	}
 
 	/**
@@ -248,6 +256,7 @@ class Meeting implements CreationInterface, ModificationInterface {
 	 */
 	public function setInvitations($invitations) {
 		$this->invitations = $invitations;
+		/** @var Invitation $invitation */
 		foreach ($this->invitations as $invitation) {
 			$invitation->setMeeting($this);
 		}
