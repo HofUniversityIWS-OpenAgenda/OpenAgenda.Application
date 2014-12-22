@@ -15,7 +15,7 @@
                      </tr>
                  </thead>
                  <tbody ng-repeat="invitation in meeting.invitations">
-                     <tr class="noselect" ng-class="{success: invitation.available == true , info: invitation.role == 'OpenAgenda.Application:MinuteTaker'}" timed-click="tooglePresent($index)" ng-dblclick="toogleMinuteTaker($index)">
+                     <tr point-me="true" class="noselect" ng-class="{success: invitation.available == true , info: invitation.role == 'OpenAgenda.Application:MinuteTaker'}" timed-click="tooglePresent($index)" ng-dblclick="toogleMinuteTaker($index)">
                          <td>{{invitation.$participant.name.firstName}} {{invitation.$participant.name.lastName}}</td>
                          <td>
                              <i ng-if="invitation.available == true" style="color: #5cb85c" class="fa fa-check"></i>
