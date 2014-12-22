@@ -59,22 +59,22 @@
                                     <div class=" col-sm-12 col-md-12 col-lg-6 ">
                                         <span ng-switch on="meeting.$permissions.execute">
                                             <div class="checkbox" ng-switch-when="true">
-                                                <label><input type="checkbox" ng-model="checked" ng-disabled='meeting.status != 2'/>
+                                                <label><input type="checkbox" ng-change='oncheck()' ng-model="agendaItem.checked" ng-disabled='meeting.status != 2'/>
                                                     <b>{{agendaItem.title}}</b>
                                                 </label>
                                             </div>
                                             <div class="checkbox" ng-switch-default>
-                                                <label><input type="checkbox" ng-model="checked" ng-disabled='true'/>
+                                                <label><input type="checkbox" ng-model="agendaItem.checked" ng-disabled='true'/>
                                                     <b>{{agendaItem.title}}</b>
                                                 </label>
                                             </div>
                                         </span>
                                         <div>
-                                            <div class="check-element animate-hide" ng-hide="checked">{{agendaItem.description}}</div>
+                                            <div class="check-element animate-hide" ng-hide="agendaItem.checked">{{agendaItem.description}}</div>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-12 col-lg-6">
-                                        <div class="check-element animate-hide" ng-hide="meeting.status != 2 || checked">
+                                        <div class="check-element animate-hide" ng-hide="meeting.status != 2 || agendaItem.checked">
                                             <div><b>Anhänge</b></div>
                                             <div>
                                                 <ul>

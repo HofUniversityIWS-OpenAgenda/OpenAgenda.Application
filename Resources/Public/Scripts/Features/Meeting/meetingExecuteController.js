@@ -160,6 +160,10 @@ angular.module("Meeting")
                         ModalDialog.showModal(modalDefaults, modalOptions);
                     });
             };
+            $scope.oncheck = function () {
+                sendMeetingData(oaUtility.jsonCast($scope.meeting), 'Beim speichern des Meetings ist ein Fehler aufgetreten!');
+
+            };
             $scope.endMeeting = function () {
                 if ($scope.meeting.status < 3) {
                     $scope.meeting.endDate = new Date();
