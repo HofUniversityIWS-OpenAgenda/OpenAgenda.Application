@@ -156,6 +156,24 @@ class AuthenticationController extends \TYPO3\Flow\Security\Authentication\Contr
 	}
 
 	/**
+	 * @author Andreas Steiger <andreas.steiger@hof-university.de>
+	 * @return \TYPO3\Flow\Error\Error The flash message
+	 * @api
+	 */
+	protected function getErrorFlashMessage() {
+		return new \TYPO3\Flow\Error\Error('Ihr Benutzername oder Passwort ist wahrscheinlich nicht korrekt. Bitte stellen Sie sicher, dass Sie Ihre Registrierung mit der Bestätigungs-E-Mail abgeschlossen haben.', NULL, array());
+	}
+	/**
+	 * @author Andreas Steiger <andreas.steiger@hof-university.de>
+	 * @param \TYPO3\Flow\Security\Exception\AuthenticationRequiredException $exception The exception thrown while the authentication process
+	 * @return void
+	 */
+	protected function onAuthenticationFailure(\TYPO3\Flow\Security\Exception\AuthenticationRequiredException $exception = NULL) {
+		$message = new \TYPO3\Flow\Error\Error('Anmeldung fehlgeschlagen!', ($exception === NULL ? 1347016771 : $exception->getCode()));
+		$this->flashMessageContainer->addMessage($message);
+	}
+
+	/**
 	 * @return string
 	 */
 	protected function getDefaultRoleIdentifier() {
