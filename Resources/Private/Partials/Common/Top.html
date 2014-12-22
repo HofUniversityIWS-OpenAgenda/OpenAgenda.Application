@@ -6,15 +6,14 @@
         <a point-me="true" class="dropdown-toggle" data-toggle="dropdown" >
             <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
         </a>
-        <ul class="dropdown-menu dropdown-alerts"; padding: 10px">
+        <ul class="dropdown-menu dropdown-alerts">
             <li>
-                <div ng-repeat="notification in getNotifications() | orderBy:'+title'">
-                    <div>
-                        <i class="fa fa-bell"></i> {{notification.title}}
-                        <a ng-href="/invitation/accept.json?invitation[__identity]={{notification.__identity}}"><i style="color: #5cb85c; width: 10px; margin: 0px; padding:0px" class="fa fa-check"></i></a>
-                        <a ng-href="/invitation/decline.json?invitation[__identity]={{notification.__identity}}"><i style="color: #d9534f; width: 10px; margin: 0px; padding:0px" class="fa fa-times"></i></a>
-                        <span class="pull-right text-muted small">{{notification.scheduledStartDate | date:"dd.MM.yyyy HH:mm"}} Uhr</span>
-                    </div>
+                <div ng-repeat="notification in getNotifications() | orderBy:'+meeting.title'">
+                    <a>
+                        <i class="fa fa-bell"></i> {{notification.meeting.title}}
+                        <span point-me="true" ng-click="acceptInvitation(notification.__identity)"><i style="color: #5cb85c; width: 10px; margin: 0px; padding:0px" class="fa fa-check"></i></span>
+                        <span point-me="true" ng-click="declineInvitation(notification.__identity)"><i style="color: #d9534f; width: 10px; margin: 0px; padding:0px" class="fa fa-times"></i></span>
+                    </a>
                 </div>
             </li>
         </ul>
