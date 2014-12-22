@@ -112,6 +112,7 @@ class MeetingController extends AbstractController {
 		}
 
 		$this->persistenceManager->persistAll();
+		$this->view->assign('value', TRUE);
 	}
 
 	/**
