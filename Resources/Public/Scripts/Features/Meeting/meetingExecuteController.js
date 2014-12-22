@@ -99,7 +99,6 @@ angular.module("Meeting")
                 //If task has already a assignee
                 //Should task.$assignee be deleted, if a new assignee is choosen?
                 //ATM task.assignee is the ID of the new assignee
-                console.log($scope.meeting);
                 if ($scope.meeting.tasks[index].assignee) {
                     var selected = $filter('filter')($scope.meeting.invitations, {participant: $scope.meeting.tasks[index].assignee});
                     if (selected.length)
@@ -111,6 +110,10 @@ angular.module("Meeting")
                     return x;
             };
             $scope.removeTasks = function (idx) {
+                console.log({
+                    task: $scope.meeting.tasks[idx].__identity,
+                    meeting: $scope.meeting.__identity
+                });
                 $http.post('task/delete.json', {
                     task: $scope.meeting.tasks[idx].__identity,
                     meeting: $scope.meeting.__identity
@@ -160,22 +163,22 @@ angular.module("Meeting")
                     });
             };
             $scope.oncheck = function () {
-                sendMeetingData(oaUtility.jsonCast($scope.meeting), 'Beim speichern des Meetings ist ein Fehler aufgetreten!');
+                sendMeetingData(oaUtility.jsonCast($scope.meeting), 'Beim Speichern des Meetings ist ein Fehler aufgetreten!');
 
             };
             $scope.endMeeting = function () {
+                console.log('endMeeting', $scope.meeting);
                 var tasksCorrect = false;
 
-                for (var i = 0; i < $scope.meeting.tasks; i++ ) {
+                for (var i = 0; i < $scope.meeting.tasks.length; i++ ) {
                     if ($scope.meeting.tasks[i].title && $scope.meeting.tasks[i].dueDate && $scope.meeting.tasks[i].assignee && $scope.meeting.tasks[i].description) {
                         tasksCorrect = true;
-
                     } else {
                         tasksCorrect = false;
                         break;
                     }
                 }
-
+                console.log(tasksCorrect);
                 if (tasksCorrect && $scope.meeting.status < 3) {
                     $scope.meeting.endDate = new Date();
                     $scope.meeting.status = 3;
