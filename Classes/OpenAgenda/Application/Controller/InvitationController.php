@@ -52,14 +52,6 @@ class InvitationController extends AbstractController {
 	 * @param \OpenAgenda\Application\Domain\Model\Invitation $invitation
 	 * @return void
 	 */
-	public function editAction(Invitation $invitation) {
-		$this->view->assign('invitation', $invitation);
-	}
-
-	/**
-	 * @param \OpenAgenda\Application\Domain\Model\Invitation $invitation
-	 * @return void
-	 */
 	public function updateAction(Invitation $invitation) {
 		$this->invitationRepository->update($invitation);
 		$this->addFlashMessage('Updated the invitation.');
