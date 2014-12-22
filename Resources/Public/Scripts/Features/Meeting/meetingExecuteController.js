@@ -3,8 +3,8 @@
  */
 
 angular.module("Meeting")
-    .controller('MeetingExecuteCtrl', ['$scope', '$rootScope', '$http', '$filter', '$routeParams', '$resource', "breadcrumbs", "MeetingResourceHelper", "OpenAgenda.Data.Utility", "CommonHelperMethods", "ModalDialog",
-        function ($scope, $rootScope, $http, $filter, $routeParams, $resource, breadcrumbs, MeetingResourceHelper, oaUtility, CommonHelperMethods, ModalDialog) {
+    .controller('MeetingExecuteCtrl', ['$scope', '$rootScope','$location', '$http', '$filter', '$routeParams', '$resource', "breadcrumbs", "MeetingResourceHelper", "OpenAgenda.Data.Utility", "CommonHelperMethods", "ModalDialog",
+        function ($scope, $rootScope, $location, $http, $filter, $routeParams, $resource, breadcrumbs, MeetingResourceHelper, oaUtility, CommonHelperMethods, ModalDialog) {
             $scope.meetingId = $routeParams.meetingId;
             console.log($routeParams.meetingId);
             $scope.breadcrumbs = breadcrumbs;
@@ -76,17 +76,17 @@ angular.module("Meeting")
                  */
             };
             $scope.sendProtocollItem = function (id) {
-               sendMeetingData(oaUtility.jsonCast($scope.meeting));
+               sendMeetingData(oaUtility.jsonCast($scope.meeting), 'Beim Übertragen der Daten ist ein Fehler aufgetreten!');
             };
             $scope.sendTaskItem = function (idx) {
                 var x = oaUtility.jsonCast($scope.meeting);
                 console.log("X", x);
                 if ($scope.meeting.tasks[idx].title && $scope.meeting.tasks[idx].dueDate && $scope.meeting.tasks[idx].assignee && $scope.meeting.tasks[idx].description)
-                    sendMeetingData(x);
+                    sendMeetingData(x, 'Beim Übertragen der Daten ist ein Fehler aufgetreten!');
 
             };
 
-            function sendMeetingData(meeting) {
+            function sendMeetingData(meeting, bodyText) {
                 $http.post('meeting/update.json', {meeting: meeting}, {proxy: true}).
                     success(function (data, status, headers, config) {
                         console.log("SUCCESS");
@@ -94,7 +94,7 @@ angular.module("Meeting")
                     }).error(function (data, status, headers, config) {
                         var modalOptions = {
                             headerText: 'Fehler',
-                            bodyText: 'Beim Übertragen der Daten ist ein Fehler aufgetreten!'
+                            bodyText: bodyText
                         };
                         var modalDefaults = {
                             templateUrl: '/template/modaldialog/error.html'
@@ -147,7 +147,24 @@ angular.module("Meeting")
             };
             $scope.removeTasks = function (idx) {
                 $scope.meeting.tasks.splice(idx, 1);
-
+                $http.post('task/delete.json', {task: $scope.meeting.tasks[idx].__identity, meeting: $scope.meeting.__identity}, {proxy: true}).
+                    success(function (data, status, headers, config) {
+                        console.log("SUCCESS");
+                        if ($scope.meeting.status < 2) {
+                            $scope.meeting.startDate = new Date();
+                            $scope.meeting.status = 2;
+                            console.log('meetingStart', $scope.meeting);
+                        }
+                    }).error(function (data, status, headers, config) {
+                        var modalOptions = {
+                            headerText: 'Fehler',
+                            bodyText: 'Beim Starten des Meetings ist ein Fehler aufgetreten!'
+                        };
+                        var modalDefaults = {
+                            templateUrl: '/template/modaldialog/error.html'
+                        };
+                        ModalDialog.showModal(modalDefaults, modalOptions);
+                    });
             };
 
 
@@ -159,6 +176,7 @@ angular.module("Meeting")
                 var x = oaUtility.jsonCast($scope.meeting);
                 x.status = 2;
 
+                sendMeetingData(x,'Beim Starten des Meetings ist ein Fehler aufgetreten!');
                 $http.post('meeting/update.json', {meeting: x}, {proxy: true}).
                     success(function (data, status, headers, config) {
                         console.log("SUCCESS");
@@ -183,6 +201,29 @@ angular.module("Meeting")
                     $scope.meeting.endDate = new Date();
                     $scope.meeting.status = 3;
                 }
+                $http.post('meeting/update.json', {meeting: oaUtility.jsonCast($scope.meeting)}, {proxy: true}).
+                    success(function (data, status, headers, config) {
+                        console.log("SUCCESS");
+                        var modalOptions = {
+                            headerText: 'Erfolg',
+                            bodyText: 'Das Meetings wurde erfolgreich beendet!'
+                        };
+                        var modalDefaults = {
+                            templateUrl: '/template/modaldialog/success.html'
+                        };
+                        $location.path("/");
+                        ModalDialog.showModal(modalDefaults, modalOptions);
+                    }).error(function (data, status, headers, config) {
+                        var modalOptions = {
+                            headerText: 'Fehler',
+                            bodyText: 'Beim Starten des Meetings ist ein Fehler aufgetreten!'
+                        };
+                        var modalDefaults = {
+                            templateUrl: '/template/modaldialog/error.html'
+                        };
+                        ModalDialog.showModal(modalDefaults, modalOptions);
+                    });
+                sendMeetingData(oaUtility.jsonCast($scope.meeting),  'Beim Beenden des Meetings ist ein Fehler aufgetreten!')
             };
         }
     ])
