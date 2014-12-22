@@ -129,6 +129,16 @@ class MeetingController extends AbstractController {
 	/**
 	 * @param \OpenAgenda\Application\Domain\Model\Meeting $meeting
 	 * @return void
+	 */
+	public function cancelAction(Meeting $meeting) {
+		$meeting->setStatus(Meeting::STATUS_CANCELED);
+		$this->meetingRepository->update($meeting);
+		$this->historyService->invoke($meeting);
+	}
+
+	/**
+	 * @param \OpenAgenda\Application\Domain\Model\Meeting $meeting
+	 * @return void
 	 * @deprecated Use Meeting::determineInvitationStatus() instead
 	 */
 	public function showStatusOfInvitationsAction(Meeting $meeting) {
