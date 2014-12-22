@@ -196,7 +196,7 @@ angular.module("Meeting", [])
                             templateUrl: '/template/modaldialog/success.html'
                         };
                         ModalDialog.showModal(modalDefaults, modalOptions);
-                        $location.path("/meeting");
+                        reloadMeetings();
                     }).
                     error(function (data, status, headers, config) {
 
