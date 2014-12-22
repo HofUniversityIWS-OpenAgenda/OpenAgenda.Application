@@ -186,7 +186,7 @@ angular.module("Meeting", [])
                     });
             };
             $scope.sendInvitations = function(id) {
-                $http.get("/meeting/" + id + "/invite.json").
+                $http.get("/meeting/" + id + "/commit.json").
                     success(function (data, status, headers, config) {
                         var modalOptions = {
                             headerText: 'Erfolg',
