@@ -74,7 +74,7 @@
                                     <a ng-switch-when="true" href="#" editable-text="meeting.location">Ort: {{ meeting.location || 'nicht festgelegt' }}</a>
                                     <a ng-switch-default>Ort: {{ meeting.location || 'nicht festgelegt' }}</a>
                                 </span><br />
-                                <div ng-show="meeting.__identity && meeting.$permissions.execute" class="pull-right">
+                                <div ng-show="meeting.__identity && meeting.$permissions.execute && meeting.status>0 && meeting.status<3" class="pull-right">
                                     <a href="/#meeting/start/{{meeting.__identity}}">
                                         Meeting durchführen
                                         <i class="fa fa-arrow-circle-right"></i>
