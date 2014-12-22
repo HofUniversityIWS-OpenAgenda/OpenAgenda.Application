@@ -44,6 +44,7 @@ class MeetingRepository extends AbstractRepository {
 		$query = $this->createQuery();
 		$query->matching(
 			$query->logicalAnd(
+				$query->equals('status', \OpenAgenda\Application\Domain\Model\Meeting::STATUS_COMMITTED),
 				$query->equals('invitations.participant', $person),
 				$query->equals('invitations.status', 0)
 			)
