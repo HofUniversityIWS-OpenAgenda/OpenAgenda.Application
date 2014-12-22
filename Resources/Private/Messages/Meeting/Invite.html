@@ -1,0 +1,29 @@
+{namespace oa=OpenAgenda\Application\ViewHelpers}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+<oa:message.subject>Einladung zu Meeting {invitation.meeting.title}</oa:message.subject>
+<p>
+	Sie wurden zu einem Meeting eingeladen, bitte bestätigen Sie entweder Ihre Teilnahme oder sagen Sie ab.
+</p>
+<p>
+	<ul>
+		<li>Titel: {invitation.meeting.title}</li>
+		<li>Datum: {invitation.meeting.scheduledStartDate -> f:format.date('d.m.Y, H:i')} Uhr</li>
+		<li>Ort: {invitation.meeting.location}</li>
+	</ul>
+</p>
+<p>
+	<oa:link.hashed action="accept" controller="Invitation" package="OpenAgenda.Application" arguments="{invitation: invitation}" as="uri">
+		zusagen
+	</oa:link.hashed>
+	<oa:link.hashed action="decline" controller="Invitation" package="OpenAgenda.Application" arguments="{invitation: invitation}" as="uri">
+		absagen
+	</oa:link.hashed>
+</p>
+</body>
+</html>
