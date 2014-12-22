@@ -9,11 +9,10 @@
         <ul class="dropdown-menu dropdown-alerts">
             <li>
                 <div ng-repeat="notification in getNotifications() | orderBy:'+meeting.title'">
-                    <a>
-                        <i class="fa fa-bell"></i> {{notification.meeting.title}}
-                        <span point-me="true" ng-click="acceptInvitation(notification.__identity)"><i style="color: #5cb85c; width: 10px; margin: 0px; padding:0px" class="fa fa-check"></i></span>
-                        <span point-me="true" ng-click="declineInvitation(notification.__identity)"><i style="color: #d9534f; width: 10px; margin: 0px; padding:0px" class="fa fa-times"></i></span>
-                    </a>
+                    &nbsp; <a ng-href="/#meeting/show/{{notification.meeting.__identity}}"><i class="fa fa-bell"></i> {{notification.meeting.title}}</a>
+                    <span point-me="true" ng-click="acceptInvitation(notification.__identity)"><i style="color: #5cb85c; width: 10px; margin: 0px; padding:0px" class="fa fa-check"></i></span> &nbsp;
+                    <span point-me="true" ng-click="declineInvitation(notification.__identity)"><i style="color: #d9534f; width: 10px; margin: 0px; padding:0px" class="fa fa-times"></i></span>
+                    <span class="pull-right text-muted small">{{notification.creationDate | date:"dd.MM.yyyy"}}Uhr &nbsp;</span>
                 </div>
             </li>
         </ul>

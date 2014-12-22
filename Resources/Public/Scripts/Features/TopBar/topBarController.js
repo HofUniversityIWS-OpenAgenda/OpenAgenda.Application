@@ -89,6 +89,8 @@ angular.module("TopBar", [])
                             templateUrl: '/template/modaldialog/success.html'
                         };
                         ModalDialog.showModal(modalDefaults, modalOptions);
+                        reloadNotifications();
+
                     }).error(function (data, status, headers, config) {
                         console.log("ERROR");
                         var modalOptions = {
