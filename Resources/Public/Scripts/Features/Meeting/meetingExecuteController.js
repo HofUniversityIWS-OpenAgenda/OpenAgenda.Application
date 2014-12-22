@@ -54,6 +54,7 @@ angular.module("Meeting")
                 $http.post('meeting/update.json', {meeting: meeting}, {proxy: true}).
                     success(function (data, status, headers, config) {
                         console.log("SUCCESS");
+                        reloadMeetingData();
 
                     }).error(function (data, status, headers, config) {
                         var modalOptions = {
@@ -110,18 +111,13 @@ angular.module("Meeting")
                     return x;
             };
             $scope.removeTasks = function (idx) {
-                $scope.meeting.tasks.splice(idx, 1);
                 $http.post('task/delete.json', {
                     task: $scope.meeting.tasks[idx].__identity,
                     meeting: $scope.meeting.__identity
                 }, {proxy: true}).
                     success(function (data, status, headers, config) {
                         console.log("SUCCESS");
-                        if ($scope.meeting.status < 2) {
-                            $scope.meeting.startDate = new Date();
-                            $scope.meeting.status = 2;
-                            console.log('meetingStart', $scope.meeting);
-                        }
+                        reloadMeetingData();
                     }).error(function (data, status, headers, config) {
                         var modalOptions = {
                             headerText: 'Fehler',
