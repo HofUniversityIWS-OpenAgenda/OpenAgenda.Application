@@ -46,7 +46,7 @@ class DashboardController extends AbstractController {
 		$value = array(
 			'person' => $this->arrayService->prepare($person),
 			'meetings' => $this->arrayService->flatten($this->meetingRepository->findAllowed(), 'list'),
-			'meetingsWithOpenInvitations' => $this->arrayService->flatten($this->meetingRepository->findAllowedWithOpenInvitations(), 'list'),
+			'meetingsWithOpenInvitations' => $this->arrayService->flatten($this->meetingRepository->findAllowedWithOpenInvitations(), 'meetingsWithOpenInvitations'),
 			'permissions' => $this->permissionService->determineGlobalPermissions(),
 			'tasks' => $this->arrayService->flatten($this->taskRepository->findAllowed(), 'list'),
 		);
