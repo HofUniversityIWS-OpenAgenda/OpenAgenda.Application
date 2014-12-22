@@ -83,6 +83,7 @@ angular.module("CommonDirectives", [])
             '<span ng-switch-when="1">Geplant</span> ' +
             '<span ng-switch-when="2">Läuft</span> ' +
             '<span ng-switch-when="3">Abgeschlossen</span> ' +
+            '<span ng-switch-when="4">Abgesagt</span> ' +
             '<span ng-switch-default>Unbekannt</span> ' +
             '</span>'
         };

@@ -29,7 +29,6 @@ angular.module("Meeting")
 
             reloadMeetingData();
 
-
             $scope.meeting.tasks = {};
             //$scope.task = {};
 
@@ -100,6 +99,7 @@ angular.module("Meeting")
                 //If task has already a assignee
                 //Should task.$assignee be deleted, if a new assignee is choosen?
                 //ATM task.assignee is the ID of the new assignee
+                console.log($scope.meeting);
                 if ($scope.meeting.tasks[index].assignee) {
                     var selected = $filter('filter')($scope.meeting.invitations, {participant: $scope.meeting.tasks[index].assignee});
                     if (selected.length)

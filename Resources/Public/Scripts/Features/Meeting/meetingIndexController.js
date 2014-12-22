@@ -160,7 +160,7 @@ angular.module("Meeting", [])
             };
 
             $scope.cancelMeeting = function (id) {
-                $http.post("/meeting/cancel.json", {"__identity": id}).
+                $http.post("/meeting/cancel.json", {"meeting": id}).
                     success(function (data, status, headers, config) {
                         var modalOptions = {
                             headerText: 'Erfolg',

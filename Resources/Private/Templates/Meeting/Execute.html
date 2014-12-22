@@ -47,8 +47,8 @@
                             <span ng-show="meeting.scheduledStartDate">Datum: {{meeting.scheduledStartDate | date:'dd.MM.yyyy'}}<br/> </span>
                             <span ng-show="meeting.scheduledStartDate">Uhrzeit: {{meeting.scheduledStartDate | date:'H:mm'}} </span>
                             <span ng-show="meeting.location">Ort: {{meeting.location}}</span>
-                            <span ng-show="meeting.startDate && meeting.status >= 2"><br/>begonnen am {{meeting.startDate | date:'dd.MM.yyyy'}} um {{meeting.startDate | date:'H:mm'}} Uhr </span>
-                            <span ng-show="meeting.endDate && meeting.status >= 3"><br/>geendet am {{meeting.startDate | date:'dd.MM.yyyy'}} um {{meeting.startDate | date:'H:mm'}} Uhr </span>
+                            <span ng-show="meeting.startDate"><br/>begonnen am {{meeting.startDate | date:'dd.MM.yyyy'}} um {{meeting.startDate | date:'H:mm'}} Uhr </span>
+                            <span ng-show="meeting.endDate"><br/>geendet am {{meeting.endDate | date:'dd.MM.yyyy'}} um {{meeting.endDate | date:'H:mm'}} Uhr </span>
                         </div>
 
                         <h3>Agenda</h3>
