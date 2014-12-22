@@ -19,18 +19,29 @@ class AgendaItemController extends AbstractController {
 	protected $agendaItemRepository;
 
 	/**
-	 * @param \OpenAgenda\Application\Domain\Model\AgendaItem $newAgendaItem
+	 * @param \OpenAgenda\Application\Domain\Model\AgendaItem $agendaItem
 	 * @param \OpenAgenda\Application\Domain\Model\Meeting $meeting
 	 * @return void
 	 */
-	public function createAction(AgendaItem $newAgendaItem, Meeting $meeting) {
-		$newAgendaItem->setCreationDate(new \DateTime());
+	public function createAction(AgendaItem $agendaItem, Meeting $meeting) {
+		$note = $agendaItem->getNote();
 
-		$this->historyService->invoke($newAgendaItem);
+		if ($note === NULL) {
+			$note = new \OpenAgenda\Application\Domain\Model\Note();
+			$agendaItem->setNote($note);
+		}
+
+		$this->entityService->applyStatusDates($agendaItem);
+		$this->entityService->applyStatusDates($note);
+
+		$this->historyService->invoke($agendaItem);
 		$this->historyService->invoke($meeting);
+		$this->historyService->invoke($note);
 
-		$newAgendaItem->setMeeting($meeting);
-		$meeting->getAgendaItems()->add($newAgendaItem);
+		$agendaItem->setMeeting($meeting);
+		$meeting->getAgendaItems()->add($agendaItem);
+
+		$this->agendaItemRepository->add($agendaItem);
 	}
 
 	/**
@@ -60,6 +71,7 @@ class AgendaItemController extends AbstractController {
 		$this->historyService->invoke($meeting);
 
 		$meeting->getAgendaItems()->removeElement($agendaItem);
+		$this->agendaItemRepository->remove($agendaItem);
 	}
 
 }
