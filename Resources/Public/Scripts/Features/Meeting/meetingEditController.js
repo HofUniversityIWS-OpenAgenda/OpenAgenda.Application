@@ -112,7 +112,7 @@ angular.module("Meeting")
 
                     console.log("SEND MEETING DATA");
                     console.log($scope.meeting);
-                    $http.post(sendUrl, {newMeeting: oaUtility.jsonCast($scope.meeting)}, {proxy: true}).
+                    $http.post(sendUrl, {meeting: oaUtility.jsonCast($scope.meeting)}, {proxy: true}).
                         success(function (data, status, headers, config) {
                             console.log('New identity: ' + data.__identity);
                             // this callback will be called asynchronously
