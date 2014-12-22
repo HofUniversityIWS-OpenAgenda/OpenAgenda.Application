@@ -118,7 +118,7 @@ class Meeting implements CreationInterface, ModificationInterface {
 	}
 
 	/**
-	 * @return \Doctrine\Common\Collections\Collection
+	 * @return \Doctrine\Common\Collections\Collection|AgendaItem[]
 	 */
 	public function getAgendaItems() {
 		return $this->agendaItems;

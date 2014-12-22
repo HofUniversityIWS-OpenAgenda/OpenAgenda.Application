@@ -205,6 +205,25 @@ class MeetingController extends AbstractController {
 	 * @return void
 	 */
 	public function updateAction(Meeting $meeting) {
+		foreach ($meeting->getAgendaItems() as $agendaItem) {
+			if ($agendaItem->getNote() === NULL) {
+				$note = new \OpenAgenda\Application\Domain\Model\Note();
+				$agendaItem->setNote($note);
+				$this->historyService->invoke($note);
+				$this->historyService->invoke($agendaItem);
+				$this->entityService->applyStatusDates($note);
+			}
+			$this->entityService->applyStatusDates($agendaItem);
+		}
+
+		foreach ($meeting->getInvitations() as $invitation) {
+			$this->entityService->applyStatusDates($invitation);
+		}
+
+		foreach ($meeting->getTasks() as $task) {
+			$this->entityService->applyStatusDates($task);
+		}
+
 		$this->historyService->invoke($meeting);
 		$this->meetingRepository->update($meeting);
 		$this->view->assign('value', TRUE);
