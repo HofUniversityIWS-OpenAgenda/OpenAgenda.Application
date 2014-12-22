@@ -42,7 +42,7 @@ class History implements CreationInterface {
 
 	/**
 	 * @var \string
-	 * @ORM\Column(type="text")
+	 * @ORM\Column(type="text",nullable=true)
 	 * @OA\ToFlatArray
 	 */
 	protected $previousData;

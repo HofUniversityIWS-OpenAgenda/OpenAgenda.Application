@@ -57,7 +57,7 @@ class HistoryService {
 		}
 		$history->setEntityIdentifier($this->persistenceManager->getIdentifierByObject($subject));
 		// @todo Determine changes in current modified object and persisted entity
-		$history->setPreviousData(serialize($subject));
+		// $history->setPreviousData(serialize($subject));
 		$this->historyRepository->add($history);
 	}
 
