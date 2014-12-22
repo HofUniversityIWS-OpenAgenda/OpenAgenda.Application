@@ -13,7 +13,7 @@
 <p>
 	<ul>
 		<li>Titel: {invitation.meeting.title}</li>
-		<li>Datum: {invitation.meeting.scheduledStartDate -> f:format.date('d.m.Y, H:i')} Uhr</li>
+		<li>Datum: {invitation.meeting.scheduledStartDate -> f:format.date(format:'d.m.Y, H:i')} Uhr</li>
 		<li>Ort: {invitation.meeting.location}</li>
 	</ul>
 </p>
