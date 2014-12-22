@@ -278,7 +278,7 @@ class Meeting implements CreationInterface, ModificationInterface {
 	 * @param string $location
 	 */
 	public function setLocation($location) {
-		$this->title = $location;
+		$this->location = $location;
 	}
 
 	/**
