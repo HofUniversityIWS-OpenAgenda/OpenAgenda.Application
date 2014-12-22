@@ -3,8 +3,8 @@
  */
 
 angular.module("Meeting")
-    .controller('MeetingExecuteCtrl', ['$scope', '$rootScope', '$filter','$routeParams', '$resource', "breadcrumbs", "MeetingResourceHelper", "CommonHelperMethods",
-    function ($scope, $rootScope, $filter, $routeParams, $resource, breadcrumbs, MeetingResourceHelper, CommonHelperMethods) {
+    .controller('MeetingExecuteCtrl', ['$scope', '$rootScope', '$http', '$filter','$routeParams', '$resource', "breadcrumbs", "MeetingResourceHelper", "OpenAgenda.Data.Utility", "CommonHelperMethods", "ModalDialog",
+    function ($scope, $rootScope,$http, $filter, $routeParams, $resource, breadcrumbs, MeetingResourceHelper, oaUtility, CommonHelperMethods, ModalDialog) {
         $scope.meetingId = $routeParams.meetingId;
         console.log($routeParams.meetingId);
         $scope.breadcrumbs = breadcrumbs;
@@ -130,13 +130,37 @@ angular.module("Meeting")
 
 
         $scope.startMeeting = function(){
-            if ($scope.meeting.status < 2)
-            {
-                $scope.meeting.startDate = new Date();
-                $scope.meeting.status = 2;
-                console.log('meetingStart', $scope.meeting);
-            }
 
+            angular.forEach($scope.meeting.invitations, function(invitation) {
+                delete invitation.role;
+            });
+            var x = oaUtility.jsonCast($scope.meeting);
+            var y = [{
+                    __identity: x.__identity,
+                    status: x.status,
+                    minuteTaker: x.minuteTaker,
+                    inivitations: x.invitations
+                    }];
+
+            $http.post('meeting/update.json', {meeting: x}, {proxy: true}).
+                success(function (data, status, headers, config) {
+                    console.log("SUCCESS");
+                    if ($scope.meeting.status < 2)
+                    {
+                        $scope.meeting.startDate = new Date();
+                        $scope.meeting.status = 2;
+                        console.log('meetingStart', $scope.meeting);
+                    }
+                }).error(function (data, status, headers, config){
+                    var modalOptions = {
+                        headerText: 'Fehler',
+                        bodyText: 'Beim Starten des Meetings ist ein Fehler aufgetreten!'
+                    };
+                    var modalDefaults = {
+                        templateUrl: '/template/modaldialog/error.html'
+                    };
+                    ModalDialog.showModal(modalDefaults, modalOptions);
+                });
         };
         $scope.endMeeting = function(){
             if ($scope.meeting.status < 3)
@@ -166,35 +190,40 @@ angular.module("Meeting")
                 });
 
                 modalInstance.close = function () {
-                    $scope.$parent.startMeeting();
-                    modalInstance.dismiss();
+                    if($scope.meeting.minuteTaker) {
+                        $scope.$parent.startMeeting();
+                        modalInstance.dismiss();
+                    }
                 };
             };
 
             $scope.tooglePresent = function (index) {
                 if($scope.meeting.invitations[index].role != "OpenAgenda.Application:MinuteTaker") {
-                    if ($scope.meeting.invitations[index].status != 4)
-                        $scope.meeting.invitations[index].status = 4;
-                    else
-                        $scope.meeting.invitations[index].status = 0;
+                    if ($scope.meeting.invitations[index].available != true) {
+                        $scope.meeting.invitations[index].available = true;
+                    }
+                else
+                    $scope.meeting.invitations[index].available = false;
                 }
             };
 
             $scope.toogleMinuteTaker = function (index) {
                 if($scope.meeting.invitations[index].role == "OpenAgenda.Application:MinuteTaker") {
                     $scope.meeting.invitations[index].role = "OpenAgenda.Application:Participant";
-                    $scope.meeting.invitations[index].status = 0;
+                    $scope.meeting.invitations[index].available = true;
+                    $scope.meeting.minuteTaker = null;
                 }
-                else {
+                else if(!$scope.meeting.minuteTaker){
                     $scope.meeting.invitations[index].role = "OpenAgenda.Application:MinuteTaker";
-                    $scope.meeting.invitations[index].status = 4;
+                    $scope.meeting.invitations[index].available = true;
+                    $scope.meeting.minuteTaker = $scope.meeting.invitations[index].$participant.__identity;
                 }
             };
         }])
     /**This controller is used to handle the modal view to view and change a tasks state
      * @author Thomas Winkler <thomas.winkler@hof-university.de>
      */
-    .controller('MeetingExecuteModalInstanceCtrl', function ($scope, $modalInstance, CommonHelperMethods, meeting) {
+    .controller('MeetingExecuteModalInstanceCtrl', function ($scope, $modalInstance, CommonHelperMethods,meeting) {
 
         $scope.meeting = meeting;
         $scope.ok = function () {
