@@ -32,6 +32,12 @@ class Person extends \TYPO3\Party\Domain\Model\Person {
 	protected $preference;
 
 	/**
+	 * @var \Doctrine\Common\Collections\Collection<\TYPO3\Party\Domain\Model\ElectronicAddress>
+	 * @ORM\ManyToMany
+	 */
+	protected $electronicAddresses;
+
+	/**
 	 * @return string
 	 */
 	public function getPhoneNumber() {

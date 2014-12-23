@@ -53,7 +53,7 @@ class SettingController extends AbstractController {
 	public function updateProfileAction(Person $person, Password $password = NULL) {
 		$this->personRepository->update($person);
 
-		if ($password !== NULL) {
+		if ($password !== NULL && strlen($password->getPassword()) > 0) {
 			$account = $this->securityContext->getAccount();
 			$account->setCredentialsSource($this->hashService->hashPassword($password->getPassword()));
 			$this->accountRepository->update($account);

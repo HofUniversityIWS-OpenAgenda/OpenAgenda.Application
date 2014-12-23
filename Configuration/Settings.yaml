@@ -85,12 +85,10 @@ OpenAgenda:
             properties:
               password:
                 validators:
-                  NotEmpty: []
                   StringLength:
                     minimum: 8
               passwordRepeat:
                 validators:
-                  NotEmpty: []
                   StringLength:
                     minimum: 8
                   OpenAgenda\Application\Validation\Validator\SameValidator:
@@ -112,7 +110,7 @@ OpenAgenda:
         updateProfile:
           default:
             allow: ['name.firstName','name.lastName','primaryElectronicAddress.identifier','phoneNumber']
-            types: ['modify']
+            types: ['create','modify']
       OpenAgenda\Application\Domain\Model\Preference:
         updateProfile:
           default:

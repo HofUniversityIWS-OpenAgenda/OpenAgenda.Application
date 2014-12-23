@@ -7,6 +7,7 @@ namespace OpenAgenda\Application\Service\Security;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
+use TYPO3\Flow\Property\PropertyMappingConfiguration;
 use TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter;
 
 /**
@@ -60,17 +61,7 @@ class PropertyMappingService {
 
 		$options = array();
 		$allowedPropertyNames = array();
-		$deniedPropertyNames = array();
 		$propertyNames = $this->reflectionService->getClassPropertyNames($dataType);
-
-		if (isset($settings['allow'])) {
-			if ($settings['allow'] === '*') {
-				$allowedPropertyNames = $propertyNames;
-			} else {
-				$allowedPropertyNames = array_intersect($propertyNames, $settings['allow']);
-				$deniedPropertyNames = array_diff($propertyNames, $settings['allow']);
-			}
-		}
 
 		if (isset($settings['types']) && is_array($settings['types'])) {
 			if (in_array('create', $settings['types'])) {
@@ -81,14 +72,74 @@ class PropertyMappingService {
 			}
 		}
 
-		$propertyMappingConfiguration = $argument->getPropertyMappingConfiguration();
-		call_user_func_array(array($propertyMappingConfiguration, 'skipProperties'), $deniedPropertyNames);
-		call_user_func_array(array($propertyMappingConfiguration, 'allowProperties'), $allowedPropertyNames);
+		if (isset($settings['allow'])) {
+			if ($settings['allow'] === '*') {
+				$allowedPropertyNames = $propertyNames;
+			} else {
+				$allowedPropertyNames = $settings['allow'];
+			}
+		}
+
+		$this->applyConfiguration(
+			$argument->getPropertyMappingConfiguration(),
+			$allowedPropertyNames,
+			$options,
+			$dataType
+		);
+	}
+
+	protected function applyConfiguration(PropertyMappingConfiguration $configuration, $allowedPropertyNames, $options, $dataType) {
+		$propertyNames = $this->reflectionService->getClassPropertyNames($dataType);
+
+		list($allowedLevelPropertyNames, $allowedPropertyNamesForSubProperties) = $this->separateLevels($allowedPropertyNames);
+		$allowedLevelPropertyNames = array_intersect($propertyNames, $allowedLevelPropertyNames);
+		$deniedLevelPropertyNames = array_diff($propertyNames, $allowedLevelPropertyNames);
+
+		call_user_func_array(array($configuration, 'skipProperties'), $deniedLevelPropertyNames);
+		call_user_func_array(array($configuration, 'allowProperties'), $allowedLevelPropertyNames);
 
 		if (!empty($options)) {
-			$propertyMappingConfiguration
-				->setTypeConverterOptions('TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter', $options);
+			$configuration->setTypeConverterOptions('TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter', $options);
 		}
+
+		foreach ($allowedPropertyNamesForSubProperties as $subPropertyName => $allowedSubPropertyNames) {
+			if (!in_array($subPropertyName, $allowedLevelPropertyNames)) {
+				continue;
+			}
+
+			$classSchema = $this->reflectionService->getClassSchema($dataType);
+			$propertySchema = $classSchema->getProperty($subPropertyName);
+			if (empty($propertySchema['type'])) {
+				continue;
+			}
+
+			$this->applyConfiguration(
+				$configuration->forProperty($subPropertyName),
+				$allowedSubPropertyNames,
+				$options,
+				$propertySchema['type']
+			);
+		}
+	}
+
+	protected function separateLevels($propertyNames) {
+		$allowedLevelPropertyNames = array();
+		$allowedPropertyNamesForSubProperties = array();
+
+		foreach ($propertyNames as $propertyName) {
+			if (strpos($propertyName, '.') === FALSE) {
+				$allowedLevelPropertyNames[] = $propertyName;
+			} else {
+				list($levelPart, $subPart) = explode('.', $propertyName, 2);
+				$allowedLevelPropertyNames[] = $levelPart;
+				$allowedPropertyNamesForSubProperties[$levelPart][] = $subPart;
+			}
+		}
+
+		return array(
+			$allowedLevelPropertyNames,
+			$allowedPropertyNamesForSubProperties
+		);
 	}
 
 	/**
