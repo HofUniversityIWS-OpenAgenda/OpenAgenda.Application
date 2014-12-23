@@ -183,31 +183,6 @@ class TestDataCommandController extends CommandController {
 	}
 
 	/**
-	 * ### tasks for testing ###
-	 *
-	 * @param int $quantity Quantity of tasks to be created
-	 */
-	public function createTasksCommand($quantity = 5) {
-		$this->taskRepository->removeAll();
-		$adminAccount = $this->accountRepository->findByAccountIdentifierAndAuthenticationProviderName('admin@openagenda.org', 'DefaultProvider');
-
-		for ($counter = 0; $counter < $quantity; $counter++) {
-			$newTask = new Task();
-			$newTask->setTitle('Task #' . ($counter + 1));
-			$newTask->setDescription('Description #' . ($counter + 1));
-			$newTask->setDueDate(new \DateTime());
-			$newTask->setCreationDate(new \DateTime());
-			$newTask->setModificationDate(new \DateTime());
-			$newTask->setStatus(0);
-			$newTask->setAssignee($adminAccount->getParty());
-			$this->taskRepository->add($newTask);
-			$this->historyService->invoke($newTask);
-		}
-
-		$this->response->appendContent($quantity . ' tasks created' . PHP_EOL);
-	}
-
-	/**
 	 * ### one system user (default: admin account) ###
 	 *
 	 * @param string $identifier Account identifier (default: 'admin@openagenda.org')
