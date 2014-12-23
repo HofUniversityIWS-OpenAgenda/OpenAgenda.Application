@@ -33,7 +33,6 @@ angular.module("Meeting")
             reloadMeetingData();
 
             $scope.meeting.tasks = {};
-            //$scope.task = {};
 
             // Neue Aufgabe
 
