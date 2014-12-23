@@ -227,8 +227,13 @@ angular.module("Meeting")
             });
     }])
 
-/**This Controller handles the meeting start scenario
+/**
+ * This Controller handles the meeting start scenario
+ * initial handling to open and close the modal view
  * @author Thomas Winkler <thomas.winkler@hof-university.de>
+ *
+ * concrete function to start the meeting
+ * @author Andreas Weber <andreas.weber@hof-university.de>
  */
     .controller('MeetingExecuteModalCtrl', ['$scope', '$rootScope', '$http', "CommonHelperMethods", '$modal', '$log',
         function ($scope, $rootScope, $http, CommonHelperMethods, $modal, $log) {
