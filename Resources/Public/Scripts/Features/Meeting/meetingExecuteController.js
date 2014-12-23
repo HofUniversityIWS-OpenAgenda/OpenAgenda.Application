@@ -17,9 +17,11 @@ angular.module("Meeting")
                     }
                     data.scheduledStartDate = CommonHelperMethods.getDateFromJSONString(data.scheduledStartDate);
                     $scope.meeting = data;
-                    if(!$scope.meeting.$permissions.minutes && !getnewMeeting) {
+
+                    if(!getnewMeeting) {
                         getnewMeeting = $interval(function () {
-                            if($scope.meeting.status == 2)
+
+                            if($scope.meeting.status == 2 && !$scope.meeting.$permissions.minutes)
                                 reloadMeetingData();
                         }, 10000);
                     }
