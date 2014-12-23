@@ -9,7 +9,8 @@ angular.module("Menu", [])
         function ($scope, $rootScope, $sce, $location) {
             console.log("Menu Controller Loaded");
 
-            /*Should be used to add a Toolbar
+            /*
+            * Should be used to add a Toolbar
             * Not used in this version
             * */
             $scope.toolBar;

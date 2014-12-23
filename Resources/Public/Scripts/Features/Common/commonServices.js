@@ -17,12 +17,11 @@ angular.module("CommonServices", [])
             };
 
             var modalOptions = {
-                closeButtonText: 'Close',
+                closeButtonText: 'CLOSE',
                 actionButtonText: 'OK',
                 headerText: 'HEADER',
                 bodyText: 'BODY'
             };
-
 
             this.showModal = function (customModalDefaults, customModalOptions) {
                 if (!customModalDefaults) customModalDefaults = {};

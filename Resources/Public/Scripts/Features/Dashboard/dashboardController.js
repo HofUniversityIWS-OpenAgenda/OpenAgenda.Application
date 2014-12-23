@@ -4,9 +4,9 @@
  * @author Thomas Winkler <thomas.winkler@hof-university.de>
  */
 angular.module("Dashboard", [])
-    .controller('DashboardCtrl', ['$scope', '$rootScope', '$resource', "breadcrumbs", "MeetingResourceHelper",'TaskResourceHelper', 'CommonHelperMethods','CommonResourceHelper', 'ModalDialog',
+    .controller('DashboardCtrl', ['$scope', '$rootScope', '$resource', "breadcrumbs", "MeetingResourceHelper", 'TaskResourceHelper', 'CommonHelperMethods', 'CommonResourceHelper', 'ModalDialog',
         function ($scope, $rootScope, $http, breadcrumbs, MeetingResourceHelper, TaskResourceHelper, CommonHelperMethods, CommonResourceHelper, ModalDialog) {
-            console.log("Dashboard Controller Loaded");
+            console.log("Dashboard Controller loaded");
 
             //Init
             $scope.breadcrumbs = breadcrumbs;
@@ -14,28 +14,34 @@ angular.module("Dashboard", [])
 
             $scope.events = [];
             $scope.personalInfos = CommonResourceHelper.getPersonalInfos().get(function () {
-                console.log("PER", $scope.personalInfos);
                 $scope.currentUser = $scope.personalInfos.person.name.firstName;
             });
             $scope.meetingList = MeetingResourceHelper.getMeetingList().query(function () {
-                angular.forEach( $scope.meetingList, function (meeting) {
+                angular.forEach($scope.meetingList, function (meeting) {
                     meeting.scheduledStartDate = CommonHelperMethods.getDateFromJSONString(meeting.scheduledStartDate);
-                    $scope.events.push( {title: meeting.title, start: new Date(meeting.scheduledStartDate), __identity: meeting.__identity, type: 'Meeting' });
+                    $scope.events.push({
+                        title: meeting.title,
+                        start: new Date(meeting.scheduledStartDate),
+                        __identity: meeting.__identity,
+                        type: 'Meeting'
+                    });
 
                 });
                 $scope.findUpcomingMeetings($scope.meetingList);
 
-                // angular.copy( $scope.meetingList, $rootScope.meetingListGlobal);
             }, function (err) {
                 alert('request failed');
             });
 
-            //Get all Tasks TODO: Only my Tasks
             $scope.reloadTasks = function () {
-                $scope.needToBeDoneTasks  = TaskResourceHelper.getTaskList().query(function (data) {
-                    console.log('success, got task: ', data);
-                    angular.forEach($scope.needToBeDoneTasks, function (task){
-                        $scope.events.push( {title: task.title, start: new Date(task.dueDate), __identity: task.__identity, type: 'Task'})
+                $scope.needToBeDoneTasks = TaskResourceHelper.getTaskList(false).query(function (data) {
+                    angular.forEach($scope.needToBeDoneTasks, function (task) {
+                        $scope.events.push({
+                            title: task.title,
+                            start: new Date(task.dueDate),
+                            __identity: task.__identity,
+                            type: 'Task'
+                        })
                     });
                 }, function (err) {
                     alert('request failed');
@@ -47,9 +53,8 @@ angular.module("Dashboard", [])
             $scope.findUpcomingMeetings = function (meetingList) {
                 //search for upcoming Meetings
                 var now = new Date();
-                angular.forEach( meetingList, function (meeting) {
-                    if (now <= meeting.scheduledStartDate)
-                    {
+                angular.forEach(meetingList, function (meeting) {
+                    if (now <= meeting.scheduledStartDate) {
                         $scope.upcomingMeetings.push(meeting);
                     }
                 });
@@ -60,10 +65,12 @@ angular.module("Dashboard", [])
             };
             //$rootScope.changeToolBar("<div>IF NEEDED TOOLBAR</div>");
         }])
-        /*  Controller especially for the Calendar in the Dashboard
-        *   Due to a bug in the Library only meetings of the current view are shown in the Calendar
-        * */
 
+    /**  Controller especially for the Calendar in the Dashboard
+     *   Due to a bug in the Library only meetings of the current view are shown in the Calendar
+     *
+     *   @author Andreas Weber <andreas.weber@hof-university.de>
+     * */
     .controller('DashboardCalendarCtrl', ['$scope', '$compile', "uiCalendarConfig", '$location',
         function ($scope, $compile, uiCalendarConfig, $location) {
             var date = new Date();
@@ -73,12 +80,12 @@ angular.module("Dashboard", [])
 
             /* Alert on eventClick */
             $scope.alertOnEventClick = function (date, jsEvent, view) {
-                if (date.type == 'Meeting'){
+                if (date.type == 'Meeting') {
                     // Meeting anzeigen
                     $location.path('meeting/show/' + date.__identity).replace();
-                } else if (date.type == 'Task'){
-                    angular.forEach($scope.needToBeDoneTasks, function(task){
-                        if(task.__identity == date.__identity)
+                } else if (date.type == 'Task') {
+                    angular.forEach($scope.needToBeDoneTasks, function (task) {
+                        if (task.__identity == date.__identity)
                             $scope.$parent.open("", task);
                     });
                 } else {

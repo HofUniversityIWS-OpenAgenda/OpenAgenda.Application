@@ -17,7 +17,6 @@ angular.module("Task", [])
                 $scope.taskList = [];
 
                     TaskResourceHelper.getTaskList($scope.showAllTasks).query(function (data) {
-                        console.log('success, got taskList: ', data);
                         angular.forEach(data, function (task) {
                             task.dueDate = CommonHelperMethods.getDateFromJSONString(task.dueDate);
                         });
@@ -37,7 +36,6 @@ angular.module("Task", [])
 
             $scope.$watch("showAllTasks", function (newVal) {
                 $scope.showAllTasksCheckboxDisabled = true;
-                console.log($scope.showAllTasks);
                 $scope.reloadTasks();
             })
             //temporary set meeting name as meeting

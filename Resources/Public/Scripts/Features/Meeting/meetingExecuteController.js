@@ -1,13 +1,15 @@
 /**
- * Created by Andi on 09.12.14.
+ * @author Andreas Weber <andreas.weber@hof-university.de>
  */
 
 angular.module("Meeting")
     .controller('MeetingExecuteCtrl', ['$scope', '$rootScope', '$interval', '$location', '$http', '$filter', '$routeParams', '$resource', "breadcrumbs", "MeetingResourceHelper", "OpenAgenda.Data.Utility", "CommonHelperMethods", "ModalDialog",
         function ($scope, $rootScope, $interval, $location, $http, $filter, $routeParams, $resource, breadcrumbs, MeetingResourceHelper, oaUtility, CommonHelperMethods, ModalDialog) {
             $scope.meetingId = $routeParams.meetingId;
-            console.log($routeParams.meetingId);
             $scope.breadcrumbs = breadcrumbs;
+
+            console.log("Meeting Execute Controller loaded");
+
             $scope.meeting = [];
             var getnewMeeting;
             function reloadMeetingData() {

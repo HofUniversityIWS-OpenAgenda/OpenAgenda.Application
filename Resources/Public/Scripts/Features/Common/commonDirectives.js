@@ -64,6 +64,9 @@ angular.module("CommonDirectives", [])
             }
         };
     })
+    /**
+     * @author Thomas Winkler <thomas.winkler@hof-university.de>
+     */
     .directive('taskStatus', function () {
 
         return {
@@ -75,6 +78,9 @@ angular.module("CommonDirectives", [])
             '</span>'
         };
     })
+    /**
+     * @author Andreas Weber <andreas.weber@hof-university.de>
+     */
     .directive('meetingStatus', function () {
 
         return {
@@ -88,6 +94,9 @@ angular.module("CommonDirectives", [])
             '</span>'
         };
     })
+    /**
+     * @author Thomas Winkler <thomas.winkler@hof-university.de>
+     */
     .directive('invitationStatus', function () {
 
         return {
@@ -98,6 +107,9 @@ angular.module("CommonDirectives", [])
             '</span>'
         };
     })
+    /**
+     * @author Thomas Winkler <thomas.winkler@hof-university.de>
+     */
     .directive("pointMe", function () {
         return {
             restrict: "AC",
@@ -108,6 +120,9 @@ angular.module("CommonDirectives", [])
             }
         };
     })
+    /**
+     * @author Thomas Winkler <thomas.winkler@hof-university.de>
+     */
     .directive('timedClick', ['$parse', function ($parse) {
         return {
             restrict: 'A',

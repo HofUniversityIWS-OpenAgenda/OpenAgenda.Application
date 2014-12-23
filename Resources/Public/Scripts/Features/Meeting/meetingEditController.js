@@ -2,7 +2,9 @@
  * Created by Thomas on 02.12.14.
  */
 /**
- * Created by Thomas on 27.11.14.
+ * This Module is used for editing and showing Meetings
+ *
+ * @author Thomas Winkler <thomas.winkler@hof-university.de>
  */
 angular.module("Meeting")
     .controller('MeetingEditCtrl', ['$scope', '$filter', '$http', '$rootScope', '$location', '$routeParams', '$resource', "breadcrumbs", 'FileUploader', "MeetingResourceHelper", 'CommonHelperMethods', 'OpenAgenda.Data.Utility', 'ModalDialog',
@@ -10,12 +12,11 @@ angular.module("Meeting")
             $scope.breadcrumbs = breadcrumbs;
             $scope.loading = true;
 
-            $scope.mailAddresses = [];
             console.log("Meeting Edit Controller loaded");
 
+            $scope.mailAddresses = [];
             $scope.meetingId = $routeParams.meetingId;
             $scope.uploaders = [];
-
             $scope.remoteUsers = [];
 
             function AgendaItem(count) {
@@ -61,7 +62,6 @@ angular.module("Meeting")
                             $scope.uploaders.push(new FileUploader());
                         }
                     }
-                    console.log("Got Meeting: ", $scope.meeting)
                     $scope.loading = false;
                     if ($scope.meeting.status >= 1) {
                         $scope.editMode = false;
@@ -94,7 +94,7 @@ angular.module("Meeting")
                     $scope.meeting.agendaItems[i].sorting -= 1;
                 }
             };
-            
+
             $scope.addNewInvitation = function (mail) {
                 var single_User = $filter('filter')($scope.remoteUsers, function (person) {
                     return person.$mail === mail;
@@ -102,10 +102,10 @@ angular.module("Meeting")
 
                 $scope.contains = false;
                 angular.forEach($scope.meeting.invitations, function (invitation) {
-                    if(invitation.participant == single_User.__identity)
+                    if (invitation.participant == single_User.__identity)
                         $scope.contains = true;
                 });
-                if(!$scope.contains)
+                if (!$scope.contains)
                     $scope.meeting.invitations.push(new Invitation(single_User.__identity))
 
             };
@@ -163,8 +163,9 @@ angular.module("Meeting")
 
                 }
             };
+
             /*All Email Addresses for auto completion
-             * IN next Version search for specific users
+             * In next Version search for specific users
              * */
             $scope.updateMailAddresses = function (typed) {
 
@@ -199,7 +200,6 @@ angular.module("Meeting")
             $scope.reloadTasks = function () {
                 MeetingResourceHelper.getMeetingDetail($routeParams.meetingId).get(function (data) {
                     $scope.meeting.tasks = data.tasks;
-                    console.log("Got Tasks: ", $scope.meeting)
                 })
             };
 

@@ -1,5 +1,5 @@
 /**
- * Created by Andi on 16.12.14.
+ * @author Andreas Weber <andreas.weber@hof-university.de>
  */
 
 angular.module("Setting")

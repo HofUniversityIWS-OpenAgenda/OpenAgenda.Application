@@ -8,7 +8,6 @@ angular.module("Meeting", [])
     /*Filter to show only the upcomming meetings in the table*/
     .filter('upComing', function () {
         return function (items, field, startDate, endDate) {
-
             var timeStart = startDate;
             var timeEnd = endDate; // 1 day in ms
             return items.filter(function (item) {
@@ -16,20 +15,19 @@ angular.module("Meeting", [])
             });
         };
     })
-    .controller('MeetingIndexCtrl', ['$scope', '$rootScope','$location', '$filter', '$http', '$resource', "breadcrumbs", "MeetingResourceHelper","CommonHelperMethods", "ModalDialog",
+    .controller('MeetingIndexCtrl', ['$scope', '$rootScope', '$location', '$filter', '$http', '$resource', "breadcrumbs", "MeetingResourceHelper", "CommonHelperMethods", "ModalDialog",
         function ($scope, $rootScope, $location, $filter, $http, $resource, breadcrumbs, MeetingResourceHelper, CommonHelperMethods, ModalDialog) {
-            console.log("Meeting Index Controller Loaded");
+            console.log("Meeting Index Controller loaded");
             $scope.breadcrumbs = breadcrumbs;
             $scope.loading = true;
-            if(!$rootScope.mic)
-                $rootScope.mic = new Object();
+            if (!$rootScope.mic)
+                $rootScope.mic = {};
 
-            function reloadMeetings () {
+            function reloadMeetings() {
                 $scope.meetingList = MeetingResourceHelper.getMeetingList().query(function (data) {
                     angular.forEach($scope.meetingList, function (meeting) {
                         meeting.scheduledStartDate = CommonHelperMethods.getDateFromJSONString(meeting.scheduledStartDate);
                     });
-                    console.log('success, got meeting: ', $scope.meetingList);
                     $scope.loading = false;
                 }, function (err) {
                     alert('request failed');
@@ -39,9 +37,9 @@ angular.module("Meeting", [])
 
             //$rootScope.changeToolBar("");
 
-            /* Below are the requirements for Datepicker
-             *
-             * Due to a bug in ui-bootstrap library, the first date is not formatted properly
+            /*
+             *Below are the requirements for Datepicker
+             * Due to a bug in ui-bootstrap library, the first shown date is not formatted properly
              */
             $scope.format = 'dd.MM.yyyy';
 
@@ -76,9 +74,7 @@ angular.module("Meeting", [])
                 if ($rootScope.mic.selectedStartDate) {
                     return $rootScope.mic.selectedStartDate;
                 }
-                else
-                {
-                    console.log("START IS LEER");
+                else {
                     $rootScope.mic.selectedStartDate = new Date();
                     return $rootScope.mic.selectedStartDate;
                 }
@@ -89,8 +85,7 @@ angular.module("Meeting", [])
 
                 if ($rootScope.mic.selectedEndDate)
                     return $rootScope.mic.selectedEndDate;
-                else
-                {
+                else {
                     $rootScope.mic.selectedEndDate = then;
                     return $rootScope.mic.selectedEndDate;
                 }
@@ -99,24 +94,23 @@ angular.module("Meeting", [])
             $scope.getSearchText = function () {
                 if ($rootScope.mic.searchText)
                     return $rootScope.mic.searchText;
-                else
-                {
-                    $rootScope.mic.searchText ="";
+                else {
+                    $rootScope.mic.searchText = "";
                     return $rootScope.mic.searchText;
                 }
-            }
+            };
 
             $scope.resetMeetingFilter = function () {
                 $rootScope.mic.selectedEndDate = null;
                 $rootScope.mic.selectedStartDate = null;
-                $rootScope.mic.searchText ="";
+                $rootScope.mic.searchText = "";
 
                 $scope.startDate = $scope.getStartDate();
                 $scope.endDate = $scope.getEndDate();
                 $scope.searchText = $scope.getSearchText();
-            }
+            };
 
-            /*Set start and enddate to filtering meetings*/
+            /*Set start and end date to filtering meetings*/
             $scope.startDate = $scope.getStartDate();
             $scope.endDate = $scope.getEndDate();
             $scope.searchText = $scope.getSearchText();
@@ -185,7 +179,8 @@ angular.module("Meeting", [])
 
                     });
             };
-            $scope.sendInvitations = function(id) {
+
+            $scope.sendInvitations = function (id) {
                 $http.get("/meeting/" + id + "/commit.json").
                     success(function (data, status, headers, config) {
                         var modalOptions = {

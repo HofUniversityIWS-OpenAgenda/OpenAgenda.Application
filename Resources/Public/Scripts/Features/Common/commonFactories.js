@@ -67,10 +67,8 @@ angular.module("CommonFactories", [])
             }
         };
     }])
-    /*This Method is used to indicate the Help feature in this version of OpenAgenda.
-     *This Method should call different templates according to the URL.
-     *
-     * @author Thomas Winkler
+    /*
+     * This Method is used to indicate the Help feature in this version of OpenAgenda.
      */
     .factory('Help', ['$location','ModalDialog', function ($location, ModalDialog) {
         return {
