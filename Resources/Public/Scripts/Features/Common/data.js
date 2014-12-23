@@ -38,7 +38,8 @@ angular.module('OpenAgenda.Data', [])
 		}
 	};
 }])
-.factory('OpenAgenda.Data.Store', ['$q', '$resource', 'OpenAgenda.Data.LocalStorage', 'OpenAgenda.Data.Interceptor', function($q, $resource, oaLocalStorage, oaInterceptor) {
+.factory('OpenAgenda.Data.Store', ['$q', '$resource', 'OpenAgenda.Data.Utility', 'OpenAgenda.Data.LocalStorage', 'OpenAgenda.Data.Interceptor',
+	function($q, $resource, oaUtility, oaLocalStorage, oaInterceptor) {
 	var stores = {};
 
 	function Store(storeName) {
@@ -49,14 +50,13 @@ angular.module('OpenAgenda.Data', [])
 			fetch: '/:name/:identifier/show.json',
 			create: '/:name/create.json',
 			update: '/:name/:identifier/update.json',
-			delete: '/:name/:identifier/delete.json'
+			remove: '/:name/:identifier/delete.json'
 		};
 		var defaultActions = {
 			'get':    { method:'GET', interceptor: oaInterceptor, interceptorCallback: getInterceptor },
-			'save':   { method:'POST' },
+			'save':   { method:'POST', interceptor: oaInterceptor, interceptorCallback: saveInterceptor },
 			'query':  { method:'GET', isArray:true, interceptor: oaInterceptor, interceptorCallback: queryInterceptor },
-			'remove': { method:'GET' },
-			'delete': { method:'GET' }
+			'remove': { method:'GET', interceptor: oaInterceptor, interceptorCallback: removeInterceptor }
 		};
 
 		var subjects = {};
@@ -84,11 +84,7 @@ angular.module('OpenAgenda.Data', [])
 		}
 
 		function removeInterceptor(data) {
-			// identifier needs to be returned from Flow
-		}
 
-		function deleteInterceptor(data) {
-			removeInterceptor(data);
 		}
 
 		function access(resourceResult) {
@@ -114,18 +110,20 @@ angular.module('OpenAgenda.Data', [])
 		this.fetch = function(subject) {
 			return $resource(endpoints.fetch, { name: name, identifier: getIdentifier(subject) }, defaultActions);
 		};
-		this.create = function(subject) {
-
-		};
-		this.update = function(subject) {
-
+		this.save = function(subject) {
+			if (getIdentifier(subject) === null) {
+				return $resource(endpoints.create, { name: name, identifier: getIdentifier(subject) }, defaultActions);
+			} else {
+				return $resource(endpoints.update, { name: name, identifier: getIdentifier(subject) }, defaultActions);
+			}
 		};
 		this.remove = function(subject) {
-
+			return $resource(endpoints.remove, { name: name, identifier: getIdentifier(subject) }, defaultActions);
 		}
 	}
 
 	return {
+		// Singleton access on instances
 		get: function(storeName) {
 			if (typeof stores[storeName] === 'undefined') {
 				stores[storeName] = new Store(storeName);
