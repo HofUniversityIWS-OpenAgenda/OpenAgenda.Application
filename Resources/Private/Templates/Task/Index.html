@@ -44,7 +44,7 @@
                                     <th>Status</th>
                                     <th>Meeting</th>
                                     <th>Zuständig</th>
-                                    <th>Aktionen</th>
+                                    <th ng-hide="showAllTasks">Aktionen</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -57,7 +57,7 @@
                                     </td>
                                     <td>{{task.$meeting.title}}</td>
                                     <td>{{task.$assignee.name.firstName}} {{task.$assignee.name.lastName}}</td>
-                                    <td point-me="true" ng-click="open('',task)">
+                                    <td ng-hide="showAllTasks" point-me="true" ng-click="open('',task)">
                                        <a>Bearbeiten <i class="fa fa-pencil-square-o"></i></a>
                                     </td>
                                 </tr>
