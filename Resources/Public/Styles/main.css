@@ -160,6 +160,10 @@ div.form-group {
     font-weight: normal;
     line-height: 1;
 }
+
+.attachment {
+    margin-bottom: 20px;
+}
 /*Show plus btn instead of default*/
 .btn-file {
     position: relative;
@@ -352,5 +356,9 @@ div.form-group {
 @media (min-width: 1200px) {
     .btn-help {
         margin-top: 35px;
+    }
+
+    .attachment {
+        margin-bottom: 0px;
     }
 }

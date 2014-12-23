@@ -15,8 +15,8 @@ angular.module("Task", [])
             $scope.loading = true;
             $scope.reloadTasks = function () {
                 $scope.taskList = [];
-                if (!$scope.showAllTasks) {
-                    TaskResourceHelper.getTaskList().query(function (data) {
+
+                    TaskResourceHelper.getTaskList($scope.showAllTasks).query(function (data) {
                         console.log('success, got taskList: ', data);
                         angular.forEach(data, function (task) {
                             task.dueDate = CommonHelperMethods.getDateFromJSONString(task.dueDate);
@@ -28,12 +28,7 @@ angular.module("Task", [])
                     }, function (err) {
                         alert('request failed');
                     });
-                }
-                else {
-                    console.log("LOAD OTHERS");
-                    $scope.loading= false;
-                  //TODO: No rest interface for personal or others taks
-                }
+
 
             };
             $scope.showAllTasks = false;

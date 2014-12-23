@@ -40,8 +40,23 @@ angular.module("CommonFactories", [])
     }])
     .factory('TaskResourceHelper', ['$resource', function ($resource) {
         return {
-            getTaskList: function () {
-                return $resource('task/list.json', {}, {
+            getTaskList: function (all) {
+                if(all)
+                    return $resource('task/listothers.json', {}, {
+                        query: {method: 'GET', isArray: true}
+                });
+                else
+                    return $resource('task/listmine.json', {}, {
+                        query: {method: 'GET', isArray: true}
+                    });
+            },
+            getMyTaskList: function () {
+                return $resource('task/listmine.json', {}, {
+                    query: {method: 'GET', isArray: true}
+                });
+            },
+            getOthresTaskList: function () {
+                return $resource('task/listothres.json', {}, {
                     query: {method: 'GET', isArray: true}
                 });
             },
