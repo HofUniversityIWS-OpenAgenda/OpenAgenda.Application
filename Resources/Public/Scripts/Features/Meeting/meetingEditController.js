@@ -182,7 +182,11 @@ angular.module("Meeting")
                 meetingEntries = true;
 
                 angular.forEach($scope.meeting.agendaItems, function (agendaItem) {
-                    if (agendaItem.title.length <= 0) {
+                    if (!agendaItem.title ||agendaItem.title.length == 0) {
+                        agendaItems = false;
+                        return;
+                    }
+                    if (!agendaItem.description ||agendaItem.title.description == 0) {
                         agendaItems = false;
                         return;
                     }
