@@ -3,7 +3,6 @@ namespace OpenAgenda\Application\Domain\Model;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "OpenAgenda.Application".*
- *                                                                        *
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
@@ -11,6 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Model Person
+ *
+ * Extends the Person entity of the Party Information Framework
+ * by the properties "phoneNumber" and "preferences".
  *
  * @package OpenAgenda\Application\Domain\Model
  * @author Oliver Hader <oliver@typo3.org>

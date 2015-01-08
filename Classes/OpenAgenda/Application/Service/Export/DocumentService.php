@@ -9,6 +9,35 @@ namespace OpenAgenda\Application\Service\Export;
 use TYPO3\Flow\Annotations as Flow;
 use OpenAgenda\Application\Domain\Model\Meeting;
 
+/**
+ * Class DocumentService
+ *
+ * The service handles the creation of PDF documents.
+ *
+ * *Settings*
+ *
+ * *in Configuration/Settings.yaml or any other context specific
+ * configuration file of the global TYPO3 Flow instance*
+ *
+ * `
+ * OpenAgenda:
+ *   Application:
+ *     Export:
+ *       Document:
+ *         persistence:
+ *           path: '%FLOW_PATH_DATA%/Persistent/Documents/'
+ *         scopes:
+ *           agenda:
+ *             templateFile: '%PACKAGE_RESOURCES%/Private/Document/Agenda.html'
+ *             documentFile: '%PACKAGE_RESOURCES%/Private/Document/Template.pdf'
+ *           protocol:
+ *             templateFile: '%PACKAGE_RESOURCES%/Private/Document/Protocol.html'
+ *             documentFile: '%PACKAGE_RESOURCES%/Private/Document/Template.pdf'
+ * `
+ *
+ * @package OpenAgenda\Application\Service\Export
+ * @author Oliver Hader <oliver@typo3.org>
+ */
 class DocumentService {
 
 	/**
@@ -36,7 +65,10 @@ class DocumentService {
 	protected $persistenceManager;
 
 	/**
-	 * @param Meeting $meeting
+	 * Exports the agenda as PDF document from a given Meeting entity.
+	 * An agenda is being used prior to a meeting being executed or finished.
+	 *
+	 * @param Meeting $meeting The meeting entity to be used
 	 * @return \TYPO3\Flow\Resource\Resource
 	 */
 	public function exportAgenda(Meeting $meeting) {
@@ -54,7 +86,10 @@ class DocumentService {
 	}
 
 	/**
-	 * @param Meeting $meeting
+	 * Exports the protocol as PDF document from a given Meeting entity.
+	 * A protocol is being used once a meeting has been finished.
+	 *
+	 * @param Meeting $meeting The meeting entity to be used
 	 * @return \TYPO3\Flow\Resource\Resource
 	 */
 	public function exportProtocol(Meeting $meeting) {
@@ -72,15 +107,21 @@ class DocumentService {
 	}
 
 	/**
-	 * @param Meeting $meeting
-	 * @return string
+	 * Provides the path to be used for PDF document persistence in the file system.
+	 * The UUID of a given meeting is used a file name then.
+	 *
+	 * @param Meeting $meeting The meeting entity to be used
+	 * @return string The path without file extension, thus no trailing ".pdf"
 	 */
 	protected function providerMeetingPath(Meeting $meeting) {
 		return $this->providePath() . $this->persistenceManager->getIdentifierByObject($meeting);
 	}
 
 	/**
-	 * @return mixed
+	 * Provides the base path to be used for persistence in the file system.
+	 * If the path does not exist, it will automatically be created.
+	 *
+	 * @return string The base path
 	 */
 	protected function providePath() {
 		$path = rtrim($this->documentSettings['persistence']['path'], '/') . '/';
@@ -91,9 +132,12 @@ class DocumentService {
 	}
 
 	/**
-	 * @param string $value
-	 * @return string
+	 * Substitutes path names in the available settings.
+	 *
+	 * @param string $value The setting value to be worked on
+	 * @return string Final setting value with substituted path names
 	 * @throws \TYPO3\Flow\Package\Exception\UnknownPackageException
+	 * @see DocumentService::getResourcePath
 	 */
 	protected function substituteSettings($value) {
 		return str_replace(

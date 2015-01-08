@@ -8,7 +8,13 @@ namespace OpenAgenda\Application\ViewHelpers\Link;
 use TYPO3\Flow\Annotations as Flow;
 
 /**
- * Class SubjectViewHelper
+ * Class HashedViewHelper
+ *
+ * This view helper creates signed hashes over the given URL arguments.
+ *
+ * **Example**
+ *
+ * `<oa:link.hashed action="confirm" controller="Authentication" package="OpenAgenda.Application" arguments="{account: account}" as="uri">`
  *
  * @package OpenAgenda\Application\ViewHelpers\Message
  * @author Oliver Hader <oliver@typo3.org>
@@ -41,13 +47,15 @@ class HashedViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractTagBasedView
 	}
 
 	/**
-	 * @param string $action
-	 * @param array $arguments
-	 * @param NULL $controller
-	 * @param NULL $package
-	 * @param bool $absolute
-	 * @param bool $addTimestamp
-	 * @param string $as
+	 * Renders an HTML anchor tag with all arguments being signed by a hash.
+	 *
+	 * @param string $action The name of the controller action to be called
+	 * @param array $arguments The arguments to be used in the URI to be created
+	 * @param NULL $controller The name of the controller to be called
+	 * @param NULL $package The name of the package to be used
+	 * @param bool $absolute Whether to create absolute URI
+	 * @param bool $addTimestamp Whether to add a timestamp to the URI arguments
+	 * @param string $as Provide generated URI for inner usage (default to "uri")
 	 * @return string
 	 * @throws \TYPO3\Fluid\Core\ViewHelper\Exception
 	 */

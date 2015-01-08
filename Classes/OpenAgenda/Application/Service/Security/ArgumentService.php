@@ -3,13 +3,16 @@ namespace OpenAgenda\Application\Service\Security;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "OpenAgenda.Application".*
- *                                                                        *
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
 
 /**
  * Class ArgumentService
+ *
+ * This service is used to check and extend URL arguments
+ * to either create signing hash over all arguments and
+ * to additionally add a lifetime for the resulting link.
  *
  * @Flow\Scope("singleton")
  * @package OpenAgenda\Application\Service\Security
@@ -36,9 +39,11 @@ class ArgumentService {
 	protected $persistenceManager;
 
 	/**
-	 * @param array $arguments
-	 * @param bool $addTimestamp
-	 * @return array
+	 * Creates a hash over all arguments.
+	 *
+	 * @param array $arguments The arguments to be extended by a hash
+	 * @param bool $addTimestamp Optionally add a timestamp for lifetime checks
+	 * @return array The extended arguments
 	 */
 	public function hash(array $arguments, $addTimestamp = TRUE) {
 		if ($addTimestamp) {
@@ -50,8 +55,11 @@ class ArgumentService {
 	}
 
 	/**
-	 * @param array $arguments
-	 * @param int $lifetime
+	 * Validates arguments against a given hash and lifetime.
+	 *
+	 * @param array $arguments The arguments to be validated.
+	 * @param int $lifetime Optional maximum lifetime (if "_time" argument is available)
+	 * @return void
 	 * @throws \TYPO3\Flow\Security\Exception
 	 */
 	public function validate(array $arguments, $lifetime = 43200) {
@@ -73,8 +81,12 @@ class ArgumentService {
 	}
 
 	/**
-	 * @param array $arguments
-	 * @return string
+	 * Gets the payload from arguments that can be signed by a hash.
+	 * Prior to sign (= serialize and hmac) an object, its complexity
+	 * and self-references need to be reduced and resolved.
+	 *
+	 * @param array $arguments The arguments
+	 * @return string Payload of arguments that can be signed
 	 */
 	protected function getPayload(array $arguments) {
 		if (isset($arguments['_hash'])) {
@@ -91,6 +103,8 @@ class ArgumentService {
 	}
 
 	/**
+	 * Flattens arrays and reduces complexity.
+	 *
 	 * @param string|array $value
 	 * @return string
 	 */

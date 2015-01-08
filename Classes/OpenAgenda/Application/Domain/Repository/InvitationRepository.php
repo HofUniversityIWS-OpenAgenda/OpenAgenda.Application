@@ -3,7 +3,6 @@ namespace OpenAgenda\Application\Domain\Repository;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "OpenAgenda.Application".*
- *                                                                        *
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
@@ -21,7 +20,9 @@ use OpenAgenda\Application\Domain\Model\Invitation;
 class InvitationRepository extends AbstractRepository {
 
 	/**
-	 * @param Person $person
+	 * Finds invitation entities for one Person entity.
+	 *
+	 * @param Person $person The Person entity to be searched for
 	 * @return \TYPO3\Flow\Persistence\QueryResultInterface|\OpenAgenda\Application\Domain\Model\Invitation[]
 	 */
 	public function findByPerson(Person $person = NULL) {
@@ -35,7 +36,9 @@ class InvitationRepository extends AbstractRepository {
 	}
 
 	/**
-	 * @param Meeting $meeting
+	 * Finds invitation entities of a Meeting entity.
+	 *
+	 * @param Meeting $meeting The Meeting entity to be used
 	 * @return \TYPO3\Flow\Persistence\QueryResultInterface|Invitation[]
 	 */
 	public function findByMeeting(Meeting $meeting) {
@@ -45,7 +48,9 @@ class InvitationRepository extends AbstractRepository {
 	}
 
 	/**
-	 * @param Person $person
+	 * Finds all open invitation entities for a Person entity.
+	 *
+	 * @param Person $person The Person entity to be searched for
 	 * @return \TYPO3\Flow\Persistence\QueryResultInterface|\OpenAgenda\Application\Domain\Model\Invitation[]
 	 */
 	public function findOpen(Person $person = NULL) {

@@ -7,6 +7,10 @@ namespace OpenAgenda\Application\ViewHelpers;
 
 /**
  * Class FormViewHelper
+ *
+ * Extends the basic FormViewHelper and allows to use additional arguments,
+ * such as a role attribute.
+ *
  * @package OpenAgenda\Application\ViewHelpers
  * @author Oliver Hader <oliver@typo3.org>
  */

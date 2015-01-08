@@ -3,13 +3,72 @@ namespace OpenAgenda\Application\Validation\Validator;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "OpenAgenda.Application".*
- *                                                                        *
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
 
 /**
  * Class ModelScopeValidator
+ *
+ * This validator utilizes settings to aggregate more specific
+ * validators to be used on a particular model entity in a particular scope.
+ *
+ * **Usage**
+ *
+ * `@Flow\Validate(argumentName="newAccount", type="OpenAgenda.Application:ModelScope", options={"scopeName"="create"})`
+ *
+ * **Settings**
+ *
+ * *in Configuration/Settings.yaml or any other context specific
+ * configuration file of the global TYPO3 Flow instance*
+ *
+ * `
+ * OpenAgenda:
+ *   Application:
+ *     Validation:
+ *       ModelScopeValidator:
+ *         <class name of domain entity>:
+ *           <scope name>:
+ *             properties:
+ *               <property name>:
+ *                 validators:
+ *                   <validator name>: <validator options>
+ *                   <validator name>: <validator options>
+ * `
+ *
+ * **Example**
+ *
+ * `
+ * OpenAgenda:
+ *   Application:
+ *     Validation:
+ *       ModelScopeValidator:
+ *         OpenAgenda\Application\Framework\Model\Account:
+ *           create:
+ *             properties:
+ *               username:
+ *                 validators:
+ *                   NotEmpty: []
+ *                   EmailAddress: []
+ *               firstName:
+ *                 validators:
+ *                   NotEmpty: []
+ *                   StringLength:
+ *                     minimum: 2
+ *               password:
+ *                 validators:
+ *                   NotEmpty: []
+ *                   StringLength:
+ *                     minimum: 8
+ *               passwordRepeat:
+ *                 validators:
+ *                   NotEmpty: []
+ *                   StringLength:
+ *                     minimum: 8
+ *                   OpenAgenda\Application\Validation\Validator\SameValidator:
+ *                     propertyValue: '$password'
+ * `
+ *
  * @package OpenAgenda\Application\Validation\Validator
  * @author Oliver Hader <oliver@typo3.org>
  */
@@ -62,7 +121,8 @@ class ModelScopeValidator extends \TYPO3\Flow\Validation\Validator\AbstractValid
 	 * Check if $value is valid. If it is not valid, needs to add an error
 	 * to Result.
 	 *
-	 * @param mixed $value
+	 * @param mixed $value The entity to be validated
+	 * @return void
 	 * @throws \TYPO3\Flow\Validation\Exception\InvalidValidationOptionsException if invalid validation options have been specified in the constructor
 	 */
 	protected function isValid($value) {
@@ -88,7 +148,10 @@ class ModelScopeValidator extends \TYPO3\Flow\Validation\Validator\AbstractValid
 	}
 
 	/**
-	 * @param object $value
+	 * Validates an entity.
+	 *
+	 * @param object $value The entity to be validated
+	 * @return void
 	 */
 	protected function validateEntity($value) {
 		if (empty($this->settings['entity']['validators'])) {
@@ -113,7 +176,10 @@ class ModelScopeValidator extends \TYPO3\Flow\Validation\Validator\AbstractValid
 	}
 
 	/**
-	 * @param object $value
+	 * Validates properties for an entity.
+	 *
+	 * @param object $value The entity to be validated
+	 * @return void
 	 */
 	protected function validateProperties($value) {
 		if (empty($this->settings['properties'])) {
@@ -136,8 +202,11 @@ class ModelScopeValidator extends \TYPO3\Flow\Validation\Validator\AbstractValid
 	}
 
 	/**
-	 * @param array $validatorSettings
-	 * @param mixed $value
+	 * Gets a conjunction validator as defined in the settings.
+	 * The resulting validator combines all particular sub-validators in one.
+	 *
+	 * @param array $validatorSettings Validator settings to be applied
+	 * @param mixed $value The entity to be validated
 	 * @return \TYPO3\Flow\Validation\Validator\ConjunctionValidator
 	 * @throws \TYPO3\Flow\Validation\Exception\InvalidValidationConfigurationException
 	 * @throws \TYPO3\Flow\Validation\Exception\NoSuchValidatorException

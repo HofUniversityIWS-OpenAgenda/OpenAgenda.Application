@@ -3,7 +3,6 @@ namespace OpenAgenda\Application\Service;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "OpenAgenda.Application".*
- *                                                                        *
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
@@ -11,6 +10,9 @@ use OpenAgenda\Application\Domain\Model\History;
 
 /**
  * Class HistoryService
+ *
+ * This service creates history entities on creating or modification
+ * of a related objective subject and keeps track of its changes and times.
  *
  * @Flow\Scope("singleton")
  * @package OpenAgenda\Application\Service
@@ -43,9 +45,11 @@ class HistoryService {
 	protected $entityService;
 
 	/**
+	 * Invokes the creation of history entities for a given related objective entity.
+	 *
 	 * @author Oliver Hader <oliver@typo3.org>
 	 * @author Andreas Steiger <andreas.steiger@hof-university.de>
-	 * @param object $subject
+	 * @param object $subject The related objective entity
 	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
 	 */
 	public function invoke($subject) {

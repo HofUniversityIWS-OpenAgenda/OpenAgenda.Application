@@ -3,7 +3,6 @@ namespace OpenAgenda\Application\Controller;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "OpenAgenda.Application".*
- *                                                                        *
  *                                                                        */
 
 use OpenAgenda\Application\Domain\Model\AgendaItem;
@@ -44,6 +43,8 @@ class PersonController extends AbstractController {
 	}
 
 	/**
+	 * Shows the public details of a given Person entity.
+	 *
 	 * @param \OpenAgenda\Application\Domain\Model\Person $person
 	 * @return void
 	 */
@@ -52,6 +53,8 @@ class PersonController extends AbstractController {
 	}
 
 	/**
+	 * Determines whether a Person entity has a valid and non-expired account.
+	 *
 	 * @param \OpenAgenda\Application\Domain\Model\Person $person
 	 * @return bool
 	 */

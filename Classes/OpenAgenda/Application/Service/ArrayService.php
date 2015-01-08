@@ -3,7 +3,6 @@ namespace OpenAgenda\Application\Service;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "OpenAgenda.Application".*
- *                                                                        *
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
@@ -12,8 +11,15 @@ use TYPO3\Flow\Reflection\ObjectAccess;
 /**
  * Class ArrayService
  *
+ * This service transforms complex object and entity structures
+ * into simpler flat array, that can be converted to JSON then.
+ *
+ * The \OpenAgenda\Application\Framework\Annotations\ToFlatArray ("OA\ToFlatArray")
+ * annotation is essential for controlling scope, callbacks and general triggering.
+ *
  * @Flow\Scope("singleton")
  * @package OpenAgenda\Application\Service
+ * @see \OpenAgenda\Application\Framework\Annotations\ToFlatArray
  * @author Oliver Hader <oliver@typo3.org>
  */
 class ArrayService {
@@ -47,8 +53,10 @@ class ArrayService {
 	protected $securityContext;
 
 	/**
-	 * @param mixed $source
-	 * @param string $scopeName
+	 * Flattens any object as array.
+	 *
+	 * @param mixed $source Object to be flattened
+	 * @param string $scopeName Optional scope name that annotations will be compared against
 	 * @return array
 	 */
 	public function flatten($source, $scopeName = NULL) {
@@ -60,8 +68,10 @@ class ArrayService {
 	}
 
 	/**
-	 * @param object $source
-	 * @param string $scopeName
+	 * Flattens a real object/entity as array
+	 *
+	 * @param object $source Object to be flattened
+	 * @param string $scopeName Optional scope name that annotations will be compared against
 	 * @return array
 	 */
 	public function flattenObject($source, $scopeName = NULL) {
@@ -79,6 +89,14 @@ class ArrayService {
 		return $target;
 	}
 
+	/**
+	 * Processes and interprets annotations bound to properties of a source object.
+	 *
+	 * @param object $source The source object to be worked on
+	 * @param NULL|string $scopeName Optional scope name that annotations will be compared against
+	 * @return array
+	 * @throws \TYPO3\Flow\Reflection\Exception\PropertyNotAccessibleException
+	 */
 	protected function processPropertyAnnotations($source, $scopeName = NULL) {
 		$target = array();
 		$className = $this->resolveClassName($source);
@@ -141,6 +159,13 @@ class ArrayService {
 		return $target;
 	}
 
+	/**
+	 * Processes and interprets annotations bound the class definition of a source object.
+	 *
+	 * @param object $source The source object to be worked on
+	 * @param NULL|string $scopeName Optional scope name that annotations will be compared against
+	 * @return array
+	 */
 	protected function processClassAnnotations($source, $scopeName = NULL) {
 		$target = array();
 		$className = $this->resolveClassName($source);
@@ -173,8 +198,10 @@ class ArrayService {
 	}
 
 	/**
+	 * Flattens an array-like object or array.
+	 *
 	 * @param \Iterator|\ArrayAccess $source
-	 * @param string $scopeName
+	 * @param string $scopeName Optional scope name that annotations will be compared against
 	 * @return array
 	 */
 	public function flattenIterator($source, $scopeName) {
@@ -196,7 +223,9 @@ class ArrayService {
 	}
 
 	/**
-	 * @param mixed $source
+	 * Determines whether an object can descend to child objects.
+	 *
+	 * @param mixed $source The source to be checked
 	 * @return bool
 	 */
 	protected function canDescend($source) {
@@ -204,7 +233,9 @@ class ArrayService {
 	}
 
 	/**
-	 * @param mixed $source
+	 * Determines whether an object can be iterated.
+	 *
+	 * @param mixed $source The source to be checked
 	 * @return bool
 	 */
 	protected function canIterate($source) {
@@ -212,8 +243,10 @@ class ArrayService {
 	}
 
 	/**
-	 * @param mixed $subject
-	 * @return mixed
+	 * Prepares an object to be used as array.
+	 *
+	 * @param mixed $subject The subject be used
+	 * @return array
 	 */
 	public function prepare($subject) {
 		if ($subject instanceof \TYPO3\Party\Domain\Model\Person) {
@@ -226,6 +259,8 @@ class ArrayService {
 	}
 
 	/**
+	 * Prepares a Person entity to be used as array.
+	 *
 	 * @param \TYPO3\Party\Domain\Model\Person $person
 	 * @return array
 	 */
@@ -256,8 +291,10 @@ class ArrayService {
 	}
 
 	/**
-	 * @param object $source
-	 * @return string
+	 * Resolves the base class name to overcome generated Doctrine AOP proxy classes.
+
+	 * @param object $source The source to be worked on
+	 * @return string The resolved base class name
 	 */
 	protected function resolveClassName($source) {
 		$className = get_class($source);
@@ -272,9 +309,12 @@ class ArrayService {
 	}
 
 	/**
+	 * Validates a scope name against a given OA\ToFlatArray annotation.
+	 * If a given scope shall be processed, TRUE is returned - otherwise it's FALSE.
+	 *
 	 * @param \OpenAgenda\Application\Framework\Annotations\ToFlatArray $annotation
-	 * @param string|NULL $scopeName
-	 * @return bool
+	 * @param string|NULL $scopeName Scope name to be validated
+	 * @return bool Whether to process the given scope
 	 */
 	protected function validateScopeName(\OpenAgenda\Application\Framework\Annotations\ToFlatArray $annotation, $scopeName) {
 		// Skip property if requested scope name is not defined for the current entity property

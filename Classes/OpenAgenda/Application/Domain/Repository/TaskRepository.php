@@ -3,7 +3,6 @@ namespace OpenAgenda\Application\Domain\Repository;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "OpenAgenda.Application".*
- *                                                                        *
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
@@ -27,7 +26,12 @@ class TaskRepository extends AbstractRepository {
 	protected $meetingRepository;
 
 	/**
-	 * @param Person $person
+	 * Finds allowed Task entities.
+	 *
+	 * If the $person argument is not submitted, the Person entity
+	 * of the current logged in Account entity will be retrieved from session.
+	 *
+	 * @param Person $person The Person entity to be searched for
 	 * @param bool $excludeAssigned Exclude if assigned to $person
 	 * @return \TYPO3\Flow\Persistence\QueryResultInterface|Task[]
 	 */
@@ -52,7 +56,12 @@ class TaskRepository extends AbstractRepository {
 	}
 
 	/**
-	 * @param Person $person
+	 * Finds Task entities for a particular Person entity.
+	 *
+	 * If the $person argument is not submitted, the Person entity
+	 * of the current logged in Account entity will be retrieved from session.
+	 *
+	 * @param Person $person The Person entity to be searched for
 	 * @return \TYPO3\Flow\Persistence\QueryResultInterface|Task[]
 	 */
 	public function findByPerson(Person $person = NULL) {
@@ -65,7 +74,9 @@ class TaskRepository extends AbstractRepository {
 	}
 
 	/**
-	 * @param Meeting $meeting
+	 * Finds Task entities for a particular Meeting entity.
+	 *
+	 * @param Meeting $meeting The Meeting entity to be search for
 	 * @return \TYPO3\Flow\Persistence\QueryResultInterface|Task[]
 	 */
 	public function findByMeeting(Meeting $meeting) {
@@ -75,8 +86,12 @@ class TaskRepository extends AbstractRepository {
 	}
 
 	/**
+	 * Gets an internal query constraint that is used in the ORM
+	 * to determine whether an entity is allowed to be retrieved
+	 * or not for a given Person entity.
+	 *
 	 * @param \TYPO3\Flow\Persistence\QueryInterface $query
-	 * @param Person $person
+	 * @param Person $person The Person entity allowance shall be applied for
 	 * @return \TYPO3\Flow\Persistence\Generic\Qom\Constraint
 	 */
 	protected function getAllowedConstraint(\TYPO3\Flow\Persistence\QueryInterface $query, Person $person) {

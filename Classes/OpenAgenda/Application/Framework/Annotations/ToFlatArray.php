@@ -12,9 +12,22 @@ use TYPO3\Flow\Reflection\ObjectAccess;
 /**
  * Class ToFlatArray
  *
+ * Annotation being used by the ArrayService to transform
+ * complex objects into flat arrays for later JSON conversion.
+ *
+ * This annotation can be used for properties and classes.
+ *
+ * **Settings**
+ *
+ * + useIdentifier (bool): Whether to use the entity identifier (UUID)
+ * + callback (string): Only if useIdentifier is not set - it provides a callback function
+ * + transientName (string): Name of a transient property that will be part of the array and prepended with "$"
+ * + scope (string, array): Scope names, this annotation is valid for, scopes prepended with "!" are ignored
+ *
  * @Annotation
  * @Target({"PROPERTY","CLASS"})
  * @package OpenAgenda\Application\Service\TypeConversion
+ * @see \OpenAgenda\Application\Service\ArrayService
  * @author Oliver Hader <oliver@typo3.org>
  */
 final class ToFlatArray {

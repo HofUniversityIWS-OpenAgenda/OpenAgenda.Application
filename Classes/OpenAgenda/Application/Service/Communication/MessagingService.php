@@ -13,6 +13,9 @@ use OpenAgenda\Application\Domain\Model\Message;
 
 /**
  * Class MessagingService
+ *
+ * The service renders, queues and delivers messages.
+ *
  * @Flow\Scope("singleton")
  * @package OpenAgenda\Application\Service\Communication
  * @author Oliver Hader <oliver@typo3.org>
@@ -24,11 +27,6 @@ class MessagingService {
 	 * @var \OpenAgenda\Application\Domain\Repository\MessageRepository
 	 */
 	protected $messageRepository;
-
-	/**
-	* @var
-	*/
-	protected $documentRenderingService;
 
 	/**
 	 * @Flow\Inject
@@ -49,22 +47,28 @@ class MessagingService {
 	protected $messagingSettings;
 
 	/**
-	 * @param Account $account
-	 * @param string $messageName
-	 * @param array $variables
-	 * @param array|\TYPO3\Flow\Resource\Resource[] $attachments
+	 * Prepares a message to be delivered to an Account entity.
+	 *
+	 * @param Account $account The recipient entity
+	 * @param string $messageName The name of the message template to be used
+	 * @param array $variables Additional variables to used during rendering
+	 * @param array|\TYPO3\Flow\Resource\Resource[] $attachments Additional resources used as attachments
+	 * @return void
 	 */
 	public function prepareForAccount(Account $account, $messageName, array $variables = array(), $attachments = array()) {
 		$variables['account'] = $account;
-		$this->prepareForPerson($account->getParty(), $messageName, $variables, $resources);
+		$this->prepareForPerson($account->getParty(), $messageName, $variables, $attachments);
 	}
 
 	/**
-	 * @param Person $person
-	 * @param string $messageName
-	 * @param array $variables
-	 * @param array|\TYPO3\Flow\Resource\Resource[] $attachments
+	 * Prepares a message to be delivered to a Person entity.
+	 *
+	 * @param Person $person The recipient entity
+	 * @param string $messageName The name of the message template to be used
+	 * @param array $variables Additional variables to used during rendering
+	 * @param array|\TYPO3\Flow\Resource\Resource[] $attachments Additional resources used as attachments
 	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
+	 * @return void
 	 */
 	public function prepareForPerson(Person $person, $messageName, array $variables = array(), $attachments = array()) {
 		$variables['person'] = $person;
@@ -95,6 +99,12 @@ class MessagingService {
 		}
 	}
 
+	/**
+	 * Delivers messages from the queue that have
+	 * not been delivered yet or failed recently.
+	 *
+	 * @return void
+	 */
 	public function deliver() {
 		$status = array(
 			Message::STATUS_Created,
@@ -109,14 +119,18 @@ class MessagingService {
 	}
 
 	/**
-	 * @param Message $message
-	 * @return bool
+	 * Delivers a particular message.
+	 *
+	 * @param Message $message The message to be delivered
+	 * @return bool Whether the delivery attempt has been successful
 	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
 	 */
 	protected function deliverMessage(Message $message) {
 		if ($message->isActive()) {
 			return FALSE;
 		}
+
+		$result = FALSE;
 
 		try {
 			$message->setStatus(Message::STATUS_Active);
@@ -128,6 +142,7 @@ class MessagingService {
 
 			if (count($mailMessage->getFailedRecipients()) === 0) {
 				$message->setStatus(Message::STATUS_Delivered);
+				$result = TRUE;
 			} else {
 				$message->setStatus(Message::STATUS_Failure);
 			}
@@ -140,12 +155,21 @@ class MessagingService {
 			$this->persistenceManager->persistAll();
 		}
 
-		return TRUE;
+		return $result;
 	}
 
 	/**
-	 * @param Message $message
-	 * @return \TYPO3\SwiftMailer\Message
+	 * Creates a new mail message from a given message entity.
+	 *
+	 * **Scopes**
+	 *
+	 * + \OpenAgenda\Application\Domain\Model\Message is used
+	 *   to aggregate message information concerning the OpenAgenda domain
+	 * + \TYPO3\SwiftMailer\Message is used to actually execute
+	 *   the mail delivery process using SwiftMailer as transportation service
+	 *
+	 * @param Message $message The message entity to be transformed to a mail message
+	 * @return \TYPO3\SwiftMailer\Message Mail message ready to be delivered using SwiftMailer
 	 */
 	protected function createMailMessage(Message $message) {
 		$sender = array(
@@ -181,8 +205,21 @@ class MessagingService {
 	}
 
 	/**
-	 * @param string $messageName
-	 * @param array $variables
+	 * Creates the Fluid template rendering view.
+	 *
+	 * Templates reside at ./Resources/Private/Messages/<scope>/<name>.html
+	 *
+	 * **Explanation**
+	 *
+	 * + *scope* is a convention for the accordant domain entity
+	 *   concern (e.g. Meeting, Task, Account, ...)
+	 * + *name* is the actual template name, the html file extension
+	 *   is appended automatically
+	 * + the argument *$messageName* combined both - *scope* and *name*
+	 *
+	 *
+	 * @param string $messageName The message name (e.g. "Meeting/Invite")
+	 * @param array $variables Additional variables to be used during rendering
 	 * @return \OpenAgenda\Application\View\MessageView
 	 * @throws \TYPO3\Flow\Package\Exception\UnknownPackageException
 	 */

@@ -3,7 +3,6 @@ namespace OpenAgenda\Application\Controller;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "OpenAgenda.Application".*
- *                                                                        *
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
@@ -38,6 +37,8 @@ class SettingController extends AbstractController {
 	protected $accountRepository;
 
 	/**
+	 * Gets the public details of the Person entity of the currently logged in user.
+	 *
 	 * @return void
 	 */
 	public function getProfileAction() {
@@ -45,8 +46,11 @@ class SettingController extends AbstractController {
 	}
 
 	/**
-	 * @param Person $person
-	 * @param Password $password
+	 * Updates the Person entity of the currently logged in user.
+	 * Entities are only updated in repository if validation succeeded.
+	 *
+	 * @param Person $person Modified person entity
+	 * @param Password $password Password change requests
 	 * @Flow\Validate(argumentName="person", type="OpenAgenda.Application:ModelScope", options={"scopeName"="updateProfile"})
 	 * @Flow\Validate(argumentName="password", type="OpenAgenda.Application:ModelScope", options={"scopeName"="updateProfile"})
 	 */
@@ -63,6 +67,8 @@ class SettingController extends AbstractController {
 	}
 
 	/**
+	 * Gets the Preference entity of the currently logged in user.
+	 *
 	 * @return void
 	 */
 	public function getSettingAction() {
@@ -72,6 +78,8 @@ class SettingController extends AbstractController {
 	}
 
 	/**
+	 * Updates the Preference entity of the currently logged in user.
+	 *
 	 * @param Preference $preference
 	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
 	 */

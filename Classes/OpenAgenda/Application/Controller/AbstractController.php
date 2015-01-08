@@ -105,6 +105,12 @@ class AbstractController extends ActionController {
 		}
 	}
 
+	/**
+	 * Provides a default error action in case failures
+	 * are encountered during the processing.
+	 *
+	 * @return string
+	 */
 	protected function errorAction() {
 		$content = parent::errorAction();
 

@@ -3,7 +3,6 @@ namespace OpenAgenda\Application\Service;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "OpenAgenda.Application".*
- *                                                                        *
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
@@ -11,6 +10,9 @@ use TYPO3\Flow\Reflection\ObjectAccess;
 
 /**
  * Class ObjectService
+ *
+ * This service provides additional functionality if working on objects.
+ *
  * @package OpenAgenda\Application\Service
  * @Flow\Scope("singleton")
  * @author Oliver Hader <oliver@typo3.org>
@@ -19,14 +21,19 @@ class ObjectService {
 
 	const PATTERN_Components = '#^(?P<className>[^>-]+)(?:->(?P<methodName>[^(]+))\((?P<arguments>[^)]*)\)#';
 
+	/**
+	 * @var array
+	 */
 	protected $componentFilter = array(
 		'className', 'methodName', 'arguments'
 	);
 
 	/**
-	 * @param string $stringCallback
-	 * @param mixed $subject
-	 * @return mixed|NULL
+	 * Executes a callback on a given object.
+	 *
+	 * @param string $stringCallback The callback to be executed
+	 * @param mixed $subject The related object to be used
+	 * @return mixed|NULL The result of the callback
 	 * @throws \TYPO3\Flow\Reflection\Exception\PropertyNotAccessibleException
 	 */
 	public function executeStringCallback($stringCallback, $subject) {
@@ -57,9 +64,14 @@ class ObjectService {
 	}
 
 	/**
-	 * @param array $variables
-	 * @param mixed $subject
-	 * @return array
+	 * Substitutes string variables for a given object.
+	 *
+	 * + $self will be substituted with the given $subject
+	 * + $anythingElse will be substituted with the result of $subject->getAnythingElse()
+	 *
+	 * @param array $variables The variables to be used for substitution
+	 * @param mixed $subject The object to be worked on
+	 * @return array The substituted variables
 	 * @throws \TYPO3\Flow\Reflection\Exception\PropertyNotAccessibleException
 	 */
 	public function substituteStringVariables(array $variables, $subject) {
@@ -79,8 +91,19 @@ class ObjectService {
 	}
 
 	/**
+	 * Extracts the components of a string callback.
+	 * The resulting array contains "className", "methodName" and "arguments".
+	 *
+	 * **Example**
+	 *
+	 * callback `$self->format('c')`
+	 *
+	 * will result in
+	 *
+	 * `array("className" => "$self", "methodName" => "format", "arguments" => array("c"))`
+	 *
 	 * @param string $stringCallback
-	 * @return array|NULL
+	 * @return array|NULL The extracted components or NULL if parsing failed
 	 */
 	protected function getComponents($stringCallback) {
 		if (!preg_match(static::PATTERN_Components, $stringCallback, $matches)) {
@@ -105,7 +128,7 @@ class ObjectService {
 	 * Casts type values explicitly.
 	 * If value is wrapped by quotes, string cast is applied.
 	 *
-	 * @param mixed $value
+	 * @param mixed $value The value to be casted
 	 * @return float|int|string
 	 */
 	protected function castValue($value) {

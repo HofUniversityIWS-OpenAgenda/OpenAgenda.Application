@@ -3,7 +3,6 @@ namespace OpenAgenda\Application\Controller;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "OpenAgenda.Application".*
- *                                                                        *
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
@@ -41,7 +40,16 @@ class DashboardController extends AbstractController {
 	protected $invitationRepository;
 
 	/**
+	 * Provides basic information for AngularJS, such as
+	 *
+	 * + information on currently logged in user (person)
+	 * + general permission information for the user
+	 * + open/unanswered invitations
+	 * + all allowed meetings
+	 * + all allowed tasks
+	 *
 	 * @return void
+	 * @author Oliver Hader <oliver@typo3.org>
 	 */
 	public function indexAction() {
 		$account = $this->securityContext->getAccount();

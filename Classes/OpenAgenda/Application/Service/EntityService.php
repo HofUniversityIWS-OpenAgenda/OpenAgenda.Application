@@ -3,7 +3,6 @@ namespace OpenAgenda\Application\Service;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "OpenAgenda.Application".*
- *                                                                        *
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
@@ -11,6 +10,9 @@ use TYPO3\Flow\Reflection\ObjectAccess;
 
 /**
  * Class EntityService
+ *
+ * This service provides that for domain entities.
+ *
  * @package OpenAgenda\Application\Service
  * @Flow\Scope("singleton")
  * @author Oliver Hader <oliver@typo3.org>
@@ -30,8 +32,11 @@ class EntityService {
 	protected $persistenceManager;
 
 	/**
-	 * @param object $subject
-	 * @param bool $cascade
+	 * Applies status dates, such as creating time or modification time.
+	 *
+	 * @param object $subject The entity to be extended
+	 * @param bool $cascade Whether to cascade into child entities
+	 * @return void
 	 */
 	public function applyStatusDates($subject, $cascade = TRUE) {
 		$this->applyCreationDate($subject, $cascade);
@@ -39,8 +44,11 @@ class EntityService {
 	}
 
 	/**
-	 * @param object $subject
-	 * @param bool $cascade
+	 * Applies the modification time.
+	 *
+	 * @param object $subject The entity to be extended
+	 * @param bool $cascade Whether to cascade into child entities
+	 * @return void
 	 */
 	public function applyModificationDate($subject, $cascade = TRUE) {
 		if ($subject instanceof \OpenAgenda\Application\Domain\Model\ModificationInterface) {
@@ -57,8 +65,11 @@ class EntityService {
 	}
 
 	/**
-	 * @param object $subject
-	 * @param bool $cascade
+	 * Applies the creation time.
+	 *
+	 * @param object $subject The entity to be extended
+	 * @param bool $cascade Whether to cascade into child entities
+	 * @return void
 	 */
 	public function applyCreationDate($subject, $cascade = TRUE) {
 		if ($subject instanceof \OpenAgenda\Application\Domain\Model\CreationInterface && $this->persistenceManager->isNewObject($subject)) {
@@ -75,7 +86,11 @@ class EntityService {
 	}
 
 	/**
+	 * Applies sorting order to entities held in a collection.
+	 * Doctrine2 collections are not able yet to annotate a sorting property.
+	 *
 	 * @param \Doctrine\Common\Collections\Collection $collection
+	 * @return void
 	 */
 	public function applySortingOrder(\Doctrine\Common\Collections\Collection $collection) {
 		$sorting = 0;
@@ -87,7 +102,9 @@ class EntityService {
 	}
 
 	/**
-	 * @param object $subject
+	 * Determines properties of a given entity that are using Doctrine2 collections.
+	 *
+	 * @param object $subject The entity to be worked on
 	 * @return array|\Doctrine\Common\Collections\Collection[]
 	 */
 	protected function getCollectionProperties($subject) {

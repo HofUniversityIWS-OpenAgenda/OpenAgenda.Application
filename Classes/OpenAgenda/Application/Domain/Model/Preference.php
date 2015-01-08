@@ -3,7 +3,6 @@ namespace OpenAgenda\Application\Domain\Model;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "OpenAgenda.Application".*
- *                                                                        *
  *                                                                        */
 
 use OpenAgenda\Application\Framework\Annotations as OA;
@@ -11,6 +10,10 @@ use TYPO3\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * Model Preference
+ *
+ * This entity is currently not used.
+ *
  * @Flow\Entity
  * @ORM\Table(name="oa_preference")
  * @author Oliver Hader <oliver@typo3.org>

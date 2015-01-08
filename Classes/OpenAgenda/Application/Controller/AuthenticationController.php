@@ -3,13 +3,14 @@ namespace OpenAgenda\Application\Controller;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "OpenAgenda.Application".*
- *                                                                        *
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
 
 /**
  * Class AuthenticationController
+ *
+ * This controlled handles authentication as well as registration of new accounts.
  *
  * @package OpenAgenda\Application\Controller
  * @author Oliver Hader <oliver@typo3.org>
@@ -96,6 +97,10 @@ class AuthenticationController extends \TYPO3\Flow\Security\Authentication\Contr
 	}
 
 	/**
+	 * Confirms an account.
+	 * This is the end-point used in mails sent to
+	 * newly registered account owners for confirmation.
+	 *
 	 * @param \TYPO3\Flow\Security\Account $account
 	 */
 	public function confirmAction(\TYPO3\Flow\Security\Account $account = NULL) {
@@ -114,10 +119,20 @@ class AuthenticationController extends \TYPO3\Flow\Security\Authentication\Contr
 		$this->view->assign('success', TRUE);
 	}
 
+	/**
+	 * Shows template to request a new password in case it has been forgotten.
+	 *
+	 * This method is not implemented.
+	 */
 	public function forgotAction() {
 
 	}
 
+	/**
+	 * Recovers a password in case it has been forgotten.
+	 *
+	 * This method is not implemented.
+	 */
 	public function recoverAction() {
 
 	}
@@ -138,6 +153,8 @@ class AuthenticationController extends \TYPO3\Flow\Security\Authentication\Contr
 	}
 
 	/**
+	 * Method that is called if authentication process was successful.
+	 *
 	 * @param \TYPO3\Flow\Mvc\ActionRequest $originalRequest
 	 * @return string|void
 	 * @throws \TYPO3\Flow\Mvc\Exception\StopActionException
@@ -175,6 +192,8 @@ class AuthenticationController extends \TYPO3\Flow\Security\Authentication\Contr
 	}
 
 	/**
+	 * Gets the default role identifier.
+	 *
 	 * @return string
 	 */
 	protected function getDefaultRoleIdentifier() {

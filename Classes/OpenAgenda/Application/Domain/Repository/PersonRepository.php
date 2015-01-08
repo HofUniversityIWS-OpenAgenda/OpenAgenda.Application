@@ -3,7 +3,6 @@ namespace OpenAgenda\Application\Domain\Repository;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "OpenAgenda.Application".*
- *                                                                        *
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
@@ -20,6 +19,8 @@ class PersonRepository extends \TYPO3\Party\Domain\Repository\PartyRepository {
 	const ENTITY_CLASSNAME = 'OpenAgenda\\Application\\Domain\\Model\\Person';
 
 	/**
+	 * Finds Person entities by given ElectronicAddress entities.
+	 *
 	 * @param array|\TYPO3\Party\Domain\Model\ElectronicAddress[] $electronicAddresses
 	 * @return \TYPO3\Flow\Persistence\QueryResultInterface|\OpenAgenda\Application\Domain\Model\Person[]
 	 */

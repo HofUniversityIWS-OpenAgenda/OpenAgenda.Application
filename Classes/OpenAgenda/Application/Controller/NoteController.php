@@ -3,7 +3,6 @@ namespace OpenAgenda\Application\Controller;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "OpenAgenda.Application".*
- *                                                                        *
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
@@ -14,6 +13,7 @@ use OpenAgenda\Application\Domain\Model\Note;
  *
  * @package OpenAgenda\Application\Controller
  * @author Oliver Hader <oliver@typo3.org>
+ * @deprecated This controller is not used
  */
 class NoteController extends AbstractController {
 

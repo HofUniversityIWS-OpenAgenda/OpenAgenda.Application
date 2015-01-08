@@ -10,6 +10,10 @@ use TYPO3\Flow\Annotations as Flow;
 
 /**
  * Class SameValidator
+ *
+ * Validates whether values of different sources are the same.
+ * Empty values are explicitly not supported by this validator.
+ *
  * @package OpenAgenda\Application\Validation\Validator
  * @author Oliver Hader <oliver@typo3.org>
  */
@@ -40,6 +44,7 @@ class SameValidator extends \TYPO3\Flow\Validation\Validator\AbstractValidator {
 	 * to Result.
 	 *
 	 * @param mixed $value
+	 * @return void
 	 * @throws \TYPO3\Flow\Validation\Exception\InvalidValidationOptionsException if invalid validation options have been specified in the constructor
 	 */
 	protected function isValid($value) {

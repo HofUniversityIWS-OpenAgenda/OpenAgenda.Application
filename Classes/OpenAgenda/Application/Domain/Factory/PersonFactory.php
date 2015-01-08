@@ -14,6 +14,8 @@ use TYPO3\Party\Domain\Model\ElectronicAddress;
 /**
  * Class PersonFactory
  *
+ * This factory provides Person entities.
+ *
  * @Flow\Scope("singleton")
  * @package OpenAgenda\Application\Service\Export
  * @author Oliver Hader <oliver@typo3.org>
@@ -33,7 +35,9 @@ class PersonFactory {
 	protected $personRepository;
 
 	/**
-	 * @param string $email
+	 * Creates an anonymous person (no names) with one mail address.
+	 *
+	 * @param string $email Mail address to be assigned
 	 * @return Person
 	 * @deprecated Use createPerson() instead
 	 */
@@ -58,9 +62,11 @@ class PersonFactory {
 	}
 
 	/**
-	 * @param string $email
-	 * @param string $firstName
-	 * @param string $lastName
+	 * Creates a person entity with names and mail address.
+	 *
+	 * @param string $email Mail address to be assigned.
+	 * @param string $firstName First name to be used
+	 * @param string $lastName Last name to be used
 	 * @return Person
 	 */
 	public function createPerson($email, $firstName, $lastName) {
@@ -86,6 +92,7 @@ class PersonFactory {
 	 * Updates person entity and take care of migration path.
 	 *
 	 * @param \TYPO3\Party\Domain\Model\Person $person
+	 * @return void
 	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
 	 */
 	public function updatePerson(\TYPO3\Party\Domain\Model\Person $person) {

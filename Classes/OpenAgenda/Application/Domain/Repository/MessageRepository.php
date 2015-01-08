@@ -3,7 +3,6 @@ namespace OpenAgenda\Application\Domain\Repository;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "OpenAgenda.Application".*
- *                                                                        *
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
@@ -18,7 +17,9 @@ use TYPO3\Flow\Annotations as Flow;
 class MessageRepository extends AbstractRepository {
 
 	/**
-	 * @param int|array $status
+	 * Finds Message entities by a given status.
+	 *
+	 * @param int|array $status Status value(s) to be searched for
 	 * @return \TYPO3\Flow\Persistence\QueryResultInterface|\OpenAgenda\Application\Domain\Model\Message[]
 	 */
 	public function findByStatus($status) {

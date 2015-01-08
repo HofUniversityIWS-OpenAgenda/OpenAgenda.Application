@@ -10,6 +10,9 @@ use TYPO3\Flow\Annotations as Flow;
 
 /**
  * Class Account
+ *
+ * Non persistable object handling account information.
+ *
  * @package OpenAgenda\Application\Framework\Model
  * @author Oliver Hader <oliver@typo3.org>
  */

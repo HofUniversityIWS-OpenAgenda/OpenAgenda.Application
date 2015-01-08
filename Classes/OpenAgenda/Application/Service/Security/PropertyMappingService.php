@@ -3,7 +3,6 @@ namespace OpenAgenda\Application\Service\Security;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "OpenAgenda.Application".*
- *                                                                        *
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
@@ -12,6 +11,50 @@ use TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter;
 
 /**
  * Class PropertyMappingService
+ *
+ * Since the automatic HMAC signing of form values cannot be used
+ * by transporting data from AngularJS by plain JSON, the accordant
+ * properties and sub-properties of submitted data needs to be defined
+ * in a different way.
+ *
+ * The property mapping process in invoked in TYPO3 Flow's MVC controllers
+ * to create proper domain entities out of the submitted data.
+ *
+ * **Settings**
+ *
+ * *in Configuration/Settings.yaml or any other context specific
+ * configuration file of the global TYPO3 Flow instance*
+ *
+ * `
+ * OpenAgenda:
+ *   Application:
+ *     PropertyMapping:
+ *       <class name of the domain entity to be mapped>:
+ *         <action name in accordant controller>:
+ *           <name of the account role - or 'default' for anybody>:
+ *             allow: <array of properties and sub-properties - or '*' for everything>
+ *             types: <array of allowed mapping actions - either 'create' or 'modify'>
+ * `
+ *
+ * **Example**
+ *
+ * `
+ * OpenAgenda:
+ *   Application:
+ *     PropertyMapping:
+ *       OpenAgenda\Application\Domain\Model\Task:
+ *         create:
+ *           'OpenAgenda.Application:MeetingManager':
+ *             allow: '*'
+ *             types: ['create']
+ *         update:
+ *           default:
+ *             allow: ['status','child.property']
+ *             types: ['modify']
+ *           'OpenAgenda.Application:MeetingManager':
+ *             allow: '*'
+ *             types: ['modify']
+ * `
  *
  * @Flow\Scope("singleton")
  * @package OpenAgenda\Application\Service\Security
@@ -38,8 +81,10 @@ class PropertyMappingService {
 	protected $propertyMappingSettings;
 
 	/**
-	 * @param \TYPO3\Flow\Mvc\Controller\Arguments $arguments
-	 * @param string $actionName
+	 * Walks over each controller argument and applies the mapping configuration.
+	 *
+	 * @param \TYPO3\Flow\Mvc\Controller\Arguments $arguments Controller arguments
+	 * @param string $actionName Current controller action name for with arguments shall be used
 	 */
 	public function configure(\TYPO3\Flow\Mvc\Controller\Arguments $arguments, $actionName) {
 		foreach ($arguments as $argument) {
@@ -48,8 +93,10 @@ class PropertyMappingService {
 	}
 
 	/**
-	 * @param \TYPO3\Flow\Mvc\Controller\Argument $argument
-	 * @param string $actionName
+	 * Applies the mapping configuration to a particular controller argument.
+	 *
+	 * @param \TYPO3\Flow\Mvc\Controller\Argument $argument Controller argument
+	 * @param string $actionName Current controller action name for with arguments shall be used
 	 */
 	public function configureArgument(\TYPO3\Flow\Mvc\Controller\Argument $argument, $actionName) {
 		$dataType = $argument->getDataType();
@@ -88,7 +135,16 @@ class PropertyMappingService {
 		);
 	}
 
-	protected function applyConfiguration(PropertyMappingConfiguration $configuration, $allowedPropertyNames, $options, $dataType) {
+	/**
+	 * Applies configuration for allowed properties.
+	 * This method is called recursively for sub-properties.
+	 *
+	 * @param PropertyMappingConfiguration $configuration The mapping configuration for the base controller argument
+	 * @param array $allowedPropertyNames Allowed property names (including sub-properties - if any)
+	 * @param array $options Global options to allow creating and/or modification
+	 * @param string $dataType Data type (= class name) of the calling parent property
+	 */
+	protected function applyConfiguration(PropertyMappingConfiguration $configuration, array $allowedPropertyNames, array $options, $dataType) {
 		$propertyNames = $this->reflectionService->getClassPropertyNames($dataType);
 
 		list($allowedLevelPropertyNames, $allowedPropertyNamesForSubProperties) = $this->separateLevels($allowedPropertyNames);
@@ -122,7 +178,25 @@ class PropertyMappingService {
 		}
 	}
 
-	protected function separateLevels($propertyNames) {
+	/**
+	 * Separates property names into accordant levels.
+	 *
+	 * **Example**
+	 *
+	 * `array('first', 'first.something', 'second.third', 'fourth')`
+	 *
+	 * will result in
+	 *
+	 * `array(
+	 *   array('first', 'second', 'fourth'),
+	 *   array('first' => array('something'), 'second' => array('third'))
+	 * )
+	 * `
+	 *
+	 * @param array $propertyNames Property names to be separated
+	 * @return array Separated properties - first index contains current main level
+	 */
+	protected function separateLevels(array $propertyNames) {
 		$allowedLevelPropertyNames = array();
 		$allowedPropertyNamesForSubProperties = array();
 
@@ -143,9 +217,13 @@ class PropertyMappingService {
 	}
 
 	/**
-	 * @param \TYPO3\Flow\Mvc\Controller\Argument $argument
-	 * @param string $actionName
-	 * @return NULL|array
+	 * Determines settings for a given controller argument.
+	 * These settings depend on the entity to be mapped, roles of the current Account entity
+	 * and the calling controller action name that will later on use the mapped properties.
+	 *
+	 * @param \TYPO3\Flow\Mvc\Controller\Argument $argument Controller argument
+	 * @param string $actionName Current controller action name for with arguments shall be used
+	 * @return NULL|array Settings array or NULL if none where found
 	 */
 	protected function determineSettings(\TYPO3\Flow\Mvc\Controller\Argument $argument, $actionName) {
 		$settings = NULL;

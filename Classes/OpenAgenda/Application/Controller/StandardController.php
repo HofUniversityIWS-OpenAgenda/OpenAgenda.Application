@@ -3,7 +3,6 @@ namespace OpenAgenda\Application\Controller;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "OpenAgenda.Application".*
- *                                                                        *
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
@@ -25,6 +24,10 @@ class StandardController extends AbstractController {
 	protected $now;
 
 	/**
+	 * Default and basic action that is called if nothing else applied.
+	 * This method passes to view if anybody is logged in or redirects
+	 * to the authentication controller to ask for user credentials.
+	 *
 	 * @return void
 	 */
 	public function indexAction() {
@@ -33,6 +36,11 @@ class StandardController extends AbstractController {
 		}
 	}
 
+	/**
+	 * Pings the server and sends the current timestamp.
+	 *
+	 * @return void
+	 */
 	public function pingAction() {
 		$value = array(
 			'time' => $this->now->format('U')

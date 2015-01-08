@@ -3,7 +3,6 @@ namespace OpenAgenda\Application\Domain\Repository;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "OpenAgenda.Application".*
- *                                                                        *
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
@@ -20,7 +19,9 @@ class ElectronicAddressRepository extends \TYPO3\Party\Domain\Repository\PartyRe
 	const ENTITY_CLASSNAME = 'TYPO3\\Party\\Domain\\Model\\ElectronicAddress';
 
 	/**
-	 * @param array $mailAddresses
+	 * Finds ElectronicAddress entities by plain mail addresses.
+	 *
+	 * @param array|string[] $mailAddresses Plain mail addresses
 	 * @return \TYPO3\Flow\Persistence\QueryResultInterface|\TYPO3\Party\Domain\Model\ElectronicAddress[]
 	 */
 	public function findByMailAddresses(array $mailAddresses) {

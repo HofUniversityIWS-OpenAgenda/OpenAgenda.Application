@@ -3,7 +3,6 @@ namespace OpenAgenda\Application\Domain\Repository;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "OpenAgenda.Application".*
- *                                                                        *
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
@@ -11,6 +10,7 @@ use TYPO3\Flow\Persistence\Repository;
 
 /**
  * Class AbstractRepository
+ *
  * @Flow\Scope("singleton")
  * @package OpenAgenda\Application\Domain\Repository
  * @author Oliver Hader <oliver@typo3.org>
@@ -33,8 +33,10 @@ class AbstractRepository extends Repository {
 	}
 
 	/**
-	 * @param object $subject
-	 * @return NULL|string
+	 * Identifies an entity by it's persisted UUID.
+	 *
+	 * @param object $subject The entity to be worked on
+	 * @return NULL|string The persisted UUID (if any)
 	 */
 	protected function identify($subject) {
 		return $this->persistenceManager->getIdentifierByObject($subject);

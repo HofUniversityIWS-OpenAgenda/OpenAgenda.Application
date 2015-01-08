@@ -7,12 +7,17 @@ namespace OpenAgenda\Application\View;
 
 /**
  * Class MessageView
+ *
+ * A view that is used during message rendering.
+ *
  * @package OpenAgenda\Application\View
  * @author Oliver Hader <oliver@typo3.org>
  */
 class MessageView extends \TYPO3\Fluid\View\StandaloneView {
 
 	/**
+	 * Gets the subject once the view has been rendered.
+	 *
 	 * @return string
 	 */
 	public function getSubject() {
