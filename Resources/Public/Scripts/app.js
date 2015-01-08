@@ -1,10 +1,34 @@
+/**
+ * Main Module of OpenAgenda. Injects all needed modules.
+ *
+ * @module App
+ * @author Thomas Winkler <thomas.winkler@hof-university.de>
+ * @author Andreas Weber <andreas.weber@hof-university.de>
+ */
+
+/**
+ * @description Main module for OpenAgenda. Its used to inject all needed Modules and to configure the App. See the example below, how the app configures the route-provider.
+ * @var  Application
+ *
+ * @example Application.config(['$routeProvider',function($routeProvider) {
+         $routeProvider.
+            when('/dashboard', {
+                templateUrl: '/template/dashboard/index.html',
+                controller: 'DashboardCtrl',
+                label: 'Dashboard'
+            }).
+            otherwise({
+                redirectTo: '/dashboard'
+            });
+    }]);
+ */
 var Application = angular.module('OpenAgenda', ['ngRoute', 'ngAnimate','ngResource', 'angularFileUpload','ng-breadcrumbs', 'xeditable', 'autocomplete',
     'ApplicationControllers','CommonFactories','CommonDirectives', 'CommonServices', 'TopBar','Dashboard', 'Menu','Meeting', 'Task','OpenAgenda.Data', 'Setting', 'Http', 'ngSanitize',
     'ui.calendar','ui.bootstrap']);
 
+
 Application.config(['$routeProvider',
     function($routeProvider) {
-
         $routeProvider.
             when('/dashboard', {
                 templateUrl: '/template/dashboard/index.html',

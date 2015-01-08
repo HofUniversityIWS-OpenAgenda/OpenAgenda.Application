@@ -1,24 +1,38 @@
 /**
- * Created by Thomas on 02.12.14.
- */
-/**
- * This Module is used for editing and showing Meetings
+ * @class angular_module.Meeting
+ * @memberOf angular_module
+ * @description This Module is used for editing and showing Meetings
  *
  * @author Thomas Winkler <thomas.winkler@hof-university.de>
  */
 angular.module("Meeting")
+    /**
+     * @class angular_module.Meeting.MeetingEditCtrl
+     */
     .controller('MeetingEditCtrl', ['$scope', '$filter', '$http', '$rootScope', '$location', '$routeParams', '$resource', "breadcrumbs", 'FileUploader', "MeetingResourceHelper", 'CommonHelperMethods', 'OpenAgenda.Data.Utility', 'ModalDialog',
         function ($scope, $filter, $http, $rootScope, $location, $routeParams, $resource, breadcrumbs, FileUploader, MeetingResourceHelper, CommonHelperMethods, oaUtility, ModalDialog) {
+            /**@memberOf angular_module.Meeting.MeetingEditCtrl */
             $scope.breadcrumbs = breadcrumbs;
+            /**@memberOf angular_module.Meeting.MeetingEditCtrl */
             $scope.loading = true;
 
             console.log("Meeting Edit Controller loaded");
 
+            /**@memberOf angular_module.Meeting.MeetingEditCtrl */
             $scope.mailAddresses = [];
+            /**@memberOf angular_module.Meeting.MeetingEditCtrl */
             $scope.meetingId = $routeParams.meetingId;
+            /**@memberOf angular_module.Meeting.MeetingEditCtrl */
             $scope.uploaders = [];
+            /**@memberOf angular_module.Meeting.MeetingEditCtrl */
             $scope.remoteUsers = [];
 
+            /**
+             *
+             * @param count {int}
+             * @constructor
+             * @memberOf angular_module.Meeting.MeetingEditCtrl
+             */
             function AgendaItem(count) {
                 this.title = null;
                 this.description = null;
@@ -27,6 +41,11 @@ angular.module("Meeting")
                 $scope.uploaders.push(new FileUploader());
             }
 
+            /**
+             *
+             * @constructor
+             * @memberOf angular_module.Meeting.MeetingEditCtrl
+             */
             function Meeting() {
                 this.endDate = null;
                 this.startDate = null;
@@ -38,6 +57,11 @@ angular.module("Meeting")
                 this.invitations = [];
             }
 
+            /**
+             * @param personIdentity {string}
+             * @constructor
+             * @memberOf angular_module.Meeting.MeetingEditCtrl
+             */
             function Invitation(personIdentity) {
                 this.participant = personIdentity;
             }
@@ -82,10 +106,17 @@ angular.module("Meeting")
                 $scope.meeting = new Meeting();
             }
 
+            /**
+             * @function
+             * @memberOf angular_module.Meeting.MeetingEditCtrl
+             */
             $scope.addNewAgendaItem = function () {
                 $scope.meeting.agendaItems.push(new AgendaItem($scope.meeting.agendaItems.length + 1));
             };
-
+            /**
+             * @function
+             * @memberOf angular_module.Meeting.MeetingEditCtrl
+             */
             $scope.removeAgendaItem = function (idx) {
                 $scope.meeting.agendaItems.splice(idx, 1);
                 $scope.uploaders.splice(idx, 1);
@@ -94,7 +125,10 @@ angular.module("Meeting")
                     $scope.meeting.agendaItems[i].sorting -= 1;
                 }
             };
-
+            /**
+             * @function
+             * @memberOf angular_module.Meeting.MeetingEditCtrl
+             */
             $scope.addNewInvitation = function (mail) {
                 var single_User = $filter('filter')($scope.remoteUsers, function (person) {
                     return person.$mail === mail;
@@ -109,15 +143,24 @@ angular.module("Meeting")
                     $scope.meeting.invitations.push(new Invitation(single_User.__identity))
 
             };
-
+            /**
+             * @function
+             * @memberOf angular_module.Meeting.MeetingEditCtrl
+             */
             $scope.deleteInvitation = function (idx) {
                 $scope.meeting.invitations.splice(idx, 1);
             };
-
+            /**
+             * @function
+             * @memberOf angular_module.Meeting.MeetingEditCtrl
+             */
             $scope.$watchCollection('meeting', function (newValue, oldValue) {
                 //console.log(newValue);
             });
-
+            /**
+             * @function
+             * @memberOf angular_module.Meeting.MeetingEditCtrl
+             */
             $scope.sendMeetingData = function () {
                 if ($scope.checkEntries()) {
 
@@ -170,7 +213,10 @@ angular.module("Meeting")
             $scope.updateMailAddresses = function (typed) {
 
             };
-
+            /**
+             * @function
+             * @memberOf angular_module.Meeting.MeetingEditCtrl
+             */
             $scope.checkEntries = function () {
                 var meetingEntries = false;
                 var agendaItems = true;
@@ -196,11 +242,17 @@ angular.module("Meeting")
                 else
                     return false;
             };
-
+            /**
+             * @function
+             * @memberOf angular_module.Meeting.MeetingEditCtrl
+             */
             $scope.getUploader = function (idx) {
                 return $scope.uploaders[idx];
             };
-
+            /**
+             * @function
+             * @memberOf angular_module.Meeting.MeetingEditCtrl
+             */
             $scope.reloadTasks = function () {
                 MeetingResourceHelper.getMeetingDetail($routeParams.meetingId).get(function (data) {
                     $scope.meeting.tasks = data.tasks;

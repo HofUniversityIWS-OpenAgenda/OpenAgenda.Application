@@ -1,5 +1,7 @@
 /**
- * This Module defines Directives for changing the HTML Output
+ * @module CommonDirectives
+ *
+ * @description This Module defines Directives for changing the HTML Output
  *
  * Use it as HTML-Tags
  * Examples:
@@ -10,16 +12,20 @@
  * @author Thomas Winkler <thomas.winkler@hof-university.de>
  */
 
+
 angular.module("CommonDirectives", [])
+
     /**
      * Retrieves JSON person data from by given entity identifier.
      *
-     * ```html
+     * @example
      *        <div oa-person-resolver="someScopeVariable.identity as person">
      *          {{person.name.firstName}} {{person.name.lastName}}
      *        </div>
-     * ```
      * @author Oliver Hader <oliver@typo3.org>
+     * @function directive
+     * @param  {string} "oaPersonResolver" Identifier
+     * @param {function} function($parse,$http)
      * @note Scoping in AngularJS' modal windows is tricky and won't work out of the box!
      */
     .directive('oaPersonResolver', function($parse, $http) {
@@ -65,7 +71,13 @@ angular.module("CommonDirectives", [])
         };
     })
     /**
+     * @description Changes the output for the Task Status.
      * @author Thomas Winkler <thomas.winkler@hof-university.de>
+     * @function directive
+     * @param  {string} "taskStatus" Identifier
+     * @param {function} function()
+     *
+     * @example <td task-status="true"></td>
      */
     .directive('taskStatus', function () {
 
@@ -79,7 +91,13 @@ angular.module("CommonDirectives", [])
         };
     })
     /**
+     * @description Changes the output for the Meeting Status.
      * @author Andreas Weber <andreas.weber@hof-university.de>
+     * @function directive
+     * @param  {string} "meetingStatus" Identifier
+     * @param {function} function()
+     *
+     * @example <td meeting-status="true"></td>
      */
     .directive('meetingStatus', function () {
 
@@ -95,7 +113,13 @@ angular.module("CommonDirectives", [])
         };
     })
     /**
+     * @description Changes the HTML-Output for the Invitation Status.
      * @author Thomas Winkler <thomas.winkler@hof-university.de>
+     * @function directive
+     * @param  {string} "invitationStatus" Identifier
+     * @param {function} function()
+     *
+     * @example <td invitation-status="true"></td>
      */
     .directive('invitationStatus', function () {
 
@@ -108,7 +132,13 @@ angular.module("CommonDirectives", [])
         };
     })
     /**
+     * @description Changes the mouse pointer to a little hand, if a HTML-element triggers an action.
      * @author Thomas Winkler <thomas.winkler@hof-university.de>
+     * @function directive
+     * @param  {string} "pointMe" Identifier
+     * @param {function} function()
+     *
+     * @example <td point-me="true"></td>
      */
     .directive("pointMe", function () {
         return {
@@ -121,8 +151,14 @@ angular.module("CommonDirectives", [])
         };
     })
     /**
+     * @description This directive is used, to add optimize the double-click/tap-behavior
      * @author Thomas Winkler <thomas.winkler@hof-university.de>
-     */
+     * @function directive
+     * @param  {string} "timedClick" Identifier
+     * @param {function} function()
+     *
+     * @example <td timed-click="true"></td>
+    */
     .directive('timedClick', ['$parse', function ($parse) {
         return {
             restrict: 'A',

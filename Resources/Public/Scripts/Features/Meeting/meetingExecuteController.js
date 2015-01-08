@@ -1,17 +1,30 @@
 /**
+ * @memberOf angular_module
+ *
  * @author Andreas Weber <andreas.weber@hof-university.de>
  */
 
 angular.module("Meeting")
+/**
+ * @class angular_module.Meeting.MeetingExecuteCtrl
+ */
     .controller('MeetingExecuteCtrl', ['$scope', '$rootScope', '$interval', '$location', '$http', '$filter', '$routeParams', '$resource', "breadcrumbs", "MeetingResourceHelper", "OpenAgenda.Data.Utility", "CommonHelperMethods", "ModalDialog",
         function ($scope, $rootScope, $interval, $location, $http, $filter, $routeParams, $resource, breadcrumbs, MeetingResourceHelper, oaUtility, CommonHelperMethods, ModalDialog) {
+            /**@memberOf angular_module.Meeting.MeetingExecuteCtrl */
             $scope.meetingId = $routeParams.meetingId;
+            /**@memberOf angular_module.Meeting.MeetingExecuteCtrl */
             $scope.breadcrumbs = breadcrumbs;
 
             console.log("Meeting Execute Controller loaded");
-
+            /**@memberOf angular_module.Meeting.MeetingExecuteCtrl */
             $scope.meeting = [];
+            /**@memberOf angular_module.Meeting.MeetingExecuteCtrl */
             var getnewMeeting;
+            /**
+             *
+             * @constructor
+             * @memberOf angular_module.Meeting.MeetingExecuteCtrl
+             */
             function reloadMeetingData() {
                 MeetingResourceHelper.getMeetingDetail($routeParams.meetingId).get(function (data) {
                     if (data.startDate) {

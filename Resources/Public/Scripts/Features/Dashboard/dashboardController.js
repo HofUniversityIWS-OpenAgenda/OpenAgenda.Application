@@ -1,9 +1,15 @@
 /**
- * This Module defines the Dashboard
+ * @class angular_module.Dashboard
+ * @memberOf angular_module
+ * @description This Module defines the Dashboard
  *
  * @author Thomas Winkler <thomas.winkler@hof-university.de>
  */
+
 angular.module("Dashboard", [])
+    /**
+     * @class angular_module.Dashboard.DashboardCtrl
+     */
     .controller('DashboardCtrl', ['$scope', '$rootScope', '$resource', "breadcrumbs", "MeetingResourceHelper", 'TaskResourceHelper', 'CommonHelperMethods', 'CommonResourceHelper', 'ModalDialog',
         function ($scope, $rootScope, $http, breadcrumbs, MeetingResourceHelper, TaskResourceHelper, CommonHelperMethods, CommonResourceHelper, ModalDialog) {
             console.log("Dashboard Controller loaded");
@@ -13,9 +19,16 @@ angular.module("Dashboard", [])
             $scope.upcomingMeetings = [];
 
             $scope.events = [];
+            /**
+             * @memberOf angular_module.Dashboard.DashboardCtrl
+             */
             $scope.personalInfos = CommonResourceHelper.getPersonalInfos().get(function () {
                 $scope.currentUser = $scope.personalInfos.person.name.firstName;
             });
+
+            /**
+             * @memberOf angular_module.Dashboard.DashboardCtrl
+             */
             $scope.meetingList = MeetingResourceHelper.getMeetingList().query(function () {
                 angular.forEach($scope.meetingList, function (meeting) {
                     meeting.scheduledStartDate = CommonHelperMethods.getDateFromJSONString(meeting.scheduledStartDate);
@@ -33,6 +46,11 @@ angular.module("Dashboard", [])
                 alert('request failed');
             });
 
+            /**
+             * @function reloadTasks
+             * @memberOf angular_module.Dashboard.DashboardCtrl
+             * @description Reload Tasks. Reloads all of the users Tasks.
+             */
             $scope.reloadTasks = function () {
                 $scope.needToBeDoneTasks = TaskResourceHelper.getTaskList(false).query(function (data) {
                     angular.forEach($scope.needToBeDoneTasks, function (task) {
@@ -49,7 +67,11 @@ angular.module("Dashboard", [])
             };
             $scope.reloadTasks();
 
-
+            /**
+             * @function findUpcomingMeetings
+             * @memberOf angular_module.Dashboard.DashboardCtrl
+             * @description Get new Meetings
+             */
             $scope.findUpcomingMeetings = function (meetingList) {
                 //search for upcoming Meetings
                 var now = new Date();
@@ -59,19 +81,26 @@ angular.module("Dashboard", [])
                     }
                 });
             };
-
+            /**
+             * @function getNotifications
+             * @memberOf angular_module.Dashboard.DashboardCtrl
+             * @description Get all Notifications from $rootScope
+             */
             $scope.getNotifications = function () {
                 return $rootScope.notifications;
             };
             //$rootScope.changeToolBar("<div>IF NEEDED TOOLBAR</div>");
         }])
 
-    /**  Controller especially for the Calendar in the Dashboard
+    /**
+     * @description Controller especially for the Calendar in the Dashboard
      *   Due to a bug in the Library only meetings of the current view are shown in the Calendar
+     * @class angular_module.Dashboard.DashboardCalendarCtrl
      *
-     *   @author Andreas Weber <andreas.weber@hof-university.de>
-     * */
-    .controller('DashboardCalendarCtrl', ['$scope', '$compile', "uiCalendarConfig", '$location',
+     * @author Andreas Weber <andreas.weber@hof-university.de>
+     * @memberOf angular_module.Dashboard
+     */
+     .controller('DashboardCalendarCtrl', ['$scope', '$compile', "uiCalendarConfig", '$location',
         function ($scope, $compile, uiCalendarConfig, $location) {
             var date = new Date();
             var d = date.getDate();
@@ -91,7 +120,6 @@ angular.module("Dashboard", [])
                 } else {
                     // Fehler
                 }
-
             };
             /* Alert on Drop */
             $scope.alertOnDrop = function (event, delta, revertFunc, jsEvent, ui, view) {

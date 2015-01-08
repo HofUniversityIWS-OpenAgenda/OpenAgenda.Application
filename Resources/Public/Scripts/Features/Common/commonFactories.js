@@ -1,18 +1,40 @@
 /**
- * This Module defines custom Factories to use in the whole application
+ * @module CommonFactories
+ *
+ * @description This Module defines custom Factories to use in the whole application
  *
  * @author Thomas Winkler <thomas.winkler@hof-university.de>
  */
 
 angular.module("CommonFactories", [])
+    /**
+     * @description Converts the date string, which is delivered from backend.
+     * @author Thomas Winkler <thomas.winkler@hof-university.de>
+     * @function factory
+     * @param {string} "CommonHelperMethods" Identifier
+     * @param {function} function()
+     * @deprecated Not used anymore
+     */
     .factory('CommonHelperMethods', function () {
         return {
-            // @deprecated Not used anymore
             getDateFromJSONString: function (string) {
                 return new Date(string);
             }
         };
     })
+    /**
+     * @description Gets the user's personal infos as an $resource object.
+     * @author Thomas Winkler <thomas.winkler@hof-university.de>
+     * @function factory
+     * @param {string} "CommonResourceHelper" Identifier
+     * @param {string} '$resource'
+     * @param {function} function($resource)
+     * @returns {resource} infos
+     *
+     * @example  $scope.personalInfos = CommonResourceHelper.getPersonalInfos().get(function () {
+                $scope.currentUser = $scope.personalInfos.person.name.firstName;
+            });
+     */
     .factory('CommonResourceHelper', ['$resource', function ($resource) {
         return {
             getPersonalInfos: function () {
@@ -23,6 +45,17 @@ angular.module("CommonFactories", [])
         };
 
     }])
+    /**
+     * @description Gets the all Meetings or one specific Meeting by ID
+     *
+     * @author Thomas Winkler <thomas.winkler@hof-university.de>
+     * @function factory
+     * @param {string} "MeetingResourceHelper" Identifier
+     * @param {string} '$resource'
+     * @param {function} function($resource)
+     * @returns {resource}
+     * @returns {array}
+     */
     .factory('MeetingResourceHelper', ['$resource', function ($resource) {
         return {
             getMeetingList: function () {
@@ -38,6 +71,19 @@ angular.module("CommonFactories", [])
         };
 
     }])
+    /**
+     * @description Gets mine or all others Tasks. Also returns details of a specific Task by ID
+     *
+     * @author Thomas Winkler <thomas.winkler@hof-university.de>
+     * @function factory
+     * @param {string} "TaskResourceHelper" Identifier
+     * @param {string} '$resource'
+     * @param {function} function($resource)
+     * @returns {function} getTaskList
+     * @returns {function} getMyTaskList
+     * @returns {function} getOthresTaskList
+     * @returns {function} getTaskDetail
+     */
     .factory('TaskResourceHelper', ['$resource', function ($resource) {
         return {
             getTaskList: function (all) {
@@ -67,8 +113,16 @@ angular.module("CommonFactories", [])
             }
         };
     }])
-    /*
-     * This Method is used to indicate the Help feature in this version of OpenAgenda.
+    /**
+     * @description This Method is used to indicate the Help feature in this version of OpenAgenda.
+     *
+     * @author Thomas Winkler <thomas.winkler@hof-university.de>
+     * @function factory
+     * @param {string} "Help" Identifier
+     * @param {string} '$location'
+     * @param {string} '$ModalDialog'
+     * @param {function} '$ModalDialog'
+     * @returns {function} show
      */
     .factory('Help', ['$location','ModalDialog', function ($location, ModalDialog) {
         return {
