@@ -1,5 +1,7 @@
+
 /**
- * This Module contains the list of all tasks
+ * @memberOf angular_module
+ * @description This Module contains the list of all tasks.
  * Its possible to either view only personal tasks or to view all tasks from others
  *
  * @author Thomas Winkler <thomas.winkler@hof-university.de>
@@ -7,12 +9,21 @@
 
 
 angular.module("Task", [])
+/**
+ * @class angular_module.Task.TaskIndexCtrl
+ */
     .controller('TaskIndexCtrl', ['$scope', '$rootScope', '$location', '$resource', "breadcrumbs", "MeetingResourceHelper", "TaskResourceHelper", "CommonHelperMethods",
         function ($scope, $rootScope, $location, $resource, breadcrumbs, MeetingResourceHelper, TaskResourceHelper, CommonHelperMethods) {
-            console.log("Task Index Controller Loaded");
+            console.log("Task Index Controller Loaded")
+            /**@memberOf angular_module.Task.TaskIndexCtrl*/
             $scope.breadcrumbs = breadcrumbs;
-
+            /**@memberOf angular_module.Task.TaskIndexCtrl*/
             $scope.loading = true;
+            /**
+             * @function
+             * @memberOf angular_module.Task.TaskIndexCtrl
+             * @description Fetches all Tasks from backend and reload Tasks.
+             */
             $scope.reloadTasks = function () {
                 $scope.taskList = [];
 
@@ -38,8 +49,13 @@ angular.module("Task", [])
                 $scope.showAllTasksCheckboxDisabled = true;
                 $scope.reloadTasks();
             })
-            //temporary set meeting name as meeting
-            // @deprecated Not used anymore, use task.$meeting.title instead
+
+            /**
+             * @function
+             * @memberOf angular_module.Task.TaskIndexCtrl
+             * @description Get the name of selected Task from backend. Sets the name of selected Task
+             * @param {object} task Selected Task
+             */
             function getMeetingName(task) {
                 MeetingResourceHelper.getMeetingDetail(task.meeting).get(function (data) {
                     task.meeting = data.title

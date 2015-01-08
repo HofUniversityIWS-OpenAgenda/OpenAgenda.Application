@@ -1,10 +1,22 @@
 /**
- * User Profile controller
+ * @memberOf angular_module
+ *
  * @author Oliver Hader <oliver@typo3.org>
+ *
+ * @description User Profile controller
  */
 angular.module("Setting", [])
+
 .controller('userProfileCtrl', ['$scope', '$http', 'OpenAgenda.Data.Utility', 'ModalDialog', 'breadcrumbs',
-    function($scope, $http, oaUtility, ModalDialog, breadcrumbs){
+        /**
+         * @class angular_module.Setting.UserProfileCtrl
+         * @param $scope {object}
+         * @param $http {object}
+         * @param oaUtility {object}
+         * @param ModalDialog {object}
+         * @param breadcrumbs {object}
+         */
+        function($scope, $http, oaUtility, ModalDialog, breadcrumbs){
         $scope.breadcrumbs = breadcrumbs;
         $scope.profile = {};
         // @todo Password change is missing

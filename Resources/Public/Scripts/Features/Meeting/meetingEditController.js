@@ -29,7 +29,7 @@ angular.module("Meeting")
 
             /**
              *
-             * @param count {int}
+             * @param count {int} Count used for sorting
              * @constructor
              * @memberOf angular_module.Meeting.MeetingEditCtrl
              */
@@ -58,7 +58,7 @@ angular.module("Meeting")
             }
 
             /**
-             * @param personIdentity {string}
+             * @param personIdentity {string} ID of a person
              * @constructor
              * @memberOf angular_module.Meeting.MeetingEditCtrl
              */
@@ -109,6 +109,7 @@ angular.module("Meeting")
             /**
              * @function
              * @memberOf angular_module.Meeting.MeetingEditCtrl
+             * @description Adds a new AgendaItem to the agendaItems.
              */
             $scope.addNewAgendaItem = function () {
                 $scope.meeting.agendaItems.push(new AgendaItem($scope.meeting.agendaItems.length + 1));
@@ -116,6 +117,8 @@ angular.module("Meeting")
             /**
              * @function
              * @memberOf angular_module.Meeting.MeetingEditCtrl
+             * @param {int} idx Index of AgendaItem
+             * @description Removes a selected AgendaItem from the agendaItems.
              */
             $scope.removeAgendaItem = function (idx) {
                 $scope.meeting.agendaItems.splice(idx, 1);
@@ -128,6 +131,8 @@ angular.module("Meeting")
             /**
              * @function
              * @memberOf angular_module.Meeting.MeetingEditCtrl
+             * @param {string} mail Mail adddres of entered user.
+             * @description Adds a new Invitation to the Meeting. If mail address matches with one of the users, he will be added to the invitations.
              */
             $scope.addNewInvitation = function (mail) {
                 var single_User = $filter('filter')($scope.remoteUsers, function (person) {
@@ -145,21 +150,21 @@ angular.module("Meeting")
             };
             /**
              * @function
+             * @param {int} idx Index of selected Invitation
              * @memberOf angular_module.Meeting.MeetingEditCtrl
+             * @description Removes a selected Invitation
              */
             $scope.deleteInvitation = function (idx) {
                 $scope.meeting.invitations.splice(idx, 1);
             };
-            /**
-             * @function
-             * @memberOf angular_module.Meeting.MeetingEditCtrl
-             */
+
             $scope.$watchCollection('meeting', function (newValue, oldValue) {
                 //console.log(newValue);
             });
             /**
              * @function
              * @memberOf angular_module.Meeting.MeetingEditCtrl
+             * @description Sends the new or edited Meeting. Displays a error dialog, if the post request went wrong or not all needed information was filled in.
              */
             $scope.sendMeetingData = function () {
                 if ($scope.checkEntries()) {
@@ -216,6 +221,7 @@ angular.module("Meeting")
             /**
              * @function
              * @memberOf angular_module.Meeting.MeetingEditCtrl
+             * @description This function checks all form entries for correctness.
              */
             $scope.checkEntries = function () {
                 var meetingEntries = false;
@@ -245,6 +251,8 @@ angular.module("Meeting")
             /**
              * @function
              * @memberOf angular_module.Meeting.MeetingEditCtrl
+             * @param {int} Index of used AgendaItem
+             * @description Not used in this version. Should provide a file uploader per AgendaItem
              */
             $scope.getUploader = function (idx) {
                 return $scope.uploaders[idx];
@@ -252,6 +260,7 @@ angular.module("Meeting")
             /**
              * @function
              * @memberOf angular_module.Meeting.MeetingEditCtrl
+             * @description Fetches the current Meeting information from beackend and reloads tasks.
              */
             $scope.reloadTasks = function () {
                 MeetingResourceHelper.getMeetingDetail($routeParams.meetingId).get(function (data) {

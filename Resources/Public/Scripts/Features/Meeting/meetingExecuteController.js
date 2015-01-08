@@ -22,7 +22,7 @@ angular.module("Meeting")
             var getnewMeeting;
             /**
              *
-             * @constructor
+             * @function
              * @memberOf angular_module.Meeting.MeetingExecuteCtrl
              */
             function reloadMeetingData() {

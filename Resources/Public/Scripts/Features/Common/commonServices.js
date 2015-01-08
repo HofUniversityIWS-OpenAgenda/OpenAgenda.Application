@@ -7,7 +7,7 @@
  */
 angular.module("CommonServices", [])
     /**
-     * @description This service privides a generic modal Dialog.
+     * @description This service provides a generic modal Dialog. It should be used to show a simple dialog.
      *
      * @author Thomas Winkler <thomas.winkler@hof-university.de>
      * @function service

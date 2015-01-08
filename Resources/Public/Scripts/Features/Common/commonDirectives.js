@@ -39,10 +39,10 @@ angular.module("CommonDirectives", [])
                 resolvedScope = scope;
             }
 
-            return resolvedScope;
-        }
+     return resolvedScope;
+     }
 
-        function parseComponents(expression) {
+     function parseComponents(expression) {
             var matches = expression.match(/^(.+) as (.+)$/i);
             if (matches !== null) {
                 return {
@@ -56,7 +56,7 @@ angular.module("CommonDirectives", [])
             }
         }
 
-        return {
+     return {
             link: function(scope, element, attr) {
                 var $scope = resolveScope(scope, attr);
                 var components = parseComponents(attr.oaPersonResolver);
@@ -69,9 +69,9 @@ angular.module("CommonDirectives", [])
                     });
             }
         };
-    })
-    /**
-     * @description Changes the output for the Task Status.
+     })
+     /**
+     * @description Changes the HTML-output for the Task Status.
      * @author Thomas Winkler <thomas.winkler@hof-university.de>
      * @function directive
      * @param  {string} "taskStatus" Identifier
@@ -91,7 +91,7 @@ angular.module("CommonDirectives", [])
         };
     })
     /**
-     * @description Changes the output for the Meeting Status.
+     * @description Changes the HTML-output for the Meeting Status.
      * @author Andreas Weber <andreas.weber@hof-university.de>
      * @function directive
      * @param  {string} "meetingStatus" Identifier

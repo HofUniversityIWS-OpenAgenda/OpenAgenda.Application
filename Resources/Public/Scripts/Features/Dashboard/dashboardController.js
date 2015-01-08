@@ -49,7 +49,7 @@ angular.module("Dashboard", [])
             /**
              * @function reloadTasks
              * @memberOf angular_module.Dashboard.DashboardCtrl
-             * @description Reload Tasks. Reloads all of the users Tasks.
+             * @description Reload Tasks. Reloads all of the users Tasks. Opens a alert, if request fails
              */
             $scope.reloadTasks = function () {
                 $scope.needToBeDoneTasks = TaskResourceHelper.getTaskList(false).query(function (data) {
@@ -70,7 +70,7 @@ angular.module("Dashboard", [])
             /**
              * @function findUpcomingMeetings
              * @memberOf angular_module.Dashboard.DashboardCtrl
-             * @description Get new Meetings
+             * @description Collect only new and upcoming meetings.
              */
             $scope.findUpcomingMeetings = function (meetingList) {
                 //search for upcoming Meetings
@@ -84,7 +84,7 @@ angular.module("Dashboard", [])
             /**
              * @function getNotifications
              * @memberOf angular_module.Dashboard.DashboardCtrl
-             * @description Get all Notifications from $rootScope
+             * @description Get all globally stored Notifications from $rootScope
              */
             $scope.getNotifications = function () {
                 return $rootScope.notifications;

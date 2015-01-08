@@ -1,5 +1,8 @@
 /**
- * General data handling and interaction methods
+ * @module Data
+ *
+ * @description General data handling and interaction methods
+ *
  * @author Oliver Hader <oliver@typo3.org>
  */
 angular.module('OpenAgenda.Data', [])

@@ -14,6 +14,7 @@ angular.module("CommonFactories", [])
      * @param {string} "CommonHelperMethods" Identifier
      * @param {function} function()
      * @deprecated Not used anymore
+     * @returns {function} getDateFromJSONString
      */
     .factory('CommonHelperMethods', function () {
         return {
@@ -28,8 +29,7 @@ angular.module("CommonFactories", [])
      * @function factory
      * @param {string} "CommonResourceHelper" Identifier
      * @param {string} '$resource'
-     * @param {function} function($resource)
-     * @returns {resource} infos
+     * @returns {function} getPersonalInfos
      *
      * @example  $scope.personalInfos = CommonResourceHelper.getPersonalInfos().get(function () {
                 $scope.currentUser = $scope.personalInfos.person.name.firstName;
@@ -53,8 +53,8 @@ angular.module("CommonFactories", [])
      * @param {string} "MeetingResourceHelper" Identifier
      * @param {string} '$resource'
      * @param {function} function($resource)
-     * @returns {resource}
-     * @returns {array}
+     * @returns {function} getMeetingList
+     * @returns {function} getMeetingDetail
      */
     .factory('MeetingResourceHelper', ['$resource', function ($resource) {
         return {

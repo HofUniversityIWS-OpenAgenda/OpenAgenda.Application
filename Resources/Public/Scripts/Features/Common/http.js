@@ -1,5 +1,7 @@
 /**
- * Http module for capturing requests
+ * @module Http
+ *
+ * @description Http module for capturing requests
  *
  * Use the configuration property *proxy* to enable this feature.
  * The HttpInterceptor takes care of failed requests.
@@ -9,7 +11,7 @@
  * Changes to the online status are issued using the $rootScope.
  * $rootScope.$watch('online', function(newValue, oldValue) { ... });
  *
- * Example:
+ * @example Example:
  * $http.get('url', {}, { proxy: true });
  * $http.get({url: 'url', data: data, proxy: true});
  *
