@@ -14,7 +14,11 @@ use TYPO3\Flow\Annotations as Flow;
  *
  * **Example**
  *
- * `<oa:exception.fallback message="Something went wrong">... do something here</oa:exception.fallback>`
+ * <code>
+ * <oa:exception.fallback message="Something went wrong">
+ * ... do something here
+ * </oa:exception.fallback>
+ * </code>
  *
  * @package OpenAgenda\Application\ViewHelpers\Exception
  * @author Oliver Hader <oliver@typo3.org>

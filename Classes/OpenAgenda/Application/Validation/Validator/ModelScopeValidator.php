@@ -15,14 +15,14 @@ use TYPO3\Flow\Annotations as Flow;
  *
  * **Usage**
  *
- * `@Flow\Validate(argumentName="newAccount", type="OpenAgenda.Application:ModelScope", options={"scopeName"="create"})`
+ * <code>@Flow\Validate(argumentName="newAccount", type="OpenAgenda.Application:ModelScope", options={"scopeName"="create"})</code>
  *
  * **Settings**
  *
  * *in Configuration/Settings.yaml or any other context specific
  * configuration file of the global TYPO3 Flow instance*
  *
- * `
+ * <code>
  * OpenAgenda:
  *   Application:
  *     Validation:
@@ -34,11 +34,11 @@ use TYPO3\Flow\Annotations as Flow;
  *                 validators:
  *                   <validator name>: <validator options>
  *                   <validator name>: <validator options>
- * `
+ * </code>
  *
  * **Example**
  *
- * `
+ * <code>
  * OpenAgenda:
  *   Application:
  *     Validation:
@@ -67,7 +67,7 @@ use TYPO3\Flow\Annotations as Flow;
  *                     minimum: 8
  *                   OpenAgenda\Application\Validation\Validator\SameValidator:
  *                     propertyValue: '$password'
- * `
+ * </code>
  *
  * @package OpenAgenda\Application\Validation\Validator
  * @author Oliver Hader <oliver@typo3.org>

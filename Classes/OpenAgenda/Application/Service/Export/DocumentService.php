@@ -19,7 +19,7 @@ use OpenAgenda\Application\Domain\Model\Meeting;
  * *in Configuration/Settings.yaml or any other context specific
  * configuration file of the global TYPO3 Flow instance*
  *
- * `
+ * <code>
  * OpenAgenda:
  *   Application:
  *     Export:
@@ -33,7 +33,7 @@ use OpenAgenda\Application\Domain\Model\Meeting;
  *           protocol:
  *             templateFile: '%PACKAGE_RESOURCES%/Private/Document/Protocol.html'
  *             documentFile: '%PACKAGE_RESOURCES%/Private/Document/Template.pdf'
- * `
+ * </code>
  *
  * @package OpenAgenda\Application\Service\Export
  * @author Oliver Hader <oliver@typo3.org>

@@ -22,7 +22,7 @@ use TYPO3\Flow\Annotations as Flow;
  *
  * **Example**
  *
- * `
+ * <code>
  *  name: 'Registration'
  *  uriPattern: 'registration/{account}/{@action}/{_time}-{_hash}'
  *  defaults:
@@ -35,7 +35,7 @@ use TYPO3\Flow\Annotations as Flow;
  *      options:
  *        objectType: '\TYPO3\Flow\Security\Account'
  *        processInvalid: true
- * `
+ * </code>
  *
  * @package OpenAgenda\Application\Service
  * @author Oliver Hader <oliver@typo3.org>

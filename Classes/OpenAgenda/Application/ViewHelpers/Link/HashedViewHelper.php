@@ -14,7 +14,13 @@ use TYPO3\Flow\Annotations as Flow;
  *
  * **Example**
  *
- * `<oa:link.hashed action="confirm" controller="Authentication" package="OpenAgenda.Application" arguments="{account: account}" as="uri">`
+ * <code>
+ * <oa:link.hashed action="confirm"
+ *     controller="Authentication" package="OpenAgenda.Application"
+ *     arguments="{account: account}" as="uri">
+ *     {uri}
+ * </oa:link.hashed>
+ * </code>
  *
  * @package OpenAgenda\Application\ViewHelpers\Message
  * @author Oliver Hader <oliver@typo3.org>

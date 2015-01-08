@@ -96,11 +96,17 @@ class ObjectService {
 	 *
 	 * **Example**
 	 *
-	 * callback `$self->format('c')`
+	 * the callback
+	 *
+	 * <code>
+	 * $self->format('c')
+	 * </code>
 	 *
 	 * will result in
 	 *
-	 * `array("className" => "$self", "methodName" => "format", "arguments" => array("c"))`
+	 * <code>
+	 * array("className" => "$self", "methodName" => "format", "arguments" => array("c"))
+	 * </code>
 	 *
 	 * @param string $stringCallback
 	 * @return array|NULL The extracted components or NULL if parsing failed

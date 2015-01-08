@@ -25,7 +25,7 @@ use TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter;
  * *in Configuration/Settings.yaml or any other context specific
  * configuration file of the global TYPO3 Flow instance*
  *
- * `
+ * <code>
  * OpenAgenda:
  *   Application:
  *     PropertyMapping:
@@ -34,11 +34,11 @@ use TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter;
  *           <name of the account role - or 'default' for anybody>:
  *             allow: <array of properties and sub-properties - or '*' for everything>
  *             types: <array of allowed mapping actions - either 'create' or 'modify'>
- * `
+ * </code>
  *
  * **Example**
  *
- * `
+ * <code>
  * OpenAgenda:
  *   Application:
  *     PropertyMapping:
@@ -54,7 +54,7 @@ use TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter;
  *           'OpenAgenda.Application:MeetingManager':
  *             allow: '*'
  *             types: ['modify']
- * `
+ * </code>
  *
  * @Flow\Scope("singleton")
  * @package OpenAgenda\Application\Service\Security
@@ -183,15 +183,18 @@ class PropertyMappingService {
 	 *
 	 * **Example**
 	 *
-	 * `array('first', 'first.something', 'second.third', 'fourth')`
+	 * <code>
+	 * array('first', 'first.something', 'second.third', 'fourth')
+	 * </code>
 	 *
 	 * will result in
 	 *
-	 * `array(
+	 * <code>
+	 * array(
 	 *   array('first', 'second', 'fourth'),
 	 *   array('first' => array('something'), 'second' => array('third'))
 	 * )
-	 * `
+	 * </code>
 	 *
 	 * @param array $propertyNames Property names to be separated
 	 * @return array Separated properties - first index contains current main level

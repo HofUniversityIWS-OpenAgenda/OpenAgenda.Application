@@ -18,7 +18,7 @@ use TYPO3\Flow\Annotations as Flow;
  * *in Configuration/Settings.yaml or any other context specific
  * configuration file of the global TYPO3 Flow instance*
  *
- * `
+ * <code>
  * TYPO3:
  *    Flow:
  *      security:
@@ -29,7 +29,7 @@ use TYPO3\Flow\Annotations as Flow;
  *                className: 'OpenAgenda\Application\Service\Directory\LdapBindService
  *                simulation:
  *                  password: 'password'
- * `
+ * </code>
  *
  * @package OpenAgenda\Application\Service\Directory
  * @author Oliver Hader <oliver@typo3.org>

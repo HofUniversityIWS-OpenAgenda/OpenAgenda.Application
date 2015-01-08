@@ -103,13 +103,13 @@ class SynchronizationService {
 	 * *in Configuration/Settings.yaml or any other context specific
 	 * configuration file of the global TYPO3 Flow instance*
 	 *
-	 * `
+	 * <code>
 	 * OpenAgenda:
 	 *   Application:
 	 *     Authentication:
 	 *       directory:
 	 *         mailIdentifier: 'mail'
-	 * `
+	 * </code>
 	 *
 	 * @param \TYPO3\Flow\Security\Account $account
 	 * @param array $ldapSearchResult
@@ -147,12 +147,12 @@ class SynchronizationService {
 	 * *in Configuration/Settings.yaml or any other context specific
 	 * configuration file of the global TYPO3 Flow instance*
 	 *
-	 * `
+	 * <code>
 	 * OpenAgenda:
 	 *   Application:
 	 *     Authentication:
 	 *       defaultRole: 'OpenAgenda.Application:Participant'
-	 * `
+	 * </code>
 	 *
 	 * @return string
 	 */

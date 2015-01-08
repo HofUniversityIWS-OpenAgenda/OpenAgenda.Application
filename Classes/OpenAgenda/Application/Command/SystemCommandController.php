@@ -14,7 +14,9 @@ use TYPO3\Flow\Cli\CommandController;
  * This command controller takes care of handling system tasks.
  * Invoke this controller by using a CLI call (e.g. cronjob), like:
  *
- * `./flow system:<action-name>`
+ * <code>
+ * ./flow system:<action-name>
+ * </code>
  *
  * @Flow\Scope("singleton")
  * @package OpenAgenda\Application\Command
@@ -33,7 +35,9 @@ class SystemCommandController extends CommandController {
 	 *
 	 * Invoke by calling
 	 *
-	 * `./flow system:sendmessages`
+	 * <code>
+	 * ./flow system:sendmessages
+	 * </code>
 	 *
 	 * @return void
 	 * @author Oliver Hader <oliver@typo3.org>
