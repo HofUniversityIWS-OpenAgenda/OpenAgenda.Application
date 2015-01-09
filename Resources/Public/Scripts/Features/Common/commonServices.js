@@ -1,7 +1,7 @@
 /**
  * @module CommonServices
  *
- * @description This Module defines custom Services to use in the whole application
+ * @description This Module defines custom Services that are used in the whole application
  *
  * @author Thomas Winkler <thomas.winkler@hof-university.de>
  */

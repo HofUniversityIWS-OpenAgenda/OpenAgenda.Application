@@ -1,6 +1,6 @@
 /**
  * @memberOf angular_module
- * @description TThis Module contains the Meeting Index
+ * @description This Module implements the Meeting Index
  *
  * @author Thomas Winkler <thomas.winkler@hof-university.de>
  */
@@ -31,7 +31,7 @@ angular.module("Meeting", [])
             $scope.breadcrumbs = breadcrumbs;
 
             /**@memberOf angular_module.Meeting.MeetingIndexCtrl
-             * @description Show loading indecator*/
+             * @description Show loading indicator.*/
             $scope.loading = true;
             if (!$rootScope.mic)
                 $rootScope.mic = {};
@@ -39,7 +39,7 @@ angular.module("Meeting", [])
             /**
              * @function
              * @memberOf angular_module.Meeting.MeetingIndexCtrl
-             * @description Reload all Meetings
+             * @description Fetch Meetings from Server. Reload all Meetings.
              */
             function reloadMeetings() {
                 $scope.meetingList = MeetingResourceHelper.getMeetingList().query(function (data) {
@@ -63,6 +63,7 @@ angular.module("Meeting", [])
             /**
              * @function
              * @memberOf angular_module.Meeting.MeetingIndexCtrl
+             * @description Used for Datepicker.
              */
             $scope.toggleMin = function () {
                 $scope.minDate = $scope.minDate ? null : new Date();
@@ -72,7 +73,8 @@ angular.module("Meeting", [])
             /**
              * @function
              * @memberOf angular_module.Meeting.MeetingIndexCtrl
-             * @param {object} event For UI Picker
+             * @param {object} $event For UI Picker
+             * @description Used for Datepicker.
              */
             $scope.openStart = function ($event) {
                 $event.preventDefault();
@@ -82,7 +84,8 @@ angular.module("Meeting", [])
             /**
              * @function
              * @memberOf angular_module.Meeting.MeetingIndexCtrl
-             * @param {object} event For UI Picker
+             * @param {object} $event For UI Picker
+             * @description Used for Datepicker.
              */
             $scope.openEnd = function ($event) {
                 $event.preventDefault();
@@ -92,7 +95,7 @@ angular.module("Meeting", [])
             };
             /**
              * @memberOf angular_module.Meeting.MeetingIndexCtrl
-             * @description Settings for Datepicker
+             * @description Date settings for Datepicker.
              */
             $scope.dateOptions = {
                 formatYear: 'yyyy',
@@ -240,7 +243,7 @@ angular.module("Meeting", [])
             /**
              * @function
              * @memberOf angular_module.Meeting.MeetingIndexCtrl
-             * @description Trigger event on backend, that will send an Invitations to all invitees.
+             * @description Triggers an event on backend, that will send an Invitations to all invitees. Displays a error dialog, if something went wrong.
              * @param {int} id ID of the Meeting
              */
             $scope.sendInvitations = function (id) {

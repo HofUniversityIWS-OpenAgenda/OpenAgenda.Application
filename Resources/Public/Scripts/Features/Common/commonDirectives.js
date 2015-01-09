@@ -1,13 +1,10 @@
 /**
  * @module CommonDirectives
  *
- * @description This Module defines Directives for changing the HTML Output
- *
- * Use it as HTML-Tags
- * Examples:
- * <td task-status="true"></td>
- *
+ * @description This Module defines Directives for changing the HTML Output. Use it as HTML-Tags.
  * Note: Specify a value the attributes to fulfill the XHTML Standard
+ * @example
+ * <td task-status="true"></td>
  *
  * @author Thomas Winkler <thomas.winkler@hof-university.de>
  */
@@ -132,7 +129,7 @@ angular.module("CommonDirectives", [])
         };
     })
     /**
-     * @description Changes the mouse pointer to a little hand, if a HTML-element triggers an action.
+     * @description Changes the mouse pointer to a little hand, if a HTML-element triggers and action an has no href.
      * @author Thomas Winkler <thomas.winkler@hof-university.de>
      * @function directive
      * @param  {string} "pointMe" Identifier
@@ -151,11 +148,12 @@ angular.module("CommonDirectives", [])
         };
     })
     /**
-     * @description This directive is used, to add optimize the double-click/tap-behavior
+     * @description This directive is used, to add optimization the double-click/tap-behavior
      * @author Thomas Winkler <thomas.winkler@hof-university.de>
      * @function directive
      * @param  {string} "timedClick" Identifier
-     * @param {function} function()
+     * @param  {string} "$parse" Injection
+     * @param {function} function($parse)
      *
      * @example <td timed-click="true"></td>
     */

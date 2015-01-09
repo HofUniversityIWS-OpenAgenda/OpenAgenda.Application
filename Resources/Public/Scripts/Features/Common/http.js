@@ -11,7 +11,7 @@
  * Changes to the online status are issued using the $rootScope.
  * $rootScope.$watch('online', function(newValue, oldValue) { ... });
  *
- * @example Example:
+ * @example
  * $http.get('url', {}, { proxy: true });
  * $http.get({url: 'url', data: data, proxy: true});
  *

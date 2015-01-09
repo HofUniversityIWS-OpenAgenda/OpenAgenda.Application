@@ -251,7 +251,7 @@ angular.module("Meeting")
             /**
              * @function
              * @memberOf angular_module.Meeting.MeetingEditCtrl
-             * @param {int} Index of used AgendaItem
+             * @param {int} idx Index of used AgendaItem
              * @description Not used in this version. Should provide a file uploader per AgendaItem
              */
             $scope.getUploader = function (idx) {

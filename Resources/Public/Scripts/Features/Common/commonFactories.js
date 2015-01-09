@@ -13,7 +13,7 @@ angular.module("CommonFactories", [])
      * @function factory
      * @param {string} "CommonHelperMethods" Identifier
      * @param {function} function()
-     * @deprecated Not used anymore
+     * @deprecated Not used anymore. Backend optimized!
      * @returns {function} getDateFromJSONString
      */
     .factory('CommonHelperMethods', function () {
@@ -121,7 +121,7 @@ angular.module("CommonFactories", [])
      * @param {string} "Help" Identifier
      * @param {string} '$location'
      * @param {string} '$ModalDialog'
-     * @param {function} '$ModalDialog'
+     * @param {function} function($location,ModalDialog)
      * @returns {function} show
      */
     .factory('Help', ['$location','ModalDialog', function ($location, ModalDialog) {

@@ -24,6 +24,7 @@ angular.module("Meeting")
              *
              * @function
              * @memberOf angular_module.Meeting.MeetingExecuteCtrl
+             * @description Fetches the Data from Server and replaces the local Data. Its used to synchronize the Data between the meeting attendees.
              */
             function reloadMeetingData() {
                 MeetingResourceHelper.getMeetingDetail($routeParams.meetingId).get(function (data) {
@@ -65,7 +66,14 @@ angular.module("Meeting")
                     sendMeetingData(x, 'Beim Übertragen der Daten ist ein Fehler aufgetreten!');
 
             };
-
+            /**
+             *
+             * @function
+             * @memberOf angular_module.Meeting.MeetingExecuteCtrl
+             * @param {object} meeting The Meeting to send
+             * @param {string} bodyText The Message to display on error.
+             * @description Sends the Meetingdata to the server. Displays a modal Dialog if something went wrong.
+             */
             function sendMeetingData(meeting, bodyText) {
                 $http.post('meeting/update.json', {meeting: meeting}, {proxy: true}).
                     success(function (data, status, headers, config) {
@@ -83,7 +91,13 @@ angular.module("Meeting")
                         ModalDialog.showModal(modalDefaults, modalOptions);
                     });
             }
-
+            /**
+             *
+             * @function
+             * @memberOf angular_module.Meeting.MeetingExecuteCtrl
+             * @param {int} sorting The number of the AgendaItem
+             * @description Returns Protocolitem for a AgendaPoint. If the AgendaPoint has no Protocolitem a new one is created.
+             */
             $scope.getProtocolItem = function (sorting) {
                 var found = false;
                 for (var i = 0; i < $scope.meeting.protocolItems.length; i++) {
@@ -106,6 +120,10 @@ angular.module("Meeting")
                 }
             };
 
+            /**
+             *
+             * @constructor
+             */
             function TaskItem(count) {
                 this.status = 0;
             }

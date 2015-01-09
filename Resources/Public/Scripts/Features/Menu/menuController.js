@@ -24,7 +24,8 @@ angular.module("Menu", [])
             /**
              * @function
              * @memberOf angular_module.Menu.MenuCtrl
-             * @description Change the HTML in the left Toolbar
+             * @param htmlCode {string} HtmlCode for ToolBar
+             * @description Change the HTML in the left Toolbar.
              */
             $rootScope.changeToolBar = function (htmlCode) {
                 $scope.toolBar = htmlCode;
@@ -32,7 +33,8 @@ angular.module("Menu", [])
             /**
              * @function
              * @memberOf angular_module.Menu.MenuCtrl
-             * @description Insert new Toolbar as HTML in the left Toolbar
+             * @description Returns new Toolbar as trusted HTML.
+             * @returns {string} Trusted HTML
              */
             $scope.insertToolbar = function() {
                 return $sce.trustAsHtml($scope.toolBar)
@@ -41,7 +43,9 @@ angular.module("Menu", [])
             /**
              * @function
              * @memberOf angular_module.Menu.MenuCtrl
-             * @description Set the active Menu item
+             * @param active {string} An URL
+             * @description Set the active Menu item in the left menu.
+             * @returns {bool} active
              */
             $scope.isActive = function (viewLocation) {
                 var active = (viewLocation === $location.path());

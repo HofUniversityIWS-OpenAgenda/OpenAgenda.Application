@@ -49,7 +49,7 @@ angular.module("Dashboard", [])
             /**
              * @function reloadTasks
              * @memberOf angular_module.Dashboard.DashboardCtrl
-             * @description Reload Tasks. Reloads all of the users Tasks. Opens a alert, if request fails
+             * @description Reload Tasks. Reloads all of the users Tasks. Opens a alert, if request fails.
              */
             $scope.reloadTasks = function () {
                 $scope.needToBeDoneTasks = TaskResourceHelper.getTaskList(false).query(function (data) {
@@ -69,6 +69,7 @@ angular.module("Dashboard", [])
 
             /**
              * @function findUpcomingMeetings
+             * @param {array} meetingList List fo Meetings
              * @memberOf angular_module.Dashboard.DashboardCtrl
              * @description Collect only new and upcoming meetings.
              */
@@ -93,7 +94,7 @@ angular.module("Dashboard", [])
         }])
 
     /**
-     * @description Controller especially for the Calendar in the Dashboard
+     * @description Controller especially for the Calendar in the Dashboard.
      *   Due to a bug in the Library only meetings of the current view are shown in the Calendar
      * @class angular_module.Dashboard.DashboardCalendarCtrl
      *

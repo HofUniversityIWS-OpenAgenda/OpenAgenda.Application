@@ -1,7 +1,7 @@
 /**
  * @class angular_module.TopBar
  * @memberOf angular_module
- * @description This Module contains the controller for the topbar
+ * @description This Module contains the controller for the TopBar.
  * Its used to load personal notifications e.g. initiations
  *
  * @author Thomas Winkler <thomas.winkler@hof-university.de>

@@ -17,7 +17,7 @@ angular.module("Task")
             /**
              * @function
              * @memberOf angular_module.Task.TaskEditCtrl
-             * @description Function, which is used to open a modal instance window. Passes the selected Task to the modal window
+             * @description Function, which is used to open a modal instance window. Passes the selected Task to the modal window.
              * @param {string} [size] Size of modal window
              * @param {object} task Selected Task
              */
@@ -36,8 +36,8 @@ angular.module("Task")
                 /**
                  * @function
                  * @memberOf angular_module.Task.TaskEditCtrl
-                 * @description Function, which is fired when a modal instance window is closed. Reloads the Tasks, if it was successful
-                 * @param {string} [reason] Possible close reason
+                 * @description Function, which is fired when a modal instance window is closed. Reloads the Tasks, if it was successful.
+                 * @param {string} string Possible close reason
                  * @param {object} task Selected Task
                  */
                 modalInstance.close = function (string, task) {

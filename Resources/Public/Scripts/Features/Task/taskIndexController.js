@@ -2,7 +2,7 @@
 /**
  * @memberOf angular_module
  * @description This Module contains the list of all tasks.
- * Its possible to either view only personal tasks or to view all tasks from others
+ * Its possible to either view only personal tasks or to view all tasks from others.
  *
  * @author Thomas Winkler <thomas.winkler@hof-university.de>
  */
@@ -53,7 +53,7 @@ angular.module("Task", [])
             /**
              * @function
              * @memberOf angular_module.Task.TaskIndexCtrl
-             * @description Get the name of selected Task from backend. Sets the name of selected Task
+             * @description Get the name of selected Task from backend. Sets the name of selected Task.
              * @param {object} task Selected Task
              */
             function getMeetingName(task) {
