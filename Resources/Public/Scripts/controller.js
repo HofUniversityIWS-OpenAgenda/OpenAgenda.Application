@@ -1,5 +1,4 @@
 /**
- * Main Module of OpenAgenda. Injects all needed modules.
  *
  * @module ApplicationControllers
  * @author Thomas Winkler <thomas.winkler@hof-university.de>
