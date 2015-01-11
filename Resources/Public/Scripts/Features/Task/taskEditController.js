@@ -76,7 +76,7 @@ angular.module("Task")
         /**
          * @function
          * @memberOf angular_module.Task.TaskEditModalInstanceCtrl
-         * @description Closes a modal window
+         * @description Closes a modal window.
          */
         $scope.cancel = function () {
             $modalInstance.dismiss('DISMISS');

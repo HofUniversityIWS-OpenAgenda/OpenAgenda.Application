@@ -68,7 +68,7 @@ angular.module("CommonDirectives", [])
         };
      })
      /**
-     * @description Changes the HTML-output for the Task Status.
+     * @description Changes the HTML-output for the Task Status. Use only with Tasks.
      * @author Thomas Winkler <thomas.winkler@hof-university.de>
      * @function directive
      * @param  {string} "taskStatus" Identifier
@@ -88,7 +88,7 @@ angular.module("CommonDirectives", [])
         };
     })
     /**
-     * @description Changes the HTML-output for the Meeting Status.
+     * @description Changes the HTML-output to human readable text for the MeetingStatus.
      * @author Andreas Weber <andreas.weber@hof-university.de>
      * @function directive
      * @param  {string} "meetingStatus" Identifier
@@ -148,11 +148,12 @@ angular.module("CommonDirectives", [])
         };
     })
     /**
-     * @description This directive is used, to add optimization the double-click/tap-behavior
+     * @description This directive is used, to add optimization the double-click/tap-behavior.
+     * Use timed-Click instead of ng-click if a double tap is also registered on a element!
      * @author Thomas Winkler <thomas.winkler@hof-university.de>
      * @function directive
-     * @param  {string} "timedClick" Identifier
-     * @param  {string} "$parse" Injection
+     * @param {string} "timedClick" Identifier
+     * @param {string} "$parse" Injection
      * @param {function} function($parse)
      *
      * @example <td timed-click="true"></td>

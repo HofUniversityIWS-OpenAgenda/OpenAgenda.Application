@@ -222,6 +222,7 @@ angular.module("Meeting")
              * @function
              * @memberOf angular_module.Meeting.MeetingEditCtrl
              * @description This function checks all form entries for correctness.
+             * @returns {bool}
              */
             $scope.checkEntries = function () {
                 var meetingEntries = false;
@@ -253,6 +254,7 @@ angular.module("Meeting")
              * @memberOf angular_module.Meeting.MeetingEditCtrl
              * @param {int} idx Index of used AgendaItem
              * @description Not used in this version. Should provide a file uploader per AgendaItem
+             * @returns {object} Uploader for the corresponding AgendaItem
              */
             $scope.getUploader = function (idx) {
                 return $scope.uploaders[idx];

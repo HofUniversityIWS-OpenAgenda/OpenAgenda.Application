@@ -11,6 +11,18 @@ angular.module("Dashboard", [])
      * @class angular_module.Dashboard.DashboardCtrl
      */
     .controller('DashboardCtrl', ['$scope', '$rootScope', '$resource', "breadcrumbs", "MeetingResourceHelper", 'TaskResourceHelper', 'CommonHelperMethods', 'CommonResourceHelper', 'ModalDialog',
+        /**
+         *
+         * @param $scope
+         * @param $rootScope
+         * @param $http
+         * @param breadcrumbs
+         * @param MeetingResourceHelper
+         * @param TaskResourceHelper
+         * @param CommonHelperMethods
+         * @param CommonResourceHelper
+         * @param ModalDialog
+         */
         function ($scope, $rootScope, $http, breadcrumbs, MeetingResourceHelper, TaskResourceHelper, CommonHelperMethods, CommonResourceHelper, ModalDialog) {
             console.log("Dashboard Controller loaded");
 
@@ -47,7 +59,7 @@ angular.module("Dashboard", [])
             });
 
             /**
-             * @function reloadTasks
+             * @function
              * @memberOf angular_module.Dashboard.DashboardCtrl
              * @description Reload Tasks. Reloads all of the users Tasks. Opens a alert, if request fails.
              */
@@ -68,7 +80,7 @@ angular.module("Dashboard", [])
             $scope.reloadTasks();
 
             /**
-             * @function findUpcomingMeetings
+             * @function
              * @param {array} meetingList List fo Meetings
              * @memberOf angular_module.Dashboard.DashboardCtrl
              * @description Collect only new and upcoming meetings.
@@ -83,9 +95,10 @@ angular.module("Dashboard", [])
                 });
             };
             /**
-             * @function getNotifications
+             * @function
              * @memberOf angular_module.Dashboard.DashboardCtrl
              * @description Get all globally stored Notifications from $rootScope
+             * @returns {array} $rootScope.notifications
              */
             $scope.getNotifications = function () {
                 return $rootScope.notifications;
@@ -95,7 +108,7 @@ angular.module("Dashboard", [])
 
     /**
      * @description Controller especially for the Calendar in the Dashboard.
-     *   Due to a bug in the Library only meetings of the current view are shown in the Calendar
+     * Due to a bug in the Library only meetings of the current view are shown in the Calendar
      * @class angular_module.Dashboard.DashboardCalendarCtrl
      *
      * @author Andreas Weber <andreas.weber@hof-university.de>
@@ -108,7 +121,15 @@ angular.module("Dashboard", [])
             var m = date.getMonth();
             var y = date.getFullYear();
 
-            /* Alert on eventClick */
+
+            /**
+             * @function
+             * @memberOf angular_module.Dashboard.DashboardCalendarCtrl
+             * @description Redirect to the detail page for the clicked event (in this case Meeting)
+             * @param date {object}
+             * @param jsEvent {object}
+             * @param view {object}
+             */
             $scope.alertOnEventClick = function (date, jsEvent, view) {
                 if (date.type == 'Meeting') {
                     // Meeting anzeigen
@@ -122,15 +143,44 @@ angular.module("Dashboard", [])
                     // Fehler
                 }
             };
-            /* Alert on Drop */
+
+            /**
+             * @function
+             * @memberOf angular_module.Dashboard.DashboardCalendarCtrl
+             * @description Alert on Drop. A sample Function, not used in this Version
+             * @param event {object}
+             * @param delta {object}
+             * @param revertFunc {object}
+             * @param jsEvent {object}
+             * @param ui {object}
+             * @param view {object}
+             */
             $scope.alertOnDrop = function (event, delta, revertFunc, jsEvent, ui, view) {
                 $scope.alertMessage = ('Event Droped to make dayDelta ' + delta);
             };
-            /* Alert on Resize */
+
+            /**
+             * @function
+             * @memberOf angular_module.Dashboard.DashboardCalendarCtrl
+             * @description Alert on Resize. A sample Function, not used in this Version
+             * @param event {object}
+             * @param delta {object}
+             * @param revertFunc {object}
+             * @param jsEvent {object}
+             * @param ui {object}
+             * @param view {object}
+             */
             $scope.alertOnResize = function (event, delta, revertFunc, jsEvent, ui, view) {
                 $scope.alertMessage = ('Event Resized to make dayDelta ' + delta);
             };
-            /* Add and removes an event source of choice */
+            /*  */
+            /**
+             * @function
+             * @memberOf angular_module.Dashboard.DashboardCalendarCtrl
+             * @description Add and removes an event source of choice
+             * @param sources {object}
+             * @param source {object}
+             */
             $scope.addRemoveEventSource = function (sources, source) {
                 var canAdd = 0;
                 angular.forEach(sources, function (value, key) {
@@ -144,17 +194,37 @@ angular.module("Dashboard", [])
                 }
             };
 
-            /* Change View */
+            /**
+             * @description Change View of Calendar
+             * @memberOf angular_module.Dashboard.DashboardCalendarCtrl
+             * @function
+             * @param view {object}
+             * @param calendar {object}
+             */
             $scope.changeView = function (view, calendar) {
                 uiCalendarConfig.calendars[calendar].fullCalendar('changeView', view);
             };
-            /* Change View */
+
+            /**
+             * @description Render calender after view change
+             * @memberOf angular_module.Dashboard.DashboardCalendarCtrl
+             * @function
+             * @param calendar {object}
+             */
             $scope.renderCalender = function (calendar) {
                 if (uiCalendarConfig.calendars[calendar]) {
                     uiCalendarConfig.calendars[calendar].fullCalendar('render');
                 }
             };
-            /* Render Tooltip */
+
+            /**
+             * @description Render tooltip if it is available for the event
+             * @memberOf angular_module.Dashboard.DashboardCalendarCtrl
+             * @function
+             * @param event {object}
+             * @param element {object}
+             * @param view {object}
+             */
             $scope.eventRender = function (event, element, view) {
                 element.attr({
                     'tooltip': event.title,
@@ -181,6 +251,11 @@ angular.module("Dashboard", [])
                 }
             };
 
+            /**
+             * @function
+             * @description Used to change the Language of the calendar
+             * @memberOf angular_module.Dashboard.DashboardCalendarCtrl
+             */
             $scope.changeLang = function () {
                 $scope.uiConfig.calendar.dayNames = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"];
                 $scope.uiConfig.calendar.dayNamesShort = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];

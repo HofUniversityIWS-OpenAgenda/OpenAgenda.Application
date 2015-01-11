@@ -3,7 +3,7 @@
  *
  * @author Oliver Hader <oliver@typo3.org>
  *
- * @description User Profile controller
+ * @description User Profile controller.
  */
 angular.module("Setting", [])
 
@@ -28,7 +28,11 @@ angular.module("Setting", [])
             $scope.profile = profile;
             $scope.canModifyPassword = ($scope.profile.$currentProvider === 'DefaultProvider');
         });
-
+            /**
+             * @function
+             * @memberOf angular_module.Setting.UserProfileCtrl
+             * @description Saves the user data and sends them to the server.
+             */
         $scope.persist = function() {
             var data = {
                 person: oaUtility.jsonCast($scope.profile),

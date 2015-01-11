@@ -52,13 +52,27 @@ angular.module("Meeting")
 
             // Neue Aufgabe
 
+            /**
+             * @function
+             * @description Adds a task to the Array. Creates automatically a new Taskitem
+             * @memberOf angular_module.Meeting.MeetingExecuteCtrl
+             */
             $scope.addTask = function () {
                 $scope.meeting.tasks.push(new TaskItem($scope.meeting.tasks.length));
             };
-
+            /**
+             * @function
+             * @description Sends the changed ProtocollItem to the server
+             * @memberOf angular_module.Meeting.MeetingExecuteCtrl
+             */
             $scope.sendProtocollItem = function (id) {
                 sendMeetingData(oaUtility.jsonCast($scope.meeting), 'Beim Übertragen der Daten ist ein Fehler aufgetreten!');
             };
+            /**
+             * @function
+             * @description Sends the changed TaskItem to the server
+             * @memberOf angular_module.Meeting.MeetingExecuteCtrl
+             */
             $scope.sendTaskItem = function (idx) {
                 var x = oaUtility.jsonCast($scope.meeting);
                 console.log("X", x);
@@ -97,6 +111,7 @@ angular.module("Meeting")
              * @memberOf angular_module.Meeting.MeetingExecuteCtrl
              * @param {int} sorting The number of the AgendaItem
              * @description Returns Protocolitem for a AgendaPoint. If the AgendaPoint has no Protocolitem a new one is created.
+             * @returns {object} ProtcolItem
              */
             $scope.getProtocolItem = function (sorting) {
                 var found = false;
@@ -123,11 +138,20 @@ angular.module("Meeting")
             /**
              *
              * @constructor
+             * @param count {int} Not used
+             * @memberOf angular_module.Meeting.MeetingExecuteCtrl
              */
             function TaskItem(count) {
                 this.status = 0;
             }
-
+            /**
+             *
+             * @function
+             * @memberOf angular_module.Meeting.MeetingExecuteCtrl
+             * @param {int} index
+             * @description Used to get the  mail address for the assingees
+             * @returns mailaddress {string}
+             */
             $scope.showStatus = function (index) {
                 var x = "Verantwortlichen wählen";
 
@@ -144,6 +168,13 @@ angular.module("Meeting")
                 else
                     return x;
             };
+            /**
+             *
+             * @function
+             * @memberOf angular_module.Meeting.MeetingExecuteCtrl
+             * @param {int} idx
+             * @description Removes a Tasks an send an delete event to the server
+             */
             $scope.removeTasks = function (idx) {
                 console.log({
                     task: $scope.meeting.tasks[idx].__identity,
@@ -168,7 +199,12 @@ angular.module("Meeting")
                     });
             };
 
-
+            /**
+             *
+             * @function
+             * @memberOf angular_module.Meeting.MeetingExecuteCtrl
+             * @description Starts the meeting and prepares the meeting object for the meeting.
+             */
             $scope.startMeeting = function () {
 
                 angular.forEach($scope.meeting.invitations, function (invitation) {
@@ -202,6 +238,11 @@ angular.module("Meeting")
                 sendMeetingData(oaUtility.jsonCast($scope.meeting), 'Beim Speichern des Meetings ist ein Fehler aufgetreten!');
 
             };
+            /**
+             * @function
+             * @memberOf angular_module.Meeting.MeetingExecuteCtrl
+             * @description End the meeting sends a close event to the server
+             */
             $scope.endMeeting = function () {
                 console.log('endMeeting', $scope.meeting);
                 var tasksCorrect = false;
@@ -259,16 +300,23 @@ angular.module("Meeting")
     }])
 
 /**
- * This Controller handles the meeting start scenario
- * initial handling to open and close the modal view
- * @author Thomas Winkler <thomas.winkler@hof-university.de>
  *
- * concrete function to start the meeting
+ * @class angular_module.Meeting.MeetingExecuteModalCtrl
+ * @description This Controller handles the meeting start scenario.
+ * Initial handling to open and close the modal view implemented by Thomas Winkler.
+ * The concrete function to start the meeting implemented by Andreas Weber.
+ *
  * @author Andreas Weber <andreas.weber@hof-university.de>
+ * @author Thomas Winkler <thomas.winkler@hof-university.de>
  */
     .controller('MeetingExecuteModalCtrl', ['$scope', '$rootScope', '$http', "CommonHelperMethods", '$modal', '$log',
         function ($scope, $rootScope, $http, CommonHelperMethods, $modal, $log) {
-
+            /**
+             * @function
+             * @memberOf angular_module.Meeting.MeetingExecuteModalCtrl
+             * @param size {string} Size of the dialog
+             * @description Opens the modal dialog. Passes the current meeting to the modal view.
+             */
             $scope.open = function (size) {
                 var modalInstance = $modal.open({
                     templateUrl: '/template/meeting/executemodal.html',
@@ -280,7 +328,11 @@ angular.module("Meeting")
                         }
                     }
                 });
-
+                /**
+                 * @function
+                 * @memberOf angular_module.Meeting.MeetingExecuteModalCtrl
+                 * @description Is triggered when the dialog is closed. Starts the meeting.
+                 */
                 modalInstance.close = function () {
                     if ($scope.meeting.minuteTaker) {
                         $scope.$parent.startMeeting();
@@ -288,7 +340,12 @@ angular.module("Meeting")
                     }
                 };
             };
-
+            /**
+             * @function
+             * @memberOf angular_module.Meeting.MeetingExecuteModalCtrl
+             * @description Toggles the selected table row. Sets the present assignees.
+             * @param index {int} Index of tapped selection
+             */
             $scope.tooglePresent = function (index) {
                 if ($scope.meeting.invitations[index].role != "OpenAgenda.Application:MinuteTaker") {
                     if ($scope.meeting.invitations[index].available != true) {
@@ -298,7 +355,12 @@ angular.module("Meeting")
                         $scope.meeting.invitations[index].available = false;
                 }
             };
-
+            /**
+             * @function
+             * @memberOf angular_module.Meeting.MeetingExecuteModalCtrl
+             * @description Toggles if someone is the minutetaker. Only one can be the minutetaker!
+             * @param index {int} Index of tapped selection
+             */
             $scope.toogleMinuteTaker = function (index) {
                 if ($scope.meeting.invitations[index].role == "OpenAgenda.Application:MinuteTaker") {
                     $scope.meeting.invitations[index].role = "OpenAgenda.Application:Participant";
@@ -312,16 +374,28 @@ angular.module("Meeting")
                 }
             };
         }])
-/**This controller is used to handle the modal view to view and change a tasks state
+/**
+ * @class angular_module.Meeting.MeetingExecuteModalInstanceCtrl
+ * @description This controller is used to handle the modal view to view and change a tasks state
  * @author Thomas Winkler <thomas.winkler@hof-university.de>
  */
+
     .controller('MeetingExecuteModalInstanceCtrl', function ($scope, $modalInstance, CommonHelperMethods, meeting) {
 
         $scope.meeting = meeting;
+        /**
+         * @function
+         * @memberOf angular_module.Meeting.MeetingExecuteModalInstanceCtrl
+         * @description Sends the string "OK" to the MeetingExecuteModalCtrl. Is fired is someone presses the OK button
+         */
         $scope.ok = function () {
             $modalInstance.close("OK");
         };
-
+        /**
+         * @function
+         * @memberOf angular_module.Meeting.MeetingExecuteModalInstanceCtrl
+         * @description Sends the string "DISMISS" to the MeetingExecuteModalCtrl. Is fired is someone presses the Cancel button
+         */
         $scope.cancel = function () {
             $modalInstance.dismiss('DISMISS');
         };

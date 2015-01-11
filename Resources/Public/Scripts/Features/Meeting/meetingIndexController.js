@@ -106,6 +106,7 @@ angular.module("Meeting", [])
              * @function
              * @memberOf angular_module.Meeting.MeetingIndexCtrl
              * @description Using rootScope to get current Selection globally. Get the global variable selectedStartDate
+             * @returns {object} Globally stored selectedStartDate
              */
             $scope.getStartDate = function () {
 
@@ -121,6 +122,7 @@ angular.module("Meeting", [])
              * @function
              * @memberOf angular_module.Meeting.MeetingIndexCtrl
              * @description Using rootScope to get current Selection globally. Get the global variable selectedEndDate
+             * @returns {object} Globally stored selectedEndDate
              */
             $scope.getEndDate = function () {
                 var then = new Date();
@@ -137,6 +139,7 @@ angular.module("Meeting", [])
              * @function
              * @memberOf angular_module.Meeting.MeetingIndexCtrl
              * @description Using rootScope to get current Selection globally. Get the global variable searchText
+             * @returns {object} Globally stored searchText
              */
             $scope.getSearchText = function () {
                 if ($rootScope.mic.searchText)
