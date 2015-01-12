@@ -24,6 +24,7 @@ class InvitationController extends AbstractController {
 	protected $invitationRepository;
 
 	/**
+	 * Shows all invitations of an active person.
 	 * @return void
 	 */
 	public function listAction() {
@@ -33,6 +34,7 @@ class InvitationController extends AbstractController {
 	/**
 	 * @param \OpenAgenda\Application\Domain\Model\Invitation $invitation
 	 * @return void
+	 * @deprecated This action is not used
 	 */
 	public function showAction(Invitation $invitation) {
 		$this->view->assign('invitation', $invitation);
@@ -40,6 +42,7 @@ class InvitationController extends AbstractController {
 
 	/**
 	 * @return void
+	 * @deprecated This action is not used
 	 */
 	public function newAction() {
 	}

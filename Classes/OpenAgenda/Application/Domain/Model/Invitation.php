@@ -3,7 +3,6 @@ namespace OpenAgenda\Application\Domain\Model;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "OpenAgenda.Application".*
- *                                                                        *
  *                                                                        */
 
 use OpenAgenda\Application\Framework\Annotations as OA;
@@ -12,6 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Model Invitation
+ *
+ * This entity connects a meeting object and a person account (participant).
  *
  * @package OpenAgenda\Application\Domain\Model
  * @author Andreas Steiger <andreas.steiger@hof-university.de>

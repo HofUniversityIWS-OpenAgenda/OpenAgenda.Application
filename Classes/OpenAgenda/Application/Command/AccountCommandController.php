@@ -10,7 +10,13 @@ use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Cli\CommandController;
 
 /**
- * Class AccountCommandController for admin actions with accounts
+ * Class AccountCommandController
+ *
+ * This command controller is for admin actions to handle user accounts.
+ *
+ * <code>
+ * ./flow account:<action-name>
+ * </code>
  *
  * @package OpenAgenda\Application\Command
  * @author Andreas Steiger <andreas.steiger@hof-university.de>
@@ -36,12 +42,16 @@ class AccountCommandController extends CommandController {
 	protected $policyService;
 
 	/**
-	 * ### Administration Action to add roles ###
+	 * This administration action changes the role of an user account.
 	 *
-	 * Roles: Administrator, Participant, MeetingManager
+	 * Possible name of roles: Administrator, Participant
 	 *
-	 * @param string $identifier email of account
-	 * @param string $role name of role
+	 * <code>
+	 * ./flow account:setrole --<parameters>
+	 * </code>
+	 *
+	 * @param string $identifier The email address of an account
+	 * @param string $role The name of the role
 	 */
 	public function setRoleCommand($identifier, $role) {
 		$account = $this->accountRepository->findByAccountIdentifierAndAuthenticationProviderName($identifier, 'DefaultProvider');
@@ -53,12 +63,16 @@ class AccountCommandController extends CommandController {
 	}
 
 	/**
-	 * ### Administrator Action to remove role ###
+	 * This administration action removes a role of an user account.
 	 *
-	 * Roles: Administrator, Participant, MeetingManager
+	 * Possible name of roles: Administrator, Participant
 	 *
-	 * @param string $identifier email of account
-	 * @param string $role name of role
+	 * <code>
+	 * ./flow account:removerole --<parameters>
+	 * </code>
+	 *
+	 * @param string $identifier The email address of an account
+	 * @param string $role The name of the role
 	 */
 	public function removeRoleCommand($identifier, $role) {
 		$account = $this->accountRepository->findByAccountIdentifierAndAuthenticationProviderName($identifier, 'DefaultProvider');

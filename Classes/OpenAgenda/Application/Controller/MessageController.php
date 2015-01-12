@@ -15,6 +15,7 @@ use OpenAgenda\Application\Domain\Model\Message;
  *
  * @package OpenAgenda\Application\Controller
  * @author Andreas Steiger <andreas.steiger@hof-university.de>
+ * @deprecated This controller is not used
  */
 class MessageController extends ActionController {
 

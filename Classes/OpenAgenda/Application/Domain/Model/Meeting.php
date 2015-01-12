@@ -3,7 +3,6 @@ namespace OpenAgenda\Application\Domain\Model;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "OpenAgenda.Application".*
- *                                                                        *
  *                                                                        */
 
 use OpenAgenda\Application\Framework\Annotations as OA;
@@ -12,6 +11,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Model Meeting
+ *
+ * This entity is the central object of the application with all information,
+ * dates, items and special role assignments of a meeting
  *
  * @package OpenAgenda\Application\Domain\Model
  * @author Andreas Steiger <andreas.steiger@hof-university.de>
@@ -52,6 +54,9 @@ class Meeting implements CreationInterface, ModificationInterface {
 	protected $invitations;
 
 	/**
+	 * A special role in the context of meeting execution.
+	 * It set permissions to a person for create, update and delete actions to handle items and tasks.
+	 *
 	 * @var \OpenAgenda\Application\Domain\Model\Person
 	 * @ORM\ManyToOne
 	 * @ORM\Column(nullable=true)
@@ -60,6 +65,8 @@ class Meeting implements CreationInterface, ModificationInterface {
 	protected $minuteTaker;
 
 	/**
+	 * The person, who creates the meeting (meeting manager)
+	 *
 	 * @var \OpenAgenda\Application\Domain\Model\Person
 	 * @ORM\ManyToOne
 	 */
@@ -85,6 +92,9 @@ class Meeting implements CreationInterface, ModificationInterface {
 	protected $scheduledStartDate;
 
 	/**
+	 * The real start date time, which can be a bit differently
+	 * to the scheduled date time
+	 *
 	 * @var \DateTime
 	 * @ORM\Column(nullable=true)
 	 * @OA\ToFlatArray(callback="$self->format('c')")
@@ -115,7 +125,8 @@ class Meeting implements CreationInterface, ModificationInterface {
 	protected $modificationDate;
 
 	/**
-	 * Initializes this object.
+	 * Initializes this model object and all array collections
+	 * for the database mapping. This is necessary to use it correctly.
 	 */
 	public function __construct() {
 		$this->agendaItems = new \Doctrine\Common\Collections\ArrayCollection();

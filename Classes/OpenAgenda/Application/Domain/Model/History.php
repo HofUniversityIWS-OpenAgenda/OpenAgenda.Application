@@ -3,7 +3,6 @@ namespace OpenAgenda\Application\Domain\Model;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "OpenAgenda.Application".*
- *                                                                        *
  *                                                                        */
 
 use OpenAgenda\Application\Framework\Annotations as OA;
@@ -12,6 +11,10 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Model History
+ *
+ * This model records all changed action in the system and contains
+ * information of the person, who do this action and all the changed objects.
+ * Therefore a recovery (undo action) is insured.
  *
  * @package OpenAgenda\Application\Domain\Model
  * @author Andreas Steiger <andreas.steiger@hof-university.de>
@@ -22,6 +25,8 @@ use Doctrine\ORM\Mapping as ORM;
 class History implements CreationInterface {
 
 	/**
+	 * The person, who did the change action.
+	 *
 	 * @var \OpenAgenda\Application\Domain\Model\Person
 	 * @ORM\ManyToOne
 	 * @OA\ToFlatArray(useIdentifier=true)
@@ -29,18 +34,24 @@ class History implements CreationInterface {
 	protected $issuer;
 
 	/**
+	 * The unique identifier of the entity object, which was changed.
+	 *
 	 * @var string
 	 * @OA\ToFlatArray
 	 */
 	protected $entityIdentifier;
 
 	/**
+	 * The entity type of the entity object, which was changed.
+	 *
 	 * @var \string
 	 * @OA\ToFlatArray
 	 */
 	protected $entityType;
 
 	/**
+	 * This previous data contains the old entity object as a serialized string
+	 *
 	 * @var \string
 	 * @ORM\Column(type="text",nullable=true)
 	 * @OA\ToFlatArray

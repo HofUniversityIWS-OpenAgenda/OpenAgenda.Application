@@ -3,7 +3,6 @@ namespace OpenAgenda\Application\Command;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "OpenAgenda.Application".*
- *                                                                        *
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
@@ -15,6 +14,14 @@ use \OpenAgenda\Application\Domain\Model\Invitation;
 
 /**
  * Class TestDataCommand
+ *
+ * This command controller is for testing purposes.
+ * These initialized test data provides a fast system check
+ * (database communications and CRUD-Actions) after a software refactoring
+ *
+ * <code>
+ * ./flow testdata:<action-name>
+ * </code>
  *
  * @package OpenAgenda\Application\Command
  * @author Andreas Steiger <andreas.steiger@hof-university.de>
@@ -86,13 +93,19 @@ class TestDataCommandController extends CommandController {
 	 * @var \TYPO3\Flow\Persistence\PersistenceManagerInterface
 	 */
 	protected $persistenceManager;
+
 	/**
-	 * ### meetings for testing ###
+	 * This command removes all existing meetings and sub items from the database
+	 * and creates new meetings (default quantity = 5), new agenda items,
+	 * protocol items (default quantity 3 for each) and Invitations (default quantity 1)
+	 * with dummy data. All created objects are persist in the database.
 	 *
-	 * This Command removes all existing meetings / AgendaItems and creates new meetings (default = 5) and new AgendaItems / ProtocolItems (default 3 for each) / Invitations (default 1) with dummy data to the DB.
+	 * <code>
+	 * ./flow testdata:createmeetings --<parameters>
+	 * </code>
 	 *
 	 * @param integer $quantity The quantity of new meetings
-	 * @param integer $itemQuantity The quantity of new sub-items (notes and tasks)
+	 * @param integer $itemQuantity The quantity of new sub-items (agenda items and tasks)
 	 * @param integer $invitations The quantity of Invitations
 	 * @return string
 	 */
@@ -170,9 +183,13 @@ class TestDataCommandController extends CommandController {
 	}
 
 	/**
-	 * ### remove one meeting  ###
+	 * This action removes one existing meeting from the database.
 	 *
-	 * @param string $identifier
+	 * <code>
+	 * ./flow testdata:createmeeting --$identifier
+	 * </code>
+	 *
+	 * @param string $identifier Unique identifier of an existing meeting
 	 */
 	public function deleteMeetingCommand($identifier = '7c76e975-0390-5f84-f161-2146f0fb7b1f') {
 		$meeting = $this->meetingRepository->findByIdentifier($identifier);
@@ -183,10 +200,15 @@ class TestDataCommandController extends CommandController {
 	}
 
 	/**
-	 * ### one system user (default: admin account) ###
+	 * This action removes one system user account (default: admin account)
+	 * from the database.
 	 *
-	 * @param string $identifier Account identifier (default: 'admin@openagenda.org')
-	 * @param string $role Role (default: 'Administrator')
+	 * <code>
+	 * ./flow testdata:createuser --<parameters>
+	 * </code>
+	 *
+	 * @param string $identifier Unique identifier of an existing account (default: 'admin@openagenda.org')
+	 * @param string $role The role name (administrator or participant) of the user (default: 'Administrator')
 	 * @param string $firstname First name (default: 'Mark')
 	 * @param string $lastname Last name(default: 'Mabuse')
 	 */
@@ -212,7 +234,13 @@ class TestDataCommandController extends CommandController {
 	}
 
 	/**
-	 * ### system users with different roles for testing ###
+	 * This action creates 6 system user accounts if these accounts does not exist.
+	 * 5 accounts with the role of participant and 1 account
+	 * with the role of administrator.
+	 *
+	 * <code>
+	 * ./flow testdata:createusers
+	 * </code>
 	 */
 	public function createUsersCommand() {
 		$this->createUserCommand();
@@ -221,18 +249,21 @@ class TestDataCommandController extends CommandController {
 		$this->createUserCommand('participant3@openagenda.org', 'Participant', 'Ric', 'de Stunt');
 		$this->createUserCommand('participant4@openagenda.org', 'Participant', 'Rosa', 'Lee');
 		$this->createUserCommand('participant5@openagenda.org', 'Participant', 'Werner', 'Wernersens');
-		$this->createUserCommand('meetingmanager@openagenda.org', 'MeetingManager', 'Martin', 'Manager');
 	}
 
 	/**
-	 * ### history flush ###
+	 * This action clears all the history entries in the database.
 	 *
-	 * @param boolean $sureToDeleteFlag Are you sure you want to delete the complete History?
+	 * <code>
+	 * ./flow testdata:clearhistory --$sureToDeleteFlag
+	 * </code>
+	 *
+	 * @param boolean $sureToDeleteFlag Flag: are you sure, you want to delete the complete history?
 	 */
 	public function clearHistoryCommand($sureToDeleteFlag = false){
 		if($sureToDeleteFlag === true) {
 			$this->historyRepository->removeAll();
-			$this->response->appendContent('Cleared History' . PHP_EOL);
+			$this->response->appendContent('Cleared history' . PHP_EOL);
 		}else{
 			$this->response->appendContent('History was not cleared. Please set the flag.' . PHP_EOL);
 		}

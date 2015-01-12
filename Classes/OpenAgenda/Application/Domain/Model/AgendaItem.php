@@ -13,6 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Model AgendaItem
  *
+ * This entity is an item of a meeting object. One meeting can have many agenda items.
+ *
  * @package OpenAgenda\Application\Domain\Model
  * @author Andreas Steiger <andreas.steiger@hof-university.de>
  * @Flow\Entity
@@ -57,6 +59,8 @@ class AgendaItem implements CreationInterface, ModificationInterface, SortableIn
 	protected $sorting;
 
 	/**
+	 * An additional note of an agenda item
+	 *
 	 * @var \OpenAgenda\Application\Domain\Model\Note
 	 * @ORM\OneToOne(cascade={"all"}, orphanRemoval=true)
 	 * @OA\ToFlatArray(scope="show")
@@ -72,6 +76,8 @@ class AgendaItem implements CreationInterface, ModificationInterface, SortableIn
 	protected $resources;
 
 	/**
+	 * Shows the status of an item.
+	 *
 	 * @var boolean
 	 * @ORM\Column(options={"default":"0"})
 	 * @OA\ToFlatArray

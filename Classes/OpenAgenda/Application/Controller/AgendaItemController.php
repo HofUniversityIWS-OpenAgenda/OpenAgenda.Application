@@ -3,7 +3,6 @@ namespace OpenAgenda\Application\Controller;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "OpenAgenda.Application".*
- *                                                                        *
  *                                                                        */
 
 use OpenAgenda\Application\Domain\Model\AgendaItem;
@@ -53,6 +52,7 @@ class AgendaItemController extends AbstractController {
 	/**
 	 * @param \OpenAgenda\Application\Domain\Model\AgendaItem $agendaItem
 	 * @return void
+	 * @deprecated This action is not used
 	 */
 	public function editAction(AgendaItem $agendaItem) {
 		$this->view->assign('agendaItem', $agendaItem);

@@ -3,7 +3,6 @@ namespace OpenAgenda\Application\Controller;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "OpenAgenda.Application".*
- *                                                                        *
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
@@ -25,6 +24,8 @@ class TaskController extends AbstractController {
 	protected $taskRepository;
 
 	/**
+	 * Shows all task of all meetings.
+	 *
 	 * @return void
 	 */
 	public function listAction() {
@@ -32,6 +33,8 @@ class TaskController extends AbstractController {
 	}
 
 	/**
+	 * Shows all invitations of an active person.
+	 *
 	 * @return void
 	 */
 	public function listMineAction() {
@@ -39,6 +42,8 @@ class TaskController extends AbstractController {
 	}
 
 	/**
+	 * Shows all invitations of allowed meetings.
+	 *
 	 * @return void
 	 */
 	public function listOthersAction() {
@@ -47,6 +52,7 @@ class TaskController extends AbstractController {
 
 	/**
 	 * @return void
+	 * @deprecated This action is not used
 	 */
 	public function dashboardAction() {
 	}
@@ -54,6 +60,7 @@ class TaskController extends AbstractController {
 	/**
 	 * @param \OpenAgenda\Application\Domain\Model\Task $task
 	 * @return void
+	 * @deprecated This action is not used
 	 */
 	public function showAction(Task $task) {
 		$this->view->assign('value', $this->arrayService->flatten($task, 'show'));
@@ -61,6 +68,7 @@ class TaskController extends AbstractController {
 
 	/**
 	 * @return void
+	 * @deprecated This action is not used
 	 */
 	public function newAction() {
 	}
@@ -102,6 +110,7 @@ class TaskController extends AbstractController {
 	/**
 	 * @param \OpenAgenda\Application\Domain\Model\Task $task
 	 * @return void
+	 * @deprecated This action is not used
 	 */
 	public function exportAction(Task $task) {
 	}

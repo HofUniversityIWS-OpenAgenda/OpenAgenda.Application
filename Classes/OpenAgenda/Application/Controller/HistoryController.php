@@ -3,7 +3,6 @@ namespace OpenAgenda\Application\Controller;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "OpenAgenda.Application".*
- *                                                                        *
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
@@ -26,6 +25,7 @@ class HistoryController extends ActionController {
 
 	/**
 	 * @return void
+	 * @deprecated This action is not used
 	 */
 	public function indexAction() {
 		$this->view->assign('histories', $this->historyRepository->findAll());
@@ -34,6 +34,7 @@ class HistoryController extends ActionController {
 	/**
 	 * @param \OpenAgenda\Application\Domain\Model\History $history
 	 * @return void
+	 * @deprecated This action is not used
 	 */
 	public function showAction(History $history) {
 		$this->view->assign('history', $history);
@@ -41,6 +42,7 @@ class HistoryController extends ActionController {
 
 	/**
 	 * @return void
+	 * @deprecated This action is not used
 	 */
 	public function newAction() {
 	}
@@ -57,6 +59,7 @@ class HistoryController extends ActionController {
 	/**
 	 * @param \OpenAgenda\Application\Domain\Model\History $history
 	 * @return void
+	 * @deprecated This action is not used
 	 */
 	public function editAction(History $history) {
 		$this->view->assign('history', $history);

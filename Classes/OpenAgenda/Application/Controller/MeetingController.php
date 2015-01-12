@@ -3,7 +3,6 @@ namespace OpenAgenda\Application\Controller;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "OpenAgenda.Application".*
- *                                                                        *
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
@@ -84,6 +83,7 @@ class MeetingController extends AbstractController {
 
 	/**
 	 * @return void
+	 * @deprecated This action is not used
 	 */
 	public function indexAction() {
 		$this->view->assign('meetings', $this->meetingRepository->findAll());
@@ -91,6 +91,7 @@ class MeetingController extends AbstractController {
 
 	/**
 	 * @return void
+	 * @deprecated This action is not used
 	 */
 	public function dashboardAction() {
 	}
@@ -120,6 +121,8 @@ class MeetingController extends AbstractController {
 	}
 
 	/**
+	 * This action changes the status of a given meeting object to "STATUS_START".
+	 *
 	 * @param \OpenAgenda\Application\Domain\Model\Meeting $meeting
 	 * @return void
 	 */
@@ -134,6 +137,8 @@ class MeetingController extends AbstractController {
 	}
 
 	/**
+	 * This action changes the status of a given meeting object to "STATUS_CLOSED".
+	 *
 	 * @param \OpenAgenda\Application\Domain\Model\Meeting $meeting
 	 * @return void
 	 */
@@ -159,6 +164,8 @@ class MeetingController extends AbstractController {
 	}
 
 	/**
+	 * This action changes the status of a given meeting object to "STATUS_CANCELED".
+	 *
 	 * @param \OpenAgenda\Application\Domain\Model\Meeting $meeting
 	 * @return void
 	 */
@@ -172,6 +179,8 @@ class MeetingController extends AbstractController {
 	}
 
 	/**
+	 * This action shows all the invitation status of a given meeting.
+	 *
 	 * @param \OpenAgenda\Application\Domain\Model\Meeting $meeting
 	 * @return void
 	 * @deprecated Use Meeting::determineInvitationStatus() instead
@@ -181,6 +190,8 @@ class MeetingController extends AbstractController {
 	}
 
 	/**
+	 * This action shows all allowed meetings.
+	 *
 	 * @return void
 	 */
 	public function listAction() {
@@ -198,6 +209,7 @@ class MeetingController extends AbstractController {
 
 	/**
 	 * @return void
+	 * @deprecated This action is not used
 	 */
 	public function newAction() {
 	}
@@ -285,6 +297,7 @@ class MeetingController extends AbstractController {
 	/**
 	 * @param \OpenAgenda\Application\Domain\Model\Meeting $meeting
 	 * @return void
+	 * @deprecated This action is not used
 	 */
 	public function exportAction(Meeting $meeting) {
 	}

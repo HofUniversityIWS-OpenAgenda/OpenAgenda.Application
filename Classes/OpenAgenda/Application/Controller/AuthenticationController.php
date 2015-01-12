@@ -174,6 +174,8 @@ class AuthenticationController extends \TYPO3\Flow\Security\Authentication\Contr
 	}
 
 	/**
+	 * This action shows the cause description of authentication abort.
+	 *
 	 * @author Andreas Steiger <andreas.steiger@hof-university.de>
 	 * @return \TYPO3\Flow\Error\Error The flash message
 	 * @api
@@ -182,6 +184,8 @@ class AuthenticationController extends \TYPO3\Flow\Security\Authentication\Contr
 		return new \TYPO3\Flow\Error\Error('Ihr Benutzername oder Passwort ist wahrscheinlich nicht korrekt. Bitte stellen Sie sicher, dass Sie Ihre Registrierung mit der Bestätigungs-E-Mail abgeschlossen haben.', NULL, array());
 	}
 	/**
+	 * Action that is called if authentication process was failed.
+	 *
 	 * @author Andreas Steiger <andreas.steiger@hof-university.de>
 	 * @param \TYPO3\Flow\Security\Exception\AuthenticationRequiredException $exception The exception thrown while the authentication process
 	 * @return void

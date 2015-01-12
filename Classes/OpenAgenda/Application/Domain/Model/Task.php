@@ -3,7 +3,6 @@ namespace OpenAgenda\Application\Domain\Model;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "OpenAgenda.Application".*
- *                                                                        *
  *                                                                        */
 
 use OpenAgenda\Application\Framework\Annotations as OA;
@@ -12,6 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Model Task
+ *
+ * This entity is an item of a meeting object.
  *
  * @package OpenAgenda\Application\Domain\Model
  * @author Andreas Steiger <andreas.steiger@hof-university.de>
@@ -38,6 +39,8 @@ class Task implements CreationInterface, ModificationInterface {
 	protected $meeting;
 
 	/**
+	 * The person, who is assigned to do this task.
+	 *
 	 * @var \OpenAgenda\Application\Domain\Model\Person
 	 * @ORM\ManyToOne
 	 * @OA\ToFlatArray(useIdentifier=true)
