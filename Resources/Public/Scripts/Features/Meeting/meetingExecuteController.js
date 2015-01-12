@@ -149,7 +149,7 @@ angular.module("Meeting")
              * @function
              * @memberOf angular_module.Meeting.MeetingExecuteCtrl
              * @param {int} index
-             * @description Used to get the  mail address for the assingees
+             * @description Used to get the  mail address for the assignees
              * @returns mailaddress {string}
              */
             $scope.showStatus = function (index) {
