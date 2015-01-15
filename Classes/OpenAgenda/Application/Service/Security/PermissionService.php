@@ -56,6 +56,10 @@ class PermissionService {
 	 * @author Oliver Hader <oliver@typo3.org>
 	 */
 	public function hasManagingRole() {
+		if (!$this->securityContext->isInitialized()) {
+			return FALSE;
+		}
+
 		$account = $this->securityContext->getAccount();
 
 		$meetingManagerRole = $this->policyService->getRole('OpenAgenda.Application:MeetingManager');
@@ -73,6 +77,10 @@ class PermissionService {
 	 * @author Oliver Hader <oliver@typo3.org>
 	 */
 	public function hasMinuteTakerRole(\OpenAgenda\Application\Domain\Model\Meeting $meeting) {
+		if (!$this->securityContext->isInitialized()) {
+			return FALSE;
+		}
+
 		$account = $this->securityContext->getAccount();
 
 		return ($meeting->getMinuteTaker() === $account->getParty());
