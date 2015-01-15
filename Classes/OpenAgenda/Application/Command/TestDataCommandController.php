@@ -95,6 +95,12 @@ class TestDataCommandController extends CommandController {
 	protected $persistenceManager;
 
 	/**
+	 * @Flow\Inject
+	 * @var \OpenAgenda\Application\Service\ArrayService
+	 */
+	protected $arrayService;
+
+	/**
 	 * This command removes all existing meetings and sub items from the database
 	 * and creates new meetings (default quantity = 5), new agenda items,
 	 * protocol items (default quantity 3 for each) and Invitations (default quantity 1)
@@ -107,9 +113,12 @@ class TestDataCommandController extends CommandController {
 	 * @param integer $quantity The quantity of new meetings
 	 * @param integer $itemQuantity The quantity of new sub-items (agenda items and tasks)
 	 * @param integer $invitations The quantity of Invitations
+	 * @param bool $json Use JSON response instead of plain text
 	 * @return string
 	 */
-	public function createMeetingsCommand($quantity = 5, $itemQuantity = 3, $invitations = 1) {
+	public function createMeetingsCommand($quantity = 5, $itemQuantity = 3, $invitations = 1, $json = FALSE) {
+		$allMeetings = array();
+
 		$this->meetingRepository->removeAll();
 		$this->taskRepository->removeAll();
 		$this->agendaItemRepository->removeAll();
@@ -173,13 +182,22 @@ class TestDataCommandController extends CommandController {
 			}
 
 			$this->meetingRepository->add($newMeeting);
+			$allMeetings[] = $newMeeting;
 		}
 
-		$this->response->appendContent('Created ' . $quantity . ' Meetings' . PHP_EOL);
-		$this->response->appendContent('+ with each having ' . $itemQuantity . ' AgendaItems' . PHP_EOL);
-		$this->response->appendContent('+ with each having ' . $itemQuantity . ' Notes' . PHP_EOL);
-		$this->response->appendContent('+ with each having ' . $itemQuantity . ' Task' . PHP_EOL);
-		$this->response->appendContent('+ with each having ' . $invitations . ' Invitations' . PHP_EOL);
+		if (!$json) {
+			$this->response->appendContent('Created ' . $quantity . ' Meetings' . PHP_EOL);
+			$this->response->appendContent('+ with each having ' . $itemQuantity . ' AgendaItems' . PHP_EOL);
+			$this->response->appendContent('+ with each having ' . $itemQuantity . ' Notes' . PHP_EOL);
+			$this->response->appendContent('+ with each having ' . $itemQuantity . ' Task' . PHP_EOL);
+			$this->response->appendContent('+ with each having ' . $invitations . ' Invitations' . PHP_EOL);
+		} else {
+			$this->response->appendContent(
+				json_encode(
+					$this->arrayService->flatten($allMeetings, 'list')
+				)
+			);
+		}
 	}
 
 	/**
