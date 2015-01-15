@@ -9,6 +9,7 @@ use TYPO3\Flow\Annotations as Flow;
 
 /**
  * @group large
+ * @author Oliver Hader <oliver@typo3.org>
  */
 class DocumentServiceTest extends \TYPO3\Flow\Tests\FunctionalTestCase {
 
