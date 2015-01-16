@@ -2,7 +2,7 @@
 namespace OpenAgenda\Application\Tests\Unit\Service;
 
 /*                                                                           *
- * This script belongs to the TYPO3 Flow package "OliverHader.PdfRendering". *
+ * This script belongs to the TYPO3 Flow package "OpenAgenda.Application". *
  *                                                                           */
 
 use TYPO3\Flow\Annotations as Flow;
