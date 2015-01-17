@@ -32,6 +32,12 @@ class SettingController extends AbstractController {
 
 	/**
 	 * @Flow\Inject
+	 * @var \OpenAgenda\Application\Domain\Repository\ElectronicAddressRepository
+	 */
+	protected $electronicAddressRepository;
+
+	/**
+	 * @Flow\Inject
 	 * @var \TYPO3\Flow\Security\AccountRepository
 	 */
 	protected $accountRepository;
@@ -56,6 +62,7 @@ class SettingController extends AbstractController {
 	 */
 	public function updateProfileAction(Person $person, Password $password = NULL) {
 		$this->personRepository->update($person);
+		$this->electronicAddressRepository->update($person->getPrimaryElectronicAddress());
 
 		if ($password !== NULL && strlen($password->getPassword()) > 0) {
 			$account = $this->securityContext->getAccount();
