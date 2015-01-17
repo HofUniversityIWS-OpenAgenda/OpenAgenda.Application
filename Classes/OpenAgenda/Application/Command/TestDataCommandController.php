@@ -218,8 +218,7 @@ class TestDataCommandController extends CommandController {
 	}
 
 	/**
-	 * This action removes one system user account (default: admin account)
-	 * from the database.
+	 * This action removes one system user account (default: admin account) from the database.
 	 *
 	 * <code>
 	 * ./flow testdata:createuser --<parameters>
@@ -228,9 +227,10 @@ class TestDataCommandController extends CommandController {
 	 * @param string $identifier Unique identifier of an existing account (default: 'admin@openagenda.org')
 	 * @param string $role The role name (administrator or participant) of the user (default: 'Administrator')
 	 * @param string $firstname First name (default: 'Mark')
-	 * @param string $lastname Last name(default: 'Mabuse')
+	 * @param string $lastname Last name (default: 'Mabuse')
+	 * @param string $password Password (default: 'password')
 	 */
-	public function createUserCommand($identifier = 'admin@openagenda.org', $role = 'Administrator', $firstname = 'Mark', $lastname = 'Mabuse') {
+	public function createUserCommand($identifier = 'admin@openagenda.org', $role = 'Administrator', $firstname = 'Mark', $lastname = 'Mabuse', $password = 'password') {
 		$account = $this->accountRepository->findByAccountIdentifierAndAuthenticationProviderName($identifier, 'DefaultProvider');
 
 		if ($account !== NULL){
