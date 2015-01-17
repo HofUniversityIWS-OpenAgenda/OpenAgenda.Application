@@ -17,6 +17,9 @@ use OpenAgenda\Application\Domain\Model\Account;
  */
 class StandardController extends AbstractController {
 
+	const LOGIN_Action = 'login';
+	const LOGIN_Controller = 'Authentication';
+
 	/**
 	 * @Flow\Inject
 	 * @var \TYPO3\Flow\Utility\Now
@@ -32,7 +35,7 @@ class StandardController extends AbstractController {
 	 */
 	public function indexAction() {
 		if ($this->getAccount() === NULL) {
-			$this->redirect('login', 'Authentication');
+			$this->redirect(self::LOGIN_Action, self::LOGIN_Controller);
 		}
 	}
 
