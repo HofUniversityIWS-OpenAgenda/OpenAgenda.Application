@@ -56,7 +56,7 @@ class PermissionService {
 	 * @author Oliver Hader <oliver@typo3.org>
 	 */
 	public function hasManagingRole() {
-		if (!$this->securityContext->isInitialized()) {
+		if (!$this->securityContext->isInitialized() && !$this->securityContext->canBeInitialized()) {
 			return FALSE;
 		}
 
@@ -77,7 +77,7 @@ class PermissionService {
 	 * @author Oliver Hader <oliver@typo3.org>
 	 */
 	public function hasMinuteTakerRole(\OpenAgenda\Application\Domain\Model\Meeting $meeting) {
-		if (!$this->securityContext->isInitialized()) {
+		if (!$this->securityContext->isInitialized() && !$this->securityContext->canBeInitialized()) {
 			return FALSE;
 		}
 
