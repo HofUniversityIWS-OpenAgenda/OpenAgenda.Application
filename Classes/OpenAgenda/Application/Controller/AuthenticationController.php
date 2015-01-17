@@ -20,6 +20,12 @@ class AuthenticationController extends \TYPO3\Flow\Security\Authentication\Contr
 	const ROLE_DefaultRole = 'Anonymous';
 
 	/**
+	 * @Flow\Inject
+	 * @var \TYPO3\Flow\Session\SessionInterface
+	 */
+	protected $session;
+
+	/**
 	 * @var \TYPO3\Flow\Security\AccountFactory
 	 * @Flow\Inject
 	 */
@@ -143,7 +149,13 @@ class AuthenticationController extends \TYPO3\Flow\Security\Authentication\Contr
 	 * @return void
 	 */
 	public function logoutAction() {
-		$this->authenticationManager->logout();
+		try {
+			$this->authenticationManager->logout();
+		} catch (\Exception $exception) {
+			if ($this->session->isStarted()) {
+				$this->session->destroy('Logout through AuthenticationProviderManager');
+			}
+		}
 
 		if (!empty($this->authenticationSettings['postLogoutUri'])) {
 			$this->redirectToUri($this->authenticationSettings['postLogoutUri']);
