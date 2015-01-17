@@ -68,15 +68,6 @@ class AbstractController extends ActionController {
 	protected $historyService;
 
 	/**
-	 * @param \TYPO3\Flow\Mvc\View\ViewInterface $view The view to be initialized
-	 * @return void
-	 * @api
-	 */
-	protected function initializeView(\TYPO3\Flow\Mvc\View\ViewInterface $view) {
-
-	}
-
-	/**
 	 * @return void
 	 */
 	protected function initializeAction() {
