@@ -218,6 +218,39 @@ class TestDataCommandController extends CommandController {
 	}
 
 	/**
+	 * Adds an invitation to an existing meeting.
+	 *
+	 * <code>
+	 * ./flow testdata:addmeetinginvitation --meetingIdentifier <hash> --personIdentifier <email>
+	 * </code>
+	 *
+	 * @param string $meetingIdentifier Identifier of meeting to be extended
+	 * @param string $personIdentifier Identifier of person to be invited
+	 * @return void
+	 * @author Oliver Hader <oliver@typo3.org>
+	 */
+	public function addMeetingInvitationCommand($meetingIdentifier, $personIdentifier) {
+		/** @var Meeting $meeting */
+		$meeting = $this->meetingRepository->findByIdentifier($meetingIdentifier);
+		/** @var \OpenAgenda\Application\Domain\Model\Person $person */
+		$person = $adminAccount = $this->accountRepository
+			->findByAccountIdentifierAndAuthenticationProviderName($personIdentifier, 'DefaultProvider')
+			->getParty();
+
+		$newInvitation = new Invitation();
+		$newInvitation->setParticipant($person);
+		$newInvitation->setStatus(Invitation::STATUS_OPEN);
+		$newInvitation->setCreationDate(new \DateTime());
+		$newInvitation->setModificationDate($newInvitation->getCreationDate());
+
+		$newInvitation->setMeeting($meeting);
+		$meeting->getInvitations()->add($newInvitation);
+		$this->historyService->invoke($newInvitation);
+
+		$this->meetingRepository->update($meeting);
+	}
+
+	/**
 	 * This action removes one system user account (default: admin account) from the database.
 	 *
 	 * <code>
