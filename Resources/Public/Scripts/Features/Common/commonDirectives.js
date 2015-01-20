@@ -147,6 +147,40 @@ angular.module("CommonDirectives", [])
             }
         };
     })
+/**
+ * @description long tap behavior for newer iOS Version, which will zoom in the page on normal double tap
+ * @author Thomas Winkler <thomas.winkler@hof-university.de>
+ * @function directive
+ * @param  {string} "longTap" Identifier
+ * @param {function} function()
+ *
+ * @example <td long-tap="true"></td>
+ */
+    .directive('longTap', function($timeout) {
+        return {
+            restrict: 'A',
+            link: function($scope, $elm, $attrs) {
+                $elm.bind('touchstart', function(evt) {
+                    $scope.longPress = true;
+                    $timeout(function() {
+                        if ($scope.longPress) {
+                            $scope.$apply(function() {
+                                $scope.$eval($attrs.longTap)
+                            });
+                        }
+                    }, 600);
+                });
+                $elm.bind('touchend', function(evt) {
+                    $scope.longPress = false;
+                    if ($attrs.onTouchEnd) {
+                        $scope.$apply(function() {
+                            $scope.$eval($attrs.onTouchEnd)
+                        });
+                    }
+                });
+            }
+        };
+    })
     /**
      * @description This directive is used, to add optimization the double-click/tap-behavior.
      * Use timed-Click instead of ng-click if a double tap is also registered on a element!
