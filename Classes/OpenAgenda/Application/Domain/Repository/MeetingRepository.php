@@ -18,6 +18,12 @@ use OpenAgenda\Application\Domain\Model\Person;
 class MeetingRepository extends AbstractRepository {
 
 	/**
+	 * @Flow\Inject
+	 * @var \OpenAgenda\Application\Service\Security\PermissionService
+	 */
+	protected $permissionService;
+
+	/**
 	 * Finds allowed Meeting entities.
 	 *
 	 * If the $person argument is not submitted, the Person entity
@@ -32,7 +38,11 @@ class MeetingRepository extends AbstractRepository {
 		}
 
 		$query = $this->createQuery();
-		$query->matching($query->equals('invitations.participant', $person));
+
+		if (!$this->permissionService->hasManagingRole()) {
+			$query->matching($query->equals('invitations.participant', $person));
+		}
+
 		return $query->execute();
 	}
 
