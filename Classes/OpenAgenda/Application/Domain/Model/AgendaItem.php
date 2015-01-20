@@ -129,7 +129,7 @@ class AgendaItem implements CreationInterface, ModificationInterface, SortableIn
 	/**
 	 * @param Note $note
 	 */
-	public function setNote(Note $note) {
+	public function setNote(Note $note = NULL) {
 		$this->note = $note;
 	}
 

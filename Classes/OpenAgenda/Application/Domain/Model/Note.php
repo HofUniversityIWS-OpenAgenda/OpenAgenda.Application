@@ -25,7 +25,7 @@ class Note implements CreationInterface {
 	 * @var string
 	 * @OA\ToFlatArray
 	 */
-	protected $description;
+	protected $description = '';
 
 	/**
 	 * @var \DateTime

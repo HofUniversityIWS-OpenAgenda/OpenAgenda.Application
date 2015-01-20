@@ -53,7 +53,7 @@ class HistoryService {
 	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
 	 */
 	public function invoke($subject) {
-		$this->entityService->applyModificationDate($subject);
+		$this->entityService->applyStatusDates($subject);
 
 		$history = new History();
 		$history->setCreationDate(new \DateTime());
