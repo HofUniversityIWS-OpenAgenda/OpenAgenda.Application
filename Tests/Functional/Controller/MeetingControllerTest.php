@@ -24,10 +24,19 @@ class MeetingControllerTest extends \TYPO3\Flow\Tests\FunctionalTestCase {
 	protected $fixture;
 
 	/**
-	 * @Flow\Inject
-	 * @var \OpenAgenda\Application\Domain\Repository\MeetingRepository |\PHPUnit_Framework_MockObject_MockObject
+	 * @var \OpenAgenda\Application\Domain\Repository\MeetingRepository|\PHPUnit_Framework_MockObject_MockObject
 	 */
-	protected $meetingRepository;
+	protected $meetingRepositoryMock;
+
+	/**
+	 * @var \OpenAgenda\Application\Service\Security\PermissionService
+	 */
+	protected $permissionServiceMock;
+
+	/**
+	 * @var string
+	 */
+	protected $meetingIdentifier;
 
 	/**
 	 * @var \OpenAgenda\Application\Domain\Model\Meeting |\PHPUnit_Framework_MockObject_MockObject
@@ -40,28 +49,40 @@ class MeetingControllerTest extends \TYPO3\Flow\Tests\FunctionalTestCase {
 	public function setUp() {
 		parent::setUp();
 
+		$this->permissionServiceMock = $this->getMock(
+			'OpenAgenda\Application\Service\Security\PermissionService',
+			array('hasManagingRole', 'hasMinuteTakerRole'), array()
+		);
 
-		$this->registerRoute('meetingcontrollerListAction', 'test/meetingcontroller(/{@action})', array(
-			'@package' => 'OpenAgenda.Application',
-			'@subpackage' => 'Tests\Functional\Controller\Fixture',
-			'@controller' => 'MeetingController',
-			'@action' => 'list',
-			'@format' =>'json'
-		));
+		$this->objectManager->setInstance(
+			'OpenAgenda\\Application\\Service\\Security\\PermissionService',
+			$this->permissionServiceMock
+		);
+
+		$this->meetingRepositoryMock = $this->getMock(
+			'OpenAgenda\\Application\\Domain\\Repository\\MeetingRepository',
+			array('findAllowed'), array()
+		);
+
+		$this->objectManager->setInstance(
+			'OpenAgenda\\Application\\Domain\\Repository\\MeetingRepository',
+			$this->meetingRepositoryMock
+		);
 
 		$this->fixture = new \OpenAgenda\Application\Controller\MeetingController();
-		$this->meetingRepository = new \OpenAgenda\Application\Domain\Repository\MeetingRepository();
-		$this->meeting =  new \OpenAgenda\Application\Domain\Model\Meeting();
 
+		$this->meeting = new \OpenAgenda\Application\Domain\Model\Meeting();
 		$this->meeting->setCreationDate(new \DateTime());
 		$this->meeting->setModificationDate($this->meeting->getCreationDate());
 		$this->meeting->setScheduledStartDate(new \DateTime('2015-01-05 12:00'));
 		$this->meeting->setStatus(\OpenAgenda\Application\Domain\Model\Meeting::STATUS_CREATED);
-		$this->meeting->setTitle('Meetingtitle');
+		$this->meeting->setTitle(uniqid('Title'));
 
-		$this->meetingRepository->add($this->meeting);
-		$this->persistenceManager->persistAll();
-
+		$this->meetingIdentifier = \TYPO3\Flow\Reflection\ObjectAccess::getProperty(
+			$this->meeting,
+			'Persistence_Object_Identifier',
+			TRUE
+		);
 	}
 
 	/**
@@ -69,7 +90,10 @@ class MeetingControllerTest extends \TYPO3\Flow\Tests\FunctionalTestCase {
 	*/
 	public function tearDown() {
 		unset($this->fixture);
-//		unset($this->meetingRepository);
+		unset($this->meeting);
+		unset($this->meetingIdentifier);
+		unset($this->meetingRepositoryMock);
+		unset($this->permissionServiceMock);
 	}
 
 
@@ -77,20 +101,37 @@ class MeetingControllerTest extends \TYPO3\Flow\Tests\FunctionalTestCase {
 	 * @test
 	 */
 	public function listActionReturnsMeetingJsonInBrowser() {
-		$response = $this->browser->request('http://flow.localhost/test/meetingcontroller');
+		$queryResult = array($this->meeting);
+
+		$this->meetingRepositoryMock
+			->expects($this->once())
+			->method('findAllowed')
+			->will($this->returnValue($queryResult));
+
+		$response = $this->browser->request('http://flow.localhost/meeting/list.json');
+
 		$this->assertEquals(200, $response->getStatusCode());
-		$this->assertNotEquals('[]', $response->getContent());
+
+		$json = json_decode($response->getContent(), TRUE);
+		$this->assertNotEmpty($json);
+		$this->assertInternalType('array', $json);
+		$this->assertArrayHasKey('title', $json[0]);
+		$this->assertEquals($this->meeting->getTitle(), $json[0]['title']);
 	}
 
 	/**
 	 * @test
 	 */
-	public function showActionReturnsMeetingJsonInBrowser(){
+	public function showActionReturnsMeetingJsonInBrowser() {
+		$response = $this->browser->request('http://flow.localhost/meeting/' . $this->meetingIdentifier . '/show.json');
 
-		$response = $this->browser->request('http://flow.localhost/meeting/'.$this->meetingRepository->findByIdentifier($this->persistenceManager->getIdentifierByObject($this->meeting)).'/show.json');
 		$this->assertEquals(200, $response->getStatusCode());
+
+		$json = json_decode($response->getContent(), TRUE);
+		$this->assertNotEmpty($json);
+		$this->assertInternalType('array', $json);
+		$this->assertArrayHasKey('title', $json);
+		$this->assertEquals($this->meeting->getTitle(), $json['title']);
 	}
-
-
 
 }
