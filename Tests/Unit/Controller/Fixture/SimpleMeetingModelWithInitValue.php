@@ -11,7 +11,7 @@ use TYPO3\Flow\Annotations as Flow;
  * @group small
  * @author Andreas Steiger <andreas.steiger@hof-university.de>
  */
-class MeetingModelWithInitValue extends \OpenAgenda\Application\Domain\Model\Meeting {
+class SimpleMeetingModelWithInitValue extends \OpenAgenda\Application\Domain\Model\Meeting {
 
 	const STATUS_CREATED = 0;
 	const STATUS_COMMITTED = 1;

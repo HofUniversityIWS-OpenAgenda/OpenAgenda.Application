@@ -119,7 +119,7 @@ class MeetingControllerTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function isStartActionAppliedToMeetingModel() {
-		$meeting = new \OpenAgenda\Application\Tests\Unit\Controller\Fixture\MeetingModelWithInitValue();
+		$meeting = new \OpenAgenda\Application\Tests\Unit\Controller\Fixture\SimpleMeetingModelWithInitValue();
 
 		$this->fixture->startAction($meeting);
 		$this->assertEquals(2, $meeting->getStatus());
@@ -130,7 +130,7 @@ class MeetingControllerTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function isCommitActionAppliedToMeetingModel() {
-		$meeting = new \OpenAgenda\Application\Tests\Unit\Controller\Fixture\MeetingModelWithInitValue();
+		$meeting = new \OpenAgenda\Application\Tests\Unit\Controller\Fixture\SimpleMeetingModelWithInitValue();
 
 		$this->fixture->commitAction($meeting);
 		$this->assertEquals(1, $meeting->getStatus());
@@ -140,7 +140,7 @@ class MeetingControllerTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function isCloseActionAppliedToMeetingModel() {
-		$meeting = new \OpenAgenda\Application\Tests\Unit\Controller\Fixture\MeetingModelWithInitValue();
+		$meeting = new \OpenAgenda\Application\Tests\Unit\Controller\Fixture\SimpleMeetingModelWithInitValue();
 
 		$this->fixture->closeAction($meeting);
 		$this->assertEquals(3, $meeting->getStatus());
@@ -151,7 +151,7 @@ class MeetingControllerTest extends \TYPO3\Flow\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function isCancelActionAppliedToMeetingModel() {
-		$meeting = new \OpenAgenda\Application\Tests\Unit\Controller\Fixture\MeetingModelWithInitValue();
+		$meeting = new \OpenAgenda\Application\Tests\Unit\Controller\Fixture\SimpleMeetingModelWithInitValue();
 
 		$this->fixture->cancelAction($meeting);
 		$this->assertEquals(4, $meeting->getStatus());

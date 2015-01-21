@@ -29,6 +29,7 @@ class History implements CreationInterface {
 	 *
 	 * @var \OpenAgenda\Application\Domain\Model\Person
 	 * @ORM\ManyToOne
+	 * @ORM\Column(nullable=true)
 	 * @OA\ToFlatArray(useIdentifier=true)
 	 */
 	protected $issuer;
@@ -37,6 +38,7 @@ class History implements CreationInterface {
 	 * The unique identifier of the entity object, which was changed.
 	 *
 	 * @var string
+	 * @ORM\Column(nullable=true)
 	 * @OA\ToFlatArray
 	 */
 	protected $entityIdentifier;
