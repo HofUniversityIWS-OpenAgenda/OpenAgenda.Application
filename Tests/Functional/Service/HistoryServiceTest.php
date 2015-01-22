@@ -24,13 +24,12 @@ class HistoryServiceTest extends \TYPO3\Flow\Tests\FunctionalTestCase {
 	protected $fixture;
 
 	/**
-	 * @Flow\Inject
 	 * @var \OpenAgenda\Application\Domain\Repository\HistoryRepository
 	 */
 	protected $historyRepository;
 
 	/**
-	 * @var \OpenAgenda\Application\Tests\Unit\Service\Fixture\SimpleEntity |\PHPUnit_Framework_MockObject_MockObject
+	 * @var \OpenAgenda\Application\Domain\Model\Meeting
 	 */
 	protected $entity;
 
@@ -56,33 +55,30 @@ class HistoryServiceTest extends \TYPO3\Flow\Tests\FunctionalTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		$this->entity = new \OpenAgenda\Application\Tests\Functional\Service\Fixture\SimpleEntityWithTitleAndDate();
+		$this->historyRepository = $this->objectManager->get(
+			'OpenAgenda\\Application\\Domain\\Repository\\HistoryRepository'
+		);
+
+		$this->entity = new \OpenAgenda\Application\Domain\Model\Meeting();
 		$this->entity->setTitle(uniqid('Title'));
-		$this->entity->setDate(new \DateTime());
 
 		$this->entityIdentifier = \TYPO3\Flow\Reflection\ObjectAccess::getProperty(
-			$this->entityIdentifier,
+			$this->entity,
 			'Persistence_Object_Identifier',
 			TRUE
 		);
 
 		$this->securityContextMock = $this->getMock(
 			'TYPO3\\Flow\\Security\\Context',
-			array('initialize'), array()
+			array('isInitialized'), array()
 		);
 
-		$this->entityServiceMock = $this->getMock(
-			'OpenAgenda\\Application\\Service\\EntityService',
-			array('applyStatusDates'), array()
+		$this->objectManager->setInstance(
+			'TYPO3\\Flow\\Security\\Context',
+			$this->securityContext
 		);
 
-		$this->fixture = $this->getAccessibleMock(
-			'OpenAgenda\\Application\\Service\\HistoryService',
-			array('_none')
-		);
-
-		$this->fixture->_set('securityContext', $this->securityContextMock);
-		$this->fixture->_set('entityService', $this->entityServiceMock);
+		$this->fixture = new \OpenAgenda\Application\Service\HistoryService();
 	}
 
 	/**
@@ -105,7 +101,7 @@ class HistoryServiceTest extends \TYPO3\Flow\Tests\FunctionalTestCase {
 	}
 
 	/**
-	 * test
+	 * @test
 	 */
 	public function invokeActionSetCorrectTypeToHistoryModel() {
 		$this->fixture->invoke($this->entity);
@@ -114,7 +110,7 @@ class HistoryServiceTest extends \TYPO3\Flow\Tests\FunctionalTestCase {
 	}
 
 	/**
-	 * test
+	 * @test
 	 */
 	public function invokeActionAppliedToEntityService() {
 		$this->fixture->invoke($this->entity);
