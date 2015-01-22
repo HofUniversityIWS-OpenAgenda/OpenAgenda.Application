@@ -75,7 +75,7 @@ class HistoryServiceTest extends \TYPO3\Flow\Tests\FunctionalTestCase {
 
 		$this->objectManager->setInstance(
 			'TYPO3\\Flow\\Security\\Context',
-			$this->securityContext
+			$this->securityContextMock
 		);
 
 		$this->fixture = new \OpenAgenda\Application\Service\HistoryService();
@@ -106,7 +106,7 @@ class HistoryServiceTest extends \TYPO3\Flow\Tests\FunctionalTestCase {
 	public function invokeActionSetCorrectTypeToHistoryModel() {
 		$this->fixture->invoke($this->entity);
 		$this->persistenceManager->persistAll();
-		$this->assertEquals(get_class($this->entity), $this->historyRepository->findAll()->getFirst()->getEntityType());
+		$this->assertEquals(get_class($this->entity), $this->historyRepository->findByEntityIdentifier($this->entityIdentifier)->getFirst()->getEntityType());
 	}
 
 	/**
