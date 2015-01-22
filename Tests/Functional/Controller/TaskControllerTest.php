@@ -26,18 +26,16 @@ class TaskControllerTest extends \TYPO3\Flow\Tests\FunctionalTestCase {
 	protected $fixture;
 
 	/**
-	 * @var \OpenAgenda\Application\Domain\Repository\TaskRepository |\PHPUnit_Framework_MockObject_MockObject
+	 * @var \OpenAgenda\Application\Domain\Repository\TaskRepository
 	 */
-	protected $taskRepositoryMock;
+	protected $taskRepository;
 
 	/**
-	 * @Flow\Inject
 	 * @var \OpenAgenda\Application\Domain\Repository\HistoryRepository
 	 */
 	protected $historyRepository;
 
 	/**
-	 * @Flow\Inject
 	 * @var \OpenAgenda\Application\Service\HistoryService
 	 */
 	protected $historyService;
@@ -58,45 +56,47 @@ class TaskControllerTest extends \TYPO3\Flow\Tests\FunctionalTestCase {
 	protected $task;
 
 	/**
+	 * @var \TYPO3\Flow\Security\Context |\PHPUnit_Framework_MockObject_MockObject
+	 */
+	protected $securityContextMock;
+
+	/**
 	 * Sets up this test case.
 	 */
 	public function setUp() {
 		parent::setUp();
 
-		$this->taskRepositoryMock = $this->getMock(
+		$this->historyRepository = $this->objectManager->get(
+			'OpenAgenda\\Application\\Domain\\Repository\\HistoryRepository'
+		);
+
+		$this->taskRepository = $this->getMock(
 			'OpenAgenda\\Application\\Domain\\Repository\\TaskRepository',
-			array('findAll'), array()
-		);
-
-		$this->entityServiceMock = $this->getMock(
-			'OpenAgenda\\Application\\Service\\EntityService',
-			array('applyStatusDates'), array()
-		);
-
-		$this->meetingMock = $this->getMock(
-			'OpenAgenda\\Application\\Domain\\Model\\Meeting',
-			array('getTasks'), array()
+			array('findAll', 'add'), array()
 		);
 
 		$this->objectManager->setInstance(
 			'OpenAgenda\\Application\\Domain\\Repository\\TaskRepository',
-			$this->taskRepositoryMock
+			$this->taskRepository
 		);
 
-//		$this->fixture = new \OpenAgenda\Application\Controller\TaskController();
-
-		$this->fixture = $this->getAccessibleMock(
-			'OpenAgenda\\Application\\Controller\\TaskController',
-			array('_none')
+		$this->securityContextMock = $this->getMock(
+			'TYPO3\\Flow\\Security\\Context',
+			array('isInitialized'), array()
 		);
 
-		$this->fixture->_set('meeting', $this->meetingMock);
-		$this->fixture->_set('entityService', $this->entityServiceMock);
+		$this->objectManager->setInstance(
+			'TYPO3\\Flow\\Security\\Context',
+			$this->securityContextMock
+		);
+
+		$this->fixture = new \OpenAgenda\Application\Controller\TaskController();
+
+		$this->meetingMock = new \OpenAgenda\Application\Domain\Model\Meeting();
 
 		$this->task = new \OpenAgenda\Application\Domain\Model\Task();
 		$this->task->setCreationDate(new \DateTime());
 		$this->task->setTitle(uniqid('Title'));
-		$this->task->setStatus(0);
 
 	}
 
@@ -108,18 +108,18 @@ class TaskControllerTest extends \TYPO3\Flow\Tests\FunctionalTestCase {
 		unset($this->fixture);
 		unset($this->taskRepository);
 		unset($this->historyRepository);
-		unset($this->meeting);
+		unset($this->meetingMock);
 		unset($this->task);
 	}
 
 	/**
-	 * test
+	 * @test
 	 */
 	public function listActionReturnsTaskJsonInBrowser() {
 
 		$queryResult = array($this->task);
 
-		$this->taskRepositoryMock
+		$this->taskRepository
 			->expects($this->once())
 			->method('findAll')
 			->will($this->returnValue($queryResult));
@@ -138,8 +138,9 @@ class TaskControllerTest extends \TYPO3\Flow\Tests\FunctionalTestCase {
 	 * test
 	 */
 	public function isCreateActionAppliedToHistoryService() {
+
 		$this->fixture->createAction($this->meetingMock, $this->task);
-//		$this->persistenceManager->persistAll();
+		$this->persistenceManager->persistAll();
 
 		$this->assertNotNull($this->historyRepository->findAll()->getFirst());
 	}
