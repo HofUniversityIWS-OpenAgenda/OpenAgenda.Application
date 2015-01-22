@@ -25,10 +25,29 @@ class HistoryServiceTest extends \TYPO3\Flow\Tests\FunctionalTestCase {
 
 	/**
 	 * @Flow\Inject
-	 * @var \OpenAgenda\Application\Domain\Repository\HistoryRepository |\PHPUnit_Framework_MockObject_MockObject
+	 * @var \OpenAgenda\Application\Domain\Repository\HistoryRepository
 	 */
 	protected $historyRepository;
 
+	/**
+	 * @var \OpenAgenda\Application\Tests\Unit\Service\Fixture\SimpleEntity |\PHPUnit_Framework_MockObject_MockObject
+	 */
+	protected $entity;
+
+	/**
+	 * @var string
+	 */
+	protected $entityIdentifier;
+
+	/**
+	 * @var \OpenAgenda\Application\Service\EntityService |\PHPUnit_Framework_MockObject_MockObject
+	 */
+	protected $entityServiceMock;
+
+	/**
+	 * @var \TYPO3\Flow\Security\Context |\PHPUnit_Framework_MockObject_MockObject
+	 */
+	protected $securityContextMock;
 
 
 	/**
@@ -37,49 +56,70 @@ class HistoryServiceTest extends \TYPO3\Flow\Tests\FunctionalTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		$this->fixture = new \OpenAgenda\Application\Service\HistoryService();
-		$this->historyRepository = new \OpenAgenda\Application\Domain\Repository\HistoryRepository;
+		$this->entity = new \OpenAgenda\Application\Tests\Functional\Service\Fixture\SimpleEntityWithTitleAndDate();
+		$this->entity->setTitle(uniqid('Title'));
+		$this->entity->setDate(new \DateTime());
+
+		$this->entityIdentifier = \TYPO3\Flow\Reflection\ObjectAccess::getProperty(
+			$this->entityIdentifier,
+			'Persistence_Object_Identifier',
+			TRUE
+		);
+
+		$this->securityContextMock = $this->getMock(
+			'TYPO3\\Flow\\Security\\Context',
+			array('initialize'), array()
+		);
+
+		$this->entityServiceMock = $this->getMock(
+			'OpenAgenda\\Application\\Service\\EntityService',
+			array('applyStatusDates'), array()
+		);
+
+		$this->fixture = $this->getAccessibleMock(
+			'OpenAgenda\\Application\\Service\\HistoryService',
+			array('_none')
+		);
+
+		$this->fixture->_set('securityContext', $this->securityContextMock);
+		$this->fixture->_set('entityService', $this->entityServiceMock);
 	}
 
 	/**
 	 * Tears down this test case.
 	 */
 	public function tearDown() {
+		unset($this->entity);
 		unset($this->fixture);
 		unset($this->historyRepository);
+		unset($this->securityContextMock);
 	}
 
 	/**
 	 * @test
 	 */
 	public function isInvokeActionAppliedToHistoryModel() {
-		$entity = new \OpenAgenda\Application\Tests\Unit\Service\Fixture\SimpleEntity();
-
-		$this->fixture->invoke($entity);
+		$this->fixture->invoke($this->entity);
 		$this->persistenceManager->persistAll();
 		$this->assertNotNull($this->historyRepository->findAll()->getFirst());
 	}
 
 	/**
-	 * @test
+	 * test
 	 */
 	public function invokeActionSetCorrectTypeToHistoryModel() {
-		$entity = new \OpenAgenda\Application\Tests\Unit\Service\Fixture\SimpleEntity();
-
-		$this->fixture->invoke($entity);
+		$this->fixture->invoke($this->entity);
 		$this->persistenceManager->persistAll();
-		$this->assertEquals(get_class($entity), $this->historyRepository->findAll()->getFirst()->getEntityType());
+		$this->assertEquals(get_class($this->entity), $this->historyRepository->findAll()->getFirst()->getEntityType());
 	}
 
 	/**
-	 * @test
+	 * test
 	 */
 	public function invokeActionAppliedToEntityService() {
-		$entity = new \OpenAgenda\Application\Tests\Unit\Service\Fixture\SimpleEntity();
-
-		$this->fixture->invoke($entity);
+		$this->fixture->invoke($this->entity);
 		$this->persistenceManager->persistAll();
-		$this->assertInstanceOf('DateTime', $entity->getModificationDate());
+		$this->assertInstanceOf('DateTime', $this->entity->getModificationDate());
 	}
 
 }

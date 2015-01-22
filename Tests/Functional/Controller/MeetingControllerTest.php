@@ -24,12 +24,12 @@ class MeetingControllerTest extends \TYPO3\Flow\Tests\FunctionalTestCase {
 	protected $fixture;
 
 	/**
-	 * @var \OpenAgenda\Application\Domain\Repository\MeetingRepository|\PHPUnit_Framework_MockObject_MockObject
+	 * @var \OpenAgenda\Application\Domain\Repository\MeetingRepository |\PHPUnit_Framework_MockObject_MockObject
 	 */
 	protected $meetingRepositoryMock;
 
 	/**
-	 * @var \OpenAgenda\Application\Service\Security\PermissionService
+	 * @var \OpenAgenda\Application\Service\Security\PermissionService |\PHPUnit_Framework_MockObject_MockObject
 	 */
 	protected $permissionServiceMock;
 
@@ -50,7 +50,7 @@ class MeetingControllerTest extends \TYPO3\Flow\Tests\FunctionalTestCase {
 		parent::setUp();
 
 		$this->permissionServiceMock = $this->getMock(
-			'OpenAgenda\Application\Service\Security\PermissionService',
+			'OpenAgenda\Application\\Service\\Security\\PermissionService',
 			array('hasManagingRole', 'hasMinuteTakerRole'), array()
 		);
 

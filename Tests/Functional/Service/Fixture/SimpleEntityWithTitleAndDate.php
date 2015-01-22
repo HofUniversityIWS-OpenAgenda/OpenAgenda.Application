@@ -1,5 +1,5 @@
 <?php
-namespace OpenAgenda\Application\Tests\Unit\Service\Fixture;
+namespace OpenAgenda\Application\Tests\Functional\Service\Fixture;
 
 /*                                                                           *
  * This script belongs to the TYPO3 Flow package "OpenAgenda.Application". *
@@ -10,7 +10,7 @@ use TYPO3\Flow\Annotations as Flow;
 /**
  * @group small
  */
-class SimpleEntity {
+class SimpleEntityWithTitleAndDate {
 
 	/**
 	 * @var string
@@ -40,32 +40,31 @@ class SimpleEntity {
 	public function getModificationDate() {
 		return $this->modificationDate;
 	}
-
-	/**
-	 * @param \DateTime $modificationDate
-	 */
-	public function setModificationDate(\DateTime $modificationDate) {
-		$this->modificationDate = $modificationDate;
-	}
-
 	/**
 	 * @return string
 	 */
 	public function getTitle() {
 		return $this->title;
 	}
+
 	/**
 	 * @param \DateTime $date
 	 */
 	public function setDate(\DateTime $date) {
 		$this->date = $date;
 	}
-
 	/**
 	 * @return \DateTime
 	 */
 	public function getDate() {
 		return $this->date;
+	}
+
+	/**
+	 * @param \DateTime $modificationDate
+	 */
+	public function setModificationDate(\DateTime $modificationDate) {
+		$this->modificationDate = $modificationDate;
 	}
 
 
