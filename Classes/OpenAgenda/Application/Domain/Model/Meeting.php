@@ -68,7 +68,6 @@ class Meeting implements CreationInterface, ModificationInterface {
 	 * The person, who creates the meeting (meeting manager)
 	 *
 	 * @var \OpenAgenda\Application\Domain\Model\Person
-	 * @ORM\Column(nullable=true)
 	 * @ORM\ManyToOne
 	 */
 	protected $creator;
